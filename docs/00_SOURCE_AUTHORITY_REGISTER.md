@@ -28,7 +28,7 @@ This document records the conclusions of the completed read-only reconciliation 
 | Authority level | Source | Pinned reference | Role |
 |---|---|---|---|
 | 1 | `wwiras/ahbn` | `936a79480bc1252c79b6ee01f65c88c740af2844` [ahbn repo](https://github.com/wwiras/ahbn) | Normative canonical AHBN implementation boundary. Represents the v0.63 baseline plus later canonical S5/parity corrections for control sim |
-| 2 | `wwiras/ahbn2_gke` | `936a79480bc1252c79b6ee01f65c88c740af2844` [ahbn2_gke](https://github.com/wwiras/ahbn2_gke) | Normative canonical AHBN implementation boundary. Represents later canonical S5/parity corrections for GKE |
+| 2 | `wwiras/ahbn2_gke` | `cc7ce17ca489ed4a0eaf8c7bb2ebfa0c9780b689` [ahbn2_gke](https://github.com/wwiras/ahbn2_gke) | Normative canonical Kubernetes AHBN repository snapshot. The final GKE AHBN runtime is composite: the parity-validated controller/observation/dispatch base plus the frozen S5 actuator runtime used by the later K6/K7/K8 experiment images. |
 | 3 | Revised AHBN Scientific Reports manuscript, 17 Sep 2026 | [AHBN17Sept2026_manuscriptSRpt.pdf](https://drive.google.com/file/d/1YarltXx8bZf0QWlIJeaKIIX6KCsCMPYJ/view?usp=drive_link)` | Normative scientific description and interpretation of the frozen AHBN mechanism and its limitations. |
 | 4 | `wwiras/q-ahbn` | `7bca26213cbfb2099cff8b2f659008b8e040b238` [q-ahbn repo](https://github.com/wwiras/q-ahbn) | Historical ControlSim Q-AHBN implementation and evidence only. |
 | 5 | `wwiras/q-ahbn_gke` | `a9af5ccb9b564d5f2c2daaeeb9a04b191780cdbe` [q-ahbn_gke repo](https://github.com/wwiras/q-ahbn_gke) | Historical Kubernetes/GKE Q-AHBN implementation and evidence only. |
@@ -48,6 +48,8 @@ Relevant history includes:
 - `936a79480bc1252c79b6ee01f65c88c740af2844` — remove AHBN fanout cap and validate canonical `k=2..6`.
 
 Older stage documentation that describes an earlier 2/3/4 fanout mapping is superseded by the current canonical implementation, regression validator, and later reconciliation history.
+
+For Kubernetes, the pinned repository snapshot is `wwiras/ahbn2_gke@cc7ce17ca489ed4a0eaf8c7bb2ebfa0c9780b689`. Its provenance is intentionally composite. `app/ahbn_controller.py` preserves the earlier parity-validated S0 controller core with fanout 2/3/4, while the final S5 actuator was validated in K5 and is applied by the frozen stage runtime wrappers (`k5_final_actuator_runtime.py`, inherited by the K6/K7/K8 experiment images) using the same controller score and mode but the final requested-fanout mapping 2/3/4/5/6. Therefore, the old `AHBNParams.max_fanout=4` in the GKE base module must not be misread as the final scientific actuator boundary.
 
 ---
 
@@ -83,7 +85,7 @@ Additional rules:
 
 **Gate result: PASS.**
 
-R1 reconciled the frozen implementation with the 17-Sep-2026 revised AHBN manuscript.
+R1 reconciled both frozen implementation environments—ControlSim (`wwiras/ahbn`) and Kubernetes (`wwiras/ahbn2_gke`)—with the 17-Sep-2026 revised AHBN manuscript. The original R1 established the ControlSim side; the 19-Sep-2026 R1-GKE delta reconciliation added the canonical Kubernetes implementation without reopening AHBN design.
 
 The canonical scientific object is:
 
@@ -139,7 +141,7 @@ Equality is not guaranteed because topology, immediate-sender exclusion, node ac
 
 - `w` is **not** a probabilistic Gossip/Structured mixture.
 - There is no third dissemination mode.
-- Missing observations retain their previous EWMA state; absence of a new observation is not equivalent to a zero observation.
+- Observation cadence is environment-specific. In ControlSim, an omitted optional observation retains its previous EWMA state; absence of a supplied observation is not equivalent to a zero observation. In the canonical GKE adapter, every controller update supplies a complete interval snapshot, and an interval component with no observed event can legitimately be `0.0` (for example, no churn events in that window). These semantics must not be conflated.
 - The controller latency observation is local one-hop latency and must not be conflated with experiment-level propagation delay.
 - Controller utilization pressure must not be conflated with experiment-level total forwards.
 - Trace `fanout` is the controller-requested fanout unless explicitly recorded otherwise.
@@ -352,7 +354,7 @@ No future implementation commit may retroactively redefine what a legacy source 
 | Source identification | PASS | Required canonical and historical sources identified and pinned. |
 | Canonical AHBN identification | PASS | Normative AHBN implementation boundary identified. |
 | Canonical S5 verification | PASS | Requested fanout set and thresholds reconciled. |
-| R1 — Canonical AHBN mechanism reconciliation | PASS | Code/manuscript mechanism reconciled without requiring controller modification. |
+| R1 — Canonical AHBN mechanism reconciliation | PASS | ControlSim code, canonical GKE code/runtime, and manuscript mechanism reconciled without requiring AHBN redesign. |\n| R1-GKE delta reconciliation | PASS | GKE controller law and final S5 semantics match the canonical scientific contract; sensing/normalization/window semantics are environment-specific and explicitly bounded. |
 | R2 — Legacy Q-AHBN reconstruction | PASS | ControlSim and GKE historical learners reconstructed separately. |
 | R2 — Legacy RL parity | NOT ESTABLISHED | Historical ControlSim and GKE are not one parity-preserved RL specification. |
 | R3 — Reconciliation Decision Register | PASS | Legacy inheritance classified as RETAIN / REDESIGN / REJECT / DEFER. |
