@@ -3,8 +3,8 @@
 **Document ID:** QAHBN2-DOC-02  
 **Repository:** `wwiras/q-ahbn2`  
 **Path:** `docs/02_QAHBN2_DESIGN_FREEZE.md`  
-**Status:** PARTIAL DESIGN FREEZE — Sections 02.1–02.3 FROZEN  
-**Freeze date for Sections 02.1–02.3:** 2026-09-19  
+**Status:** PARTIAL DESIGN FREEZE — Sections 02.1–02.4 FROZEN  
+**Freeze date for Sections 02.1–02.4:** 2026-09-19  
 **Scope:** Q-AHBN2 learning-layer design only. The canonical AHBN boundary in `docs/01_CANONICAL_AHBN_CONTRACT.md` is immutable.
 
 ---
@@ -662,12 +662,238 @@ This freeze does not define the discrete Q-table key. The next controlled decisi
 
 ---
 
-## 02.4 Next Controlled Decision — State Discretization
+## 02.4 State Discretization — FROZEN
 
-The next permitted design task is to define the Q-AHBN2 discretization contract for:
+### 02.4.1 Objective
+
+Section 02.3 froze the continuous logical Q-AHBN2 state as:
 
 ```text
-d_hat, l_hat, u_hat, c_hat
+s_t = (d_hat,l_hat,u_hat,c_hat), each in [0,1]
 ```
 
-The discretization must preserve the meanings frozen in Section 02.3, avoid unnecessary state-space explosion, and must not reintroduce removed historical phase variables through disguised bins.
+Section 02.4 freezes only the mapping from that continuous state to the finite key used by tabular Q-learning.
+
+The governing rule remains **minimum scientifically justified adaptation**. Discretization must be simple, platform-independent, reproducible, and fixed before learning experiments. It must not be tuned retrospectively to improve Q-AHBN2 results.
+
+### 02.4.2 Historical discretization is not inherited
+
+Historical ControlSim used heterogeneous three-bin thresholds tied to obsolete controller parameters and variable-specific heuristics. Historical GKE used different three-bin thresholds over a different state definition plus a derived disturbance phase.
+
+Those historical thresholds are not portable to the canonical Q-AHBN2 state because all four Q-AHBN2 dimensions are now canonical normalized pressures in [0,1].
+
+Therefore Q-AHBN2 does not inherit either historical binning scheme.
+
+### 02.4.3 Frozen discretization
+
+Each canonical EWMA dimension is discretized independently into three equal-width ordinal bins:
+
+```text
+L (Low)    : 0 <= x < 1/3
+M (Medium) : 1/3 <= x < 2/3
+H (High)   : 2/3 <= x <= 1
+```
+
+Equivalently, for any canonical state component x:
+
+```text
+B(x) =
+    L, if 0 <= x < 1/3
+    M, if 1/3 <= x < 2/3
+    H, if 2/3 <= x <= 1
+```
+
+The discrete Q-AHBN2 state is:
+
+```text
+S_t = (
+    B(d_hat_t),
+    B(l_hat_t),
+    B(u_hat_t),
+    B(c_hat_t)
+)
+```
+
+Boundary ownership is explicit: exactly 1/3 belongs to M and exactly 2/3 belongs to H.
+
+### 02.4.4 Example
+
+For:
+
+```text
+(d_hat,l_hat,u_hat,c_hat)
+= (0.72,0.18,0.43,0.09)
+```
+
+the mapping is:
+
+```text
+0.72 -> H
+0.18 -> L
+0.43 -> M
+0.09 -> L
+```
+
+therefore:
+
+```text
+S_t = (H,L,M,L)
+```
+
+### 02.4.5 State-space size
+
+There are four state dimensions and three possible bins per dimension.
+
+Therefore the maximum logical tabular state space is:
+
+```text
+|S| = 3^4 = 81 states
+```
+
+This is the Cartesian state-space ceiling. It does not imply that every one of the 81 combinations must be observed in every experiment.
+
+The eventual Q-table size will be:
+
+```text
+|Q| = |S| x |A| = 81 x |A|
+```
+
+where |A| will be determined only after the action-space contract is frozen.
+
+### 02.4.6 Why three bins
+
+Two bins would yield only:
+
+```text
+2^4 = 16 states
+```
+
+but would collapse each canonical pressure into only low/high and remove a distinct intermediate operating region.
+
+Four bins would yield:
+
+```text
+4^4 = 256 states
+```
+
+before actions are even introduced, increasing tabular sparsity and learning burden without current evidence that the additional resolution is scientifically necessary.
+
+Three bins retain an interpretable low/medium/high distinction while keeping the state space at 81 states. This is the minimum resolution adopted for Q-AHBN2's lightweight tabular-learning objective.
+
+### 02.4.7 Why equal-width thresholds
+
+The thresholds 1/3 and 2/3 are chosen because the four canonical state variables share a normalized [0,1] logical domain.
+
+Equal-width bins provide:
+
+1. one common discretization rule for all four canonical dimensions;
+2. no dependence on obsolete ControlSim baseline parameters;
+3. no dependence on historical GKE disturbance heuristics;
+4. no environment-specific thresholds;
+5. no thresholds fitted to Q-AHBN2 outcome data;
+6. simple reproducibility and parity testing.
+
+These thresholds are a representation choice, not a claim that 1/3 or 2/3 is a physical phase transition in network behavior.
+
+### 02.4.8 Relationship to canonical AHBN thresholds
+
+Q-AHBN2 discretization thresholds MUST NOT be confused with canonical AHBN's controller thresholds.
+
+Canonical AHBN still computes its proposal from the continuous EWMA values:
+
+```text
+z = -d_hat + l_hat + u_hat + c_hat
+w = sigmoid(z)
+mode_AHBN from z/w
+k_AHBN from canonical S5 z thresholds
+```
+
+The Q-AHBN2 bins are used only to form the tabular Q-learning key.
+
+Therefore:
+
+```text
+continuous canonical state
+        |
+        +--> canonical AHBN calculations (unchanged)
+        |
+        +--> Q-AHBN2 discretizer --> (L/M/H)^4 Q-table key
+```
+
+Q-AHBN2 binning never quantizes the values used internally by canonical AHBN.
+
+### 02.4.9 No derived phase bin
+
+No extra failure, recovery, disturbance, normal, or other phase label is appended after discretization.
+
+A discrete state is exactly four components:
+
+```text
+(d_bin,l_bin,u_bin,c_bin)
+```
+
+not:
+
+```text
+(d_bin,l_bin,u_bin,c_bin,phase)
+```
+
+This preserves the Section 02.3 minimum-state decision.
+
+### 02.4.10 Discretization invariants
+
+**D1 — Three bins per dimension:** L, M, H.
+
+**D2 — Common thresholds:** 1/3 and 2/3 for every canonical state dimension.
+
+**D3 — Fixed boundary rule:** [0,1/3), [1/3,2/3), [2/3,1].
+
+**D4 — Four-component key only:** no derived phase component.
+
+**D5 — Maximum logical state space:** 81 states.
+
+**D6 — Canonical AHBN remains continuous:** discretization affects only the Q-table key.
+
+**D7 — Cross-platform identity:** ControlSim and Kubernetes use the same binning contract wherever Q-AHBN2 parity is claimed.
+
+**D8 — No post-hoc threshold tuning:** formal outcomes cannot be used to move bin boundaries merely to improve performance.
+
+**D9 — Reachability is empirical:** unvisited combinations do not invalidate the 81-state logical definition.
+
+**D10 — Action count deferred:** total Q-table cells are 81 x |A| and remain unresolved until action-space freeze.
+
+### 02.4.11 State discretization freeze decision
+
+The Q-AHBN2 discrete state is accepted as:
+
+```text
+S_t = (
+    B(d_hat_t),
+    B(l_hat_t),
+    B(u_hat_t),
+    B(c_hat_t)
+)
+
+B(x):
+    L : 0 <= x < 1/3
+    M : 1/3 <= x < 2/3
+    H : 2/3 <= x <= 1
+```
+
+with a maximum logical state space of:
+
+```text
+3^4 = 81 states
+```
+
+**02.4 STATE DISCRETIZATION GATE: PASS / FROZEN.**
+
+This freeze does not define Q-AHBN2 actions, reward, learning coefficients, exploration, update lifecycle, or training/evaluation protocol.
+
+---
+
+## 02.5 Next Controlled Decision — Action Space
+
+The next permitted design task is to reconcile the historical Q-AHBN action sets against the frozen post-AHBN intervention boundary and define the minimum scientifically justified Q-AHBN2 action space.
+
+That decision must preserve canonical AHBN's untouched proposal, retain the mandatory removal of the historical Q-layer upper fanout cap, avoid tau, and prevent deterministic recovery heuristics from being represented as learned actions.
