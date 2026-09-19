@@ -3,8 +3,8 @@
 **Document ID:** QAHBN2-DOC-02  
 **Repository:** `wwiras/q-ahbn2`  
 **Path:** `docs/02_QAHBN2_DESIGN_FREEZE.md`  
-**Status:** PARTIAL DESIGN FREEZE — Sections 02.1–02.2 FROZEN  
-**Freeze date for Sections 02.1–02.2:** 2026-09-19  
+**Status:** PARTIAL DESIGN FREEZE — Sections 02.1–02.3 FROZEN  
+**Freeze date for Sections 02.1–02.3:** 2026-09-19  
 **Scope:** Q-AHBN2 learning-layer design only. The canonical AHBN boundary in `docs/01_CANONICAL_AHBN_CONTRACT.md` is immutable.
 
 ---
@@ -376,8 +376,298 @@ This freeze does not authorize implementation yet and does not freeze the RL sta
 
 ---
 
-## 02.3 Next Controlled Decision — State Representation
+## 02.3 State Representation — FROZEN
 
-The next permitted design task is to freeze the Q-AHBN2 logical state representation.
+### 02.3.1 State-design objective
 
-It must begin from the architectural boundary above and must not reopen Sections 02.1–02.2 merely to improve expected performance.
+The Q-AHBN2 state MUST be the **minimum sufficient logical representation of the local dissemination condition already exposed by canonical AHBN**. It must not expand merely because historical Q-AHBN implementations contained additional variables.
+
+The state-design rule is:
+
+> Reuse the frozen canonical AHBN adaptive observations unless an additional state variable contributes decision-relevant information that is neither already represented nor deterministically derivable from those observations.
+
+This rule minimizes state-space growth, removes historical environment-specific heuristics, preserves decentralization, and makes one logical RL state portable across ControlSim and Kubernetes.
+
+### 02.3.2 Historical state reconciliation
+
+Historical Q-AHBN did not have one stable cross-platform state contract.
+
+The historical ControlSim learner used seven discrete components derived from:
+
+```text
+d_hat
+l_hat
+u_hat
+rho_hat
+r_hat
+c_hat
+failure_phase(l_hat)
+```
+
+The historical GKE learner instead used four components derived from:
+
+```text
+duplicate_ratio
+fail_pressure
+overload_pressure + bottleneck_pressure
+disturbance phase
+```
+
+These states are not semantically equivalent. They mix different generations of controller variables, environment-specific heuristics, and derived phase labels.
+
+Q-AHBN2 therefore does **not** inherit either historical state tuple.
+
+### 02.3.3 Frozen logical state
+
+The Q-AHBN2 logical state is frozen as the four canonical AHBN EWMA observations:
+
+```text
+s_t = (
+    d_hat_t,
+    l_hat_t,
+    u_hat_t,
+    c_hat_t
+)
+```
+
+where:
+
+- `d_hat_t` = canonical EWMA duplicate pressure;
+- `l_hat_t` = canonical EWMA latency pressure;
+- `u_hat_t` = canonical EWMA processing/utilization pressure;
+- `c_hat_t` = canonical EWMA churn/dynamic-membership pressure.
+
+These are the **continuous logical state variables**. Section 02.4 will define how they are discretized for tabular Q-learning.
+
+No discretization thresholds are frozen in Section 02.3.
+
+### 02.3.4 Why the canonical four are sufficient
+
+Canonical AHBN already establishes these four quantities as the local information required to characterize the dissemination trade-off that drives adaptation:
+
+```text
+duplicate pressure     → efficiency/redundancy condition
+latency pressure       → propagation-performance condition
+utilization pressure   → processing/resource condition
+churn pressure         → topology/dynamic-membership condition
+```
+
+The Q-AHBN2 learner is a refinement layer over that same adaptive problem. Giving it the same canonical condition vector provides a consistent information boundary while allowing Q-learning to learn different long-term action values for different combinations of those conditions.
+
+This is intentionally more conservative than introducing new sensors or historical recovery heuristics.
+
+### 02.3.5 Variables explicitly excluded from the RL state
+
+The following are **not** independent Q-AHBN2 state dimensions.
+
+#### A. `z`
+
+Excluded because:
+
+```text
+z = -d_hat + l_hat + u_hat + c_hat
+```
+
+It is deterministically derivable from the four frozen state variables. Including it would add no new information.
+
+#### B. `w`
+
+Excluded because:
+
+```text
+w = sigmoid(z)
+```
+
+It is deterministically derivable from `z`, which is itself derivable from the four state variables.
+
+#### C. `mode_AHBN`
+
+Excluded from the RL state because canonical mode is deterministically derived from `w`. It remains a mandatory **base-proposal input to action application** and a mandatory observability field, but it is not an additional Q-table state dimension.
+
+This distinction is important:
+
+```text
+used by action application ≠ independent RL state dimension
+```
+
+#### D. `k_AHBN`
+
+Excluded from the RL state because S5 deterministically derives it from canonical `z`. It remains the immutable fanout proposal that the selected Q action may later refine.
+
+Removing the historical Q-layer fanout cap does not justify adding `k_AHBN` as another state dimension; the learner already receives the underlying canonical condition vector from which S5 produced it.
+
+#### E. failure/recovery phase labels
+
+Historical ControlSim derived `failure_phase` from latency thresholds, while historical GKE derived a disturbance phase from fail/overload/bottleneck pressures.
+
+These are excluded because they are derived labels rather than independent observations and because the GKE form depends on historical noncanonical heuristics.
+
+#### F. `fail_pressure`, `overload_pressure`, and `bottleneck_pressure`
+
+Excluded as independent state variables.
+
+Q-AHBN2 must not reintroduce the historical GKE direct-control path through the RL state. Effects of failure, overload, and bottleneck conditions must reach the learner through the approved canonical observation semantics where applicable, particularly latency, utilization, and churn/dynamic-membership pressure.
+
+#### G. historical `rho_hat`, `r_hat`, and old `c_hat` semantics
+
+These are not inherited merely because they existed in old ControlSim Q-AHBN.
+
+Q-AHBN2 uses the notation and meanings frozen by the canonical AHBN contract. In Q-AHBN2, `c_hat` means canonical **churn/dynamic-membership pressure**. Historical variables with different meanings must not be silently mapped onto it.
+
+#### H. counters and outcome variables
+
+Raw `recv_count`, `duplicate_count`, `forward_count`, delivery estimates, reward history, previous reward, Q-values, epsilon, action counts, and experiment labels are excluded from the environmental state.
+
+Some may later be used for reward calculation, learning lifecycle, or observability, but that does not make them state dimensions.
+
+### 02.3.6 Proposal context versus environmental state
+
+Q-AHBN2 has two distinct inputs at a decision opportunity:
+
+```text
+Environmental RL state:
+    s_t = (d_hat,l_hat,u_hat,c_hat)
+
+Canonical base proposal:
+    p_t = (mode_AHBN,k_AHBN)
+```
+
+The Q policy selects an action using the frozen RL state:
+
+```text
+a_t = policy(s_t)
+```
+
+The selected action is then applied **relative to the preserved canonical proposal**:
+
+```text
+(mode_Q,k_Q)
+    = Apply(
+        mode_AHBN,
+        k_AHBN,
+        a_t
+      )
+```
+
+The exact `Apply` semantics are intentionally deferred to the action-space freeze.
+
+This separation avoids duplicating deterministic AHBN outputs inside the Q-table key while preserving the meta-controller architecture frozen in Section 02.2.
+
+### 02.3.7 Cross-platform state contract
+
+ControlSim and Kubernetes MUST expose the same logical Q-AHBN2 state:
+
+```text
+(d_hat,l_hat,u_hat,c_hat)
+```
+
+The raw measurements used to produce these quantities may differ only as permitted by the canonical AHBN environment adapters.
+
+Q-AHBN2 MUST NOT define a ControlSim-only state dimension or a Kubernetes-only state dimension if cross-platform parity is claimed.
+
+Thus:
+
+```text
+environment-specific raw sensing
+            ↓
+canonical adapter
+            ↓
+canonical EWMA state
+(d_hat,l_hat,u_hat,c_hat)
+            ↓
+same logical Q-AHBN2 state
+```
+
+### 02.3.8 Temporal semantics
+
+The state at decision time `t` is the current canonical AHBN EWMA snapshot **after the canonical observation update used for that AHBN decision and before Q-AHBN2 action selection**.
+
+Required ordering:
+
+```text
+raw local observations at t
+        ↓
+canonical normalization
+        ↓
+canonical EWMA update
+        ↓
+canonical AHBN proposal
+        ↓
+capture s_t=(d_hat,l_hat,u_hat,c_hat)
+        ↓
+Q-AHBN2 action selection
+```
+
+Q-AHBN2 must not maintain a second, differently smoothed copy of these four observations for its state unless a later controlled artifact explicitly reopens the design. The canonical EWMA already supplies temporal smoothing.
+
+### 02.3.9 State invariants
+
+The following are now frozen:
+
+**S1 — Four-dimensional logical state:** `s_t=(d_hat,l_hat,u_hat,c_hat)`.
+
+**S2 — Canonical meanings only:** each dimension uses the exact canonical AHBN semantics.
+
+**S3 — Canonical EWMA only:** Q-AHBN2 does not introduce a second smoothing layer for these state variables.
+
+**S4 — No redundant AHBN derivatives:** `z`, `w`, `mode_AHBN`, and `k_AHBN` are not additional Q-table state dimensions.
+
+**S5 — Proposal preserved separately:** `mode_AHBN` and `k_AHBN` remain available to the action-application layer and observability.
+
+**S6 — No historical disturbance phase:** failure/recovery phase labels are not independent state dimensions.
+
+**S7 — No historical direct-pressure state:** `fail_pressure`, `overload_pressure`, and `bottleneck_pressure` are not Q-AHBN2 state dimensions.
+
+**S8 — No outcome leakage:** reward/outcome counters and learning internals are not environmental state dimensions.
+
+**S9 — Cross-platform parity:** ControlSim and Kubernetes use the same logical four-dimensional state wherever parity is claimed.
+
+**S10 — Discretization deferred:** Section 02.3 freezes variables and semantics only; binning belongs to Section 02.4.
+
+### 02.3.10 State-space rationale
+
+This four-variable state is deliberately minimal.
+
+It is smaller and more defensible than the historical seven-component ControlSim state, while being semantically richer and more canonical than the historical four-component GKE disturbance state.
+
+Most importantly, it does not give Q-AHBN2 privileged information unavailable to canonical AHBN merely to improve results. The scientific question remains clean:
+
+> Given the same canonical local condition vector used by AHBN, can a Q-learning meta-controller learn useful refinements to AHBN's deterministic proposal?
+
+That question directly preserves the relationship:
+
+```text
+AHBN = frozen deterministic adaptive baseline
+Q-AHBN2 = learned refinement over the same canonical condition space
+```
+
+### 02.3.11 State representation freeze decision
+
+The Q-AHBN2 state representation is accepted as:
+
+```text
+s_t = (
+    d_hat_t,
+    l_hat_t,
+    u_hat_t,
+    c_hat_t
+)
+```
+
+with `mode_AHBN` and `k_AHBN` retained separately as the immutable canonical proposal on which the selected learned action operates.
+
+**02.3 STATE REPRESENTATION GATE: PASS / FROZEN.**
+
+This freeze does not define the discrete Q-table key. The next controlled decision is the discretization of these four canonical state variables.
+
+---
+
+## 02.4 Next Controlled Decision — State Discretization
+
+The next permitted design task is to define the Q-AHBN2 discretization contract for:
+
+```text
+d_hat, l_hat, u_hat, c_hat
+```
+
+The discretization must preserve the meanings frozen in Section 02.3, avoid unnecessary state-space explosion, and must not reintroduce removed historical phase variables through disguised bins.
