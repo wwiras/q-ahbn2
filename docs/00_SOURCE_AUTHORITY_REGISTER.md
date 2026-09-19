@@ -276,28 +276,29 @@ R2-GKE disposition delta:
 
 ## 6. R3 — Reconciliation Decision Register
 
-**Gate result: PASS.**
+**Gate result: PASS — CONSOLIDATED AFTER R1-GKE AND R2-GKE.**
 
-R3 converts R2 findings into controlled inheritance dispositions without selecting redesigned values.
+R3 converts the completed ControlSim and Kubernetes reconciliation findings into controlled inheritance dispositions without selecting redesigned Q-AHBN2 values. The 19-Sep-2026 consolidation incorporates the canonical GKE and historical GKE delta audits. **No original R3 disposition category is reversed.** The amendments clarify what “canonical AHBN base proposal,” “environment-specific sensing,” “no intervention,” and GKE lifecycle mean across both environments.
 
 ### 6.1 RETAIN
 
 The following concepts may cross into the Q-AHBN2 design stage:
 
 - Q-AHBN as a meta-controller layered after canonical AHBN;
-- R1 canonical AHBN as the source of the unmodified base proposal;
+- canonical AHBN as the source of the unmodified base proposal in both environments: ControlSim uses the frozen canonical controller directly; Kubernetes uses the parity-validated controller/observation/dispatch base plus the frozen final S5 runtime actuator;
 - tabular Q-learning as the baseline learning family;
 - epsilon-greedy exploration as an admissible mechanism;
 - decentralized/local operation;
-- a no-intervention / AHBN-base action capability;
+- a no-intervention / AHBN-base action capability, defined as leaving the **actual canonical AHBN proposal unchanged**;
 - reward objective balancing dissemination effectiveness with overhead rather than minimizing forwarding alone;
 - one-step previous-state/action Q-learning lifecycle;
 - requested-versus-realized fanout distinction;
-- logging the base AHBN proposal;
+- logging the canonical base AHBN proposal;
 - logging the final post-Q decision;
 - explicit learner-intervention indicators;
 - Q-state/action/reward/update observability;
-- environment-specific sensing where the common logical contract remains explicit.
+- environment-specific raw sensing/normalization and observation cadence where they map into the explicit common logical AHBN contract;
+- mode-specific eligible-target realization under the canonical requested-fanout budget.
 
 ### 6.2 REDESIGN
 
@@ -306,26 +307,32 @@ The following functions remain scientifically relevant but no legacy implementat
 - RL state representation;
 - state discretization;
 - action-space semantics;
-- fanout intervention semantics;
-- mode intervention semantics;
-- any possible Q-layer weight intervention;
+- fanout intervention semantics relative to the canonical S5 requested fanout;
+- mode intervention semantics relative to the canonical AHBN mode proposal;
+- any possible Q-layer weight intervention, which must remain semantically separate from the untouched canonical `sigmoid(z)`;
 - reward equation and coefficients;
-- common ControlSim/Kubernetes RL contract.
+- common ControlSim/Kubernetes RL contract;
+- any mapping from environment-specific raw measurements to additional RL-only state beyond the frozen AHBN observations.
 
-**REDESIGN does not mean “copy the legacy mechanism and change its numbers.”** It means the function/problem is retained while its new definition requires independent justification.
+**REDESIGN does not mean “copy the legacy mechanism and change its numbers.”** It means the function/problem is retained while its new definition requires independent justification and cross-environment semantics.
 
 ### 6.3 REJECT
 
 The following must not be inherited as Q-AHBN2 design authority:
 
 - the legacy seven-variable ControlSim state copied verbatim;
+- the historical four-component GKE state copied verbatim;
 - historical `c_hat = capacity` semantics;
+- treating historical GKE `fail_pressure` as canonical churn `c`;
+- treating historical GKE overload/bottleneck pressure as canonical EWMA utilization `u_hat`;
 - the old latency-derived failure-phase formula;
 - tau as a Q-AHBN2 actuator inherited from legacy ControlSim;
 - legacy numerical action magnitudes as authoritative values;
 - legacy GKE `adaptive_update()` as canonical AHBN;
+- interpreting historical GKE `ahbn_mode` / `ahbn_fanout` logs as canonical AHBN proposal evidence;
 - hard-coded GKE recovery behavior represented as learned Q-action evidence;
-- legacy GKE target-realization behavior as canonical Q-AHBN2 realization;
+- legacy GKE target realization that can append structural-backbone targets beyond the requested fanout budget;
+- using the earlier GKE S0 `canonical_fanout` provenance field as though it were the final S5 requested fanout;
 - historical Q-AHBN experimental results as validation of the future Q-AHBN2 controller.
 
 ### 6.4 DEFER
@@ -340,10 +347,36 @@ The following remain later design decisions:
 - discount factor `gamma`;
 - epsilon schedule;
 - online-learning versus train/freeze/evaluate lifecycle;
-- Q-table persistence/reset policy;
+- Q-table persistence/reset policy across experiment runs and pod/process replacement;
 - whether a separately identified deterministic safety override is necessary.
 
-No value for these items is frozen by this document.
+The historical GKE **core in-process construction** is no longer unresolved: one `GKEQLearner` is created per Q-AHBN pod/process and its inspected Q-table/transition state is in memory. What remains deferred is the future Q-AHBN2 persistence/reset policy and any external run/pod lifecycle behavior.
+
+No redesigned value is frozen by this document.
+
+### 6.5 Cross-environment invariants carried into Q-AHBN2 design
+
+The following are now mandatory interpretation constraints for the next design stage:
+
+1. The learning layer starts from the canonical AHBN proposal, never from either legacy Q-AHBN rule-based substitute.
+2. The canonical logical AHBN variables remain `d,l,u,c`, but raw acquisition, normalization and update-window mechanics may remain environment-specific as established by R1.
+3. The final canonical fanout proposal is S5 `k_request ∈ {2,3,4,5,6}`; Q-AHBN2 must not use the GKE S0 2/3/4 provenance value as its base action.
+4. Requested fanout and realized forwarding remain separate quantities throughout learning, execution, logging, analysis and manuscript claims.
+5. A no-intervention action must reproduce the canonical AHBN proposal exactly at the Q-layer boundary.
+6. Deterministic event/safety handling, if later approved, must be separately named, logged and attributed; it cannot masquerade as a learned Q action.
+7. A common Q-AHBN2 logical RL contract must be defined before platform-specific implementations; platform-specific sensing may differ, but claimed RL semantics must not.
+8. Historical ControlSim/GKE results remain antecedent evidence only and cannot establish parity or validate the future Q-AHBN2 implementation.
+
+### 6.6 Consolidated R3 gate
+
+- original R3 decision register: **PASS**;
+- R1-GKE impact on R3: **CLARIFICATION ONLY**;
+- R2-GKE impact on R3: **CLARIFICATION / ONE CORE-LIFECYCLE RESOLUTION**;
+- disposition reversals: **NONE**;
+- redesigned Q-AHBN2 values frozen: **NONE**;
+- Q-AHBN2 implementation authorized by this pass: **NO**.
+
+**R3 CONSOLIDATED GATE: PASS.** The R1–R3 evidence base is now complete across canonical ControlSim, canonical Kubernetes, historical ControlSim Q-AHBN, and historical Kubernetes Q-AHBN. The next permitted artifact is `docs/01_CANONICAL_AHBN_CONTRACT.md`, derived only from the canonical R1/R1-GKE boundary.
 
 ---
 
@@ -437,7 +470,7 @@ No future implementation commit may retroactively redefine what a legacy source 
 | R1 — Canonical AHBN mechanism reconciliation | PASS | ControlSim code, canonical GKE code/runtime, and manuscript mechanism reconciled without requiring AHBN redesign. |\n| R1-GKE delta reconciliation | PASS | GKE controller law and final S5 semantics match the canonical scientific contract; sensing/normalization/window semantics are environment-specific and explicitly bounded. |
 | R2 — Legacy Q-AHBN reconstruction | PASS | ControlSim and GKE historical learners reconstructed separately. |
 | R2 — Legacy RL parity | NOT ESTABLISHED | Historical ControlSim and GKE are not one parity-preserved RL specification. |\n| R2-GKE delta reconciliation | PASS | Historical GKE Q-AHBN compared directly with canonical GKE AHBN; existing R2/R3 dispositions remain valid with clarified canonical-proposal semantics and core learner lifecycle. |
-| R3 — Reconciliation Decision Register | PASS | Legacy inheritance classified as RETAIN / REDESIGN / REJECT / DEFER. |
+| R3 — Reconciliation Decision Register | PASS — CONSOLIDATED | R1/R2 ControlSim and GKE findings incorporated; no disposition reversal; one historical GKE core-lifecycle fact resolved; no redesigned values frozen. |
 | Q-AHBN2 design | NOT YET FROZEN | No redesigned state/action/reward/hyperparameter values are authorized by this register. |
 | Q-AHBN2 implementation | NOT YET AUTHORIZED | Implementation follows later contracts and parity gates. |
 
