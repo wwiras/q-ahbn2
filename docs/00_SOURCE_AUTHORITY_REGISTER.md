@@ -28,10 +28,10 @@ This document records the conclusions of the completed read-only reconciliation 
 | Authority level | Source | Pinned reference | Role |
 |---|---|---|---|
 | 1 | `wwiras/ahbn` | `936a79480bc1252c79b6ee01f65c88c740af2844` | Normative canonical AHBN implementation boundary. Represents the v0.63 baseline plus later canonical S5/parity corrections. |
-| 2 | Revised AHBN Scientific Reports manuscript, 17 Sep 2026 | `AHBN17Sept2026_manuscriptSRpt.pdf` | Normative scientific description and interpretation of the frozen AHBN mechanism and its limitations. |
+| 2 | Revised AHBN Scientific Reports manuscript, 17 Sep 2026 | [`AHBN17Sept2026_manuscriptSRpt.pdf](https://drive.google.com/file/d/1YarltXx8bZf0QWlIJeaKIIX6KCsCMPYJ/view?usp=drive_link)` | Normative scientific description and interpretation of the frozen AHBN mechanism and its limitations. |
 | 3 | `wwiras/q-ahbn` | `7bca26213cbfb2099cff8b2f659008b8e040b238` | Historical ControlSim Q-AHBN implementation and evidence only. |
 | 4 | `wwiras/q-ahbn_gke` | `a9af5ccb9b564d5f2c2daaeeb9a04b191780cdbe` | Historical Kubernetes/GKE Q-AHBN implementation and evidence only. |
-| 5 | Historical Q-AHBN manuscript draft | `Q_AHBN_FirstDraft.pdf` | Historical design narrative and experiment context only; non-authoritative where it conflicts with levels 1–4. |
+| 5 | Historical Q-AHBN manuscript draft | [`Q_AHBN_FirstDraft.pdf`](https://drive.google.com/file/d/1NahEY5sZPdwhpg2uduBxIxqyS3ikMGqj/view?usp=drive_link) | Historical design narrative and experiment context only; non-authoritative where it conflicts with levels 1–4. |
 | 6 | Q-AHBN2 Master Research, Development, Experiment and Publication Contract v1.0 | `docs/00_QAHBN2_MASTER.md` | Authoritative Q-AHBN2 operating/workflow contract: project governance, stage/freeze sequence, evidence handling, experiment/publication workflow, and new-session bootstrap. It does not override Levels 1–2 scientific AHBN authority or independently define the future Q-AHBN2 RL specification. |
 
 ### 2.1 Canonical AHBN reference boundary
