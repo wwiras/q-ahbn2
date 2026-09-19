@@ -232,6 +232,46 @@ It supports:
 
 It does not establish a common ControlSim/Kubernetes state, action semantics, reward, recovery mechanism, or realization path.
 
+### 5.4 R2-GKE delta reconciliation (19 Sep 2026)
+
+**Result: PASS. Existing R2 conclusions are strengthened; two classifications are narrowed and one lifecycle fact is resolved for the historical GKE core.**
+
+The historical Kubernetes learner at `wwiras/q-ahbn_gke@a9af5ccb9b564d5f2c2daaeeb9a04b191780cdbe` was compared directly against the canonical Kubernetes AHBN boundary at `wwiras/ahbn2_gke@cc7ce17ca489ed4a0eaf8c7bb2ebfa0c9780b689`. No Q-AHBN2 implementation was changed.
+
+The comparison confirms that the historical GKE Q-AHBN was not layered over the now-canonical GKE AHBN implementation. Its `adaptive_update()` derives cumulative duplicate pressure plus explicit fail/bottleneck/overload pressures and applies hand-written mode/fanout rules. The canonical GKE implementation instead acquires interval `d,l,u,c` through `KubernetesObservationAdapter`, applies the frozen EWMA/score/sigmoid/mode law, and uses the final S5 requested-fanout runtime. Consequently the historical GKE `ahbn_mode`/`ahbn_fanout` fields record the proposal of the historical rule-based baseline, not the R1 canonical AHBN proposal.
+
+The historical four-component Q state remains a useful antecedent only. It uses duplicate ratio, fail pressure, combined overload+bottleneck pressure, and a disturbance phase. These variables do not constitute the canonical GKE `d_hat,l_hat,u_hat,c_hat` state. Historical `fail_pressure` is a decaying ad-hoc failure signal, historical overload/bottleneck pressure is not the canonical EWMA utilization state, and canonical local one-hop latency is absent from the historical RL state. The existing **REDESIGN** classification for GKE state/discretization is therefore confirmed.
+
+The historical six action names remain candidate semantic labels only. They apply direct fanout deltas and optional forced mode preferences to the historical proposal. They were not defined relative to the final canonical S5 requested action. Exact effects therefore remain **REDESIGN**, while numerical magnitudes remain **REJECT as authority**. The no-intervention `ahbn_base` concept remains **RETAIN**, but in Q-AHBN2 it must mean leaving the actual canonical S5 AHBN proposal unchanged.
+
+The historical reward remains **REDESIGN**. It uses a local new-reception ratio, duplicate pressure, cumulative forwarding-count normalization, and a positive failure-pressure term. Direct comparison with canonical GKE confirms these are learner-specific historical signals rather than canonical AHBN observations or experiment-level delivery/recovery metrics.
+
+The historical Q update remains a retained learning-family antecedent: zero-initialized tabular Q values, one-step previous-state/action update, epsilon-greedy choice, and per-decision epsilon decay. Exact `alpha`, `gamma`, epsilon values and schedules remain **DEFER**, not frozen by historical agreement.
+
+The canonical comparison strengthens two prior rejections. Historical `trigger_failure_reaction()` directly raises fail pressure, forces Gossip, changes fanout, and for Q-AHBN logs `q_action="recovery_push"` outside `GKEQLearner.choose()`; canonical GKE `trigger_failure_reaction()` only logs the failed-neighbour observation while join/leave sensing feeds the ordinary controller path. The historical behavior is therefore **REJECT** as learned-action evidence and **REJECT** as canonical AHBN inheritance. Historical Gossip target realization also samples up to fanout and then appends structural-backbone targets, so realized forwarding can exceed the requested budget; canonical GKE keeps selection within the requested budget. Historical target realization therefore remains **REJECT**.
+
+One earlier R2 statement can now be narrowed: the historical GKE learner's **core in-process lifecycle is resolved**. One `GKEQLearner` is constructed per Q-AHBN pod at `PeerState` initialization, its Q-table and previous transition are in memory, and the inspected core contains no persistence/load mechanism. Thus a fresh process starts a fresh learner unless an external runner restores state; no such restoration is established by the inspected core. Experiment-runner/pod-replacement lifecycle beyond this core remains unresolved and must be audited separately if needed.
+
+R2-GKE disposition delta:
+
+| R2 item | Previous disposition | R2-GKE amendment |
+|---|---|---|
+| AHBN-first meta-controller architecture | RETAIN | RETAIN, but base proposal must explicitly mean canonical GKE S5 AHBN, not historical `adaptive_update()` |
+| historical GKE state/discretization | REDESIGN | unchanged; strengthened by direct canonical observation comparison |
+| six action labels/semantics | REDESIGN | unchanged; redefine relative to canonical S5 proposal |
+| `ahbn_base` no-intervention action | RETAIN | unchanged; narrowed to leave canonical S5 proposal unchanged |
+| historical GKE reward | REDESIGN | unchanged |
+| tabular one-step Q update / epsilon-greedy concept | RETAIN | unchanged |
+| exact learning hyperparameters | DEFER | unchanged |
+| historical simplified `adaptive_update()` as AHBN | REJECT | unchanged; direct canonical GKE comparison confirms incompatibility |
+| hard-coded `recovery_push` failure reaction | REJECT | unchanged; canonical GKE proves failure observation need not bypass controller |
+| historical target realization | REJECT | unchanged; canonical GKE budget semantics contradict backbone append |
+| proposal/final-decision/intervention logging | RETAIN | RETAIN concept, but historical AHBN proposal fields are not canonical-proposal evidence |
+| per-pod in-memory learner construction | UNRESOLVED | **RESOLVED for core implementation** |
+| persistence across external run/pod lifecycle | DEFER / UNRESOLVED | remains unresolved outside inspected core |
+
+**R2-GKE gate: PASS.** No R3 disposition category needs reversal. R3 remains valid, with these semantic clarifications carried forward to the future Q-AHBN2 design contract.
+
 ---
 
 ## 6. R3 — Reconciliation Decision Register
@@ -396,7 +436,7 @@ No future implementation commit may retroactively redefine what a legacy source 
 | Canonical S5 verification | PASS | Requested fanout set and thresholds reconciled. |
 | R1 — Canonical AHBN mechanism reconciliation | PASS | ControlSim code, canonical GKE code/runtime, and manuscript mechanism reconciled without requiring AHBN redesign. |\n| R1-GKE delta reconciliation | PASS | GKE controller law and final S5 semantics match the canonical scientific contract; sensing/normalization/window semantics are environment-specific and explicitly bounded. |
 | R2 — Legacy Q-AHBN reconstruction | PASS | ControlSim and GKE historical learners reconstructed separately. |
-| R2 — Legacy RL parity | NOT ESTABLISHED | Historical ControlSim and GKE are not one parity-preserved RL specification. |
+| R2 — Legacy RL parity | NOT ESTABLISHED | Historical ControlSim and GKE are not one parity-preserved RL specification. |\n| R2-GKE delta reconciliation | PASS | Historical GKE Q-AHBN compared directly with canonical GKE AHBN; existing R2/R3 dispositions remain valid with clarified canonical-proposal semantics and core learner lifecycle. |
 | R3 — Reconciliation Decision Register | PASS | Legacy inheritance classified as RETAIN / REDESIGN / REJECT / DEFER. |
 | Q-AHBN2 design | NOT YET FROZEN | No redesigned state/action/reward/hyperparameter values are authorized by this register. |
 | Q-AHBN2 implementation | NOT YET AUTHORIZED | Implementation follows later contracts and parity gates. |
