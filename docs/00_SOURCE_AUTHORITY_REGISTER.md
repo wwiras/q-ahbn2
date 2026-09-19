@@ -29,7 +29,7 @@ This document records the conclusions of the completed read-only reconciliation 
 |---|---|---|---|
 | 1 | `wwiras/ahbn` | `936a79480bc1252c79b6ee01f65c88c740af2844` [ahbn repo](https://github.com/wwiras/ahbn) | Normative canonical AHBN implementation boundary. Represents the v0.63 baseline plus later canonical S5/parity corrections for control sim |
 | 2 | `wwiras/ahbn2_gke` | `cc7ce17ca489ed4a0eaf8c7bb2ebfa0c9780b689` [ahbn2_gke](https://github.com/wwiras/ahbn2_gke) | Normative canonical Kubernetes AHBN repository snapshot. The final GKE AHBN runtime is composite: the parity-validated controller/observation/dispatch base plus the frozen S5 actuator runtime used by the later K6/K7/K8 experiment images. |
-| 3 | Revised AHBN Scientific Reports manuscript, 17 Sep 2026 | [AHBN17Sept2026_manuscriptSRpt.pdf](https://drive.google.com/file/d/1YarltXx8bZf0QWlIJeaKIIX6KCsCMPYJ/view?usp=drive_link)` | Normative scientific description and interpretation of the frozen AHBN mechanism and its limitations. |
+| 3 | Revised AHBN Scientific Reports manuscript, 17 Sep 2026 | [AHBN17Sept2026_manuscriptSRpt.pdf](https://drive.google.com/file/d/1YarltXx8bZf0QWlIJeaKIIX6KCsCMPYJ/view?usp=drive_link) | Normative scientific description and interpretation of the frozen AHBN mechanism and its limitations. |
 | 4 | `wwiras/q-ahbn` | `7bca26213cbfb2099cff8b2f659008b8e040b238` [q-ahbn repo](https://github.com/wwiras/q-ahbn) | Historical ControlSim Q-AHBN implementation and evidence only. |
 | 5 | `wwiras/q-ahbn_gke` | `a9af5ccb9b564d5f2c2daaeeb9a04b191780cdbe` [q-ahbn_gke repo](https://github.com/wwiras/q-ahbn_gke) | Historical Kubernetes/GKE Q-AHBN implementation and evidence only. |
 | 6 | Historical Q-AHBN manuscript draft | [Q_AHBN_FirstDraft.pdf](https://drive.google.com/file/d/1NahEY5sZPdwhpg2uduBxIxqyS3ikMGqj/view?usp=drive_link) | Historical design narrative and experiment context only; non-authoritative where it conflicts with levels 1–4. |
@@ -146,6 +146,46 @@ Equality is not guaranteed because topology, immediate-sender exclusion, node ac
 - Controller utilization pressure must not be conflated with experiment-level total forwards.
 - Trace `fanout` is the controller-requested fanout unless explicitly recorded otherwise.
 - Canonical AHBN does not use tau-based suppression.
+
+### 4.3 R1-GKE delta reconciliation (19 Sep 2026)
+
+**Result: PASS, with environment-specific observation semantics explicitly recorded.**
+
+The pinned Kubernetes repository was inspected read-only at `cc7ce17ca489ed4a0eaf8c7bb2ebfa0c9780b689`. No Q-AHBN2 code was modified.
+
+The GKE logical controller agrees with the frozen scientific contract on the four normalized observations, EWMA `alpha=0.30`, zero centres, coefficient signs, `z=-d_hat+l_hat+u_hat+c_hat`, sigmoid, `weight >= 0.5` Gossip / otherwise Structured, and the final S5 requested-fanout mapping. Repository K1/K2/K3.1 evidence records controller, observation, dispatch, trace, and ControlSim/Kubernetes parity checks for the base port. K5 then validated and froze S5 as the final actuator, and the later K6/K7/K8 images execute through the S5 runtime wrapper.
+
+The GKE observation adapter is intentionally environment-specific:
+
+| Logical input | Canonical GKE acquisition/normalization |
+|---|---|
+| duplicate `d` | interval duplicates / interval received; 0 when no receives |
+| latency `l` | mean local one-hop latency in the interval divided by the fixed 1.0 s reference and clipped to [0,1] |
+| utilization `u` | binary local overload pressure: 1 when `overload_ms > 0`, otherwise 0 |
+| churn `c` | interval joins + leaves divided by current neighbour count (minimum denominator 1), clipped to [0,1] |
+
+`snapshot_and_reset()` closes and resets the local observation window. A duplicate receipt records its observation, updates AHBN, and returns without forwarding. A first receipt records its local one-hop latency and reaches `target_peers()`, which performs the AHBN update before target selection. Failed/recovered neighbour communication changes the unavailable-neighbour set and records leave/join observations; `trigger_failure_reaction()` itself logs the observation and does not directly force mode or fanout.
+
+Final S5 GKE execution preserves the controller score and mode and replaces only the requested forwarding budget using:
+
+`z <= -0.25 -> 2`; `-0.25 < z < 0.25 -> 3`; `0.25 <= z < 0.90 -> 4`; `0.90 <= z < 1.50 -> 5`; `z >= 1.50 -> 6`.
+
+Gossip eligibility excludes self, the immediate sender, and unavailable neighbours, then samples up to the requested budget. Structured head forwarding prioritizes one eligible gateway, then eligible local members, then additional gateways within the budget; a Structured member forwards only to its eligible cluster head. Consequently realized forwarding remains topology/availability constrained and can be below the requested fanout.
+
+The S5 runtime trace explicitly distinguishes `requested_fanout` from `actual_fanout`. The underlying base-controller field named `canonical_fanout` is the earlier S0 2/3/4 proposal and is retained only as provenance; it is **not** the final S5 requested fanout. Q-AHBN2 must use the final S5 requested action as the canonical AHBN base proposal.
+
+R1-GKE classification:
+
+- controller equation, EWMA, sigmoid and mode rule: **MATCH**;
+- logical observation meanings `d,l,u,c`: **MATCH**;
+- raw sensing/normalization and update-window semantics: **DIFFERENT-BUT-VALID / environment-specific**;
+- final S5 requested fanout: **MATCH**, implemented as a validated runtime layer over the earlier S0 base module;
+- Gossip/Structured eligibility and budget realization: **MATCH** at the scientific-contract level;
+- failure handling: **MATCH** with the no-controller-bypass rule;
+- requested-versus-realized fanout observability: **MATCH**, with the GKE-specific `canonical_fanout` provenance-name guard;
+- experiment-level outcome metrics versus controller observations: **MUST REMAIN DISTINCT**.
+
+**R1-GKE gate: PASS.** No canonical AHBN redesign or Q-AHBN2 implementation change is required. The R1 amendment changes source completeness and environment-specific interpretation, not the frozen AHBN scientific law.
 
 ---
 
