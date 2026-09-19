@@ -32,7 +32,7 @@ This document records the conclusions of the completed read-only reconciliation 
 | 3 | `wwiras/q-ahbn` | `7bca26213cbfb2099cff8b2f659008b8e040b238` | Historical ControlSim Q-AHBN implementation and evidence only. |
 | 4 | `wwiras/q-ahbn_gke` | `a9af5ccb9b564d5f2c2daaeeb9a04b191780cdbe` | Historical Kubernetes/GKE Q-AHBN implementation and evidence only. |
 | 5 | Historical Q-AHBN manuscript draft | `Q_AHBN_FirstDraft.pdf` | Historical design narrative and experiment context only; non-authoritative where it conflicts with levels 1–4. |
-| 6 | Current Q-AHBN2 paper/workflow outline | Current project planning record | Design intent and publication plan only; not implementation truth. |
+| 6 | Q-AHBN2 Master Research, Development, Experiment and Publication Contract v1.0 | `docs/00_QAHBN2_MASTER.md` | Authoritative Q-AHBN2 operating/workflow contract: project governance, stage/freeze sequence, evidence handling, experiment/publication workflow, and new-session bootstrap. It does not override Levels 1–2 scientific AHBN authority or independently define the future Q-AHBN2 RL specification. |
 
 ### 2.1 Canonical AHBN reference boundary
 
@@ -74,7 +74,7 @@ Additional rules:
 2. The revised AHBN manuscript controls scientific terminology and interpretation where legacy drafts differ.
 3. A future Q-AHBN2 design contract may define the learning layer but may not silently redefine the frozen AHBN mechanism.
 4. Environment-specific sensing/normalization is permitted only where the logical observation semantics remain explicit and compatible with the canonical boundary.
-5. Historical results remain historical evidence. They are not prospective validation of Q-AHBN2.
+5. Historical results remain historical evidence. They are not prospective validation of Q-AHBN2.\n6. `docs/00_QAHBN2_MASTER.md` governs Q-AHBN2 workflow and project operation. Where it refers to scientific AHBN mechanism details, the pinned canonical AHBN implementation and revised AHBN manuscript remain controlling.
 
 ---
 
