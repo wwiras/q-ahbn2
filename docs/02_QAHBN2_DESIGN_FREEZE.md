@@ -897,3 +897,129 @@ This freeze does not define Q-AHBN2 actions, reward, learning coefficients, expl
 The next permitted design task is to reconcile the historical Q-AHBN action sets against the frozen post-AHBN intervention boundary and define the minimum scientifically justified Q-AHBN2 action space.
 
 That decision must preserve canonical AHBN's untouched proposal, retain the mandatory removal of the historical Q-layer upper fanout cap, avoid tau, and prevent deterministic recovery heuristics from being represented as learned actions.
+
+### 02.5.1 RO2 design rationale — why the action space exists
+
+The Q-AHBN2 action-space decision MUST be grounded in the dissemination problem established by RO2, rather than treated as an isolated reinforcement-learning design choice.
+
+The RO2 draft, *Characterizing Latency–Duplication Trade-off in Blockchain Dissemination: A Systematic Study of Gossip and Structured Broadcast* (04 Apr 2026 draft), characterizes dissemination as a multi-objective trade-off among propagation delay, communication redundancy/overhead, and delivery robustness. Its experiments show that static Gossip and Structured dissemination occupy different operating regions and that their behavior changes with fanout, topology density, cluster-head configuration/stress, churn, and forwarding-capacity heterogeneity.
+
+The relevant RO2 design chain is:
+
+```text
+RO2 CHARACTERIZATION
+Gossip:
+    parallel forwarding
+    -> potentially lower delay
+    -> higher duplicate/communication overhead
+    -> graceful behavior under instability in evaluated scenarios
+
+Structured:
+    controlled forwarding
+    -> lower redundancy
+    -> structural/coordinator dependence
+    -> sensitivity to overload, failure, and churn
+
+Dynamic network conditions:
+    no single static operating point remains balanced across all evaluated regimes
+            |
+            v
+RO3 / AHBN
+    deterministic adaptation of mode + requested fanout
+            |
+            v
+RO4 / Q-AHBN2
+    learn whether a bounded post-AHBN refinement is useful
+    for the current canonical local condition state
+```
+
+Therefore Q-AHBN2 does not exist merely because Q-learning is available. It exists because RO2 provides the empirical problem basis: dissemination involves competing objectives whose useful operating point changes with network conditions.
+
+The RO2 draft expresses this interpretation using a reduced trade-off objective:
+
+```text
+min J_LD = alpha * L_tilde + beta * D_tilde
+subject to DeliveryRatio >= rho_min
+```
+
+and a broader formulation that also accounts for total transmissions and incomplete delivery. Q-AHBN2 does not directly inherit or optimize these equations unless a later reward contract explicitly does so; they are retained here only as the scientific motivation for adaptive control.
+
+### 02.5.2 Required action-space justification method
+
+Before Section 02.5 can be frozen, the proposed Q-AHBN2 action space SHALL undergo an **Action-Space Counterfactual Analysis**.
+
+The analysis holds constant:
+
+1. the canonical continuous state;
+2. the resulting discrete Q-state;
+3. the canonical AHBN computation;
+4. the immutable AHBN proposal `(mode_AHBN,k_AHBN)`;
+
+and varies only the action-space contract.
+
+Conceptually:
+
+```text
+same canonical condition
+        |
+        v
+same Q-state + same frozen AHBN
+        |
+        v
+same (mode_AHBN,k_AHBN)
+        |
+        +--------------------------+
+        |                          |
+        v                          v
+historical action contract    proposed action contract
+        |                          |
+        v                          v
+permitted output changes      permitted output changes
+        +-------------+------------+
+                      |
+                      v
+compare transformation properties
+```
+
+This is a design-level counterfactual comparison, not a performance experiment. It may establish properties such as action redundancy, bundled versus isolated intervention, boundary effectiveness, canonical compatibility, cross-platform semantic consistency, and attribution clarity. It MUST NOT be used by itself to claim that the proposed action space improves dissemination performance.
+
+Representative cases SHALL include at least:
+
+- a low-pressure/ordinary canonical condition;
+- a duplicate-dominant condition motivated by RO2 Gossip redundancy;
+- a latency/utilization/churn pressure condition motivated by RO2 dynamic-condition findings;
+- the canonical upper fanout boundary `k_AHBN=6`;
+- the canonical lower fanout boundary `k_AHBN=2`;
+- at least one Gossip proposal and one Structured proposal.
+
+Where useful, an action transform may be written as:
+
+```text
+T_a(mode_AHBN,k_AHBN) -> (mode_Q,k_Q)
+```
+
+and compared using explicit properties such as whether an action changes the proposal and how many independent control dimensions it modifies.
+
+### 02.5.3 RO2 consistency criterion for candidate actions
+
+A candidate Q-AHBN2 action is scientifically relevant only if it refines a control dimension connected to the RO2 dissemination problem while preserving the frozen AHBN boundary.
+
+The candidate action space should therefore be assessed against these questions:
+
+1. Does it allow the learner to preserve AHBN when AHBN's deterministic operating point is already suitable?
+2. Does it permit a bounded change in forwarding intensity, given RO2's demonstrated fanout/duplication/delay relationship?
+3. Does it permit a bounded change between Gossip and Structured behavior, given RO2's demonstrated complementary robustness/efficiency characteristics?
+4. Does it avoid encoding the desired outcome in an action label such as `recovery_push` or `duplicate_suppression`?
+5. Can the effect of the learned intervention be distinguished from the untouched AHBN proposal?
+6. Is the same action semantics implementable in ControlSim and Kubernetes?
+7. Does it avoid reopening canonical AHBN?
+
+The action-space freeze will be made only after this RO2-grounded counterfactual analysis is recorded.
+
+### 02.5.4 Current gate status
+
+```text
+02.5 ACTION SPACE GATE: PENDING
+```
+
+No proposed action set is frozen by this subsection. The next controlled task is the RO2-grounded Action-Space Counterfactual Analysis, followed by the final action-space decision.
