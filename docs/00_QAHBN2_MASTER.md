@@ -1,106 +1,318 @@
 # Q-AHBN2 Master Research, Development, Experiment and Publication Contract v1.0
 
-## 1. Purpose
+**Project:** Q-AHBN2  
+**Repository:** `wwiras/q-ahbn2`
+**Canonical path:** `docs/00_QAHBN2_MASTER.md`  
+**Status:** FROZEN MASTER OPERATING CONTRACT  
+**Date frozen:** 2026-09-19
+
+---
+
+# 0. Current Project State and Entry Gate
+
+The repository name is frozen as `q-ahbn2`.
+
+The pre-S00 infrastructure workflow has been completed and independently verified:
+
+| Gate | Status |
+|---|---|
+| Repository name freeze | PASS |
+| GitHub repository creation | PASS |
+| GitHub workflow smoke test | PASS |
+| Google Drive evidence smoke test | PASS |
+| Workflow readback verification | PASS |
+| Master workflow update/freeze | PASS |
+| `00_QAHBN2_MASTER.md` | THIS DOCUMENT |
+| S00 entry gate at infrastructure freeze | PASSED / HISTORICAL |
+
+Verified workflow-smoke GitHub commit:
+
+`1c01735b071b33a7bd28afdc60785d551b36489f`
+
+The smoke test proved the operational path:
+
+```text
+ChatGPT / bounded operator
+        ↓
+GitHub source/control record
+        ↓
+local human/operator execution
+        ↓
+generated artifact
+        ↓
+Google Drive evidence storage
+        ↓
+artifact readback verification
+```
+
+This infrastructure smoke test is not scientific Q-AHBN2 evidence and does not constitute S00, development, RL validation, or a formal experiment.
+
+At the time of the pre-S00 infrastructure freeze, the next permitted scientific task was **S00 — Source Audit**. This statement is retained only as historical provenance; current scientific stage/status is governed by the current stage/control document and verified repository state.
+
+---
+
+# 1. Purpose
 
 This document is the authoritative operating template for the Q-AHBN2 project from initial reconciliation through development, validation, formal experimentation, statistical analysis, scientific interpretation, manuscript preparation, and submission.
 
 Q-AHBN2 is the redesign/reconciliation of the previous Q-AHBN implementation so that it operates on the latest frozen canonical AHBN.
 
-This document exists to prevent inconsistency across AI conversations, accidental modification of canonical AHBN, uncontrolled experiment expansion, loss of scientific provenance, unnecessary repeated work, post-hoc metric or parameter changes, dependence on AI conversational memory, unnecessary Codex/agent cost, and manuscript claims drifting away from experimental evidence.
+This document exists to prevent:
+
+- inconsistency across AI conversations;
+- accidental modification of canonical AHBN;
+- uncontrolled experiment expansion;
+- loss of scientific provenance;
+- unnecessary repeated work;
+- post-hoc metric or parameter changes;
+- dependence on AI conversational memory;
+- unnecessary Codex/agent cost;
+- manuscript claims drifting away from experimental evidence.
 
 The project should remain as simple as possible while preserving scientific validity, reproducibility, traceability, and publication quality.
 
-## 2. Project Objective
+---
 
-Scientific dependency:
+# 2. Project Objective
+
+The scientific dependency is:
 
 ```text
-RO1 Cloud-native evaluation framework
- ↓
-RO2 Characterisation of dissemination trade-offs
- ↓
-RO3 Frozen canonical AHBN
- ↓
-RO4 Q-AHBN2 learning enhancement
- ↓
+RO1
+Cloud-native evaluation framework
+        ↓
+RO2
+Characterisation of dissemination trade-offs
+        ↓
+RO3
+Frozen canonical AHBN
+        ↓
+RO4
+Q-AHBN2 learning enhancement
+        ↓
 Learning validation
- ↓
+        ↓
 Controlled evaluation
- ↓
+        ↓
 Kubernetes-native realism validation
- ↓
+        ↓
 Scientific interpretation
- ↓
+        ↓
 Q-AHBN2 manuscript
 ```
 
-Q-AHBN2 investigates whether a lightweight Q-learning layer can enhance adaptation over the already-frozen canonical AHBN under evaluated dynamic network conditions. Q-AHBN2 does NOT redesign AHBN.
+Q-AHBN2 investigates whether a lightweight Q-learning layer can enhance adaptation over the already-frozen canonical AHBN under evaluated dynamic network conditions.
 
-## 3. Absolute Scientific Rule — Canonical AHBN Is Immutable
+Q-AHBN2 does NOT redesign AHBN.
 
-The latest approved canonical AHBN is a READ-ONLY scientific dependency. Q-AHBN2 MUST follow canonical AHBN exactly, including where applicable: observation definitions, normalization, EWMA formulation and parameters, controller score, sigmoid transformation, mode-selection rule, fanout actuator and thresholds, supported fanout values, eligible-neighbour handling, realized fanout, Gossip semantics, Structured semantics, baseline semantics, and associated metric definitions.
+---
 
-The canonical AHBN implementation and latest approved AHBN Scientific Reports manuscript are the authorities. Previous Q-AHBN is NOT authoritative when it conflicts with canonical AHBN.
+# 3. Absolute Scientific Rule — Canonical AHBN Is Immutable
 
-Q-AHBN2 may learn over or influence explicitly permitted AHBN operating decisions according to the approved Q-AHBN2 design. It MUST NOT silently change AHBN equations, thresholds, normalization, EWMA, fanout mapping, baseline behaviour, or modify AHBN merely to improve Q-AHBN2 performance. If Q-AHBN2 performs poorly under canonical AHBN, that is a Q-AHBN2 result or design issue. AHBN is not reopened.
+The latest approved canonical AHBN is a READ-ONLY scientific dependency.
 
-## 4. Authority Hierarchy
+Q-AHBN2 MUST follow canonical AHBN exactly.
 
-### Level 1 — Frozen canonical authority
+This includes, where applicable:
+
+- observation definitions;
+- normalization;
+- EWMA formulation;
+- EWMA parameters;
+- controller score;
+- sigmoid transformation;
+- mode-selection rule;
+- fanout actuator;
+- fanout thresholds;
+- supported fanout values;
+- eligible-neighbour handling;
+- realized fanout;
+- Gossip semantics;
+- Structured semantics;
+- baseline semantics;
+- associated metric definitions.
+
+The canonical AHBN implementation and latest approved AHBN Scientific Reports manuscript are the authorities.
+
+The previous Q-AHBN implementation is NOT authoritative when it conflicts with canonical AHBN.
+
+Q-AHBN2 may learn over or influence explicitly permitted AHBN operating decisions according to the approved Q-AHBN2 design.
+
+Q-AHBN2 MUST NOT silently:
+
+- change AHBN equations;
+- change AHBN thresholds;
+- change AHBN normalization;
+- change AHBN EWMA;
+- change AHBN fanout mapping;
+- change AHBN baseline behaviour;
+- modify AHBN merely to improve Q-AHBN2 performance.
+
+If Q-AHBN2 performs poorly under canonical AHBN, that is a Q-AHBN2 result or design issue.
+
+AHBN is not reopened.
+
+---
+
+# 4. Authority Hierarchy
+
+When sources disagree, use this hierarchy.
+
+## Level 1 — Frozen canonical authority
+
 1. Latest approved canonical AHBN repository.
 2. Latest revised/frozen AHBN Scientific Reports manuscript.
 3. Final AHBN experimental/statistical artifacts where applicable.
 
-### Level 2 — Q-AHBN2 frozen authority
+## Level 2 — Q-AHBN2 frozen authority
+
 After reconciliation:
+
 4. `00_QAHBN2_MASTER.md`
 5. `01_CANONICAL_AHBN_CONTRACT.md`
 6. `02_QAHBN2_DESIGN_FREEZE.md`
 7. `03_EXPERIMENT_CONTRACT.md`
 8. `04_STATISTICAL_CONTRACT.md`
 
-### Level 3 — Historical reference
+## Level 3 — Historical reference
+
 9. Previous Q-AHBN repository.
 10. Previous Q-AHBN manuscript.
 11. Previous Q-AHBN experimental outputs.
 
 Historical material may guide Q-AHBN2 but cannot override frozen canonical AHBN.
 
-### Level 4 — Conversational context
-ChatGPT memory, previous conversations, Codex narration, researcher recollection, and informal notes are supporting context only. If they conflict with repository evidence or frozen control documents, repository/artifact state wins.
+## Level 4 — Conversational context
 
-## 5. Human and AI Roles
+ChatGPT memory, previous conversations, Codex narration, researcher recollection, and informal notes are supporting context only.
 
-The human researcher remains the scientific authority and approves research objectives, Q-AHBN2 design, experimental matrix, formal parameters, seeds, repetitions, baselines, metrics, statistical methodology, formal experiment status, exclusions/reruns, scientific interpretation, and changes to frozen methodology. AI execution does not constitute scientific authorization.
+If they conflict with repository evidence or frozen control documents:
 
-ChatGPT is the first-priority AI assistant for scientific reasoning, repository inspection, canonical reconciliation, methodology, code review, test planning, experiment design, statistical planning, result verification/analysis, interpretation, manuscript drafting, claim auditing, authorized GitHub/Drive operations, exact human-execution commands, and bounded Codex prompts. ChatGPT should independently verify artifacts wherever practical.
+> Repository/artifact state wins.
 
-Human execution is the default for straightforward execution:
+---
+
+# 5. Human and AI Roles
+
+## 5.1 Human Researcher
+
+The researcher remains the scientific authority.
+
+The researcher approves:
+
+- research objectives;
+- Q-AHBN2 design;
+- experimental matrix;
+- formal parameters;
+- seeds;
+- repetitions;
+- baselines;
+- metrics;
+- statistical methodology;
+- formal experiment status;
+- exclusions/reruns;
+- scientific interpretation;
+- changes to frozen methodology.
+
+AI execution does not constitute scientific authorization.
+
+## 5.2 ChatGPT — Primary AI Assistant
+
+ChatGPT is the first-priority AI assistant.
+
+Use ChatGPT first for:
+
+- scientific reasoning;
+- repository inspection;
+- canonical reconciliation;
+- methodology;
+- code review;
+- test planning;
+- experiment design;
+- statistical planning;
+- result verification;
+- result analysis;
+- interpretation;
+- manuscript drafting;
+- claim auditing;
+- GitHub read/write when authorized;
+- Google Drive read/write when authorized;
+- exact human-execution commands;
+- bounded Codex prompts.
+
+ChatGPT should independently verify artifacts wherever practical.
+
+## 5.3 Human Execution — Default
+
+If execution is straightforward, ChatGPT prepares the exact command and the researcher runs it.
+
+Default:
 
 ```text
-ChatGPT → exact command → Human executes → artifact produced → ChatGPT verifies
+ChatGPT
+   ↓
+exact command
+   ↓
+Human executes
+   ↓
+artifact produced
+   ↓
+ChatGPT verifies
 ```
 
-Codex / Antigravity / Copilot are secondary operators for bounded local tasks such as small code changes, repetitive edits, regression/smoke execution, terminal operations, and mechanical checks. Delegated tasks must specify repository/path, objective, allowed/prohibited operations, expected outputs, and stopping condition. Agents must not independently redesign the science.
+This is the preferred workflow.
 
-## 6. External Memory Rule
+## 5.4 Codex / Antigravity / Copilot — Secondary Operators
 
-AI conversational memory is NOT the project source of truth. The repository is the external project memory.
+Use execution agents only when they materially simplify a bounded local task.
+
+Appropriate examples:
+
+- small code changes;
+- repetitive edits;
+- regression execution;
+- smoke execution;
+- terminal operations;
+- mechanical checks.
+
+Every delegated task should specify:
+
+- repository/path;
+- objective;
+- allowed operations;
+- prohibited operations;
+- expected outputs;
+- stopping condition.
+
+Execution agents must not independently redesign the science.
+
+---
+
+# 6. External Memory Rule
+
+AI conversational memory is NOT the project source of truth.
+
+The repository is the external project memory.
 
 At the beginning of every significant new AI session:
-1. read `docs/00_QAHBN2_MASTER.md`;
-2. read `docs/01_CANONICAL_AHBN_CONTRACT.md`;
+
+1. read `00_QAHBN2_MASTER.md`;
+2. read `01_CANONICAL_AHBN_CONTRACT.md`;
 3. read the current stage file;
 4. verify current repository state;
 5. continue only from the documented next permitted task.
 
 If chat history conflicts with these files, follow the files and report the conflict.
 
-## 7. Control-Document Structure
+---
+
+# 7. Control-Document Structure
+
+Maintain:
 
 ```text
-docs/
-├── 00_SOURCE_AUTHORITY_REGISTER.md
+docs/qahbn2/
+│
 ├── 00_QAHBN2_MASTER.md
 ├── 01_CANONICAL_AHBN_CONTRACT.md
 ├── 02_QAHBN2_DESIGN_FREEZE.md
@@ -109,6 +321,7 @@ docs/
 ├── 05_REVIEWER_LESSONS.md
 ├── 06_RESULTS_REGISTER.md
 ├── 07_CLAIM_EVIDENCE_MATRIX.md
+│
 └── stages/
     ├── S00_SOURCE_AUDIT.md
     ├── S01_RECONCILIATION.md
@@ -129,186 +342,800 @@ docs/
 
 Do not create unnecessary documentation beyond this unless needed.
 
-## 8. Standard Stage Record
+---
 
-Every stage uses:
+# 8. Standard Stage Record
+
+Every stage uses the same compact format:
+
 ```markdown
 # Stage
+
 ## Objective
+
 ## Authoritative inputs
+
 ## Frozen parameters
+
 ## Actions performed
+
 ## Commands executed
+
 ## Evidence produced
+
 ## Verification
+
 ## Result
+
 ## Scientific decision
+
 ## Issues / limitations
+
 ## Next permitted task
+
 ## Status
 PENDING / PASS / FAIL / FROZEN
 ```
 
-Update the stage record before moving to the next stage.
+The stage record should be updated before moving to the next stage.
 
-## 9. Source Code vs Experimental Evidence
+---
 
-GitHub is the versioned executable scientific record: source code, experiment definitions/configuration, scripts, tests, analysis code, documentation/control contracts, and reproducibility material.
+# 9. Source Code vs Experimental Evidence
 
-Google Drive is the complete experimental evidence/workspace: raw results, logs, manifests, Kubernetes evidence, figures/tables, intermediate analyses, run records, large artifacts, and manuscript working evidence. Large generated experiment outputs normally remain outside Git.
+## 9.1 GitHub — Authoritative Code and Control Record
 
-## 10. Artifact Verification Principle
+GitHub is the versioned executable scientific record.
 
-Assistant narration is not evidence. Artifact state is evidence. Important claims must ultimately be traceable to artifacts. Verify actual logs/outputs/source/manifests and the raw→aggregation→statistics chain rather than accepting AI/script narration.
+Store:
 
-## 11. Immutable Experiment Outputs
+- source code;
+- experiment definitions;
+- configuration;
+- scripts;
+- tests;
+- analysis code;
+- documentation;
+- control contracts;
+- reproducibility material.
+
+The authoritative Q-AHBN2 repository is:
+
+`wwiras/q-ahbn2`
+
+Large generated experiment outputs normally remain outside Git.
+
+## 9.2 Local Workspace — Execution Area, Not Evidence Authority
+
+The local working repository is used to:
+
+- edit/pull code;
+- execute tests;
+- execute experiments;
+- generate temporary/working outputs;
+- inspect artifacts before preservation.
+
+The current local repository may reside inside a Google Drive Desktop synchronized path. Therefore Drive may automatically synchronize repository files, `.git/`, ignored `output/` directories, and other working files.
+
+Automatic Drive synchronization does **not** make those synchronized working files authoritative experimental evidence.
+
+In particular:
+
+> A synchronized local `output/` directory is working output unless it has passed the required validity checks and is deliberately preserved in the designated authoritative evidence location.
+
+## 9.3 Google Drive — Authoritative Experimental Evidence
+
+Google Drive is the complete experimental evidence store.
+
+Store deliberately preserved evidence such as:
+
+- raw results;
+- logs;
+- manifests;
+- Kubernetes evidence;
+- figures;
+- tables;
+- intermediate analyses;
+- run records;
+- large artifacts;
+- manuscript working evidence.
+
+The Q-AHBN2 Drive root is identified by folder ID:
+
+`1a6_WrsZL2iXbFVeMemdujYxvzEqcBFC5`
+
+For scientific provenance, the designated evidence hierarchy inside this root—not incidental DriveFS synchronization—determines the authoritative experimental evidence.
+
+## 9.4 Evidence Promotion Rule
+
+The conceptual flow is:
+
+```text
+GitHub exact code/config
+        ↓
+local execution
+        ↓
+working output
+        ↓
+validity/completeness verification
+        ↓
+deliberate preservation in designated Drive evidence area
+        ↓
+readback verification
+        ↓
+authoritative experimental evidence
+```
+
+For formal experiments, the preserved evidence must be traceable back to the exact Git commit/configuration that produced it.
+
+If a synchronized working copy and a deliberately preserved evidence copy both exist, the deliberately preserved evidence location is authoritative.
+
+---
+
+# 10. Artifact Verification Principle
+
+Assistant narration is not evidence.
+
+Artifact state is evidence.
+
+Examples:
+
+```text
+Codex: "test passed"
+        ↓
+inspect actual output/log
+
+ChatGPT: "repository uses formula X"
+        ↓
+inspect source
+
+Script: "formal run completed"
+        ↓
+verify manifest + expected runs + raw files
+
+Analysis: "Q-AHBN2 improved metric X"
+        ↓
+verify raw → aggregation → statistics
+```
+
+Every important scientific claim should ultimately be traceable to an artifact.
+
+---
+
+# 11. Immutable Experiment Outputs
 
 Every execution receives a new timestamped directory.
 
-Simulation: `q-ahbn-<DDMMYYYYHHmmss>-<experiment>-<event>/`
+Simulation:
 
-GKE: `q-ahbn-gke-<DDMMYYYYHHmmss>-<experiment>-<event>/`
+```text
+q-ahbn-<DDMMYYYYHHmmss>-<experiment>-<event>/
+```
 
-Never overwrite previous experiment directories. Preserve successful, failed, diagnostic, smoke, regression, formal, excluded, and rerun evidence. Scientific admissibility is documented, not implemented by deletion.
+GKE:
 
-## 12. Run Metadata
+```text
+q-ahbn-gke-<DDMMYYYYHHmmss>-<experiment>-<event>/
+```
 
-Every run should contain `RUN.md` and `manifest.json`. At minimum record environment, experiment, event, timestamp, run directory, status, and scientific classification. Formal experiments additionally record where applicable Git commit SHA, software version/tag, configuration, seeds, repetitions, expected/completed runs, exclusions, failure information, and environment details.
+Never overwrite previous experiment directories.
 
-## 13. Event Vocabulary
+Preserve successful runs, failed runs, diagnostics, smoke tests, regression runs, formal runs, excluded runs, and reruns.
 
-Approved vocabulary: `regression`, `parity`, `rl-validation`, `smoke`, `diagnostic`, `pilot`, `formal`, `rerun`, `analysis`. “Formal” means formally executed, not automatically scientifically admissible.
+Scientific admissibility is documented, not implemented by deletion.
 
-## 14. Q-AHBN2 Reconciliation Stage
+---
 
-Before code modification compare previous Q-AHBN against canonical AHBN. Audit observations, normalization, EWMA, controller score, sigmoid, mode rule, actuator, fanout values/thresholds, realized fanout, eligible neighbours, Gossip, Structured, dynamic-event handling, metrics, logging, configurations, seeds, baselines, aggregation, and statistics.
+# 12. Run Metadata
 
-Classify components: `MATCH`, `DIFFERENT-BUT-VALID`, `MUST-UPDATE`, `INVALIDATES-OLD-RESULTS`, `NEEDS-VERIFICATION`.
+Every run should contain:
 
-Record Component, Previous Q-AHBN, Canonical AHBN, Difference, Scientific impact, Code impact, Result impact, Required action, Evidence location. No code changes before reconciliation approval.
+```text
+RUN.md
+manifest.json
+```
 
-## 15. Q-AHBN2 Design Freeze
+At minimum record:
 
-Audit exact state representation/discretization/count, action space/semantics, reward equation/coefficients/penalties, learning rate, discount factor, epsilon/decay, Q-table initialization/update, episode definition, exploration/exploitation, learning trigger, observation/action intervals, reset/persistence.
+- environment;
+- experiment;
+- event;
+- timestamp;
+- run directory;
+- status;
+- scientific classification.
 
-Classify `UNCHANGED`, `ADAPT`, `INVALIDATED`, `UNRESOLVED`. Use the minimum scientifically justified adaptation necessary for compatibility; do not redesign merely to seek better performance. Once approved: **Q-AHBN2 DESIGN FREEZE.**
+Formal experiments should additionally record where applicable:
 
-## 16. Metric Contract
+- Git commit SHA;
+- software version/tag;
+- configuration;
+- seeds;
+- repetitions;
+- expected runs;
+- completed runs;
+- exclusions;
+- failure information;
+- environment details.
 
-Two classes:
-- Dissemination/AHBN-comparison metrics: final AHBN Scientific Reports definitions authoritative where applicable; only verified implemented metrics such as propagation delay, duplicates, total forwards, delivery/reachability where relevant, recovery time, and resource/utilization measures where relevant.
-- Learning-validation metrics: only what is necessary to establish learning behaviour, potentially reward trajectory, Q updates/value evolution, exploration/exploitation, action distribution, and state-action behaviour.
+---
 
-Do not claim convergence from visual flattening alone. Do not introduce a composite “Adaptation Efficiency” metric unless rigorously approved and necessary.
+# 13. Event Vocabulary
 
-## 17. Manuscript Metric Hierarchy
+Approved vocabulary includes:
 
-Tier A Primary: directly answers the research question. Tier B Supporting: mechanism/boundary interpretation. Tier C Audit/evidence: preserved for integrity/reproducibility. Placement must not change merely because a result is unattractive. Material interpretation-changing evidence must be disclosed appropriately.
+```text
+regression
+parity
+rl-validation
+smoke
+diagnostic
+pilot
+formal
+rerun
+analysis
+```
 
-## 18. Statistical Contract
+`formal` means formally executed.
 
-Follow final AHBN Scientific Reports statistical methodology wherever scientifically applicable. Before formal execution freeze independent runs, seeds, repetitions, aggregation hierarchy, summaries, variability, 95% confidence interval (95% CI), exact CI calculation, paired/unpaired structure, and effect-size/significance procedures where applicable. Never change statistical method after seeing results merely to improve presentation. Report magnitude and uncertainty.
+It does not automatically mean scientifically admissible.
 
-## 19. Scientific Presentation Rule
+---
 
-Communicate: strongest supported finding → mechanism → quantitative evidence → uncertainty → boundary conditions → limitations.
+# 14. Q-AHBN2 Reconciliation Stage
 
-This never permits cherry-picking seeds, excluding valid inconvenient results, redefining metrics, changing baselines/AHBN, manipulating statistics, or hiding materially interpretation-changing evidence. All evidence remains preserved.
+Before code modification, compare previous Q-AHBN against canonical AHBN.
 
-## 20. Reviewer-Lessons Contract
+Audit at minimum:
 
-Proactively distinguish controlled simulation from Kubernetes-native evidence; state exactly what CIs represent; distinguish latency among received messages from network-wide dissemination; distinguish observation from generalization. Avoid unsupported “universally superior”, “optimal”, “robust”, “reliable”, “production-ready”, “guaranteed”, “outperforming”.
+- observations;
+- normalization;
+- EWMA;
+- controller score;
+- sigmoid;
+- mode rule;
+- actuator;
+- fanout values;
+- thresholds;
+- realized fanout;
+- eligible neighbours;
+- Gossip;
+- Structured;
+- dynamic-event handling;
+- metrics;
+- logging;
+- configurations;
+- seeds;
+- baselines;
+- aggregation;
+- statistics.
 
-Requested and realized behaviour must be distinguished. Limitations should address evaluated scale/topology, local observations, Q-table/state-space constraints, training/warm-up, parameter/deployment scope, simulation-vs-Kubernetes differences, and untested conditions. Preserve code version, configuration, seeds, repetitions, raw results, exclusions, and analysis code.
+Classify every component:
 
-## 21. Experimental Scope Rule
+```text
+MATCH
+DIFFERENT-BUT-VALID
+MUST-UPDATE
+INVALIDATES-OLD-RESULTS
+NEEDS-VERIFICATION
+```
 
-Use the minimum matrix required for RO4/Q-AHBN2. Candidate dynamic scenarios from previous Q-AHBN are Failure, Churn, Heterogeneity, but each must be re-verified under canonical AHBN.
+Record:
 
-For each experiment specify research question, baseline, treatment, topology, N, seeds, repetitions, event/parameters, metrics, outputs, aggregation, and validity criteria. Principal comparison is expected to be Frozen AHBN vs Q-AHBN2. Additional baselines require a specific purpose.
+```text
+Component
+Previous Q-AHBN
+Canonical AHBN
+Difference
+Scientific impact
+Code impact
+Result impact
+Required action
+Evidence location
+```
 
-## 22. Test Pipeline
+No code changes before this reconciliation is approved.
+
+---
+
+# 15. Q-AHBN2 Design Freeze
+
+Audit the existing learning mechanism.
+
+Verify exact:
+
+- state representation;
+- state discretization;
+- state count;
+- action space;
+- action semantics;
+- reward equation;
+- reward coefficients;
+- penalty conditions;
+- learning rate;
+- discount factor;
+- epsilon;
+- epsilon decay;
+- Q-table initialization;
+- Q-update;
+- episode definition;
+- exploration/exploitation;
+- learning trigger;
+- observation interval;
+- action interval;
+- reset/persistence.
+
+Classify:
+
+```text
+UNCHANGED
+ADAPT
+INVALIDATED
+UNRESOLVED
+```
+
+Use the minimum scientifically justified adaptation necessary to make previous Q-AHBN compatible with canonical AHBN.
+
+Do not redesign merely to seek better performance.
+
+Once approved:
+
+> Q-AHBN2 DESIGN FREEZE.
+
+---
+
+# 16. Metric Contract
+
+Use two metric classes.
+
+## A. Dissemination / AHBN-comparison metrics
+
+The final AHBN Scientific Reports definitions are authoritative wherever applicable.
+
+Candidate metrics include only verified implemented metrics such as:
+
+- propagation delay;
+- duplicates;
+- total forwards;
+- delivery/reachability measure where scientifically relevant;
+- recovery time;
+- resource/utilization measures where relevant.
+
+Exact definitions must be frozen before formal experiments.
+
+## B. Learning-validation metrics
+
+Use only what is necessary to establish learning behaviour, potentially:
+
+- reward trajectory;
+- Q updates;
+- Q-value evolution;
+- exploration/exploitation;
+- action distribution;
+- state-action behaviour.
+
+Do not claim convergence from visual flattening alone.
+
+Do not introduce a new composite metric such as "Adaptation Efficiency" unless it already has a rigorous, approved mathematical definition and provides necessary information not adequately represented by existing metrics.
+
+---
+
+# 17. Manuscript Metric Hierarchy
+
+Before formal results are known, classify metrics:
+
+## Tier A — Primary
+
+Directly answer the Q-AHBN2 research question.
+
+Expected main-text figures/tables.
+
+## Tier B — Supporting
+
+Help interpret the mechanism or boundary conditions.
+
+May appear in main text, supplementary material, or concise tables.
+
+## Tier C — Audit / evidence
+
+Preserved for scientific integrity and reproducibility but not necessarily shown prominently.
+
+Metric placement must not be changed merely because a result is unattractive.
+
+A result that materially changes the interpretation of Q-AHBN2 must be disclosed appropriately even if it is unfavorable.
+
+---
+
+# 18. Statistical Contract
+
+Follow the final AHBN Scientific Reports statistical methodology wherever scientifically applicable.
+
+Before formal execution freeze:
+
+- number of independent runs;
+- seeds;
+- repetitions;
+- aggregation hierarchy;
+- mean/other summaries;
+- variability measure;
+- 95% confidence interval;
+- exact CI calculation;
+- paired/unpaired structure;
+- effect-size/significance procedures where applicable.
+
+The phrase is:
+
+> 95% confidence interval (95% CI)
+
+Never invent or change the statistical method after seeing results merely to improve presentation.
+
+Report magnitude and uncertainty.
+
+---
+
+# 19. Scientific Presentation Rule
+
+The manuscript should communicate the strongest scientifically supported contribution.
+
+Use:
+
+```text
+strongest supported finding
+        ↓
+mechanism
+        ↓
+quantitative evidence
+        ↓
+uncertainty
+        ↓
+boundary conditions
+        ↓
+limitations
+```
+
+This is strategic scientific communication.
+
+It is NOT permission to cherry-pick seeds, exclude valid inconvenient results, redefine metrics after results, change baselines, alter AHBN, manipulate statistics, or hide evidence that materially changes interpretation.
+
+All evidence remains preserved.
+
+---
+
+# 20. Reviewer-Lessons Contract
+
+Use lessons from the AHBN Scientific Reports review proactively.
+
+`05_REVIEWER_LESSONS.md` should include at minimum:
+
+## Accurate reporting
+
+- distinguish controlled simulation from Kubernetes-native evidence;
+- state exactly what confidence intervals represent;
+- distinguish latency among received messages from network-wide dissemination;
+- distinguish experimental observation from generalization.
+
+## Claim control
+
+Avoid unsupported:
+
+- universally superior;
+- optimal;
+- robust;
+- reliable;
+- production-ready;
+- guaranteed;
+- outperforming.
+
+## Requested vs realized behaviour
+
+If Q-AHBN2 requests an action that topology or resource conditions constrain:
+
+```text
+requested action ≠ realized action
+```
+
+Report the distinction.
+
+## Limitations
+
+Proactively address evaluated scale, topology, local observations, Q-table/state-space constraints, training/warm-up, parameter scope, deployment scope, simulation-vs-Kubernetes differences, and untested conditions.
+
+## Reproducibility
+
+Preserve code version, configuration, seeds, repetitions, raw results, exclusions, and analysis code.
+
+---
+
+# 21. Experimental Scope Rule
+
+The experimental matrix must be the minimum required to answer RO4/Q-AHBN2.
+
+Expected dynamic scenarios from previous Q-AHBN are:
+
+```text
+Failure
+Churn
+Heterogeneity
+```
+
+These are NOT automatically accepted.
+
+During reconciliation, verify whether each still answers the Q-AHBN2 research question under canonical AHBN.
+
+For every experiment specify:
+
+```text
+Research question
+Baseline
+Treatment
+Topology
+N
+Seed(s)
+Repetitions
+Dynamic event
+Parameters
+Metrics
+Expected outputs
+Statistical aggregation
+PASS/FAIL validity criteria
+```
+
+The principal comparison is expected to be:
+
+```text
+Frozen AHBN
+      vs
+Q-AHBN2
+```
+
+Additional baselines must have a specific scientific purpose.
+
+---
+
+# 22. Test Pipeline
+
+The approved order is:
 
 ```text
 Development
- ↓
+    ↓
 Regression
- ↓
+    ↓
 Canonical AHBN parity
- ↓
+    ↓
 Q-learning logic tests
- ↓
+    ↓
 Deterministic RL sanity validation
- ↓
+    ↓
 Smoke tests
- ↓
+    ↓
 Completeness Gate
- ↓
+    ↓
 Formal experiments
- ↓
+    ↓
 Aggregation validation
- ↓
+    ↓
 Statistical validation
- ↓
+    ↓
 Scientific interpretation
 ```
 
-Do not skip directly to formal experiments. Distinguish implementation failure, experimental failure, and scientifically valid negative result.
+Do not skip directly to formal experiments.
 
-## 23. Completeness Gate — Last Point for Experiment Design
+Every stage has explicit PASS/FAIL criteria.
 
-After smoke and before formal experiments ask whether the frozen matrix will provide all evidence needed to answer Q-AHBN2 and prepare the manuscript. Check scenarios, baselines, metrics/logging, seeds/repetitions, statistics, learning evidence, Kubernetes evidence, and metadata.
-
-If YES: **EXPERIMENT CONTRACT FROZEN.** After this: no new scenarios/metrics/baselines/hyperparameter exploration/AHBN changes/Q-AHBN2 redesign/scope expansion. Additional execution only corrects a documented validity problem.
-
-## 24. Formal Experiment Rule
-
-Formal experiments execute only the frozen contract. Never rerun merely because results are disappointing. Valid rerun reasons: implementation defect, configuration error, corrupted/incomplete output, methodological inconsistency, or infrastructure failure affecting validity. Document every rerun/exclusion. After completion: **FORMAL DATASET FREEZE.**
-
-## 25. Aggregation Rule
+Distinguish:
 
 ```text
-Raw evidence → validated runs → aggregation script → summary statistics → 95% CI → tables → figures
+IMPLEMENTATION FAILURE
+EXPERIMENTAL FAILURE
+SCIENTIFICALLY VALID NEGATIVE RESULT
 ```
 
-Never manually copy numbers where reproducible automation is available. Validate expected run counts before interpretation.
+A scientifically valid negative result is not a software failure.
 
-## 26. Scientific Interpretation Rule
+---
 
-Do not begin with “Did Q-AHBN2 win?” Ask what happened, magnitude, uncertainty, consistency, conditions, plausible mechanism, supported/unsupported conclusions, and exposed limitations. Legitimate outcomes include clear/modest/metric-specific/condition-dependent improvement, trade-off, approximate equivalence, no improvement, or degradation.
+# 23. Completeness Gate — Last Point for Experiment Design
 
-## 27. Claim–Evidence Register
+After smoke testing and BEFORE formal experiments ask:
 
-Before manuscript finalization every major claim maps to Claim, Experiment, Metric, Numerical result, 95% CI/statistical evidence, Figure/Table, Boundary, Limitation. Store in `07_CLAIM_EVIDENCE_MATRIX.md`.
+> If the frozen formal experiment matrix completes successfully, will we possess all evidence necessary to answer the Q-AHBN2 research question and prepare the intended manuscript?
 
-## 28. Q-AHBN2 Paper Identity
+Check all necessary scenarios, baselines, metrics, logging, seeds, repetitions, statistics, learning evidence, Kubernetes evidence, and metadata.
 
-This is not Paper 1/RO1. Previously published work already established cloud-native simulation framework, Kubernetes deployment, Gossip implementation, observability, resource utilization, and scalability. Do not substantially re-explain Kubernetes/GKE/Pods/YAML/generic cloud-native concepts/Gossip fundamentals/previous observability architecture.
+If YES:
 
-Position concisely: “Building upon the cloud-native simulator introduced by Wira et al. (2025), this work proposes and evaluates a reinforcement-learning-enhanced dissemination control mechanism.”
+> EXPERIMENT CONTRACT FROZEN.
 
-## 29. Target Manuscript Structure
+After this gate: no additional scenarios, metrics because results look weak, new baselines because they seem interesting, hyperparameter exploration, AHBN changes, Q-AHBN2 redesign, or scope expansion.
 
-Target approximately 28–35 A4 pages:
-1. Introduction (~3 pp): dissemination trade-off, static limitation, AHBN, learning opportunity, Q-AHBN2, contributions.
-2. Related Work (~3 pp): only dissemination/adaptation/RL literature needed for positioning.
-3. Q-AHBN2 Design (~6–7 pp): concise frozen AHBN foundation, architecture, state/action/reward/parameters/interaction/pseudocode.
-4. Experimental Methodology (~3 pp): Q-AHBN2-specific environment/scenarios/baselines/parameters/seeds/repetitions/metrics/statistics and simulation-vs-Kubernetes distinction.
-5. Learning Validation (~2–3 pp): meaningful learning/adaptation evidence; no unsupported convergence claim.
-6. Controlled Evaluation (~6–7 pp): tentative Failure/Churn/Heterogeneity, subject to experiment freeze.
-7. Kubernetes-Native Realism Validation (~4–5 pp): only required frozen-contract experiments.
-8. Discussion (~2–3 pp): what learning changes, cross-scenario trade-offs, practical implications, limitations.
-9. Conclusion/Future Work (~1–2 pp): answer from actual evidence, not predetermined winners.
+Additional execution is permitted only to correct a documented validity problem.
 
-Figures/tables are provisional and evidence-driven.
+---
 
-## 30. Manuscript Figure/Table Rule
+# 24. Formal Experiment Rule
 
-Every final artifact must support a scientific claim. Consolidate redundant figures. Prefer fewer, stronger, evidence-rich figures.
+Formal experiments execute only the frozen contract.
 
-## 31. Paper Writing Order
+Never rerun merely because results are disappointing.
 
-After experimental freeze:
+Valid rerun reasons include:
+
+- implementation defect;
+- configuration error;
+- corrupted output;
+- incomplete run;
+- methodological inconsistency;
+- infrastructure failure affecting validity.
+
+Every rerun/exclusion must be documented.
+
+After completion:
+
+> FORMAL DATASET FREEZE.
+
+---
+
+# 25. Aggregation Rule
+
+Aggregation must be reproducible:
+
+```text
+Raw evidence
+    ↓
+validated runs
+    ↓
+aggregation script
+    ↓
+summary statistics
+    ↓
+95% CI
+    ↓
+tables
+    ↓
+figures
+```
+
+Never manually copy numbers where an automated reproducible path is available.
+
+Validate expected run counts before interpretation.
+
+---
+
+# 26. Scientific Interpretation Rule
+
+Do NOT begin with:
+
+> Did Q-AHBN2 win?
+
+Begin with:
+
+1. What happened?
+2. What is the magnitude?
+3. What uncertainty surrounds it?
+4. Is it consistent across runs/seeds?
+5. Under what conditions does it occur?
+6. What mechanism plausibly explains it?
+7. What can be concluded?
+8. What cannot be concluded?
+9. What limitation is exposed?
+
+Legitimate outcomes include clear improvement, modest improvement, metric-specific improvement, condition-dependent improvement, trade-off, approximate equivalence, no improvement, and degradation under some conditions.
+
+The scientific contribution is determined from the complete evidence.
+
+---
+
+# 27. Claim–Evidence Register
+
+Before manuscript finalization, every major claim must map to:
+
+```text
+Claim
+Experiment
+Metric
+Numerical result
+95% CI/statistical evidence
+Figure/Table
+Boundary
+Limitation
+```
+
+Store this in:
+
+`07_CLAIM_EVIDENCE_MATRIX.md`
+
+No major quantitative claim should exist without an evidence path.
+
+---
+
+# 28. Q-AHBN2 Paper Identity
+
+This manuscript is NOT Paper 1 / RO1.
+
+The previously published work already established:
+
+- cloud-native simulation framework;
+- Kubernetes deployment;
+- Gossip implementation;
+- observability;
+- resource utilization;
+- scalability analysis.
+
+Do not spend substantial manuscript space re-explaining Kubernetes basics, GKE basics, Pods, YAML, generic cloud-native concepts, Gossip fundamentals already covered, or previously published observability architecture.
+
+Use concise positioning such as:
+
+> Building upon the cloud-native simulator introduced by Wira et al. (2025), this work proposes and evaluates a reinforcement-learning-enhanced dissemination control mechanism.
+
+The Q-AHBN2 paper must stand independently while citing previous infrastructure contributions rather than reproducing them.
+
+---
+
+# 29. Target Manuscript Structure
+
+Target approximately 28–35 A4 pages.
+
+## 1. Introduction — approximately 3 pages
+
+Focus on dissemination trade-off, limitation of static strategies, AHBN as observation-driven adaptation, the limitation/opportunity motivating learning, Q-AHBN2, and contributions.
+
+## 2. Related Work — approximately 3 pages
+
+Focus only on literature needed to position Gossip/structured/hybrid dissemination, adaptive dissemination, RL in networking/P2P/blockchain, and the gap addressed by Q-AHBN2.
+
+## 3. Q-AHBN2 Design — approximately 6–7 pages
+
+The methodological heart: concise frozen AHBN foundation, Q-AHBN2 architecture, state, action, reward, learning parameters, interaction with AHBN, and pseudocode.
+
+## 4. Experimental Methodology — approximately 3 pages
+
+Reference previous cloud-native framework and include only Q-AHBN2-specific experimental question, environment, scenarios, baselines, parameters, seeds/repetitions, metrics, statistical procedure, 95% CI, and controlled-vs-Kubernetes distinction.
+
+## 5. Learning Validation — approximately 2–3 pages
+
+Establish that the implemented agent exhibits meaningful learning/adaptation behaviour. Do not claim convergence unless rigorously demonstrated.
+
+## 6. Controlled Evaluation — approximately 6–7 pages
+
+Tentative subsections, subject to experiment freeze: Failure, Churn, Heterogeneity.
+
+## 7. Kubernetes-Native Realism Validation — approximately 4–5 pages
+
+Include only experiments required by the frozen contract. Clearly distinguish this evidence from controlled simulation and do not repeat RO1 infrastructure explanation.
+
+## 8. Discussion — approximately 2–3 pages
+
+Cover what learning changes relative to AHBN, cross-scenario trade-offs, practical implications within demonstrated scope, and limitations.
+
+## 9. Conclusion and Future Work — approximately 1–2 pages
+
+Answer the research question using actual evidence. Do not use a predetermined winner table. Future work must emerge from demonstrated limitations.
+
+---
+
+# 30. Manuscript Figure/Table Rule
+
+Figures and tables are provisional until evidence freezes.
+
+The old manuscript structure is a design reference, not a mandatory checklist.
+
+Every final figure/table must answer:
+
+> What scientific claim does this artifact support?
+
+If two figures tell essentially the same story, consolidate them.
+
+The objective is fewer, stronger, evidence-rich figures.
+
+---
+
+# 31. Paper Writing Order
+
+After experimental freeze use:
+
+```text
 1. Results tables/figures
 2. Results prose
 3. Q-AHBN2 Design
@@ -319,146 +1146,402 @@ After experimental freeze:
 8. Conclusion
 9. Abstract
 10. Final claim/reviewer audit
+```
 
-## 32. Scientific Reports Pre-Review Gate
+This prevents the narrative from predetermining the findings.
 
-Audit Results, Scope, Statistics, Claims, Mechanism, Limitations, Prior work, and Reproducibility. If any are inadequate, manuscript is not submission-ready.
+---
 
-## 33. Seven-Day Science/Experiment Sprint
+# 32. Scientific Reports Pre-Review Gate
 
-Day 1: source audit + canonical reconciliation; record S00/S01; no code modification before approval.
-Day 2: scientific freeze; design, metric/statistical contracts, minimum experiment matrix.
-Day 3: minimal development + regression + canonical parity.
-Day 4: RL validation.
-Day 5: smoke + Completeness Gate; after PASS freeze experiment contract.
-Days 6–7: formal learning/failure/churn/heterogeneity controlled and required Kubernetes execution; validate, aggregate, compute statistics/95% CI, freeze dataset, begin interpretation.
+Before submission, audit Q-AHBN2 as if the AHBN editor/reviewers were reviewing it again.
 
-## 34. Five-Day Manuscript Sprint
+Check results accuracy, simulation-vs-Kubernetes scope, meaning of every 95% CI, proportional claims, requested-vs-realized actions, explicit limitations, proper acknowledgement of prior RO1/AHBN work without self-plagiarism, and reproducibility from code/config/raw evidence.
 
-Day 8: figures/tables/Results. Day 9: Design/Methodology/Learning Validation. Day 10: Discussion/Limitations/Implications. Day 11: Introduction/Related Work/Conclusion/Abstract. Day 12: claim-evidence, reviewer, citation, figure/table, reproducibility, formatting and compilation audits.
+If any answer is NO:
 
-## 35. Scope-Control Rule
+> manuscript not submission-ready.
 
-Operate under **MINIMUM SCIENTIFICALLY SUFFICIENT WORK**. Add work only if necessary for scientific validity, RO4, manuscript acceptance/reproducibility, or correction of a genuine defect. Otherwise do not add it.
+---
 
-## 36. Automation Rule
+# 33. Seven-Day Science/Experiment Sprint
 
-Automate repetition, not scientific judgment. Appropriate automation includes directories, manifests, loops, run counts, CI calculations, aggregation, figures/tables, parity and regression checks. Human/ChatGPT judgment remains required for scope, exclusions, interpretation, conclusions, and methodology changes.
+Approximately five morning hours per day.
 
-## 37. Cost-Control Rule
+## Day 1 — Source Audit + Canonical Reconciliation
+
+Deliver repository inventory, authority hierarchy verification, previous Q-AHBN vs canonical AHBN reconciliation, and invalidated old results identified.
+
+Record:
+
+`S00_SOURCE_AUDIT.md`  
+`S01_RECONCILIATION.md`
+
+No code modification before approval.
+
+## Day 2 — Q-AHBN2 Scientific Freeze
+
+Deliver final state/action/reward audit, Q-AHBN2 design contract, metric hierarchy, statistical contract, and minimum experiment matrix.
+
+Record:
+
+`02_QAHBN2_DESIGN_FREEZE.md`  
+`03_EXPERIMENT_CONTRACT.md`  
+`04_STATISTICAL_CONTRACT.md`
+
+## Day 3 — Development + Regression
+
+Perform only required changes, then regression and canonical AHBN parity.
+
+Record:
+
+`S03_DEVELOPMENT.md`  
+`S04_REGRESSION_PARITY.md`
+
+## Day 4 — RL Validation
+
+Test states, actions, reward, Q update, exploration/exploitation, and deterministic sanity.
+
+Record:
+
+`S05_RL_VALIDATION.md`
+
+## Day 5 — Smoke + Completeness Gate
+
+Smoke every intended formal path. Verify logging, outputs, metadata, aggregation compatibility, learning evidence, and GKE path where required.
+
+Then perform the COMPLETENESS GATE.
+
+Record:
+
+`S06_SMOKE.md`  
+`S07_COMPLETENESS_GATE.md`
+
+After PASS:
+
+> EXPERIMENT CONTRACT FROZEN.
+
+## Days 6–7 — Formal Execution + Analysis
+
+Execute the frozen learning validation where formal evidence is required, failure, churn, heterogeneity, controlled simulation, and Kubernetes-native experiments required by the contract.
+
+Then validate outputs, aggregate, compute statistics/95% CI, freeze dataset, and begin evidence-first interpretation.
+
+Records:
+
+`S08_FORMAL_EXP10Q.md`  
+`S09_FORMAL_EXP11Q.md`  
+`S10_FORMAL_EXP12Q.md`  
+`S11_AGGREGATION.md`  
+`S12_INTERPRETATION.md`
+
+At completion:
+
+> FORMAL EVIDENCE FROZEN.
+
+---
+
+# 34. Five-Day Manuscript Sprint
+
+## Day 8
+
+Freeze figures, tables, and Results.
+
+## Day 9
+
+Write/finalize Q-AHBN2 Design, Experimental Methodology, and Learning Validation.
+
+## Day 10
+
+Write Discussion, Limitations, and Practical implications.
+
+## Day 11
+
+Write Introduction, Related Work, Conclusion, and Abstract.
+
+## Day 12
+
+Perform claim-evidence audit, reviewer-lesson audit, citation audit, figure/table audit, reproducibility audit, formatting, and final compilation.
+
+Record:
+
+`S13_MANUSCRIPT.md`  
+`S14_SUBMISSION_AUDIT.md`
+
+---
+
+# 35. Scope-Control Rule
+
+The project operates under:
+
+> MINIMUM SCIENTIFICALLY SUFFICIENT WORK.
+
+Before adding any task ask:
+
+1. Is it necessary for scientific validity?
+2. Is it necessary to answer RO4?
+3. Is it necessary for manuscript acceptance/reproducibility?
+4. Is it necessary because an existing test revealed a genuine defect?
+
+If all answers are NO:
+
+> DO NOT ADD IT.
+
+---
+
+# 36. Automation Rule
+
+Automate repetition, not scientific judgment.
+
+Good automation includes directory creation, manifests, loops, run counts, CI calculations, aggregation, figures, tables, parity checks, and regression checks.
+
+Human/ChatGPT scientific judgment remains required for experimental scope, exclusions, interpretation, conclusions, and methodology changes.
+
+---
+
+# 37. Cost-Control Rule
 
 Priority:
+
 ```text
 1. ChatGPT directly
 2. ChatGPT + human execution
 3. ChatGPT + bounded Codex/agent execution
 ```
 
-Use agents only when they materially save time or reduce mechanical error.
+Do not use execution agents merely because code is involved.
 
-## 38. Failure Handling
+Use them when they materially save time or reduce mechanical error.
+
+---
+
+# 38. Failure Handling
+
+When something fails:
 
 ```text
-STOP → classify failure → record evidence → minimum correction → approve → execute → verify → continue
+STOP
+ ↓
+classify failure
+ ↓
+record evidence
+ ↓
+determine minimum correction
+ ↓
+approve correction
+ ↓
+execute
+ ↓
+verify
+ ↓
+continue
 ```
 
-Never casually redesign the project in response to failure.
+Never respond to failure by casually redesigning the project.
 
-## 39. Freeze Hierarchy
+---
+
+# 39. Freeze Hierarchy
+
+The project progressively freezes:
 
 ```text
 AHBN FREEZE
- ↓
+    ↓
 Q-AHBN2 DESIGN FREEZE
- ↓
+    ↓
 METRIC FREEZE
- ↓
+    ↓
 STATISTICAL FREEZE
- ↓
+    ↓
 EXPERIMENT FREEZE
- ↓
+    ↓
 CODE/FORMAL-RUN FREEZE
- ↓
+    ↓
 DATASET FREEZE
- ↓
+    ↓
 INTERPRETATION FREEZE
- ↓
+    ↓
 MANUSCRIPT FREEZE
- ↓
+    ↓
 SUBMISSION
 ```
 
-Later stages must not silently modify earlier frozen stages. Reopening requires explicit documentation and scientific justification.
+Later stages must not silently modify earlier frozen stages.
 
-## 40. Master Workflow
+Any required reopening must be explicitly documented and scientifically justified.
+
+---
+
+# 40. Master Workflow
 
 ```text
-START
-→ Load master/control documents
-→ Verify latest repositories
-→ Audit previous Q-AHBN
-→ Compare against canonical AHBN
-→ Reconciliation approved
-→ Freeze Q-AHBN2 design
-→ Freeze metrics/statistics/experiment matrix
-→ Minimal development
-→ Regression
-→ AHBN parity
-→ RL validation
-→ Smoke
-→ COMPLETENESS GATE
-→ EXPERIMENT FREEZE
-→ Formal experiments
-→ Artifact verification
-→ DATASET FREEZE
-→ Aggregation + 95% CI
-→ Evidence-first interpretation
-→ CLAIM–EVIDENCE MATRIX
-→ Results/figures/tables
-→ Manuscript
-→ Scientific Reports reviewer-style audit
-→ Reproducibility audit
-→ MANUSCRIPT FREEZE
-→ SUBMIT
+PRE-S00 INFRASTRUCTURE
+  │
+  ├─ repo freeze
+  ├─ GitHub smoke
+  ├─ Drive evidence smoke
+  └─ workflow PASS
+  │
+  ▼
+Load master/control documents
+  │
+  ▼
+Verify latest repositories
+  │
+  ▼
+S00 Source Audit
+  │
+  ▼
+Audit previous Q-AHBN
+  │
+  ▼
+Compare against canonical AHBN
+  │
+  ▼
+Reconciliation approved
+  │
+  ▼
+Freeze Q-AHBN2 design
+  │
+  ▼
+Freeze metrics/statistics/experiment matrix
+  │
+  ▼
+Minimal development
+  │
+  ▼
+Regression
+  │
+  ▼
+AHBN parity
+  │
+  ▼
+RL validation
+  │
+  ▼
+Smoke
+  │
+  ▼
+COMPLETENESS GATE
+  │
+  ▼
+EXPERIMENT FREEZE
+  │
+  ▼
+Formal experiments
+  │
+  ▼
+Artifact verification
+  │
+  ▼
+DATASET FREEZE
+  │
+  ▼
+Aggregation + 95% CI
+  │
+  ▼
+Evidence-first interpretation
+  │
+  ▼
+CLAIM–EVIDENCE MATRIX
+  │
+  ▼
+Results/figures/tables
+  │
+  ▼
+Manuscript
+  │
+  ▼
+Scientific Reports reviewer-style audit
+  │
+  ▼
+Reproducibility audit
+  │
+  ▼
+MANUSCRIPT FREEZE
+  │
+  ▼
+SUBMIT
 ```
 
-## 41. Master Principles
+---
 
-1. Canonical AHBN is frozen and immutable.
-2. Q-AHBN2 learns over AHBN; it does not rewrite AHBN.
-3. Repository and artifact state outrank AI memory and narration.
-4. ChatGPT is the primary AI assistant; human execution is the default.
-5. Codex and other agents are bounded secondary operators.
-6. The human researcher retains scientific authority.
-7. Experiment design freezes before formal execution.
-8. Formal evidence is never rerun merely because it is disappointing.
-9. All evidence is preserved even when not all evidence appears prominently in the manuscript.
-10. Present the strongest supported scientific story without overstating or manipulating evidence.
-11. Use AHBN Scientific Reports methodology/reviewer lessons wherever applicable.
-12. Separate controlled simulation from Kubernetes-native evidence.
-13. Report uncertainty, including 95% CI, with clearly defined scope.
-14. Automate repetitive work; do not automate scientific judgment.
-15. Use .md control records as persistent external AI/project memory.
-16. Do not repeat RO1 contributions in the Q-AHBN2 manuscript.
-17. Use minimum scientifically sufficient experiments, metrics, figures, and prose.
-18. Negative, mixed, modest, or condition-dependent results are scientific results—not automatic failures.
-19. No scope expansion after Completeness Gate unless scientific validity requires it.
-20. Finish the research that was designed rather than continuously redesigning it.
+# 41. Master Principles
 
-## 42. New-Session Bootstrap Prompt
+1. **Canonical AHBN is frozen and immutable.**
+2. **Q-AHBN2 learns over AHBN; it does not rewrite AHBN.**
+3. **Repository and artifact state outrank AI memory and narration.**
+4. **ChatGPT is the primary AI assistant; human execution is the default.**
+5. **Codex and other agents are bounded secondary operators.**
+6. **The human researcher retains scientific authority.**
+7. **Experiment design freezes before formal execution.**
+8. **Formal evidence is never rerun merely because it is disappointing.**
+9. **All evidence is preserved even when not all evidence appears prominently in the manuscript.**
+10. **Present the strongest supported scientific story without overstating or manipulating the evidence.**
+11. **Use AHBN Scientific Reports methodology and reviewer lessons wherever applicable.**
+12. **Separate controlled simulation from Kubernetes-native evidence.**
+13. **Report uncertainty, including 95% CI, with clearly defined scope.**
+14. **Automate repetitive work; do not automate scientific judgment.**
+15. **Use `.md` control records as persistent external AI/project memory.**
+16. **Do not repeat RO1 contributions in the Q-AHBN2 manuscript.**
+17. **Use the minimum scientifically sufficient experiments, metrics, figures, and prose.**
+18. **Negative, mixed, modest, or condition-dependent results are scientific results—not automatic failures.**
+19. **No scope expansion after the Completeness Gate unless scientific validity requires it.**
+20. **Finish the research that was designed rather than continuously redesigning it.**
+21. **GitHub is authoritative for code/control state; the designated Google Drive evidence hierarchy is authoritative for preserved experimental evidence.**
+22. **Incidental DriveFS synchronization of the local workspace is not, by itself, scientific evidence promotion.**
 
-> Read `docs/00_SOURCE_AUTHORITY_REGISTER.md`, `docs/00_QAHBN2_MASTER.md`, `docs/01_CANONICAL_AHBN_CONTRACT.md`, and the current stage `.md` file before doing anything else.
+---
+
+# 42. New-Session Bootstrap Prompt
+
+At the beginning of any new ChatGPT/Codex/AI session use:
+
+> Read `docs/00_QAHBN2_MASTER.md`, `01_CANONICAL_AHBN_CONTRACT.md`, and the current stage `.md` file before doing anything else.
 >
-> Treat those files and verified repository state as authoritative. Verify the latest approved Q-AHBN2 state. Canonical AHBN is frozen and MUST NOT be altered.
+> Treat those files and the verified repository state as authoritative.
 >
-> If code, manuscript text, chat context, AI memory, or previous Q-AHBN assumptions conflict with canonical AHBN or frozen contracts, STOP and report the conflict.
+> Verify that you are operating on the latest approved Q-AHBN2 state.
 >
-> Perform only the current permitted stage. Do not expand experiments, alter frozen parameters, add metrics, modify seeds/repetitions, change statistical procedures, or redesign Q-AHBN2 without explicit researcher approval.
+> Canonical AHBN is frozen and MUST NOT be altered.
 >
-> At completion, verify actual artifacts and update the appropriate stage record with evidence, result, decision, limitations, status, and next permitted task.
+> If current code, manuscript text, chat context, AI memory, or previous Q-AHBN assumptions conflict with canonical AHBN or the frozen contracts, STOP and report the conflict.
+>
+> Perform only the current permitted stage.
+>
+> Do not expand the experiment, alter frozen parameters, add metrics, modify seeds/repetitions, change statistical procedures, or redesign Q-AHBN2 without explicit researcher approval.
+>
+> At completion, verify the actual artifacts and update the appropriate stage `.md` record with evidence, result, decision, limitations, status, and next permitted task.
 
-## 43. Definition of Done
+---
 
-Q-AHBN2 is complete when canonical AHBN parity is verified; Q-AHBN2 design is frozen; regression/RL validation/smoke/Completeness Gate pass; formal experiments complete; raw evidence is preserved; aggregation/statistics and required 95% CIs are complete; scientific interpretation and claim-evidence mapping are frozen; manuscript, reviewer-style audit, and reproducibility audit are complete; and the manuscript is submission-ready.
+# 43. Definition of Done
+
+Q-AHBN2 is complete when:
+
+- canonical AHBN parity is verified;
+- Q-AHBN2 design is frozen;
+- regression and RL validation pass;
+- smoke testing passes;
+- Completeness Gate passes;
+- formal experiments complete;
+- raw evidence is preserved;
+- aggregation is reproducible;
+- statistical analysis is complete;
+- 95% CIs are correctly reported where required;
+- scientific interpretation is frozen;
+- claim-evidence mapping is complete;
+- manuscript is complete;
+- reviewer-style audit passes;
+- reproducibility audit passes;
+- manuscript is submission-ready.
+
+At that point:
 
 > **STOP EXPERIMENTING. SUBMIT THE PAPER.**
+
+
+## Consolidation note
+
+This canonical file consolidates the former `docs/00_QAHBN2_MASTER.md` and `docs/qahbn2/00_QAHBN2_MASTER.md` authorities. The nested path is retired to eliminate competing master documents. Scientifically relevant operating rules from both versions are retained here; current stage status is governed by the current stage/control document and verified repository state rather than historical entry-gate wording.
