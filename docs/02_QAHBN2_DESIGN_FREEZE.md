@@ -1016,6 +1016,201 @@ The candidate action space should therefore be assessed against these questions:
 
 The action-space freeze will be made only after this RO2-grounded counterfactual analysis is recorded.
 
+### 02.5.4 RO2-grounded Action-Space Counterfactual Analysis
+
+#### Purpose
+
+This analysis compares the historical ControlSim action contract, the historical GKE action contract, and the candidate Q-AHBN2 primitive action contract while holding the canonical condition and canonical AHBN proposal fixed.
+
+It is a design-level counterfactual analysis. It evaluates what each action contract is capable of changing; it does not claim that one contract produces better dissemination performance.
+
+#### Contracts compared
+
+Historical ControlSim actions:
+- `ahbn_base`: fanout 0, weight 0, tau x1.00
+- `more_structured`: fanout -1, weight -0.12, tau x0.90
+- `more_gossip`: fanout +1, weight +0.12, tau x1.08
+- `duplicate_suppression`: fanout 0, weight -0.08, tau x0.95
+- `recovery_push`: fanout +1, weight +0.18, tau x1.15
+- `resource_conservative`: fanout 0, weight -0.05, tau x0.95
+
+Historical ControlSim recomputed mode after modifying weight and clipped fanout to configured historical minimum/maximum bounds.
+
+Historical GKE actions:
+- `ahbn_base`: fanout 0, no preferred mode
+- `more_structured`: fanout -1, force Structured
+- `more_gossip`: fanout +1, force Gossip
+- `duplicate_suppression`: fanout -1, force Structured
+- `recovery_push`: fanout +2, force Gossip
+- `resource_conservative`: fanout -1, preserve mode
+
+Historical GKE clipped the resulting fanout to its configured minimum/maximum bounds.
+
+Candidate Q-AHBN2 primitives under analysis:
+- `KEEP`: preserve mode and fanout
+- `FANOUT_DOWN`: preserve mode, fanout -1
+- `FANOUT_UP`: preserve mode, fanout +1
+- `SET_GOSSIP`: set Gossip, preserve fanout
+- `SET_STRUCTURED`: set Structured, preserve fanout
+
+These candidate actions are NOT frozen by this analysis.
+
+#### Controlled situations
+
+Six situations are selected to represent the RO2 problem structure and canonical AHBN boundaries. Continuous examples are illustrative canonical inputs; the AHBN proposal follows the frozen controller.
+
+| Case | Canonical continuous state (d,l,u,c) | Discrete state | z | AHBN proposal | RO2 purpose |
+|---|---|---|---:|---|---|
+| C1 | (0.10,0.10,0.10,0.10) | (L,L,L,L) | +0.20 | Gossip, k=3 | ordinary/low pressure |
+| C2 | (0.72,0.18,0.43,0.09) | (H,L,M,L) | -0.02 | Structured, k=3 | duplicate-dominant pressure |
+| C3 | (0.10,0.70,0.70,0.40) | (L,H,H,M) | +1.70 | Gossip, k=6 | latency/utilization/churn pressure + upper S5 boundary |
+| C4 | (0.80,0.10,0.10,0.10) | (H,L,L,L) | -0.50 | Structured, k=2 | duplicate pressure + lower S5 boundary |
+| C5 | (0.20,0.45,0.35,0.20) | (L,M,M,L) | +0.80 | Gossip, k=4 | intermediate Gossip operating point |
+| C6 | (0.60,0.10,0.10,0.10) | (M,L,L,L) | -0.30 | Structured, k=2 | Structured operating point near low fanout |
+
+C1 is not interpreted as a physical “normal” regime; it is simply a low-bin test vector. C2-C6 are likewise controlled design vectors, not claims that these exact values reproduce an RO2 experiment.
+
+#### Case C2 — same state, same AHBN proposal, different action semantics
+
+For C2:
+
+```text
+state = (H,L,M,L)
+AHBN = (Structured,3)
+```
+
+Historical ControlSim can alter fanout, canonical weight-derived mode, and tau in one selected action. Historical GKE can simultaneously force a mode and alter fanout. The candidate contract separates these interventions:
+
+```text
+KEEP            -> (Structured,3)
+FANOUT_DOWN     -> (Structured,2)
+FANOUT_UP       -> (Structured,4)
+SET_GOSSIP      -> (Gossip,3)
+SET_STRUCTURED  -> (Structured,3)
+```
+
+Thus the candidate contract can distinguish a mode refinement from a fanout refinement. Historical bundled actions cannot always provide that attribution.
+
+#### Case C3 — upper fanout boundary
+
+For C3:
+
+```text
+AHBN = (Gossip,6)
+```
+
+A historical implementation with `max_fanout=6` maps a positive fanout request back to 6:
+
+```text
+6 + 1 -> clip -> 6
+```
+
+and historical GKE `recovery_push` can similarly request `6+2` but be clipped by its configured maximum.
+
+Under the candidate primitive semantics:
+
+```text
+FANOUT_UP: 6 + 1 -> 7
+```
+
+The value 7 is not a new arbitrary global cap; it is the direct result of the +1 refinement applied to the canonical S5 maximum. Actual forwarding remains eligibility bounded.
+
+This case exposes why the historical Q-layer upper cap can make a nominal positive action ineffective at the canonical boundary.
+
+#### Case C4/C6 — lower fanout boundary
+
+For an AHBN proposal with `k_AHBN=2`, a -1 primitive produces a requested fanout of 1 if the candidate contract permits the direct unit refinement:
+
+```text
+2 - 1 -> 1
+```
+
+Historical implementations instead depend on their configured minimum-fanout clipping. This boundary therefore requires an explicit Q-AHBN2 contract rather than silently inheriting historical bounds.
+
+#### Transformation-property comparison
+
+Let:
+
+```text
+T_a(p_AHBN) -> p_Q
+```
+
+denote the post-AHBN action transformation.
+
+For design analysis define:
+
+```text
+E(a,p) = 1 if T_a(p) != p, otherwise 0
+```
+
+for proposal-level effectiveness, and define intervention dimensionality over the controlled quantities:
+
+```text
+D(a) =
+    I(mode changes) +
+    I(fanout changes) +
+    I(weight changes) +
+    I(tau changes)
+```
+
+The candidate primitive contract is designed so that `D(a) <= 1` for each action, with `D(KEEP)=0`. Historical ControlSim actions may have `D(a)>1`; historical GKE mode-preferring actions may simultaneously alter mode and fanout.
+
+This does not prove better performance. It establishes cleaner intervention attribution.
+
+#### RO2-grounded interpretation
+
+RO2 identifies two control-relevant dissemination mechanisms:
+
+1. forwarding intensity affects the latency/duplication/communication-cost trade-off;
+2. Gossip and Structured dissemination expose complementary robustness/efficiency characteristics under changing conditions.
+
+The candidate action contract maps directly onto those two control dimensions:
+
+```text
+RO2 forwarding-intensity trade-off
+        -> FANOUT_DOWN / FANOUT_UP
+
+RO2 Gossip-vs-Structured trade-off
+        -> SET_GOSSIP / SET_STRUCTURED
+
+AHBN already suitable
+        -> KEEP
+```
+
+This provides a direct RO2 -> RO3 -> RO4 trace without importing historical tau, weight manipulation, disturbance labels, or outcome-named heuristics.
+
+#### Findings
+
+F1 — Historical ControlSim and GKE do not provide one parity-preserved action specification.
+
+F2 — Historical ControlSim bundles multiple control dimensions in several actions, weakening attribution.
+
+F3 — Historical GKE also bundles mode preference and fanout change in several actions.
+
+F4 — Historical semantic labels such as `recovery_push` and `duplicate_suppression` encode intended effects/contexts rather than neutral primitive operations.
+
+F5 — Historical fanout clipping can make positive actions ineffective at the canonical S5 upper boundary.
+
+F6 — A primitive candidate contract can preserve AHBN, adjust forwarding intensity, or adjust dissemination mode independently.
+
+F7 — The candidate controls map directly to the two dissemination-control dimensions motivated by RO2: forwarding intensity and Gossip/Structured operating behavior.
+
+F8 — This analysis supports interpretability, canonical compatibility, and cross-platform parity; it does NOT establish empirical performance superiority.
+
+#### Counterfactual-analysis decision
+
+The counterfactual analysis supports carrying the five primitive actions forward as the preferred candidate for final Section 02.5 freeze:
+
+```text
+KEEP
+FANOUT_DOWN
+FANOUT_UP
+SET_GOSSIP
+SET_STRUCTURED
+```
+
+However, the action-space gate remains PENDING until the explicit lower-bound semantics and final invariants are accepted and recorded.
+
 ### 02.5.4 Current gate status
 
 ```text
