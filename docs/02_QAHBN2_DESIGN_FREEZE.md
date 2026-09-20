@@ -892,7 +892,7 @@ This freeze does not define Q-AHBN2 actions, reward, learning coefficients, expl
 
 ---
 
-## 02.5 Next Controlled Decision — Action Space
+## 02.5 Action Space — FROZEN
 
 The next permitted design task is to reconcile the historical Q-AHBN action sets against the frozen post-AHBN intervention boundary and define the minimum scientifically justified Q-AHBN2 action space.
 
@@ -1053,7 +1053,7 @@ Candidate Q-AHBN2 primitives under analysis:
 - `SET_GOSSIP`: set Gossip, preserve fanout
 - `SET_STRUCTURED`: set Structured, preserve fanout
 
-These candidate actions are NOT frozen by this analysis.
+These five actions are the action-space candidates evaluated by this counterfactual analysis and are frozen by the final contract in Section 02.5.5.
 
 #### Controlled situations
 
@@ -1209,12 +1209,230 @@ SET_GOSSIP
 SET_STRUCTURED
 ```
 
-However, the action-space gate remains PENDING until the explicit lower-bound semantics and final invariants are accepted and recorded.
+The lower-bound semantics and final invariants are resolved in the final contract below.
 
-### 02.5.4 Current gate status
+### 02.5.5 Final Q-AHBN2 Action-Space Contract — FROZEN
+
+#### Action set
+
+The Q-AHBN2 action space is frozen as:
 
 ```text
-02.5 ACTION SPACE GATE: PENDING
+A = {
+    KEEP,
+    FANOUT_DOWN,
+    FANOUT_UP,
+    SET_GOSSIP,
+    SET_STRUCTURED
+}
 ```
 
-No proposed action set is frozen by this subsection. The next controlled task is the RO2-grounded Action-Space Counterfactual Analysis, followed by the final action-space decision.
+Let the untouched canonical AHBN proposal be:
+
+```text
+p_AHBN = (mode_AHBN, k_AHBN)
+```
+
+where:
+
+```text
+mode_AHBN ∈ {Gossip, Structured}
+k_AHBN ∈ {2,3,4,5,6}
+```
+
+Q-AHBN2 applies exactly one selected action after the complete AHBN proposal and before canonical eligible-target realization.
+
+The frozen action transforms are:
+
+```text
+KEEP:
+    (mode_Q, k_Q) = (mode_AHBN, k_AHBN)
+
+FANOUT_DOWN:
+    (mode_Q, k_Q) = (mode_AHBN, k_AHBN - 1)
+
+FANOUT_UP:
+    (mode_Q, k_Q) = (mode_AHBN, k_AHBN + 1)
+
+SET_GOSSIP:
+    (mode_Q, k_Q) = (Gossip, k_AHBN)
+
+SET_STRUCTURED:
+    (mode_Q, k_Q) = (Structured, k_AHBN)
+```
+
+Equivalently:
+
+```text
+T_a(m,k) =
+    (m,k)            if a = KEEP
+    (m,k-1)          if a = FANOUT_DOWN
+    (m,k+1)          if a = FANOUT_UP
+    (Gossip,k)       if a = SET_GOSSIP
+    (Structured,k)   if a = SET_STRUCTURED
+```
+
+#### Scientific derivation
+
+RO2 establishes the dissemination problem and identifies two control-relevant dimensions used by the subsequent AHBN design:
+
+1. forwarding intensity, represented operationally by requested fanout; and
+2. Gossip-versus-Structured dissemination behavior.
+
+RO3 canonical AHBN operationalizes these dimensions as `k_AHBN` and `mode_AHBN`.
+
+RO4 Q-AHBN2 therefore does not introduce unrelated dissemination controls. Its learned intervention is restricted to:
+
+- preserving the complete AHBN proposal;
+- changing forwarding intensity by one unit while preserving mode; or
+- changing dissemination mode while preserving requested fanout.
+
+Thus four refinement actions derive from the two RO2/RO3 control dimensions, while `KEEP` exists because Q-AHBN2 is an enhancement over AHBN and must be able to leave an already-suitable AHBN proposal untouched.
+
+This derivation establishes scientific relevance and attribution; it does not claim that any action is optimal or that Q-AHBN2 will outperform AHBN. Those are empirical questions for later learning validation and formal experiments.
+
+#### Frozen fanout boundary
+
+Canonical AHBN remains unchanged:
+
+```text
+k_AHBN ∈ {2,3,4,5,6}
+```
+
+The Q layer is a one-step refinement:
+
+```text
+Delta k_Q ∈ {-1,0,+1}
+```
+
+Therefore the reachable Q-requested fanout is:
+
+```text
+k_Q ∈ {1,2,3,4,5,6,7}
+```
+
+or:
+
+```text
+1 <= k_Q <= 7
+```
+
+This range is derived from the frozen AHBN range plus the frozen unit refinement:
+
+```text
+[2,6] + [-1,+1] -> [1,7]
+```
+
+The values 1 and 7 are therefore not newly tuned AHBN parameters and do not alter S5.
+
+Lower boundary:
+
+```text
+k_AHBN = 2
+FANOUT_DOWN
+2 - 1 -> k_Q = 1
+```
+
+This is permitted. RO2 independently evaluated `k=1` as a meaningful forwarding-intensity operating point; this does not imply that `k=1` is always beneficial.
+
+Upper boundary:
+
+```text
+k_AHBN = 6
+FANOUT_UP
+6 + 1 -> k_Q = 7
+```
+
+This is permitted. The historical Q-layer upper clip to 6 SHALL NOT be inherited.
+
+Q-AHBN2 does not define a learned `k_Q=0` action. A zero requested fanout would constitute intentional forwarding suppression rather than the frozen one-step refinement. Realized forwarding may nevertheless be zero when no eligible target exists.
+
+#### Requested-versus-realized forwarding
+
+The three fanout quantities SHALL remain distinct:
+
+```text
+k_AHBN -> k_Q -> k_real
+```
+
+where:
+
+- `k_AHBN` is the untouched canonical S5 proposal;
+- `k_Q` is the post-AHBN Q-AHBN2 requested fanout;
+- `k_real` is the actual realized forwarding count after canonical mode-specific eligibility.
+
+The execution bound remains:
+
+```text
+0 <= k_real <= min(k_Q, |N_e|)
+```
+
+Q-AHBN2 changes only the requested post-AHBN proposal. It does not bypass canonical eligible-target realization.
+
+#### Frozen action-space invariants
+
+A1 — Canonical AHBN SHALL complete its full deterministic computation before any Q-AHBN2 action is applied.
+
+A2 — The untouched `(mode_AHBN,k_AHBN)` proposal SHALL remain separately observable and reconstructable.
+
+A3 — Exactly one Q-AHBN2 action SHALL be selected per Q decision event.
+
+A4 — `KEEP` SHALL modify neither mode nor requested fanout.
+
+A5 — `FANOUT_DOWN` and `FANOUT_UP` SHALL modify requested fanout only and SHALL NOT modify mode.
+
+A6 — `SET_GOSSIP` and `SET_STRUCTURED` SHALL modify mode only and SHALL NOT modify requested fanout.
+
+A7 — A mode-setting action MAY be a proposal-level no-op when AHBN already selected that mode. The selected action and whether the proposal changed SHALL be logged separately.
+
+A8 — The Q layer SHALL NOT modify canonical `z`, `w=sigmoid(z)`, EWMA state, normalization, S5 thresholds, or canonical AHBN mode computation.
+
+A9 — The Q layer SHALL NOT introduce or modify `tau`.
+
+A10 — Historical outcome-labelled actions such as `recovery_push`, `duplicate_suppression`, and `resource_conservative` SHALL NOT be inherited as Q-AHBN2 actions.
+
+A11 — Deterministic failure/recovery overrides SHALL NOT be represented or logged as learned Q actions.
+
+A12 — The historical Q-layer upper fanout cap of 6 SHALL NOT be inherited. `FANOUT_UP` applied to `k_AHBN=6` SHALL yield `k_Q=7`.
+
+A13 — `FANOUT_DOWN` applied to `k_AHBN=2` SHALL yield `k_Q=1`.
+
+A14 — Q-AHBN2 SHALL NOT deliberately request `k_Q=0` under this action contract.
+
+A15 — Realized forwarding SHALL remain bounded by canonical mode-specific eligible-target realization: `0 <= k_real <= min(k_Q, |N_e|)`.
+
+A16 — Action semantics SHALL be identical across ControlSim and Kubernetes.
+
+A17 — The implementation and trace SHALL distinguish `mode_AHBN`, `k_AHBN`, selected `a_Q`, `mode_Q`, `k_Q`, and `k_real`.
+
+A18 — No action in this frozen contract is interpreted as intrinsically beneficial. Which action is useful in a state is an empirical learning question.
+
+#### Q-table consequence
+
+Section 02.4 freezes 81 discrete Q states and this section freezes 5 actions. Therefore the tabular learner contains:
+
+```text
+|S| = 81
+|A| = 5
+|Q| = 81 x 5 = 405 state-action values
+```
+
+This is a structural consequence of the frozen state and action contracts, not evidence of learning quality or convergence.
+
+### 02.5.6 Action Space Gate
+
+```text
+02.5 ACTION SPACE GATE: PASS / FROZEN
+```
+
+The Q-AHBN2 action space SHALL NOT be changed during later reward, hyperparameter, implementation, smoke, pilot, or formal-experiment stages merely to improve observed performance.
+
+Reopening Section 02.5 requires a documented contradiction with a higher-authority frozen contract, an implementation impossibility that invalidates the specified semantics, or another genuine scientific inconsistency. Any reopening SHALL be explicit and auditable.
+
+The next permitted design task is:
+
+```text
+02.6 REWARD DESIGN
+```
+
+Reward design SHALL be reconciled from the RO2 scientific objective, historical ControlSim reward, historical GKE reward, and the frozen Q-AHBN2 state/action architecture. No Q-AHBN2 implementation is authorized merely by freezing Section 02.5.
