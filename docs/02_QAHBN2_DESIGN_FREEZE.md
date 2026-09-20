@@ -1444,3 +1444,242 @@ The next permitted design task is:
 ```
 
 Reward design SHALL be reconciled from the RO2 scientific objective, historical ControlSim reward, historical GKE reward, and the frozen Q-AHBN2 state/action architecture. No Q-AHBN2 implementation is authorized merely by freezing Section 02.5.
+
+
+---
+
+## 02.6 Reward Design — Evidence Reconstruction and Reconciliation
+
+**Status:** PENDING — evidence reconstruction only. No Q-AHBN2 reward equation is proposed or frozen in this subsection.
+
+### 02.6.1 Controlled question
+
+The reward-design question is:
+
+> What outcome signal should Q-AHBN2 use to learn whether a post-AHBN refinement was useful, given the RO2 scientific objective and the incompatible historical ControlSim and GKE reward implementations?
+
+The method is evidence-first:
+
+```text
+RO2 scientific objective
+        |
+        +--> historical ControlSim reward
+        |
+        +--> historical GKE reward
+        |
+        v
+semantic reconciliation
+        |
+        v
+requirements / incompatibilities
+        |
+        v
+candidate Q-AHBN2 reward     [NOT YET]
+```
+
+No historical reward is inherited merely because it existed in code.
+
+### 02.6.2 RO2 scientific objective
+
+Authoritative RO2 source artifact:
+
+```text
+Characterizing_Latency_Duplication_Trade_off_in_Blockchain_Dissemination__A_Systematic_Study_of_Gossip_and_Structured_Broadcast_04Apr2026_2304.pdf
+```
+
+RO2 treats dissemination as a multi-objective trade-off among propagation performance, communication redundancy/cost, delivery/coverage, and robustness under changing network conditions.
+
+Its reduced analytical formulation is:
+
+```text
+min J_LD = alpha * L_tilde + beta * D_tilde
+subject to DeliveryRatio >= rho_min
+```
+
+The manuscript also expresses the trade-off as minimizing expected propagation delay and duplicate transmissions subject to a minimum expected delivery ratio.
+
+This formulation is an analytical framework for characterizing static dissemination operating points. It is NOT itself a Q-AHBN2 reward function, and its alpha/beta terms SHALL NOT be copied into Q-AHBN2 without a separate reward-design justification.
+
+RO2 provides three important reward-design constraints:
+
+1. lower duplication alone is not sufficient evidence of improvement;
+2. lower delay alone is not sufficient evidence of improvement;
+3. delivery/coverage must not be sacrificed merely to obtain apparently lower redundancy or delay.
+
+This is particularly important under heterogeneous forwarding capacity, where RO2 observed that fewer duplicates can result from weaker dissemination rather than genuine efficiency improvement.
+
+### 02.6.3 Historical ControlSim reward reconstruction
+
+Source:
+
+```text
+wwiras/q-ahbn
+v1.0/ahbn/q_learning.py
+```
+
+The active historical ControlSim reward computes:
+
+```text
+dup   = clip(d_hat, 0, 1)
+lat   = clip(l_hat / latency_ref, 0, 2)
+load  = clip(u_hat / load_ref, 0, 2)
+red   = clip(r_hat, 0, 2)
+churn = clip(rho_hat, 0, 2)
+cap   = clip(c_hat, 0, 2)
+
+delivery_estimate = clip(state.delivery_estimate, 0, 1)
+
+recovery_pressure =
+    min(1,
+        0.5 * min(1, lat)
+      + 0.5 * min(1, churn))
+```
+
+The active base reward is:
+
+```text
+R_CS =
+    15.00 * delivery_estimate
+  -  0.15 * dup
+  -  0.10 * lat
+  -  0.05 * load
+  -  0.05 * red
+  -  0.05 * churn
+  -  0.05 * cap
+```
+
+with an additional poor-delivery penalty:
+
+```text
+if delivery_estimate < 0.80:
+    R_CS -= 2.0
+```
+
+and a dynamic-condition bonus:
+
+```text
+if churn >= 0.20 or lat >= 1.20:
+    R_CS += 4.0 * recovery_pressure
+```
+
+Important reconstruction notes:
+
+- delivery is deliberately dominant in the active historical weights;
+- the file comments state that this was a redesign after an earlier behavior reduced duplicates while also reducing delivery;
+- the historical reward includes variables that are not part of the frozen canonical Q-AHBN2 state semantics, including `r_hat`, historical `rho_hat`, and historical capacity-semantic `c_hat`;
+- its historical `c_hat` MUST NOT be confused with canonical AHBN `c_hat`, which means churn/instability pressure;
+- the dynamic recovery bonus embeds an explicit heuristic preference under high historical churn/latency;
+- the historical 0.80 delivery threshold and all numerical coefficients are historical evidence, not Q-AHBN2 defaults.
+
+### 02.6.4 Historical GKE reward reconstruction
+
+Source:
+
+```text
+wwiras/q-ahbn_gke
+app/q_learning_gke.py
+```
+
+The historical GKE learner computes:
+
+```text
+new_count = max(0, recv_count - duplicate_count)
+
+delivery_proxy =
+    new_count / max(1, recv_count)
+
+dup =
+    clip(duplicate_ratio, 0, 1)
+
+f_norm =
+    min(2, forward_count / 20)
+
+recovery =
+    clip(fail_pressure, 0, 1)
+```
+
+and:
+
+```text
+R_GKE =
+    8.00 * delivery_proxy
+  - 0.30 * dup
+  - 0.10 * f_norm
+  + 2.00 * recovery
+```
+
+Important reconstruction notes:
+
+- `delivery_proxy` is a local new-reception fraction, not the experiment-level delivery ratio;
+- `fail_pressure` is historical GKE state semantics and is not part of canonical AHBN;
+- forwarding count is explicitly penalized as a local communication-cost proxy;
+- propagation latency is not an explicit term in this reward;
+- the coefficients differ materially from ControlSim;
+- the GKE reward therefore does not preserve reward parity with the historical ControlSim learner.
+
+### 02.6.5 Three-way comparison
+
+| Dimension | RO2 scientific objective | Historical ControlSim reward | Historical GKE reward |
+|---|---|---|---|
+| Delivery / coverage | Constraint / robustness requirement | Strong positive `delivery_estimate` + penalty below 0.80 | Positive local `delivery_proxy` |
+| Duplication | Explicit objective to reduce | Explicit penalty | Explicit penalty |
+| Propagation latency | Explicit objective to reduce | Explicit penalty | Not explicit |
+| Forwarding / transmissions | Communication cost considered in experiments/broader interpretation | No active forwarding term in final reward | Explicit normalized forwarding penalty |
+| Utilization/load | Dynamic-condition concern, not reduced RO2 objective term | Explicit penalty | Not explicit in reward |
+| Churn/failure | Robustness condition affecting dissemination | Churn penalty + conditional recovery bonus | Positive failure-pressure bonus |
+| Capacity/heterogeneity | Evaluated dynamic condition | Historical capacity penalty | Not explicit in reward |
+| Special threshold/bonus | Minimum delivery concept in analytical formulation; no RL coefficient prescribed | delivery < 0.80 penalty; high-churn/high-latency bonus | failure-pressure bonus |
+| Semantics portable to canonical AHBN? | Scientific objective is portable; metric realization still requires contract | No — contains obsolete/historical state semantics | No — contains GKE-specific fail-pressure/local proxy semantics |
+
+### 02.6.6 Reconciliation findings
+
+RWD-F1 — The two historical implementations do NOT define one parity-preserved reward specification.
+
+RWD-F2 — Both historical rewards prioritize dissemination effectiveness positively and penalize duplication, which is directionally consistent with the RO2 requirement that redundancy reduction must not be achieved by simply weakening dissemination.
+
+RWD-F3 — Only the historical ControlSim reward explicitly penalizes latency, despite latency being a central RO2 objective.
+
+RWD-F4 — Only the historical GKE reward explicitly penalizes forwarding count, providing a local communication-cost signal distinct from duplicate ratio.
+
+RWD-F5 — Historical ControlSim `r_hat`, `rho_hat`, and capacity-semantic `c_hat`, and historical GKE `fail_pressure`, cannot be imported directly because their semantics do not match the frozen canonical Q-AHBN2 contract.
+
+RWD-F6 — The historical ControlSim 0.80 poor-delivery threshold, recovery bonus, and all historical numerical weights are design choices from the old learner; RO2 does not independently validate those values.
+
+RWD-F7 — RO2's reduced objective is not a ready-made RL reward. It is an analytical statement that delay and duplication should be reduced subject to adequate delivery/coverage.
+
+RWD-F8 — RO2 warns against interpreting reduced duplication as improvement when dissemination becomes weaker. Therefore a future Q-AHBN2 reward must contain a mechanism that prevents the learner from receiving a misleadingly favorable signal merely by reducing forwarding and consequently reducing coverage.
+
+RWD-F9 — Reward inputs and evaluation metrics must remain semantically distinguished. In particular, a local online learning signal must not be called experiment-level `delivery_ratio` unless it actually measures that quantity.
+
+RWD-F10 — No new Q-AHBN2 reward equation or coefficient is justified by this reconstruction alone.
+
+### 02.6.7 Reward-design requirements derived from evidence
+
+Before proposing a candidate equation, the Q-AHBN2 reward SHALL satisfy the following requirements:
+
+```text
+RD1  Preserve dissemination effectiveness / coverage as a primary concern.
+RD2  Penalize unnecessary duplication/redundancy.
+RD3  Represent latency only through a clearly defined online signal if such a signal
+     is available at the learning decision/update lifecycle.
+RD4  Do not reward apparent efficiency obtained by dissemination collapse.
+RD5  Use signals whose semantics can be made equivalent across ControlSim and Kubernetes.
+RD6  Do not import obsolete r_hat, rho_hat, capacity-c_hat, fail_pressure, or hidden
+     recovery-phase semantics.
+RD7  Do not embed action labels or deterministic recovery heuristics in the reward.
+RD8  Distinguish online/local reward signals from experiment-level evaluation metrics.
+RD9  Normalize or bound reward components so numerical scale, rather than scientific
+     priority, does not accidentally dominate learning.
+RD10 Treat all coefficients, thresholds, penalties, and bonuses as new design decisions
+     requiring explicit justification rather than historical inheritance.
+```
+
+### 02.6.8 Current gate
+
+```text
+02.6 REWARD EVIDENCE RECONSTRUCTION: PASS
+02.6 REWARD EQUATION: NOT YET PROPOSED
+02.6 REWARD DESIGN GATE: PENDING
+```
+
+The next controlled task is to determine the minimum scientifically justified online reward components and their exact semantics before choosing coefficients or thresholds.
