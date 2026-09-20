@@ -902,6 +902,14 @@ That decision must preserve canonical AHBN's untouched proposal, retain the mand
 
 The Q-AHBN2 action-space decision MUST be grounded in the dissemination problem established by RO2, rather than treated as an isolated reinforcement-learning design choice.
 
+**RO2 source artifact used for this design decision:**
+
+```text
+Characterizing_Latency_Duplication_Trade_off_in_Blockchain_Dissemination__A_Systematic_Study_of_Gossip_and_Structured_Broadcast_04Apr2026_2304.pdf
+```
+
+This exact 04 Apr 2026 RO2 draft is the evidentiary source for the RO2-grounded action-space rationale and counterfactual analysis in this section. Future reconciliation SHALL use this exact artifact/version unless a later source-authority decision explicitly supersedes it.
+
 The RO2 draft, *Characterizing Latency–Duplication Trade-off in Blockchain Dissemination: A Systematic Study of Gossip and Structured Broadcast* (04 Apr 2026 draft), characterizes dissemination as a multi-objective trade-off among propagation delay, communication redundancy/overhead, and delivery robustness. Its experiments show that static Gossip and Structured dissemination occupy different operating regions and that their behavior changes with fanout, topology density, cluster-head configuration/stress, churn, and forwarding-capacity heterogeneity.
 
 The relevant RO2 design chain is:
