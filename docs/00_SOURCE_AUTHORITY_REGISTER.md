@@ -486,3 +486,40 @@ The next document is:
 It must be derived from the R1 canonical boundary and authoritative sources in Sections 2–4 of this register. It must **not** import legacy Q-AHBN state, action, reward, recovery, or target-realization semantics.
 
 Only after the canonical AHBN contract is independently frozen should Q-AHBN2 learning-layer design be specified.
+
+
+---
+
+## 12. S02-F Learning-Parameter Historical Reconciliation — 2026-09-21
+
+This amendment records the required comparison of the Q-AHBN2 learning-parameter decision against the historical ControlSim and Kubernetes Q-AHBN sources. It does **not** promote either historical implementation to design authority.
+
+| Parameter | Historical ControlSim Q-AHBN | Historical GKE Q-AHBN | Q-AHBN2 disposition |
+|---|---:|---:|---|
+| learning rate `alpha_Q` | 0.25 | 0.25 | **RETAIN 0.25** |
+| discount factor `gamma` | 0.90 | 0.90 | **RETAIN 0.90** |
+| epsilon start | 0.30 | 0.20 | **RECONCILE to 0.30** |
+| epsilon minimum | 0.03 | 0.03 | **RETAIN 0.03** |
+| multiplicative epsilon decay | 0.995 | 0.995 | **RETAIN 0.995** |
+| historical decay trigger | each learner decision/update cycle | each learner decision/update cycle | **RETAIN logical per-decision decay; exact lifecycle placement must remain consistent with H** |
+
+Evidence:
+- historical ControlSim: `wwiras/q-ahbn@7bca26213cbfb2099cff8b2f659008b8e040b238`, especially `v1.0/ahbn/q_learning.py` and Exp10/11/12 Q-AHBN configs;
+- historical Kubernetes: `wwiras/q-ahbn_gke@a9af5ccb9b564d5f2c2daaeeb9a04b191780cdbe`, especially `app/q_learning_gke.py` and Exp10/11/12 Q-AHBN configs.
+
+Reconciliation rationale:
+1. `alpha_Q=0.25`, `gamma=0.90`, `epsilon_min=0.03`, and `epsilon_decay=0.995` are common historical values across both environments and no canonical-AHBN incompatibility was found.
+2. The only cross-platform numerical disagreement is epsilon start (0.30 versus 0.20). Q-AHBN2 uses **0.30** as the single logical contract because the ControlSim learning-validation stage is the primary learning environment and the higher of the two already-used historical values provides bounded initial exploration without inventing a new tuned value.
+3. RO2 establishes that the target dissemination problem changes materially across failure/overload, churn, heterogeneity, and fanout-related trade-offs. That evidence supports retaining non-zero exploration and temporal learning; it does **not** identify a uniquely optimal RL hyperparameter. Therefore the minimum-adaptation rule is used rather than parameter tuning.
+4. These are Q-learning-layer parameters only. They do not alter canonical AHBN EWMA `alpha=0.30`; implementation MUST use distinct naming to prevent ambiguity.
+
+L1 arithmetic check for the retained epsilon schedule:
+
+```text
+epsilon_n = max(0.03, 0.30 * 0.995^n)
+floor is reached after approximately 460 decay steps.
+```
+
+This is a bounded sanity check, not an optimization claim. The exact episode/reset/persistence semantics remain governed by S02-H.
+
+**Authority impact:** no R1/R2/R3 disposition reversal. Historical implementations remain Level-3 evidence; Q-AHBN2 parameter values become authoritative only through the frozen DOC-02 design contract.
