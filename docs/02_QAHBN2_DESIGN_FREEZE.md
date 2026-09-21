@@ -2804,11 +2804,94 @@ The next stage is **not inferred from numbering**. The existing 02.6 roadmap/cur
 
 ---
 
+### 02.6.6 Reward Magnitude and Zero-Evidence Handling — IN PROGRESS
+
+This gate resolves only the minimum reward-magnitude and zero-forwarding-evidence decisions required after the frozen 02.6.5 aggregation architecture. It does **not** freeze the final executable \(R_t\).
+
+#### 02.6.6.1 Equal-vs-Differentiated Magnitude Principle — PASS / FROZEN
+
+RO2 establishes that productive (`NEW`), redundant (`DUPLICATE`), and unsuccessful (`FAILED`) forwarding have different operational meanings, but it does not establish a quantitative or ordinal relative severity suitable for unequal reward weighting. Therefore, equal initial absolute magnitude is adopted as the minimum-assumption choice rather than introducing unsupported relative weighting.
+
+At the relative-magnitude level only:
+
+$$
+\boxed{
+NEW:+1,\qquad DUPLICATE:-1,\qquad FAILED:-1
+}
+$$
+
+These are **relative units**, not yet an executable final reward equation. Equal magnitude does not mean that the three outcomes are semantically or operationally equivalent.
+
+$$
+\boxed{\textbf{02.6.6.1 Equal-vs-Differentiated Magnitude Principle = EQUAL INITIAL ABSOLUTE MAGNITUDE / PASS / FROZEN}}
+$$
+
+#### 02.6.6.2 Common Reward Scale — PASS / FROZEN
+
+The outcome components are already normalized for \(F_t>0\), and 02.6.6.1 freezes equal initial absolute magnitude. No scientific requirement justifies introducing an additional common multiplier. Unit scale is therefore retained as the minimum-assumption choice and no extra tuning parameter is introduced.
+
+$$
+\boxed{
+\textbf{02.6.6.2 Common Reward Scale}
+=
+\textbf{UNIT SCALE / NO ADDITIONAL SCALING / PASS / FROZEN}
+}
+$$
+
+This is not a claim that a coefficient of one has been empirically optimized; it means that no additional common reward-scaling parameter is introduced.
+
+#### 02.6.6.3 \(F_t=0\) / NO_FORWARDING_EVIDENCE Handling — PASS / FROZEN
+
+The frozen 02.6.5 semantics establish:
+
+$$
+F_t=0
+\Rightarrow
+NEW_t=DUPLICATE_t=FAILED_t=0
+\Rightarrow
+\mathrm{NO\_FORWARDING\_EVIDENCE}.
+$$
+
+No forwarding outcome exists from which the selected action can be evaluated. Absence of evidence is not equivalent to observing a neutral reward:
+
+$$
+\boxed{\text{NO EVIDENCE}\neq\text{ZERO REWARD}}
+$$
+
+Therefore:
+
+$$
+\boxed{
+\begin{aligned}
+F_t=0
+&\Rightarrow \texttt{NO\_FORWARDING\_EVIDENCE}\\
+&\Rightarrow \textbf{NO REWARD VALUE ASSIGNED}\\
+&\Rightarrow \textbf{NO REWARD-BEARING Q-UPDATE}.
+\end{aligned}}
+$$
+
+Accordingly:
+
+$$
+\boxed{
+\textbf{02.6.6.3}
+=
+\textbf{SKIP REWARD-BEARING Q-UPDATE WHEN }F_t=0
+\ /\ \textbf{PASS / FROZEN}
+}
+$$
+
+This introduces no synthetic `FAILED`, artificial \(0/0=0\) convention, special bonus, penalty, coefficient, or additional reward component. Q-AHBN2 neither rewards nor penalizes an action when no forwarding-outcome evidence exists.
+
+The final \(R_t\) remains **NOT FROZEN**. Reward bounds/range and numerical safety, deterministic micro-cases, and the final 02.6 closure audit remain unresolved.
+
+---
+
 ### 02.6.8 Current Gate and Progress Checklist
 
-This subsection is the operational guide/checklist for the current \`02.6 Reward Construction\` stage. It summarizes the authoritative frozen decisions above; it does **not** replace or modify their scientific content.
+This subsection is the operational guide/checklist for the current `02.6 Reward Construction` stage. It summarizes the authoritative frozen decisions above; it does **not** replace or modify their scientific content.
 
-> **Current position:** \`02.6.5 — Reward Component Aggregation Structure = PASS / COMPLETE / FROZEN\`. Before opening any hypothetical next numbered design stage, inspect the existing 02.6 roadmap and identify the minimum already-planned post-02.6.5 decision.
+> **Current position:** `02.6.6.1--02.6.6.3 = PASS / FROZEN`. The final executable \(R_t\) is **NOT FROZEN**. The next unresolved area in the documented remaining-work roadmap is reward bounds/range and numerical safety.
 
 ### 02.6.8.1 Full progress map
 
@@ -2817,109 +2900,81 @@ This subsection is the operational guide/checklist for the current \`02.6 Reward
 | **02.6 evidence reconstruction** | Reconcile historical reward evidence before redesign | **PASS** |
 | **02.6.1** | **Reward Event Semantics** | **Substantively complete** |
 | 02.6.1A | Action lifetime | **PASS / FROZEN** |
-| 02.6.1B-1 | Terminal outcome semantics: \`NEW\`, \`DUPLICATE\`, \`FAILED\`, \`F\` | **PASS / FROZEN** |
+| 02.6.1B-1 | Terminal outcome semantics: `NEW`, `DUPLICATE`, `FAILED`, `F` | **PASS / FROZEN** |
 | 02.6.1B-2 | Outcome instrumentation + attribution-window closure | **PASS / FROZEN** |
 | **02.6.2** | **Reward Component Selection** | **PASS / FROZEN** |
-| 02.6.2.1 | \`NEW\` admissibility | **INCLUDE / FROZEN** |
-| 02.6.2.2 | \`DUPLICATE\` admissibility | **INCLUDE / FROZEN** |
-| 02.6.2.3 | \`FAILED\` admissibility | **INCLUDE / FROZEN** |
-| 02.6.2.4 | \`F\` admissibility | **INCLUDE / FROZEN** |
+| 02.6.2.1--02.6.2.4 | `NEW`, `DUPLICATE`, `FAILED`, `F` admissibility | **INCLUDE / FROZEN** |
 | 02.6.2.5 | Component decision matrix | **PASS / FROZEN** |
 | **02.6.3** | **Reward Component Direction** | **PASS / FROZEN** |
-| 02.6.3.1 | \`NEW\` direction | **POSITIVE / FROZEN** |
-| 02.6.3.2 | \`DUPLICATE\` direction | **NEGATIVE / FROZEN** |
-| 02.6.3.3 | \`FAILED\` direction | **NEGATIVE / FROZEN** |
-| 02.6.3.4 | \`F\` direction | **NEUTRAL / NON-DIRECT / FROZEN** |
+| 02.6.3.1--02.6.3.3 | `NEW` positive; `DUPLICATE` negative; `FAILED` negative | **FROZEN** |
+| 02.6.3.4 | `F` direction | **NEUTRAL / NON-DIRECT / FROZEN** |
 | 02.6.3.5 | Direction matrix | **PASS / FROZEN** |
 | **02.6.4** | **Reward Component Representation** | **PASS / FROZEN** |
-| — | \`NEW/F\`, \`DUPLICATE/F\`, \`FAILED/F\` for \`F>0\` | **FROZEN** |
-| — | \`F\` not accepted as directly comparable fourth outcome | **FROZEN** |
+| — | `NEW/F`, `DUPLICATE/F`, `FAILED/F` for `F>0` | **FROZEN** |
 | **02.6.5** | **Reward Component Aggregation Structure** | **PASS / COMPLETE / FROZEN** |
 | 02.6.5.1 | Component dependency audit | **PASS / FROZEN** |
 | 02.6.5.2 | Double-counting audit | **PASS / FROZEN** |
 | 02.6.5.3 | Aggregation architecture decision | **PASS / COMPLETE / FROZEN** |
-| 02.6.5.3A | \`F\` as independent direct reward term | **REJECT / FROZEN** |
-| 02.6.5.3B | \`F\` as normalization basis | **ACCEPT / FROZEN** |
-| 02.6.5.3B.1(a) | Can \`F=0\` occur? | **YES / FROZEN** |
-| 02.6.5.3B.1(b) | Meaning of \`F=0\` | **NO FORWARDING-OUTCOME EVIDENCE / FROZEN** |
-| 02.6.5.3B.1(c) | Computational encoding of \`F=0\` | **CONDITIONAL REPRESENTATION / FROZEN** |
-| 02.6.5.3C | Modifier/reference role | **REFERENCE ACCEPTED; REWARD MODIFIER REJECTED / FROZEN** |
-| 02.6.5.3C.1 | Information necessity | **PASS / FROZEN** |
-| 02.6.5.3C.2 | Information coverage | **PASS / FROZEN** |
-| 02.6.5.3C.3 | Reference vs modifier | **REFERENCE SUFFICIENT; MODIFIER NOT JUSTIFIED / FROZEN** |
-| 02.6.5.3D | Constraint/context-only role | **REDUNDANT / NO ADDITIONAL ROLE / FROZEN** |
-| 02.6.5.3D.1 | Role redundancy audit | **NO DISTINCT ROLE / PASS / FROZEN** |
-| 02.6.5.3E | No final reward role | **SUPERSEDED BY A--D / NO SEPARATE ROLE / FROZEN** |
-| 02.6.5.3E.1 | Alternative viability audit | **NO INDEPENDENT ALTERNATIVE REMAINS / PASS / FROZEN** |
-| **Post-02.6.5** | Inspect existing roadmap before opening the next design gate | **NEXT CONTROLLED ACTION** |
-| Remaining 02.6 | Executable reward formulation and only the minimum necessary closure gates | **BLOCKED pending roadmap inspection** |
+| — | `F` normalization basis + realized-effort reference/context | **ACCEPT / FROZEN** |
+| — | `F` independent direct reward term / reward modifier | **REJECT / FROZEN** |
+| **02.6.6** | **Reward magnitude and zero-evidence handling** | **IN PROGRESS** |
+| 02.6.6.1 | Equal-vs-differentiated magnitude principle | **EQUAL INITIAL ABSOLUTE MAGNITUDE / PASS / FROZEN** |
+| 02.6.6.2 | Common reward scale | **UNIT SCALE / NO ADDITIONAL SCALING / PASS / FROZEN** |
+| 02.6.6.3 | `F=0` / `NO_FORWARDING_EVIDENCE` handling | **NO REWARD VALUE; NO REWARD-BEARING Q-UPDATE / PASS / FROZEN** |
+| **Next controlled area** | Reward bounds/range and numerical safety | **NEXT** |
+| Remaining 02.6 | Deterministic micro-cases; final closure audit; executable reward contract only when prerequisite gates are complete | **BLOCKED / PENDING** |
 | **02.6 overall** | **Reward Construction** | **IN PROGRESS** |
 
 ### 02.6.8.2 Where exactly are we?
 
-\`\`\`text
+```text
 02.6 Reward Construction
 │
 ├── 02.6.1 Event Semantics                 PASS / FROZEN
 ├── 02.6.2 Component Selection             PASS / FROZEN
 ├── 02.6.3 Component Direction             PASS / FROZEN
 ├── 02.6.4 Component Representation        PASS / FROZEN
+├── 02.6.5 Aggregation Structure           PASS / COMPLETE / FROZEN
 │
-└── 02.6.5 Aggregation Structure           PASS / COMPLETE / FROZEN
-      │
-      ├── .1 Dependency Audit              PASS / FROZEN
-      ├── .2 Double-Counting Audit         PASS / FROZEN
-      │
-      └── .3 Aggregation Architecture      PASS / COMPLETE / FROZEN
-            ├── A Direct term              REJECT / FROZEN
-            ├── B Normalization basis      ACCEPT / FROZEN
-            ├── C Reference/context        ACCEPT / FROZEN
-            │   └── Reward modifier        REJECT / FROZEN
-            ├── D Additional constraint    REDUNDANT / FROZEN
-            └── E No final role            SUPERSEDED / FROZEN
-\`\`\`
+└── 02.6.6 Reward Magnitude / Zero Evidence
+      ├── .1 Equal absolute magnitude      PASS / FROZEN
+      ├── .2 Unit scale                    PASS / FROZEN
+      └── .3 F=0 handling                  PASS / FROZEN
+             └── NO reward-bearing update
+```
 
-The authoritative identity remains:
+The frozen post-02.6.5 decisions are:
 
 $$
-F_t=NEW_t+DUPLICATE_t+FAILED_t.
+\boxed{
+\begin{aligned}
+&|NEW|=|DUPLICATE|=|FAILED| \quad \text{at the initial relative-magnitude level};\\
+&\text{common scale}=1 \quad \text{(no additional scaling parameter)};\\
+&F_t=0\Rightarrow\mathrm{NO\_FORWARDING\_EVIDENCE}
+\Rightarrow\text{no reward value and no reward-bearing Q-update}.
+\end{aligned}}
 $$
 
-The frozen role architecture for \(F_t\) is:
-
-| Role for \(F_t\) | Frozen decision |
-|---|---|
-| Independent direct fourth reward term | **REJECTED** |
-| Normalization basis | **ACCEPTED** |
-| Absolute realized-effort information | **RETAINED** |
-| Context/reference evidence | **ACCEPTED** |
-| Reward-magnitude modifier | **REJECTED** |
-| Additional constraint mechanism | **NO ADDITIONAL ROLE** |
-| Complete exclusion / no role anywhere | **SUPERSEDED** |
+These decisions do **not** yet constitute the final executable \(R_t\).
 
 ### 02.6.8.3 Immediate controlled action
 
-Do **not** invent or open a hypothetical \`02.6.6\` from memory.
+The next unresolved area from the documented 02.6 remaining-work roadmap is:
 
-The next controlled action is:
+> **Reward bounds/range and any necessary numerical-safety rule.**
 
-> **Inspect the existing 02.6 roadmap/current design plan and determine the minimum already-planned decision that follows the now-frozen 02.6.5 Aggregation Structure.**
+Do not jump directly to the final reward equation. First determine the minimum controlled decision needed to establish the reward range/bounds implied by the frozen representation, directions, equal relative magnitude, unit scale, and \(F_t=0\) handling.
 
-This inspection must distinguish the earlier evidence-reconstruction headings numbered 02.6.1--02.6.7 from the later controlled reward-construction gates, so numbering alone MUST NOT be used to infer the next design step.
-
-Until that roadmap inspection is complete, weights, coefficients, relative severity, thresholds, bonuses, penalties, executable reward mathematics, explicit \(F_t=0\) reward handling, and final \(R_t\) remain **BLOCKED**.
+Until that gate is resolved, deterministic micro-cases and final 02.6 closure remain **BLOCKED**.
 
 ### 02.6.8.4 Remaining closure work
 
-Completion of 02.6.5 does **not** complete 02.6 Reward Construction.
+The relative-magnitude/common-scale issue and explicit \(F_t=0\) reward handling are now resolved.
 
-The remaining work must be limited to the **minimum scientifically necessary gates** required to produce an executable and reproducible reward contract. Based on the existing design requirements, the unresolved topics include, only where required by the selected architecture:
+The remaining work is limited to:
 
-1. executable reward formulation;
-2. relative magnitudes / coefficients if the selected formulation requires them;
-3. explicit reward handling for the already-frozen \(F_t=0\) / \`NO_FORWARDING_EVIDENCE\` condition;
-4. reward bounds/range and any necessary numerical-safety rule;
-5. deterministic micro-cases demonstrating consistency with the frozen semantics, directions, dependency, representation, and double-counting safeguards;
-6. final 02.6 closure audit.
+1. reward bounds/range and any necessary numerical-safety rule;
+2. deterministic micro-cases demonstrating consistency with the frozen semantics, directions, dependency, representation, magnitude, scaling, zero-evidence, and double-counting safeguards;
+3. final executable reward-contract reconciliation and 02.6 closure audit.
 
-The exact numbering and order of those remaining gates are **not frozen by this progress map**. They must be reconciled against the existing roadmap before the next gate is opened.
+The final \(R_t\) MUST NOT be declared frozen until these remaining gates are completed.
