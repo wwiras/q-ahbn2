@@ -575,3 +575,130 @@ activate Accelerated Block A — State Representation Freeze.
 # 16. One-line operating rule
 
 > **Protect validity aggressively; treat conventional choices efficiently; stop optimizing during design; freeze and execute.**
+
+
+---
+
+# 17. Delegated Scientific Execution and Audit Protocol
+
+## 17.1 Purpose
+
+To reduce conversational overhead without reducing scientific rigor, bounded verification and reconciliation work may be executed by the assistant against the authoritative repository contracts. The user retains governance over substantive scientific decisions.
+
+> **Assistant executes and documents bounded verification; user reviews and governs substantive scientific decisions.**
+
+This protocol applies immediately to the remainder of 02.6 and continues through later Q-AHBN2 design, implementation verification, and audit work where appropriate.
+
+## 17.2 Authority order
+
+Every work package MUST be checked against the relevant authority chain before a recommendation is made:
+
+1. `docs/00_SOURCE_AUTHORITY_REGISTER.md`;
+2. `docs/01_CANONICAL_AHBN_CONTRACT.md`;
+3. frozen decisions in `docs/02_QAHBN2_DESIGN_FREEZE.md`;
+4. the current master completion contract/progress list;
+5. applicable RO2 evidence and frozen experiment findings;
+6. implementation/tests/logs produced under the frozen contracts.
+
+No convenience, schedule pressure, pilot result, or desired performance outcome may override a higher authority.
+
+## 17.3 Work-package cycle
+
+For every active gate or bounded block:
+
+1. **READ** — fetch the latest authoritative GitHub documents and confirm the current gate.
+2. **CONTRACT** — identify the master-list item, its inputs, constraints, expected output, and exit condition.
+3. **EXECUTE** — perform the required reasoning, reconciliation, deterministic checks, code/log inspection, or bounded verification.
+4. **DISCOVERED CHECKS** — if an unexpected check is necessary, classify and log it before allowing it to alter the roadmap.
+5. **RECOMMEND** — produce a compact review packet with evidence checked, results, contradictions/warnings, assumptions introduced, and recommended status.
+6. **RECORD** — update the detailed scientific record, evidence/log references, and master progress list.
+7. **ADVANCE** — identify the next documented READY gate. Do not invent a new gate from memory.
+
+Repeat until the governing contract's exit condition is reached.
+
+## 17.4 Delegation levels
+
+| Level | Work type | Assistant authority | User role |
+|---|---|---|---|
+| L1 | Mechanical verification, arithmetic, deterministic known-answer cases, consistency reconciliation, repository/status cross-check | Execute, document, and mark verification result | Review/challenge as desired |
+| L2 | Conventional design/implementation choice already bounded by frozen scientific constraints | Analyze, test where needed, document, recommend | Accept, question, or reject before substantive freeze |
+| L3 | New scientific assumption; change to reward meaning, AHBN, experimental validity, metric meaning, comparison fairness, or formal protocol | Stop at decision boundary; document alternatives and recommendation | Explicit decision required before freeze |
+
+A long chain of L1 checks does not require synchronous user walkthrough. The evidence remains available in GitHub for review.
+
+## 17.5 Unexpected-gate rule
+
+Unexpected work does not automatically become a new user-facing gate. An unexpected check may be executed and logged directly when it is L1 verification required to establish validity of an already-authorized contract.
+
+Each discovered check MUST record:
+
+```text
+DISCOVERED CHECK
+Origin:
+Reason:
+Classification: L1 / L2 / L3
+Validity-critical: YES / NO
+Scientific decision introduced: YES / NO
+Evidence:
+Result:
+Impact on frozen decisions:
+Impact on roadmap:
+```
+
+If the discovered item is L2 or L3, or would change a frozen decision, the assistant MUST NOT silently incorporate it. It must be surfaced in the review packet and handled through explicit decision/change control.
+
+No new gate may be added merely because it is interesting, provides extra assurance, might improve performance, or would make the design more elaborate.
+
+## 17.6 Review-packet contract
+
+At the end of each work package, report at minimum:
+
+```text
+WORK PACKAGE:
+AUTHORITATIVE INPUTS:
+EVIDENCE / TESTS CHECKED:
+RESULTS:
+UNEXPECTED CHECKS:
+CONTRADICTIONS / WARNINGS:
+NEW SCIENTIFIC ASSUMPTIONS:
+CANONICAL AHBN IMPACT:
+RO2 ALIGNMENT:
+RECOMMENDATION:
+MASTER-LIST STATUS:
+NEXT DOCUMENTED GATE:
+```
+
+This compact packet is the primary user review surface. Detailed reasoning/evidence remains in the repository record.
+
+## 17.7 No-hidden-gate discipline
+
+The repository master list is the operational contract.
+
+- The assistant MUST fetch the latest GitHub state before beginning the next gate.
+- The assistant MUST follow the documented next gate rather than infer one from conversational memory.
+- When a gate completes, the detailed record and master list MUST be updated before advancing.
+- A newly discovered validity-critical requirement must be explicitly logged and its roadmap impact stated.
+- Completed frozen gates are not reopened for optimization.
+- The absence of a user walkthrough does not waive verification; it changes who executes the verification, not whether it occurs.
+
+## 17.8 Current 02.6 application
+
+The authoritative 02.6 master completion contract is maintained in `docs/02_QAHBN2_DESIGN_FREEZE.md`, Section 02.6.8.
+
+As of this protocol update:
+
+```text
+02.6.7 Deterministic Micro-Case Validation
+    = PASS / COMPLETE / FROZEN
+
+NEXT
+    = Final executable reward-contract reconciliation
+
+THEN
+    = 02.6 closure audit
+
+TARGET
+    = 02.6 Reward Construction = PASS / COMPLETE / FROZEN
+```
+
+No `02.6.7.11` is planned. Any additional check must satisfy the discovered-check rule above.
