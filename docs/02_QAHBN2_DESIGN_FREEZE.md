@@ -2147,21 +2147,21 @@ This stage freezes only the qualitative reward direction of the four components 
 
 $NEW_t$ is local, action-attributable evidence of successful coverage expansion. Therefore:
 
-$
+$$
 \boxed{
 NEW_t \uparrow
 \Rightarrow
 \text{directionally more favorable reward evidence}
 }
-$
+$$
 
 Accordingly:
 
-$
+$$
 \boxed{
 \textbf{02.6.3.1 }NEW_t=\textbf{ POSITIVE / FROZEN}
 }
-$
+$$
 
 This direction does not make $NEW_t$ equivalent to experiment-level delivery ratio and assigns no magnitude, normalization, weight, coefficient, or reward term.
 
@@ -2169,21 +2169,21 @@ This direction does not make $NEW_t$ equivalent to experiment-level delivery rat
 
 $DUPLICATE_t$ is local evidence of successful but redundant dissemination. Therefore:
 
-$
+$$
 \boxed{
 DUPLICATE_t \uparrow
 \Rightarrow
 \text{directionally less favorable reward evidence}
 }
-$
+$$
 
 Accordingly:
 
-$
+$$
 \boxed{
 \textbf{02.6.3.2 }DUPLICATE_t=\textbf{ NEGATIVE / FROZEN}
 }
-$
+$$
 
 A lower duplicate count does not by itself establish a better action, because forwarding collapse could also reduce duplicates.
 
@@ -2191,21 +2191,21 @@ A lower duplicate count does not by itself establish a better action, because fo
 
 $FAILED_t$ is local evidence that an initiated direct forwarding attempt did not successfully deliver. Therefore:
 
-$
+$$
 \boxed{
 FAILED_t \uparrow
 \Rightarrow
 \text{directionally less favorable reward evidence}
 }
-$
+$$
 
 Accordingly:
 
-$
+$$
 \boxed{
 \textbf{02.6.3.3 }FAILED_t=\textbf{ NEGATIVE / FROZEN}
 }
-$
+$$
 
 This direction does not assert that the selected action caused the underlying network failure and does not determine the relative severity of a failure.
 
@@ -2213,29 +2213,27 @@ This direction does not assert that the selected action caused the underlying ne
 
 The frozen identity is:
 
-$
+$$
 F_t=NEW_t+DUPLICATE_t+FAILED_t.
-$
+$$
 
 $F_t$ measures the total direct forwarding effort initiated, but its magnitude alone does not establish whether that effort was useful, redundant, or unsuccessful. Therefore neither an unconditional positive nor an unconditional negative direction is justified:
 
-$
+$$
 \boxed{
 F_t \uparrow
 \not\Rightarrow
 \text{intrinsically more favorable or less favorable reward evidence}
 }
-$
+$$
 
 Accordingly:
 
-$
+$$
 \boxed{
-\textbf{02.6.3.4 }F_t
-=
-\textbf{ NEUTRAL / NON\text{-}DIRECT / FROZEN}
+\textbf{02.6.3.4 } F_t = \textbf{NEUTRAL / NON-DIRECT / FROZEN}
 }
-$
+$$
 
 This does not exclude $F_t$ from later reward construction. It remains admissible evidence, but it has no unconditional direct reward direction. Any later mathematical use of $F_t$ must also respect its algebraic dependency on the three terminal outcome counts and prevent unintended double counting.
 
@@ -2252,28 +2250,28 @@ The four individually frozen direction decisions are consolidated below.
 
 The resulting directional structure is:
 
-$
+$$
 \boxed{
 NEW_t:+,\qquad
 DUPLICATE_t:-,\qquad
 FAILED_t:-,\qquad
 F_t:\varnothing_{\mathrm{direct}}
 }
-$
+$$
 
 where $\varnothing_{\mathrm{direct}}$ means **no unconditional direct reward direction**, not exclusion from later reward construction.
 
 The structural dependency remains authoritative:
 
-$
+$$
 \boxed{
 F_t=NEW_t+DUPLICATE_t+FAILED_t
 }
-$
+$$
 
 Therefore:
 
-$
+$$
 \boxed{
 \text{ADMISSIBLE}
 \neq
@@ -2281,46 +2279,46 @@ $
 \neq
 \text{INDEPENDENT ADDITIVE TERM}
 }
-$
+$$
 
 In particular, $F_t$ remains admissible but MUST NOT be treated casually as an independent fourth outcome with an additional signed contribution. Any later use must explicitly account for the frozen identity and avoid unintended double counting.
 
 The qualitative directions frozen by 02.6.3 are:
 
-$
+$$
 \boxed{
 \begin{aligned}
-NEW_t &:\ \textbf{POSITIVE}\\
-DUPLICATE_t &:\ \textbf{NEGATIVE}\\
-FAILED_t &:\ \textbf{NEGATIVE}\\
-F_t &:\ \textbf{NEUTRAL / NON\text{-}DIRECT}
+\text{NEW}_t &:\ \textbf{POSITIVE}\\
+\text{DUPLICATE}_t &:\ \textbf{NEGATIVE}\\
+\text{FAILED}_t &:\ \textbf{NEGATIVE}\\
+\text{F}_t &:\ \textbf{NEUTRAL / NON-DIRECT}
 \end{aligned}
 }
-$
+$$
 
 Accordingly:
 
-$
+$$
 \boxed{
 \textbf{02.6.3.5 Reward Component Direction Decision Matrix = PASS / FROZEN}
 }
-$
+$$
 
 and:
 
-$
+$$
 \boxed{
 \textbf{02.6.3 Reward Component Direction = PASS / FROZEN}
 }
-$
+$$
 
 This freeze assigns **no normalization, transformation, magnitude, relative severity, weight, coefficient, threshold, bonus, penalty magnitude, aggregation form, or final reward equation**.
 
 Those remain:
 
-$
+$$
 \boxed{\textbf{BLOCKED}}
-$
+$$
 
 Accordingly, **02.6.3 is complete**. The next stage must begin by deciding how these differently structured raw counts can be represented comparably before any weights or final $R_t$ are introduced.
 
@@ -2333,15 +2331,15 @@ $$
 \boxed{\text{02.6 Reward Evidence Reconstruction = PASS}}
 $$
 
-$
+$$
 \boxed{\text{02.6.1A Action Lifetime = PASS / FROZEN}}
-$
+$$
 
-$
+$$
 \boxed{\text{02.6.1B-1 Terminal Outcome Semantics = PASS / FROZEN}}
-$
+$$
 
-$
+$$
 \boxed{\text{02.6 Reward Equation = NOT YET PROPOSED}}
 $$
 
