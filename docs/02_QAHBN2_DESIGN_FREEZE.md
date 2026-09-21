@@ -2632,13 +2632,94 @@ F_t=0
 
 Acceptance as a normalization basis does **not** authorize \(F_t\) as a direct reward or penalty. No weight, coefficient, relative severity, reward for \(F_t=0\), Q-update behaviour, or final reward equation is introduced.
 
-#### 02.6.5.3C — Additional Modifier / Reference Role — OPEN
+#### 02.6.5.3C — Additional Modifier / Reference Role — COMPLETE / FROZEN
 
-> Given that \(F_t\) is already ACCEPTED / FROZEN as the normalization basis, should \(F_t\) additionally have a modifier/reference role?
+##### 02.6.5.3C.1 — Information Necessity Audit — PASS / FROZEN
 
-This question must establish whether an additional modifier/reference role contributes genuinely distinct and scientifically useful information, or merely reintroduces forwarding-effort information already accounted for by the frozen representation and safeguards.
+Normalization preserves forwarding-outcome quality but removes absolute realized forwarding-effort magnitude. Therefore \(F_t\) carries information that is lost when only the normalized outcome proportions are retained.
 
-Only this additional-role question is open. No modifier form, coefficient, weight, threshold, reward equation, or Q-update behaviour is authorized.
+That absolute-effort information is relevant to the RO2 dissemination-efficiency trade-off. However, relevance alone does **not** establish that \(F_t\) must alter reward magnitude.
+
+\[
+\boxed{
+\begin{aligned}
+&\text{Normalization by }F_t\text{ removes absolute forwarding-effort magnitude;}\\
+&\text{absolute effort is relevant to the RO2 dissemination-efficiency trade-off;}\\
+&\text{however, relevance alone does not establish the necessity of}\\
+&\text{an additional }F_t\text{-based reward modifier.}
+\end{aligned}}
+\]
+
+\[
+\boxed{\textbf{02.6.5.3C.1 Information Necessity Audit = RELEVANT BUT ADDITIONAL REWARD ROLE NOT YET JUSTIFIED / PASS / FROZEN}}
+\]
+
+##### 02.6.5.3C.2 — Information Coverage Audit — PASS / FROZEN
+
+The selected action \(a_t\) represents forwarding intent, while the normalized \(NEW_t\), \(DUPLICATE_t\), and \(FAILED_t\) outcomes represent forwarding-outcome quality. Neither fully preserves the absolute number of forwarding attempts actually realized.
+
+Accordingly, \(F_t\) contains distinct realized-effort information that is not fully represented elsewhere in the frozen action/outcome structure.
+
+\[
+\boxed{
+\begin{aligned}
+&\text{action }a_t:\ \text{forwarding intent};\\
+&(\widehat{NEW}_t,\widehat{DUPLICATE}_t,\widehat{FAILED}_t):\ \text{forwarding-outcome quality};\\
+&F_t:\ \text{absolute realized forwarding effort}.
+\end{aligned}}
+\]
+
+\[
+\boxed{\textbf{02.6.5.3C.2 Information Coverage Audit = DISTINCT INFORMATION REMAINS / PASS / FROZEN}}
+\]
+
+This finding does **not** authorize \(F_t\) as a reward term or modifier.
+
+##### 02.6.5.3C.3 — Reference-vs-Modifier Necessity — PASS / FROZEN
+
+The distinct absolute realized-effort information in \(F_t\) can be retained as contextual/reference evidence without requiring \(F_t\) to alter reward magnitude.
+
+\[
+\boxed{
+\begin{aligned}
+&F_t\text{ contains distinct absolute realized-effort information;}\\
+&\text{that information SHOULD be retained as contextual/reference evidence;}\\
+&\text{retaining it does not require }F_t\text{ to modify reward magnitude;}\\
+&\text{no scientific necessity for an additional reward-modifying role}\\
+&\text{has been established.}
+\end{aligned}}
+\]
+
+\[
+\boxed{\textbf{02.6.5.3C.3 Reference-vs-Modifier Necessity = REFERENCE SUFFICIENT; MODIFIER NOT JUSTIFIED / PASS / FROZEN}}
+\]
+
+Therefore the overall C role is frozen as:
+
+\[
+\boxed{\textbf{02.6.5.3C — Modifier/Reference Role = REFERENCE ACCEPTED; REWARD MODIFIER REJECTED / FROZEN}}
+\]
+
+\[
+\boxed{\textbf{02.6.5.3C = COMPLETE / FROZEN}}
+\]
+
+The resulting role boundary is:
+
+\[
+\boxed{
+F_t:
+\begin{cases}
+\text{contextual/reference evidence} & \textbf{ACCEPT},\\
+\text{reward-magnitude modifier} & \textbf{REJECT}.
+\end{cases}}
+\]
+
+Together with the earlier freezes, \(F_t\) is accepted as a normalization basis and as realized-effort reference/context, while it is rejected as an independent direct reward term and as a reward-magnitude modifier.
+
+No weight, coefficient, threshold, modifier function, relative severity, reward equation, or Q-update behaviour is authorized by this C freeze.
+
+The next controlled action is **not** to accept or reject candidate D automatically. First determine whether **D — constraint/context only** defines any scientifically distinct role for \(F_t\) that has not already been resolved by the frozen A--C decisions.
 
 ---
 
