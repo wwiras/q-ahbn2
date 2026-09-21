@@ -2408,11 +2408,66 @@ This freeze assigns **no reward weights, coefficient magnitudes, relative severi
 
 The next controlled stage is **02.6.5 Reward Component Aggregation Structure**. Only its first sub-decision is opened:
 
-### 02.6.5.1 Component Dependency Audit — OPEN
+### 02.6.5.1 Component Dependency Audit — PASS / FROZEN
 
-> Given the representations frozen in 02.6.4 and the identity \(F_t=NEW_t+DUPLICATE_t+FAILED_t\), which reward representations are mathematically or informationally dependent on one another, and what constraints does that dependency impose on later reward aggregation?
+The dependency audit freezes one simple structural fact:
 
-No aggregation architecture is selected by opening this audit. Weights and the final reward equation remain blocked.
+\[
+\boxed{
+F_t=NEW_t+DUPLICATE_t+FAILED_t
+}
+\]
+
+\(NEW_t\), \(DUPLICATE_t\), and \(FAILED_t\) are the three terminal outcomes of the direct forwarding attempts attributable to action \(a_t\), whereas \(F_t\) is the total number of those forwarding attempts. Therefore \(F_t\) is dependent on the three terminal outcome counts and MUST NOT be treated as an independent fourth terminal outcome.
+
+Under the 02.6.4 representation, for \(F_t>0\),
+
+\[
+\boxed{
+\widehat{NEW}_t+\widehat{DUPLICATE}_t+\widehat{FAILED}_t=1
+}
+\]
+
+so the represented terminal outcomes describe the composition of the same forwarding effort.
+
+This distinction is consistent with RO2: the reward evidence must retain useful dissemination outcomes and redundant dissemination outcomes separately because RO2 established the dissemination trade-off between effectiveness/latency and duplication. Forwarding effort \(F_t\) describes how much forwarding was initiated; it does not constitute a separate dissemination outcome and MUST NOT obscure that RO2 trade-off by being treated as independent evidence.
+
+Accordingly:
+
+\[
+\boxed{
+\begin{aligned}
+NEW_t,\ DUPLICATE_t,\ FAILED_t
+&=\text{three terminal outcomes of forwarding attempts},\\
+F_t
+&=\text{total number of those forwarding attempts},\\
+F_t
+&=NEW_t+DUPLICATE_t+FAILED_t.
+\end{aligned}
+}
+\]
+
+The constraint carried forward is:
+
+\[
+\boxed{
+\textbf{Later reward construction MUST NOT treat all four quantities as independent evidence.}
+}
+\]
+
+This stage identifies the dependency only. It does **not** decide how \(F_t\) will be used or whether it will appear in the final reward equation.
+
+\[
+\boxed{\textbf{02.6.5.1 Component Dependency Audit = PASS / FROZEN}}
+\]
+
+No weight, coefficient, relative severity, aggregation architecture, or final reward equation is authorized.
+
+### 02.6.5.2 Double-Counting Audit — OPEN
+
+> Given that \(F_t=NEW_t+DUPLICATE_t+FAILED_t\), under what candidate uses of \(F_t\) would the same forwarding evidence be counted twice in the reward?
+
+This audit must identify unsafe and safe structural uses of \(F_t\) without yet selecting the final aggregation architecture, assigning weights, or constructing \(R_t\).
 
 
 ---
