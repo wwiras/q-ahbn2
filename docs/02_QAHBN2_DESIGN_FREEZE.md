@@ -1676,50 +1676,82 @@ RD10 Treat all coefficients, thresholds, penalties, and bonuses as new design de
 
 ### 02.6.8 Current gate
 
-```text
-02.6 REWARD EVIDENCE RECONSTRUCTION: PASS
-02.6.1 REWARD EVENT SEMANTICS: NOT YET DOCUMENTED / NOT FROZEN
-02.6 REWARD EQUATION: NOT YET PROPOSED
-02.6 REWARD DESIGN GATE: PENDING
-```
+$$
+\boxed{\text{02.6 Reward Evidence Reconstruction = PASS}}
+$$
 
-The evidence-reconstruction stage is complete, but reward construction MUST NOT yet proceed to component signs, weights, coefficients, thresholds, bonuses, penalties, or a reward equation.
+$$
+\boxed{\text{02.6.1 Reward Event Semantics = NOT YET DOCUMENTED / NOT FROZEN}}
+$$
+
+$$
+\boxed{\text{02.6 Reward Equation = NOT YET PROPOSED}}
+$$
+
+$$
+\boxed{\text{02.6 Reward Design Gate = PENDING}}
+$$
+
+The evidence-reconstruction stage is complete, but reward construction **MUST NOT** yet proceed to component signs, weights, coefficients, thresholds, bonuses, penalties, or a reward equation.
 
 The next controlled decision is:
 
-```text
-02.6.1 — Reward Event Semantics:
-What constitutes one reward-bearing decision interval?
-```
+### 02.6.1 — Reward Event Semantics
 
-Before any reward terms are combined, Q-AHBN2 must establish when one reward `R_t` is produced and which observed outcomes are causally attributable to the selected action `a_t`.
+> **What constitutes one reward-bearing decision interval?**
+
+Before any reward terms are combined, Q-AHBN2 must establish when one reward $R_t$ is produced and which observed outcomes are causally attributable to the selected action $a_t$.
 
 Conceptually:
 
-```text
+$$
 s_t
-  -> a_t
-  -> dissemination outcomes during the reward-bearing decision interval
-     {NEW, DUPLICATE, FAILED, F}
-  -> R_t
-  -> s_{t+1}
-```
+\xrightarrow{a_t}
+\underbrace{\text{dissemination outcomes during interval }t}_{NEW_t,\;DUPLICATE_t,\;FAILED_t,\;F_t}
+\xrightarrow{}
+R_t
+\xrightarrow{}
+s_{t+1}
+$$
 
 The controlled question is therefore:
 
-> Which events are causally attributed to action `a_t` before `R_t` is evaluated?
+$$
+\boxed{
+\text{Which events are causally attributed to }a_t
+\text{ before }R_t\text{ is evaluated?}
+}
+$$
 
-This stage MUST distinguish candidate reward boundaries such as per-forwarding-attempt, per-message, and per-control-interval semantics. No candidate is frozen merely by being listed.
+This stage MUST distinguish candidate reward boundaries such as **per-forwarding-attempt**, **per-message**, and **per-control-interval** semantics. No candidate is frozen merely by being listed.
 
-The first sub-decision under 02.6.1 is **action lifetime**: when `a_t` is selected, exactly which dissemination operations does that action govern? Only after the action lifetime and attribution boundary are established may the design determine which admissible `NEW`, `DUPLICATE`, `FAILED`, and forwarding-effort `F` observations belong to one reward.
+The first sub-decision under 02.6.1 is **action lifetime**:
+
+$$
+\boxed{
+\text{When }a_t\text{ is selected, exactly which dissemination operations does it govern?}
+}
+$$
+
+Only after the action lifetime and attribution boundary are established may the design determine which admissible $NEW_t$, $DUPLICATE_t$, $FAILED_t$, and forwarding-effort $F_t$ observations belong to one reward.
 
 Accordingly:
 
-```text
-02.6 evidence reconstruction = PASS
-02.6.1 reward event semantics = OPEN / NOT FROZEN
-signs / weights / coefficients = BLOCKED
-reward equation = BLOCKED
-```
+$$
+\boxed{\text{02.6 evidence reconstruction = PASS}}
+$$
 
-The reward-design gate remains PENDING until reward event semantics and the subsequent controlled reward-construction decisions are explicitly frozen.
+but
+
+$$
+\boxed{\text{02.6.1 reward event semantics = OPEN / NOT FROZEN}}
+$$
+
+Therefore:
+
+$$
+\text{signs, weights, coefficients, thresholds, bonuses/penalties, and }R_t
+\quad\text{remain BLOCKED.}
+$$
+
+The reward-design gate remains **PENDING** until reward event semantics and the subsequent controlled reward-construction decisions are explicitly frozen.
