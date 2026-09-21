@@ -1656,6 +1656,56 @@ RD10 Treat all coefficients, thresholds, penalties, and bonuses as new design de
      requiring explicit justification rather than historical inheritance.
 ```
 
+### 02.6.1A Action Lifetime — FROZEN
+
+Reconciliation against the historical ControlSim and Kubernetes execution paths supports the same logical decision unit: a peer makes its forwarding decision when handling a **new** message; a duplicate reception is recorded and dropped rather than initiating another forwarding decision for that duplicate.
+
+For peer $i$ handling message $m$:
+
+$$
+(i,m)\rightarrow s_t^{(i)}\rightarrow p_t^{(i)}\rightarrow a_t^{(i,m)}
+\rightarrow(mode_Q,k_Q)\rightarrow Targets(i,m).
+$$
+
+Therefore,
+
+$$
+\boxed{\text{Action unit = one new-message forwarding decision at one peer}}
+$$
+
+and $a_t^{(i,m)}$ governs the post-AHBN forwarding treatment of message $m$ at peer $i$. It does not represent a separate Q decision for each outgoing link and does not implicitly govern an arbitrary multi-message control interval.
+
+The action lifetime ends once the corresponding requested forwarding treatment and target realization have been determined:
+
+$$
+a_t^{(i,m)}\rightarrow(mode_Q,k_Q)\rightarrow Targets(i,m)
+\rightarrow\boxed{\text{action lifetime ends}}.
+$$
+
+#### Historical reward/update timing is NOT inherited
+
+This freeze defines only **what the action controls**. It does not freeze when reward is produced or which later observations belong to that action.
+
+The historical ControlSim and GKE learners updated a previous state-action pair at a later controller invocation, and historical GKE reward inputs included cumulative peer counters. Those mechanisms do not provide clean per-$(i,m,a_t)$ causal attribution and are **not inherited** by this freeze.
+
+$$
+\boxed{\text{02.6.1A freezes action lifetime only; historical reward/update timing is NOT frozen or inherited.}}
+$$
+
+The next controlled decision is **02.6.1B — Reward Attribution Window**:
+
+$$
+\boxed{\text{After }a_t^{(i,m)}\text{ governs }m,\text{ which subsequent events belong to it, and when is }R_t\text{ closed?}}
+$$
+
+Only 02.6.1B may establish whether and how subsequent $NEW$, $DUPLICATE$, $FAILED$, and forwarding-effort $F$ events are attributable to the frozen $(i,m,a_t)$ decision. Reward signs, weights, coefficients, thresholds, bonuses, penalties, and equations remain blocked.
+
+$$
+\boxed{\text{02.6.1A ACTION LIFETIME GATE = PASS / FROZEN}}
+$$
+
+---
+
 ### 02.6.8 Current gate
 
 $$
@@ -1663,7 +1713,7 @@ $$
 $$
 
 $$
-\boxed{\text{02.6.1 Reward Event Semantics = NOT YET DOCUMENTED / NOT FROZEN}}
+\boxed{\text{02.6.1A Action Lifetime = PASS / FROZEN}}
 $$
 
 $$
@@ -1726,7 +1776,7 @@ $$
 but
 
 $$
-\boxed{\text{02.6.1 reward event semantics = OPEN / NOT FROZEN}}
+\boxed{\text{02.6.1B Reward Attribution Window = OPEN / NOT FROZEN}}
 $$
 
 Therefore:
