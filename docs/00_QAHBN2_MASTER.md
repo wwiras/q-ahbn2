@@ -698,8 +698,8 @@ A row marked **PASS / FROZEN** means the corresponding Section 15 requirement is
 | C | State discretization + state count | state discretization; state count | DOC-02 Section 02.4: 3 bins x 4 dimensions = 81 states | **PASS / FROZEN** |
 | D | Action space + action semantics | action space; action semantics | DOC-02 Section 02.5: 5 actions; 81 x 5 = 405 Q cells | **PASS / FROZEN** |
 | E | Reward contract | reward equation; reward coefficients/magnitudes; penalty/zero-evidence conditions | DOC-02 Section 02.6 | **PASS / COMPLETE / FROZEN** |
-| F | Learning parameters | learning rate; discount factor; epsilon; epsilon decay | not yet reconciled into final S02 contract | **PENDING — NEXT DESIGN BLOCK** |
-| G | Q-learning mechanics | Q-table initialization; Q-update; exploration/exploitation | not yet reconciled into final S02 contract | **PENDING** |
+| F | Learning parameters | learning rate; discount factor; epsilon; epsilon decay | DOC-02 Section 02.7 + Source Authority Register Section 12 | **PASS / COMPLETE / FROZEN** |
+| G | Q-learning mechanics | Q-table initialization; Q-update; exploration/exploitation | historical mechanics available; must reconcile against frozen 81 x 5 Q-AHBN2 contract | **PENDING — NEXT DESIGN BLOCK** |
 | H | Learning lifecycle | episode definition; learning trigger; observation interval; action interval; reset/persistence | not yet reconciled into final S02 contract | **PENDING** |
 | I | Cross-platform / AHBN-boundary audit | exact compatibility of the complete learning mechanism with immutable AHBN and ControlSim/Kubernetes logical parity | architecture/state/action/reward evidence exists; full-chain audit still required | **PENDING** |
 | J | Final S02 closure audit | all Section 15 requirements resolved; no hidden design choice remains | blocked until F--I close | **BLOCKED** |
@@ -714,14 +714,18 @@ B State representation                PASS / FROZEN
 C State discretization + count        PASS / FROZEN
 D Action space + semantics            PASS / FROZEN
 E Reward                              PASS / COMPLETE / FROZEN
-F Learning parameters                 NEXT / READY
-G Q-learning mechanics                PENDING
+F Learning parameters                 PASS / COMPLETE / FROZEN
+G Q-learning mechanics                NEXT / READY
 H Learning lifecycle                  PENDING
 I Cross-platform / AHBN-boundary      PENDING
 J Final S02 closure audit             BLOCKED
 ```
 
-The **next genuine unresolved S02 requirement is F — Learning parameters**, not a redesign of already-frozen state or action assets.
+The **next genuine unresolved S02 requirement is G — Q-learning mechanics**. F — Learning parameters is now PASS / COMPLETE / FROZEN under DOC-02 Section 02.7 and the Source Authority Register Section 12.
+
+### 15.1.1A S02-F closure record
+
+S02-F was reconciled as one bounded work package on 2026-09-21. Frozen values are `alpha_Q=0.25`, `gamma=0.90`, `epsilon_0=0.30`, `epsilon_min=0.03`, and multiplicative `epsilon_decay=0.995`. Historical ControlSim and GKE sources were compared explicitly; RO2 was used to constrain the scientific rationale without claiming hyperparameter optimality; canonical AHBN `alpha_AHBN=0.30` remains immutable and distinct.
 
 ### 15.1.2 S02 completion contract
 
