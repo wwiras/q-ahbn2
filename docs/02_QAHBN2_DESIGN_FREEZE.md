@@ -1706,17 +1706,95 @@ $$
 
 ---
 
+### 02.6.1B-1 Terminal Outcome Semantics — FROZEN
+
+This sub-decision freezes the semantics of the direct outcomes attributable to one forwarding attempt. It does **not** define reward signs, weights, coefficients, thresholds, bonuses, penalties, or the reward equation.
+
+The forwarding lifecycle is separated as:
+
+$$
+\boxed{
+\text{requested fanout}
+\rightarrow
+\text{realized targets}
+\rightarrow
+\text{attempts}
+\rightarrow
+\{NEW,DUPLICATE,FAILED\}
+}
+$$
+
+For a direct forwarding attempt from peer $i$ to target peer $j$ for message $m$:
+
+$$
+\boxed{
+\begin{aligned}
+NEW &: \text{attempt delivered }m\text{ to a peer that had not seen it},\\
+DUPLICATE &: \text{attempt delivered }m\text{ to a peer that had already seen it},\\
+FAILED &: \text{initiated attempt did not successfully deliver }m,\\
+F_t &: \text{number of direct forwarding attempts initiated},\\
+F_t &= NEW_t+DUPLICATE_t+FAILED_t.
+\end{aligned}
+}
+$$
+
+Each initiated direct attempt MUST terminate in exactly one mutually exclusive outcome:
+
+$$
+o_{ijm}\in\{NEW,DUPLICATE,FAILED\}.
+$$
+
+A target that is not realized because of the existing eligibility/realization constraint does not create a forwarding attempt and therefore does not create a synthetic $FAILED$ outcome. The existing realization rule remains authoritative:
+
+$$
+k_{\mathrm{real}}=\min(k_Q,|N_e|).
+$$
+
+Accordingly, $F_t$ counts **actual direct forwarding attempts initiated**, not requested fanout and not unrealized target slots.
+
+The semantic distinction is:
+
+$$
+\begin{aligned}
+NEW &: \text{delivered and new information},\\
+DUPLICATE &: \text{delivered but already-known information},\\
+FAILED &: \text{not successfully delivered}.
+\end{aligned}
+$$
+
+Therefore $FAILED\neq DUPLICATE$, and the accounting invariant
+
+$$
+\boxed{F_t=NEW_t+DUPLICATE_t+FAILED_t}
+$$
+
+MUST hold for the terminal outcomes associated with the direct attempts in one attribution set.
+
+This freeze is implementation-independent. ControlSim and Kubernetes instrumentation must subsequently be reconciled to expose these same semantics; historical counters or transport-specific labels do not override this contract.
+
+$$
+\boxed{\text{02.6.1B-1 TERMINAL OUTCOME SEMANTICS = PASS / FROZEN}}
+$$
+
+The next controlled decision remains within **02.6.1B — Reward Attribution Window** and must determine the minimal cross-platform instrumentation and closure rule needed to observe these frozen outcomes for all direct attempts.
+
+---
+
 ### 02.6.8 Current gate
 
 $$
 \boxed{\text{02.6 Reward Evidence Reconstruction = PASS}}
 $$
 
-$$
+$
 \boxed{\text{02.6.1A Action Lifetime = PASS / FROZEN}}
-$$
+$
 
-$$
+$
+\boxed{\text{02.6.1B-1 Terminal Outcome Semantics = PASS / FROZEN}}
+$
+
+$
 \boxed{\text{02.6 Reward Equation = NOT YET PROPOSED}}
 $$
 
