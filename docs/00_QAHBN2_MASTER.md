@@ -684,6 +684,99 @@ Once approved:
 
 ---
 
+
+## 15.1 S02 Design Freeze Master Completion Checklist
+
+This checklist is the authoritative completion map for **S02 — Q-AHBN2 Design Freeze**. It is derived directly from the exact verification requirements in Section 15 and must be reconciled against repository evidence rather than conversational memory.
+
+A row marked **PASS / FROZEN** means the corresponding Section 15 requirement is already explicitly resolved by a frozen Q-AHBN2 design contract. **VERIFY / RECONCILE** means evidence may exist but has not yet been reconciled into the S02 master completion status. **PENDING** means a design decision remains to be completed.
+
+| ID | S02 requirement | Section 15 coverage | Verified repository evidence | Status |
+|---|---|---|---|---|
+| A | Architecture / AHBN intervention boundary | prerequisite to exact learning mechanism | DOC-02 Sections 02.1--02.2 | **PASS / FROZEN** |
+| B | State representation | state representation | DOC-02 Section 02.3 | **PASS / FROZEN** |
+| C | State discretization + state count | state discretization; state count | DOC-02 Section 02.4: 3 bins x 4 dimensions = 81 states | **PASS / FROZEN** |
+| D | Action space + action semantics | action space; action semantics | DOC-02 Section 02.5: 5 actions; 81 x 5 = 405 Q cells | **PASS / FROZEN** |
+| E | Reward contract | reward equation; reward coefficients/magnitudes; penalty/zero-evidence conditions | DOC-02 Section 02.6 | **PASS / COMPLETE / FROZEN** |
+| F | Learning parameters | learning rate; discount factor; epsilon; epsilon decay | not yet reconciled into final S02 contract | **PENDING — NEXT DESIGN BLOCK** |
+| G | Q-learning mechanics | Q-table initialization; Q-update; exploration/exploitation | not yet reconciled into final S02 contract | **PENDING** |
+| H | Learning lifecycle | episode definition; learning trigger; observation interval; action interval; reset/persistence | not yet reconciled into final S02 contract | **PENDING** |
+| I | Cross-platform / AHBN-boundary audit | exact compatibility of the complete learning mechanism with immutable AHBN and ControlSim/Kubernetes logical parity | architecture/state/action/reward evidence exists; full-chain audit still required | **PENDING** |
+| J | Final S02 closure audit | all Section 15 requirements resolved; no hidden design choice remains | blocked until F--I close | **BLOCKED** |
+
+### 15.1.1 Current S02 position
+
+```text
+S02 — Q-AHBN2 DESIGN FREEZE = IN PROGRESS
+
+A Architecture                         PASS / FROZEN
+B State representation                PASS / FROZEN
+C State discretization + count        PASS / FROZEN
+D Action space + semantics            PASS / FROZEN
+E Reward                              PASS / COMPLETE / FROZEN
+F Learning parameters                 NEXT / READY
+G Q-learning mechanics                PENDING
+H Learning lifecycle                  PENDING
+I Cross-platform / AHBN-boundary      PENDING
+J Final S02 closure audit             BLOCKED
+```
+
+The **next genuine unresolved S02 requirement is F — Learning parameters**, not a redesign of already-frozen state or action assets.
+
+### 15.1.2 S02 completion contract
+
+The remaining work SHALL be executed as coherent bounded work packages, not as an automatically expanding sequence of microscopic gates:
+
+```text
+F — Learning Parameters
+    alpha
+    gamma
+    epsilon
+    epsilon decay
+        ↓
+G — Q-Learning Mechanics
+    Q-table initialization
+    Q-update
+    exploration/exploitation
+        ↓
+H — Learning Lifecycle
+    episode definition
+    learning trigger
+    observation interval
+    action interval
+    reset/persistence
+        ↓
+I — Cross-Platform / AHBN-Boundary Audit
+        ↓
+J — Final S02 Closure Audit
+        ↓
+Q-AHBN2 DESIGN FREEZE = PASS / COMPLETE / FROZEN
+```
+
+Where scientifically efficient, F and G may be executed together as the accelerated **Learning Configuration** block, provided every individual Section 15 requirement remains explicitly checked and recorded. H may be reconciled with the relevant training/evaluation contract only where doing so does not leave an unstated design choice in S02.
+
+No completed A--E item may be reopened merely for optimization. Reopening requires a documented validity defect or higher-authority contradiction.
+
+### 15.1.3 Delegated execution rule for S02
+
+For each remaining item F--J:
+
+1. read the latest master, source-authority register, canonical AHBN contract, and current design contract;
+2. execute bounded L1 verification directly where the decision is already implied by frozen evidence;
+3. for conventional L2 choices, analyze and recommend a scientifically defensible setting without searching for global optimum;
+4. stop for explicit researcher decision if an L3 scientific assumption or validity-changing choice is encountered;
+5. log unexpected validity-critical checks with provenance and result;
+6. update this checklist and the detailed design record when the work package closes;
+7. proceed to the next documented unresolved item.
+
+The S02 exit condition is:
+
+```text
+Q-AHBN2 DESIGN FREEZE = PASS / COMPLETE / FROZEN
+```
+
+Only after that closure may the project advance to the remaining metric/statistical/experiment-contract freeze and then S03 Development.
+
 # 16. Metric Contract
 
 Use two metric classes.
