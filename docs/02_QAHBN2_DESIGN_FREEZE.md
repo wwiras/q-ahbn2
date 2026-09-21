@@ -2463,11 +2463,65 @@ This stage identifies the dependency only. It does **not** decide how \(F_t\) wi
 
 No weight, coefficient, relative severity, aggregation architecture, or final reward equation is authorized.
 
-### 02.6.5.2 Double-Counting Audit — OPEN
+### 02.6.5.2 Double-Counting Audit — PASS / FROZEN
 
-> Given that \(F_t=NEW_t+DUPLICATE_t+FAILED_t\), under what candidate uses of \(F_t\) would the same forwarding evidence be counted twice in the reward?
+The frozen dependency is:
 
-This audit must identify unsafe and safe structural uses of \(F_t\) without yet selecting the final aggregation architecture, assigning weights, or constructing \(R_t\).
+\[
+\boxed{
+F_t=NEW_t+DUPLICATE_t+FAILED_t
+}
+\]
+
+Therefore \(F_t\) MUST NOT be treated as an independent directly signed fourth outcome term when doing so would reward or penalize forwarding evidence already represented by \(NEW_t\), \(DUPLICATE_t\), and \(FAILED_t\).
+
+\[
+\boxed{
+\begin{aligned}
+&F_t=NEW_t+DUPLICATE_t+FAILED_t;\\
+&\text{therefore }F_t\text{ MUST NOT be treated as an independent}\\
+&\text{directly signed fourth outcome term when doing so}\\
+&\text{would reward or penalize forwarding evidence already}\\
+&\text{represented by }NEW_t,DUPLICATE_t,FAILED_t.
+\end{aligned}
+}
+\]
+
+The RO2 safeguard is:
+
+\[
+\boxed{
+\text{Reward construction must preserve the RO2 distinction between}
+}
+\]
+
+\[
+\boxed{
+\text{productive dissemination effort}
+\quad\text{and}\quad
+\text{redundant/unsuccessful dissemination effort}.
+}
+\]
+
+This safeguard follows the RO2 trade-off evidence: dissemination effort can contribute to propagation effectiveness while also creating redundant forwarding. Forwarding volume alone therefore MUST NOT be interpreted as intrinsically favorable or unfavorable.
+
+Importantly, this freeze **does not remove \(F_t\)**. It does not decide whether \(F_t\) will eventually serve as a modifier, efficiency reference, constraint, normalization quantity, or be absent from the final reward equation.
+
+It also introduces **no weight, coefficient, relative severity, aggregation architecture, or reward equation**.
+
+Accordingly:
+
+\[
+\boxed{
+\textbf{02.6.5.2 Double-Counting Audit = PASS / FROZEN}
+}
+\]
+
+### 02.6.5.3 Aggregation Architecture Decision — OPEN
+
+> Given the dependency and double-counting constraints frozen in 02.6.5.1--02.6.5.2, what structural role, if any, should \(F_t\) have relative to the three represented outcome components?
+
+Only this structural-role question is open. No weight, coefficient, relative severity, tuning value, or final \(R_t\) equation is authorized.
 
 
 ---
