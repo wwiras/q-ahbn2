@@ -2883,7 +2883,59 @@ $$
 
 This introduces no synthetic `FAILED`, artificial \(0/0=0\) convention, special bonus, penalty, coefficient, or additional reward component. Q-AHBN2 neither rewards nor penalizes an action when no forwarding-outcome evidence exists.
 
-The final \(R_t\) remains **NOT FROZEN**. Reward bounds/range and numerical safety, deterministic micro-cases, and the final 02.6 closure audit remain unresolved.
+The final \(R_t\) remains **NOT FROZEN**.
+
+#### 02.6.6.4 Reward Bounds / Range and Numerical Safety — PASS / FROZEN
+
+For every reward-bearing interval, \(F_t>0\), the frozen normalized forwarding outcomes satisfy:
+
+$
+\widehat{NEW}_t+\widehat{DUPLICATE}_t+\widehat{FAILED}_t=1,
+\qquad
+0\leq\widehat{NEW}_t,\widehat{DUPLICATE}_t,\widehat{FAILED}_t\leq1.
+$
+
+Together with the frozen equal initial absolute magnitude and unit scale, the signed reward structure is intrinsically bounded:
+
+$
+\boxed{-1\leq R_t\leq+1\qquad(F_t>0)}
+$
+
+Accordingly:
+
+$
+\boxed{
+\textbf{NATURAL RANGE }[-1,+1]
+\ /\
+\textbf{NO ADDITIONAL REWARD CLIPPING}
+}
+$
+
+The range requirement is an **implementation invariant/assertion to verify**, not a clipping transformation:
+
+$
+\boxed{
+F_t>0\Rightarrow -1\leq R_t\leq1
+}
+$
+
+If an implementation produces a reward outside this range, it MUST be treated as an implementation/semantic error rather than silently clipped. The already-frozen \(F_t=0\) case remains outside the reward-bearing range because it produces no reward value and no reward-bearing Q-update.
+
+$
+\boxed{
+\textbf{02.6.6.4 Reward Bounds / Numerical Safety}
+=
+\textbf{NATURAL RANGE }[-1,+1]
+\ /\
+\textbf{NO ADDITIONAL REWARD CLIPPING}
+\ /\
+\textbf{PASS / FROZEN}
+}
+$
+
+This freeze does **not** start the deterministic micro-case suite and does **not** freeze the final executable \(R_t\). The next unresolved controlled area is the deterministic micro-case validation.
+
+
 
 ---
 
@@ -2891,7 +2943,7 @@ The final \(R_t\) remains **NOT FROZEN**. Reward bounds/range and numerical safe
 
 This subsection is the operational guide/checklist for the current `02.6 Reward Construction` stage. It summarizes the authoritative frozen decisions above; it does **not** replace or modify their scientific content.
 
-> **Current position:** `02.6.6.1--02.6.6.3 = PASS / FROZEN`. The final executable \(R_t\) is **NOT FROZEN**. The next unresolved area in the documented remaining-work roadmap is reward bounds/range and numerical safety.
+> **Current position:** `02.6.6.1--02.6.6.4 = PASS / FROZEN`. The final executable \(R_t\) is **NOT FROZEN**. The next unresolved area in the documented remaining-work roadmap is deterministic micro-case validation.
 
 ### 02.6.8.1 Full progress map
 
@@ -2921,8 +2973,9 @@ This subsection is the operational guide/checklist for the current `02.6 Reward 
 | 02.6.6.1 | Equal-vs-differentiated magnitude principle | **EQUAL INITIAL ABSOLUTE MAGNITUDE / PASS / FROZEN** |
 | 02.6.6.2 | Common reward scale | **UNIT SCALE / NO ADDITIONAL SCALING / PASS / FROZEN** |
 | 02.6.6.3 | `F=0` / `NO_FORWARDING_EVIDENCE` handling | **NO REWARD VALUE; NO REWARD-BEARING Q-UPDATE / PASS / FROZEN** |
-| **Next controlled area** | Reward bounds/range and numerical safety | **NEXT** |
-| Remaining 02.6 | Deterministic micro-cases; final closure audit; executable reward contract only when prerequisite gates are complete | **BLOCKED / PENDING** |
+| 02.6.6.4 | Reward bounds/range and numerical safety | **NATURAL RANGE [-1,+1]; NO ADDITIONAL CLIPPING / PASS / FROZEN** |
+| **Next controlled area** | Deterministic micro-case validation | **NEXT** |
+| Remaining 02.6 | Final executable reward-contract reconciliation and closure audit after micro-cases | **BLOCKED / PENDING** |
 | **02.6 overall** | **Reward Construction** | **IN PROGRESS** |
 
 ### 02.6.8.2 Where exactly are we?
@@ -2939,8 +2992,10 @@ This subsection is the operational guide/checklist for the current `02.6 Reward 
 └── 02.6.6 Reward Magnitude / Zero Evidence
       ├── .1 Equal absolute magnitude      PASS / FROZEN
       ├── .2 Unit scale                    PASS / FROZEN
-      └── .3 F=0 handling                  PASS / FROZEN
-             └── NO reward-bearing update
+      ├── .3 F=0 handling                  PASS / FROZEN
+      │      └── NO reward-bearing update
+      └── .4 Reward bounds / safety         PASS / FROZEN
+             └── Natural [-1,+1]; no clipping
 ```
 
 The frozen post-02.6.5 decisions are:
@@ -2961,20 +3016,19 @@ These decisions do **not** yet constitute the final executable \(R_t\).
 
 The next unresolved area from the documented 02.6 remaining-work roadmap is:
 
-> **Reward bounds/range and any necessary numerical-safety rule.**
+> **Deterministic micro-case validation.**
 
-Do not jump directly to the final reward equation. First determine the minimum controlled decision needed to establish the reward range/bounds implied by the frozen representation, directions, equal relative magnitude, unit scale, and \(F_t=0\) handling.
+Do not jump directly to the final reward equation. The next controlled work must demonstrate that the frozen semantics, directions, dependency, normalized representation, equal relative magnitude, unit scale, \(F_t=0\) handling, natural \([-1,+1]\) bound, and no-clipping safeguard behave consistently in deterministic cases.
 
-Until that gate is resolved, deterministic micro-cases and final 02.6 closure remain **BLOCKED**.
+Until that validation is completed, final executable reward-contract reconciliation and 02.6 closure remain **BLOCKED**.
 
 ### 02.6.8.4 Remaining closure work
 
-The relative-magnitude/common-scale issue and explicit \(F_t=0\) reward handling are now resolved.
+The relative-magnitude/common-scale issue, explicit \(F_t=0\) reward handling, and reward bounds/numerical-safety rule are now resolved.
 
 The remaining work is limited to:
 
-1. reward bounds/range and any necessary numerical-safety rule;
-2. deterministic micro-cases demonstrating consistency with the frozen semantics, directions, dependency, representation, magnitude, scaling, zero-evidence, and double-counting safeguards;
-3. final executable reward-contract reconciliation and 02.6 closure audit.
+1. deterministic micro-cases demonstrating consistency with the frozen semantics, directions, dependency, representation, magnitude, scaling, zero-evidence, natural range, no-clipping, and double-counting safeguards;
+2. final executable reward-contract reconciliation and 02.6 closure audit.
 
 The final \(R_t\) MUST NOT be declared frozen until these remaining gates are completed.
