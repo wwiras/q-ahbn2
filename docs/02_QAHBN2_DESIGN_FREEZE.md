@@ -2965,113 +2965,113 @@ NEW=1, DUPLICATE=0, FAILED=1, F=2. Expected: R=0. This separately verifies mixed
 #### 02.6.7.6 Three-Outcome Mixed Micro-Case — PASS / FROZEN
 NEW=2, DUPLICATE=1, FAILED=1, F=4. Normalized proportions are 0.50, 0.25, 0.25. Expected: R=0. This verifies common F normalization and aggregation without double-counting F.
 
-#### 02.6.7 Remaining Micro-Case Plan — EXPLICIT / NOT YET FROZEN
 
-Only the following validations remain before final executable reward-contract reconciliation:
+#### 02.6.7.7 Interior Non-Zero Mixed Outcome — PASS / FROZEN
+A deterministic mixed case produces an interior non-zero reward of \(R_t=+0.50\). This confirms proportional reward behavior away from the pure boundaries and exact-balance cases without introducing a new coefficient or scaling rule.
 
-1. **02.6.7.7 Interior non-zero mixed outcome** — verify a deterministic mixed case whose expected reward lies strictly inside (-1,+1) and is not zero, demonstrating proportional behavior away from boundaries and exact-balance cases.
-2. **02.6.7.8 Zero-forwarding-evidence execution case** — verify F=0, NEW=DUPLICATE=FAILED=0, no reward value is assigned, and no reward-bearing Q-update occurs.
-3. **02.6.7.9 Proportional-scaling invariance case** — verify that two attribution sets with identical normalized outcome proportions but different absolute F>0 produce the same reward result, confirming that F is a normalization basis/reference and not a reward-magnitude modifier.
-4. **02.6.7.10 Micro-case suite closure audit** — reconcile all deterministic cases against the frozen semantics, directions, dependency, representation, magnitude, scale, zero-evidence rule, natural range, no-clipping safeguard, and double-counting rule.
+#### 02.6.7.8 Zero-Forwarding-Evidence Execution Case — PASS / FROZEN
+For \(F_t=0\), `NEW=DUPLICATE=FAILED=0`. The frozen execution semantics apply: `NO_FORWARDING_EVIDENCE`, no numerical reward value, and no reward-bearing Q-update. This preserves the distinction between a valid zero reward with evidence and absence of a reward-bearing event.
 
-No additional micro-case category is to be added unless an inconsistency is discovered during one of these remaining validations. The final executable R remains NOT FROZEN until this suite is closed and the subsequent final reward-contract reconciliation is completed.
+#### 02.6.7.9 Proportional-Scaling Invariance Case — PASS / FROZEN
+Two attribution sets with the same normalized outcome proportions but different absolute \(F_t>0\) produce the same reward, \(R_t=+0.50\). This confirms that \(F_t\) is a normalization basis and realized-effort reference, not a reward-magnitude modifier.
 
+#### 02.6.7.10 Micro-Case Suite Closure Audit — PASS / COMPLETE / FROZEN
+The complete deterministic suite 02.6.7.1--02.6.7.9 was reconciled against all reward decisions frozen in 02.6.1--02.6.6.
+
+The closure audit confirms:
+- all admitted outcome classes are exercised;
+- `NEW` remains positive, `DUPLICATE` negative, and `FAILED` negative;
+- \(F_t=NEW_t+DUPLICATE_t+FAILED_t\) remains a dependency/normalization identity rather than a fourth independent reward term;
+- normalized outcome representation is preserved for every reward-bearing case;
+- equal initial absolute magnitude and unit scale remain sufficient;
+- `ZERO REWARD != NO REWARD`;
+- every numerical reward lies naturally in \([-1,+1]\);
+- no clipping, extra coefficient, multiplier, bonus, penalty, threshold, or corrective term is required;
+- no deterministic case double-counts \(F_t\);
+- proportional scaling of absolute forwarding effort does not alter reward magnitude when outcome proportions are unchanged;
+- no inconsistency requiring an additional micro-case category was found.
+
+**02.6.7.10 MICRO-CASE SUITE CLOSURE AUDIT: PASS / COMPLETE / FROZEN.**
+
+**02.6.7 DETERMINISTIC MICRO-CASE VALIDATION: PASS / COMPLETE / FROZEN.**
+
+This closure does not yet freeze the final executable \(R_t\). The next documented task is final executable reward-contract reconciliation, followed by the 02.6 closure audit. No `02.6.7.11` is planned or authorized unless a validity-critical inconsistency is discovered and recorded through change control.
 
 ---
 
+
 ### 02.6.8 Current Gate and Progress Checklist
 
-This subsection is the operational guide/checklist for the current `02.6 Reward Construction` stage. It summarizes the authoritative frozen decisions above; it does **not** replace or modify their scientific content.
+This subsection is the operational master list for the current `02.6 Reward Construction` stage. It summarizes the authoritative frozen decisions above and is updated whenever a gate closes. It does **not** replace or modify their scientific content.
 
-> **Current position:** `02.6.6.1--02.6.6.4 = PASS / FROZEN`. The final executable \(R_t\) is **NOT FROZEN**. The next unresolved area in the documented remaining-work roadmap is deterministic micro-case validation.
+> **Current position:** `02.6.7 Deterministic Micro-Case Validation = PASS / COMPLETE / FROZEN`. The final executable \(R_t\) is **NOT YET FROZEN**.
 
-### 02.6.8.1 Full progress map
+#### 02.6.8.1 Master completion contract
 
-| Gate / task | Purpose | Current status |
+| Gate / task | Purpose | Status |
 |---|---|---|
-| **02.6 evidence reconstruction** | Reconcile historical reward evidence before redesign | **PASS** |
-| **02.6.1** | **Reward Event Semantics** | **Substantively complete** |
-| 02.6.1A | Action lifetime | **PASS / FROZEN** |
-| 02.6.1B-1 | Terminal outcome semantics: `NEW`, `DUPLICATE`, `FAILED`, `F` | **PASS / FROZEN** |
-| 02.6.1B-2 | Outcome instrumentation + attribution-window closure | **PASS / FROZEN** |
-| **02.6.2** | **Reward Component Selection** | **PASS / FROZEN** |
-| 02.6.2.1--02.6.2.4 | `NEW`, `DUPLICATE`, `FAILED`, `F` admissibility | **INCLUDE / FROZEN** |
-| 02.6.2.5 | Component decision matrix | **PASS / FROZEN** |
-| **02.6.3** | **Reward Component Direction** | **PASS / FROZEN** |
-| 02.6.3.1--02.6.3.3 | `NEW` positive; `DUPLICATE` negative; `FAILED` negative | **FROZEN** |
-| 02.6.3.4 | `F` direction | **NEUTRAL / NON-DIRECT / FROZEN** |
-| 02.6.3.5 | Direction matrix | **PASS / FROZEN** |
-| **02.6.4** | **Reward Component Representation** | **PASS / FROZEN** |
-| — | `NEW/F`, `DUPLICATE/F`, `FAILED/F` for `F>0` | **FROZEN** |
-| **02.6.5** | **Reward Component Aggregation Structure** | **PASS / COMPLETE / FROZEN** |
-| 02.6.5.1 | Component dependency audit | **PASS / FROZEN** |
-| 02.6.5.2 | Double-counting audit | **PASS / FROZEN** |
-| 02.6.5.3 | Aggregation architecture decision | **PASS / COMPLETE / FROZEN** |
-| — | `F` normalization basis + realized-effort reference/context | **ACCEPT / FROZEN** |
-| — | `F` independent direct reward term / reward modifier | **REJECT / FROZEN** |
-| **02.6.6** | **Reward magnitude and zero-evidence handling** | **IN PROGRESS** |
-| 02.6.6.1 | Equal-vs-differentiated magnitude principle | **EQUAL INITIAL ABSOLUTE MAGNITUDE / PASS / FROZEN** |
-| 02.6.6.2 | Common reward scale | **UNIT SCALE / NO ADDITIONAL SCALING / PASS / FROZEN** |
-| 02.6.6.3 | `F=0` / `NO_FORWARDING_EVIDENCE` handling | **NO REWARD VALUE; NO REWARD-BEARING Q-UPDATE / PASS / FROZEN** |
-| 02.6.6.4 | Reward bounds/range and numerical safety | **NATURAL RANGE [-1,+1]; NO ADDITIONAL CLIPPING / PASS / FROZEN** |
-| **02.6.7** | **Deterministic micro-case validation** | **IN PROGRESS** |
-| 02.6.7.1--02.6.7.6 | Pure-boundary and mixed/balanced known-answer cases | **PASS / FROZEN** |
-| 02.6.7.7 | Interior non-zero mixed outcome | **NEXT** |
-| 02.6.7.8--02.6.7.10 | Zero-evidence execution, proportional-scaling invariance, suite closure audit | **PLANNED / PENDING** |
-| Remaining 02.6 | Final executable reward-contract reconciliation and closure audit after micro-cases | **BLOCKED / PENDING** |
+| 02.6.1 | Reward event semantics and attribution lifecycle | **PASS / FROZEN** |
+| 02.6.2 | Reward component selection | **PASS / FROZEN** |
+| 02.6.3 | Reward component direction | **PASS / FROZEN** |
+| 02.6.4 | Reward component representation | **PASS / FROZEN** |
+| 02.6.5 | Aggregation architecture and double-counting control | **PASS / COMPLETE / FROZEN** |
+| 02.6.6 | Relative magnitude, unit scale, zero-evidence handling, natural range | **PASS / COMPLETE / FROZEN** |
+| 02.6.7.1--02.6.7.6 | Boundary and balanced/mixed deterministic cases | **PASS / FROZEN** |
+| 02.6.7.7 | Interior non-zero mixed outcome | **PASS / FROZEN** |
+| 02.6.7.8 | Zero-forwarding-evidence execution | **PASS / FROZEN** |
+| 02.6.7.9 | Proportional-scaling invariance | **PASS / FROZEN** |
+| 02.6.7.10 | Micro-case suite closure audit | **PASS / COMPLETE / FROZEN** |
+| 02.6.7 | Deterministic micro-case validation | **PASS / COMPLETE / FROZEN** |
+| **02.6.8A** | **Final executable reward-contract reconciliation** | **NEXT / READY** |
+| **02.6.8B** | **02.6 closure audit** | **BLOCKED BY 02.6.8A** |
 | **02.6 overall** | **Reward Construction** | **IN PROGRESS** |
 
-### 02.6.8.2 Where exactly are we?
+The labels `02.6.8A` and `02.6.8B` are operational checklist identifiers for the two already-documented remaining tasks; they do not create new scientific requirements.
+
+#### 02.6.8.2 Frozen reward constraints entering final reconciliation
+
+The final executable reward contract MUST reconcile, without reopening, the following frozen constraints:
+
+1. reward evidence is locally attributable to the acting decision interval;
+2. \(F_t=NEW_t+DUPLICATE_t+FAILED_t\);
+3. for \(F_t>0\), forwarding outcomes are represented as \(NEW_t/F_t\), \(DUPLICATE_t/F_t\), and \(FAILED_t/F_t\);
+4. `NEW` is positive; `DUPLICATE` and `FAILED` are negative;
+5. the initial absolute magnitudes are equal and use unit scale;
+6. \(F_t\) is neutral/non-direct, is accepted as normalization basis and realized-effort reference/context, and is not an independent reward term or reward-magnitude modifier;
+7. \(F_t=0\) means `NO_FORWARDING_EVIDENCE`, with no numerical reward and no reward-bearing Q-update;
+8. the natural numerical reward range is \([-1,+1]\), with no additional clipping;
+9. `ZERO REWARD` with \(F_t>0\) is distinct from `NO REWARD` at \(F_t=0\);
+10. the complete deterministic suite 02.6.7.1--02.6.7.10 is PASS / FROZEN.
+
+#### 02.6.8.3 Immediate next gate
+
+> **NEXT: Final executable reward-contract reconciliation.**
+
+Its task is to derive and verify the executable \(R_t\) that is already implied by the frozen 02.6.1--02.6.7 decisions. It MUST NOT introduce a new signal, coefficient, weight, threshold, bonus, penalty, clipping rule, or \(F_t\)-based magnitude modifier merely to complete the equation.
+
+The reconciliation must remain aligned with:
+- `docs/00_SOURCE_AUTHORITY_REGISTER.md`;
+- `docs/01_CANONICAL_AHBN_CONTRACT.md`;
+- the frozen Q-AHBN2 architecture and reward decisions in this document;
+- the RO2 dissemination trade-off: productive dissemination evidence must remain distinguishable from redundant and unsuccessful forwarding effort.
+
+#### 02.6.8.4 Final 02.6 exit condition
+
+After the executable reward contract is reconciled, perform one final 02.6 closure audit covering:
+- internal mathematical consistency;
+- consistency with every frozen 02.6 gate;
+- no reward double counting;
+- no leakage or attribution violation;
+- canonical AHBN remains unchanged and independently traceable;
+- deterministic cases remain satisfied;
+- executable edge-case semantics are explicit;
+- implementation can reproduce the contract without an unstated design choice.
+
+Only if that audit passes may the section be marked:
 
 ```text
-02.6 Reward Construction
-│
-├── 02.6.1 Event Semantics                 PASS / FROZEN
-├── 02.6.2 Component Selection             PASS / FROZEN
-├── 02.6.3 Component Direction             PASS / FROZEN
-├── 02.6.4 Component Representation        PASS / FROZEN
-├── 02.6.5 Aggregation Structure           PASS / COMPLETE / FROZEN
-│
-└── 02.6.6 Reward Magnitude / Zero Evidence
-      ├── .1 Equal absolute magnitude      PASS / FROZEN
-      ├── .2 Unit scale                    PASS / FROZEN
-      ├── .3 F=0 handling                  PASS / FROZEN
-      │      └── NO reward-bearing update
-      └── .4 Reward bounds / safety         PASS / FROZEN
-             └── Natural [-1,+1]; no clipping
+02.6 Reward Construction = PASS / COMPLETE / FROZEN
 ```
 
-The frozen post-02.6.5 decisions are:
+No additional gate may be inserted merely for completeness, optimization, or extra assurance. If an unexpected validity-critical check is required, it must be logged with its reason, evidence, result, scientific impact, and roadmap impact under the execution protocol in `docs/02A_QAHBN2_ACCELERATED_FREEZE_PLAN.md`.
 
-$$
-\boxed{
-\begin{aligned}
-&|NEW|=|DUPLICATE|=|FAILED| \quad \text{at the initial relative-magnitude level};\\
-&\text{common scale}=1 \quad \text{(no additional scaling parameter)};\\
-&F_t=0\Rightarrow\mathrm{NO\_FORWARDING\_EVIDENCE}
-\Rightarrow\text{no reward value and no reward-bearing Q-update}.
-\end{aligned}}
-$$
-
-These decisions do **not** yet constitute the final executable \(R_t\).
-
-### 02.6.8.3 Immediate controlled action
-
-The next unresolved area from the documented 02.6 remaining-work roadmap is:
-
-> **02.6.7.7 — Interior non-zero mixed-outcome micro-case.**
-
-Do not jump directly to the final reward equation. The next controlled work must demonstrate that the frozen semantics, directions, dependency, normalized representation, equal relative magnitude, unit scale, \(F_t=0\) handling, natural \([-1,+1]\) bound, and no-clipping safeguard behave consistently in deterministic cases.
-
-Until that validation is completed, final executable reward-contract reconciliation and 02.6 closure remain **BLOCKED**.
-
-### 02.6.8.4 Remaining closure work
-
-The relative-magnitude/common-scale issue, explicit \(F_t=0\) reward handling, and reward bounds/numerical-safety rule are now resolved.
-
-The remaining work is limited to:
-
-1. deterministic micro-cases demonstrating consistency with the frozen semantics, directions, dependency, representation, magnitude, scaling, zero-evidence, natural range, no-clipping, and double-counting safeguards;
-2. final executable reward-contract reconciliation and 02.6 closure audit.
-
-The final \(R_t\) MUST NOT be declared frozen until these remaining gates are completed.
