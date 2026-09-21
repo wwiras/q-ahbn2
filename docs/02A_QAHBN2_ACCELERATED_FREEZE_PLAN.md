@@ -481,8 +481,8 @@ This table is the operational progress reference for the accelerated plan.
 | P0 | Canonical AHBN contract | PASS / FROZEN | Existing authority; immutable |
 | P1 | 02.1–02.4 Q-AHBN2 design | PASS / FROZEN | Existing detailed design assets |
 | P2 | 02.5 Reward Signal Admissibility | PASS / FROZEN | Existing detailed design assets |
-| P3 | 02.6 Reward Construction | IN PROGRESS | Continue current detailed process; do not compress or reopen |
-| A | State Representation Freeze | BLOCKED BY P3 | Accelerated block begins after 02.6 |
+| P3 | 02.6 Reward Construction | PASS / FROZEN | Executable reward contract and closure audit completed; see DOC-02 Section 02.6.8A--B |
+| A | State Representation Freeze | READY | Reconcile accelerated Block A against already-frozen DOC-02 Sections 02.3--02.4; verification must not reopen them without a validity defect |
 | B | Action Architecture Freeze | BLOCKED | Accelerated block |
 | C | Learning Configuration Freeze | BLOCKED | Accelerated block |
 | D | Training / Evaluation Protocol Freeze | BLOCKED | Accelerated block |
@@ -555,19 +555,13 @@ As of 2026-09-21:
 
 ```text
 CURRENT ACTIVE SCIENTIFIC TASK:
-02.6 Reward Construction
+02.6 Reward Construction = PASS / COMPLETE / FROZEN
 
-PROCESS:
-Continue the existing detailed controlled freeze.
+NEXT:
+Accelerated Block A — State Representation Freeze = READY
 
-DO NOT:
-- compress 02.6;
-- rewrite already frozen 02.5/02.6 assets;
-- jump ahead into accelerated Block A prematurely.
-
-NEXT PROCESS CHANGE:
-After 02.6 = PASS / FROZEN,
-activate Accelerated Block A — State Representation Freeze.
+IMPORTANT RECONCILIATION:
+DOC-02 Sections 02.3 State Representation and 02.4 State Discretization are already PASS / FROZEN. Therefore Block A must begin as a bounded reconciliation/verification of those frozen assets against the accelerated four-gate contract, not as a fresh redesign. Reopening 02.3/02.4 requires an explicit validity defect/change-control reason.
 ```
 
 ---
@@ -691,14 +685,17 @@ As of this protocol update:
 02.6.7 Deterministic Micro-Case Validation
     = PASS / COMPLETE / FROZEN
 
+02.6.8A Final executable reward-contract reconciliation
+    = PASS / COMPLETE / FROZEN
+
+02.6.8B Final 02.6 closure audit
+    = PASS / COMPLETE / FROZEN
+
+02.6 Reward Construction
+    = PASS / COMPLETE / FROZEN
+
 NEXT
-    = Final executable reward-contract reconciliation
-
-THEN
-    = 02.6 closure audit
-
-TARGET
-    = 02.6 Reward Construction = PASS / COMPLETE / FROZEN
+    = Accelerated Block A — reconcile/verify already-frozen 02.3--02.4
 ```
 
 No `02.6.7.11` is planned. Any additional check must satisfy the discovered-check rule above.
