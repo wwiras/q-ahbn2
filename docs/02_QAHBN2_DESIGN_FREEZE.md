@@ -3000,11 +3000,178 @@ This closure does not yet freeze the final executable \(R_t\). The next document
 ---
 
 
+
+### 02.6.8A Final Executable Reward-Contract Reconciliation — PASS / COMPLETE / FROZEN
+
+**Work-package classification:** L1 bounded reconciliation under the delegated scientific execution protocol. No new scientific assumption or reward preference is introduced.
+
+#### Authoritative inputs checked
+
+The reconciliation was performed against:
+
+- `docs/00_SOURCE_AUTHORITY_REGISTER.md`, including the retained objective of balancing dissemination effectiveness with overhead and the rule that historical reward equations/coefficients are redesign evidence rather than authority;
+- `docs/01_CANONICAL_AHBN_CONTRACT.md`, which keeps canonical AHBN immutable and defines no Q-learning reward;
+- frozen Sections 02.6.1--02.6.7 of this document;
+- the RO2 dissemination trade-off authority registered as Source 3A, which requires productive dissemination to remain distinguishable from redundant/unsuccessful forwarding evidence.
+
+#### Executable derivation
+
+For every reward-bearing decision interval, \(F_t>0\) and:
+
+$$
+F_t=NEW_t+DUPLICATE_t+FAILED_t.
+$$
+
+The frozen representation is:
+
+$$
+\hat N_t=\frac{NEW_t}{F_t},\qquad
+\hat D_t=\frac{DUPLICATE_t}{F_t},\qquad
+\hat X_t=\frac{FAILED_t}{F_t},
+$$
+
+with:
+
+$$
+\hat N_t+\hat D_t+\hat X_t=1.
+$$
+
+The frozen directions and equal unit magnitudes are:
+
+$$
+NEW:+1,\qquad DUPLICATE:-1,\qquad FAILED:-1.
+$$
+
+Therefore the direct linear aggregation implied by the frozen contract is:
+
+$$
+\boxed{
+R_t=
+\frac{NEW_t-DUPLICATE_t-FAILED_t}{F_t}
+}
+\qquad \text{for }F_t>0.
+$$
+
+Equivalently:
+
+$$
+R_t=
+\frac{NEW_t}{F_t}
+-
+\frac{DUPLICATE_t}{F_t}
+-
+\frac{FAILED_t}{F_t}.
+$$
+
+The algebraic simplification \(R_t=2(NEW_t/F_t)-1\) is valid when \(F_t>0\), but it is **not** the preferred scientific/implementation representation because the explicit form preserves the operational distinction between redundant DUPLICATE and unsuccessful FAILED forwarding evidence.
+
+For \(F_t=0\):
+
+```text
+NO_FORWARDING_EVIDENCE
+→ no numerical R_t
+→ no reward-bearing Q-update
+```
+
+No artificial numerical reward is assigned.
+
+#### Reconciliation checks
+
+| Check | Result |
+|---|---|
+| locally attributable evidence only | PASS |
+| canonical AHBN changed | NO |
+| new reward signal introduced | NO |
+| new coefficient/weight introduced | NO |
+| \(F_t\) used as independent fourth reward term | NO |
+| \(F_t\) modifies reward magnitude independently | NO |
+| duplicate/failed negative evidence preserved | PASS |
+| RO2 productive-vs-overhead distinction preserved | PASS |
+| natural reward range | \([-1,+1]\) / PASS |
+| additional clipping required | NO |
+| \(F_t=0\) semantics preserved | PASS |
+| 02.6.7 deterministic suite preserved | PASS |
+| contradiction with frozen 02.6 decisions | NONE FOUND |
+
+Because \(\hat N_t,\hat D_t,\hat X_t\ge0\) and sum to one, the executable reward is a signed convex combination of \(+1,-1,-1\), hence:
+
+$$
+-1\le R_t\le +1.
+$$
+
+No clipping is mathematically required under valid inputs.
+
+**02.6.8A FINAL EXECUTABLE REWARD-CONTRACT RECONCILIATION: PASS / COMPLETE / FROZEN.**
+
+---
+
+### 02.6.8B Final 02.6 Closure Audit — PASS / COMPLETE / FROZEN
+
+The complete reward-construction contract was reconciled end-to-end.
+
+| Closure criterion | Result |
+|---|---|
+| 02.6.1 event semantics and attribution | PASS |
+| 02.6.2 component admissibility | PASS |
+| 02.6.3 component directions | PASS |
+| 02.6.4 normalized representation | PASS |
+| 02.6.5 dependency / no double counting / aggregation architecture | PASS |
+| 02.6.6 equal unit magnitude / zero evidence / natural range | PASS |
+| 02.6.7 deterministic validation suite | PASS |
+| final executable formula consistent with all frozen decisions | PASS |
+| zero reward distinguished from no reward | PASS |
+| canonical AHBN remains immutable | PASS |
+| source-authority register contradicted | NO |
+| RO2 trade-off contradicted | NO |
+| hidden reward parameter introduced | NO |
+| unstated implementation choice required for reward calculation | NO |
+| unresolved validity-critical reward issue | NONE FOUND |
+
+No additional gate is scientifically required to make the reward contract executable and reproducible.
+
+The frozen executable contract is:
+
+$$
+\boxed{
+R_t=
+\frac{NEW_t-DUPLICATE_t-FAILED_t}{F_t},
+\qquad F_t>0
+}
+$$
+
+and:
+
+$$
+\boxed{
+F_t=0
+\Rightarrow
+\mathrm{NO\_FORWARDING\_EVIDENCE}
+\Rightarrow
+\text{no numerical }R_t
+\Rightarrow
+\text{no reward-bearing Q-update}
+}
+$$
+
+with:
+
+$$
+\boxed{-1\le R_t\le+1}
+$$
+
+for every reward-bearing interval.
+
+**02.6 REWARD CONSTRUCTION: PASS / COMPLETE / FROZEN.**
+
+This freeze defines the reward contract only. It does not modify canonical AHBN, does not select learning hyperparameters, and does not authorize post-hoc reward tuning based on experimental performance.
+
+---
+
 ### 02.6.8 Current Gate and Progress Checklist
 
 This subsection is the operational master list for the current `02.6 Reward Construction` stage. It summarizes the authoritative frozen decisions above and is updated whenever a gate closes. It does **not** replace or modify their scientific content.
 
-> **Current position:** `02.6.7 Deterministic Micro-Case Validation = PASS / COMPLETE / FROZEN`. The final executable \(R_t\) is **NOT YET FROZEN**.
+> **Current position:** `02.6 Reward Construction = PASS / COMPLETE / FROZEN`. The executable reward contract is frozen and the 02.6 closure audit has passed.
 
 #### 02.6.8.1 Master completion contract
 
@@ -3022,9 +3189,9 @@ This subsection is the operational master list for the current `02.6 Reward Cons
 | 02.6.7.9 | Proportional-scaling invariance | **PASS / FROZEN** |
 | 02.6.7.10 | Micro-case suite closure audit | **PASS / COMPLETE / FROZEN** |
 | 02.6.7 | Deterministic micro-case validation | **PASS / COMPLETE / FROZEN** |
-| **02.6.8A** | **Final executable reward-contract reconciliation** | **NEXT / READY** |
-| **02.6.8B** | **02.6 closure audit** | **BLOCKED BY 02.6.8A** |
-| **02.6 overall** | **Reward Construction** | **IN PROGRESS** |
+| **02.6.8A** | **Final executable reward-contract reconciliation** | **PASS / COMPLETE / FROZEN** |
+| **02.6.8B** | **02.6 closure audit** | **PASS / COMPLETE / FROZEN** |
+| **02.6 overall** | **Reward Construction** | **PASS / COMPLETE / FROZEN** |
 
 The labels `02.6.8A` and `02.6.8B` are operational checklist identifiers for the two already-documented remaining tasks; they do not create new scientific requirements.
 
@@ -3045,9 +3212,9 @@ The final executable reward contract MUST reconcile, without reopening, the foll
 
 #### 02.6.8.3 Immediate next gate
 
-> **NEXT: Final executable reward-contract reconciliation.**
+> **COMPLETED: Final executable reward-contract reconciliation and 02.6 closure audit.**
 
-Its task is to derive and verify the executable \(R_t\) that is already implied by the frozen 02.6.1--02.6.7 decisions. It MUST NOT introduce a new signal, coefficient, weight, threshold, bonus, penalty, clipping rule, or \(F_t\)-based magnitude modifier merely to complete the equation.
+The executable \(R_t\) has been derived and verified from the frozen 02.6.1--02.6.7 decisions without introducing a new signal, coefficient, weight, threshold, bonus, penalty, clipping rule, or \(F_t\)-based magnitude modifier.
 
 The reconciliation must remain aligned with:
 - `docs/00_SOURCE_AUTHORITY_REGISTER.md`;
