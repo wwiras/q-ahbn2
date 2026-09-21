@@ -3368,3 +3368,128 @@ G — Q-Learning Mechanics
 ```
 
 S02-G must reconcile the historical mechanics against the already-frozen 81-state × 5-action Q-AHBN2 contract and reward contract. It must not reopen S02-F merely for optimization.
+
+
+---
+
+## 02.8 Q-Learning Mechanics — PASS / COMPLETE / FROZEN
+
+### 02.8.1 Frozen Q-table initialization
+
+Q-AHBN2 uses the frozen 81-state × 5-action logical table. Every state-action entry is initialized to:
+
+$$Q_0(s,a)=0.$$
+
+Lazy materialization is permitted in implementation provided it is exactly equivalent to a fully allocated zero-initialized 81 × 5 table.
+
+### 02.8.2 Frozen one-step Q update
+
+For the completed transition $(s_t,a_t,R_t,s_{t+1})$:
+
+$$
+Q(s_t,a_t)\leftarrow Q(s_t,a_t)+\alpha_Q\left[R_t+\gamma\max_{a'}Q(s_{t+1},a')-Q(s_t,a_t)\right],
+$$
+
+with the S02-F constants:
+
+$$\alpha_Q=0.25,\qquad\gamma=0.90.$$
+
+This is ordinary off-policy one-step tabular Q-learning. No eligibility traces, replay buffer, target network, model-based update, or additional optimizer is introduced.
+
+### 02.8.3 Frozen exploration/exploitation semantics
+
+At each Q-AHBN2 action-selection opportunity:
+
+```text
+draw u from the learner's seeded PRNG
+
+if u < epsilon:
+    EXPLORE:
+        choose uniformly from all 5 frozen Q-AHBN2 actions
+else:
+    EXPLOIT:
+        compute max_a Q(s,a)
+        form the set of all actions tied at that maximum
+        choose uniformly from that tied set using the same seeded PRNG
+```
+
+Random tie handling is mandatory. With zero initialization, this prevents action-order bias at previously unseen states.
+
+### 02.8.4 Deterministic RNG contract
+
+The learner owns a deterministic seeded pseudo-random stream. Given the same frozen logical inputs, initial Q table, seed, and lifecycle, action-selection randomness must be reproducible.
+
+The exact experiment seed mapping and reset/persistence policy are owned by S02-H / the later experiment contract; S02-G freezes only the mechanic that stochastic choices use the controlled learner RNG rather than uncontrolled global randomness.
+
+### 02.8.5 Reward/transition boundary
+
+The update consumes the already-frozen reward $R_t$ from Section 02.6 and the next frozen discrete state $s_{t+1}$ from Sections 02.3–02.4. S02-G does not redefine when an interval begins/ends or when a run resets; those lifecycle semantics are S02-H.
+
+Required ordering at the logical transition level is:
+
+```text
+(s_t, a_t)
+    ↓
+attributed interval outcomes
+    ↓
+R_t + s_(t+1)
+    ↓
+one-step Q update for (s_t,a_t)
+    ↓
+epsilon-greedy selection for the next action
+```
+
+### 02.8.6 Source and RO2 reconciliation
+
+The historical ControlSim and GKE learners both use zero initialization, the same one-step Q-learning equation, epsilon-greedy selection, and seeded random tie-breaking. Source comparison is recorded in `docs/00_SOURCE_AUTHORITY_REGISTER.md`, Section 13.
+
+RO2 demonstrates a changing dissemination trade-off across fanout, failures/overload, churn, and heterogeneous conditions. It motivates learning over changing state/action consequences, but does not justify a more complex RL algorithm. Conventional tabular Q-learning is therefore retained as the minimum mechanism required to test the RO4 learning-enhancement question.
+
+Canonical AHBN remains unchanged and is evaluated before this learning layer.
+
+### 02.8.7 Known-answer micro-case
+
+For:
+
+```text
+Q(s_t,a_t) = 0
+R_t = +0.50
+max_a' Q(s_(t+1),a') = 0
+alpha_Q = 0.25
+gamma = 0.90
+```
+
+the frozen update must produce:
+
+$$Q_{new}=0+0.25(0.50+0.90(0)-0)=0.125.$$
+
+A future implementation unit test MUST reproduce this exact value.
+
+### 02.8.8 Gate results
+
+| Subgate | Result |
+|---|---|
+| G1 Q-table initialization | PASS / FROZEN — zero |
+| G2 Q-update | PASS / FROZEN — one-step tabular Q-learning |
+| G3 exploration/exploitation | PASS / FROZEN — epsilon-greedy |
+| G4 tie/RNG semantics | PASS / FROZEN — seeded uniform random tie handling |
+| G5 known-answer verification | PASS — expected update 0.125 |
+| G6 closure | PASS / COMPLETE / FROZEN |
+
+**S02-G Q-LEARNING MECHANICS = PASS / COMPLETE / FROZEN.**
+
+### 02.8.9 Next documented gate
+
+```text
+H — Learning Lifecycle
+    H1 episode definition
+    H2 learning trigger / decision interval
+    H3 observation interval
+    H4 action interval
+    H5 transition/reward/update ordering
+    H6 epsilon decay placement
+    H7 reset/persistence policy
+    H8 closure
+```
+
+This is the next unresolved Section-15 requirement.
