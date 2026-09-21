@@ -2325,6 +2325,98 @@ Accordingly, **02.6.3 is complete**. The next stage must begin by deciding how t
 
 ---
 
+### 02.6.4 Reward Component Representation — PASS / FROZEN
+
+This stage freezes the representation needed to compare the three terminal forwarding outcomes before any reward weights, relative severities, aggregation coefficients, or final reward equation are introduced.
+
+For reward-bearing actions with \(F_t>0\), the terminal outcome counts are represented as action-local outcome proportions:
+
+\[
+\boxed{
+\widehat{NEW}_t=\frac{NEW_t}{F_t},\qquad
+\widehat{DUPLICATE}_t=\frac{DUPLICATE_t}{F_t},\qquad
+\widehat{FAILED}_t=\frac{FAILED_t}{F_t}
+}
+\]
+
+Using the already-frozen identity
+
+\[
+F_t=NEW_t+DUPLICATE_t+FAILED_t,
+\]
+
+the represented outcome components satisfy
+
+\[
+0\leq\widehat{NEW}_t,\widehat{DUPLICATE}_t,\widehat{FAILED}_t\leq1
+\]
+
+and
+
+\[
+\boxed{
+\widehat{NEW}_t+\widehat{DUPLICATE}_t+\widehat{FAILED}_t=1
+\qquad(F_t>0)
+}
+\]
+
+This converts the differently scaled raw terminal counts into comparable within-action outcome shares while preserving the directions frozen in 02.6.3:
+
+\[
+\widehat{NEW}_t:\textbf{ POSITIVE},\qquad
+\widehat{DUPLICATE}_t:\textbf{ NEGATIVE},\qquad
+\widehat{FAILED}_t:\textbf{ NEGATIVE}.
+\]
+
+#### 02.6.4.4 Representation of forwarding effort \(F_t\)
+
+\(F_t\) remains **ADMISSIBLE** and **NEUTRAL / NON-DIRECT** evidence of the forwarding effort initiated by \(a_t\). Raw \(F_t\) is **not** accepted as a directly comparable fourth reward component alongside the three normalized outcome proportions.
+
+The exact representation or normalization of forwarding effort, if it is later used mathematically, remains unresolved. In particular:
+
+- no \(\widehat F_t\) definition is frozen;
+- direct inclusion of effort in the final reward equation is not authorized;
+- \(F_t=0\) handling remains unresolved and must be settled before a final reward equation is constructed;
+- the identity \(F_t=NEW_t+DUPLICATE_t+FAILED_t\) remains authoritative.
+
+#### 02.6.4.5 Reward Component Representation Decision Matrix — PASS / FROZEN
+
+| Evidence | Frozen representation | Direction | Status / constraint |
+|---|---|---|---|
+| \(NEW_t\) | \(\widehat{NEW}_t=NEW_t/F_t\), for \(F_t>0\) | **POSITIVE** | Comparable terminal-outcome proportion |
+| \(DUPLICATE_t\) | \(\widehat{DUPLICATE}_t=DUPLICATE_t/F_t\), for \(F_t>0\) | **NEGATIVE** | Comparable terminal-outcome proportion |
+| \(FAILED_t\) | \(\widehat{FAILED}_t=FAILED_t/F_t\), for \(F_t>0\) | **NEGATIVE** | Comparable terminal-outcome proportion |
+| \(F_t\) | Retained as forwarding-effort evidence; no final normalized representation frozen | **NEUTRAL / NON-DIRECT** | Raw \(F_t\) rejected as a directly comparable fourth outcome term; later use must avoid double counting |
+
+Accordingly:
+
+\[
+\boxed{\textbf{02.6.4.5 Reward Component Representation Decision Matrix = PASS / FROZEN}}
+\]
+
+and:
+
+\[
+\boxed{\textbf{02.6.4 Reward Component Representation = PASS / FROZEN}}
+\]
+
+This freeze assigns **no reward weights, coefficient magnitudes, relative severities, tuning values, aggregation architecture, or final \(R_t\) equation**. Those remain:
+
+\[
+\boxed{\textbf{BLOCKED}}
+\]
+
+The next controlled stage is **02.6.5 Reward Component Aggregation Structure**. Only its first sub-decision is opened:
+
+### 02.6.5.1 Component Dependency Audit — OPEN
+
+> Given the representations frozen in 02.6.4 and the identity \(F_t=NEW_t+DUPLICATE_t+FAILED_t\), which reward representations are mathematically or informationally dependent on one another, and what constraints does that dependency impose on later reward aggregation?
+
+No aggregation architecture is selected by opening this audit. Weights and the final reward equation remain blocked.
+
+
+---
+
 ### 02.6.8 Current gate
 
 $$
