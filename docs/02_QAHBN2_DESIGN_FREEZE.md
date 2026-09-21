@@ -2521,8 +2521,88 @@ Accordingly:
 
 > Given the dependency and double-counting constraints frozen in 02.6.5.1--02.6.5.2, what structural role, if any, should \(F_t\) have relative to the three represented outcome components?
 
-Only this structural-role question is open. No weight, coefficient, relative severity, tuning value, or final \(R_t\) equation is authorized.
+No weight, coefficient, relative severity, tuning value, or final \(R_t\) equation is authorized.
 
+#### 02.6.5.3A — \(F_t\) as an Independent Direct Reward Term — REJECT / FROZEN
+
+\(F_t\) MUST NOT enter the reward as an independent directly signed fourth outcome term.
+
+\[
+\boxed{\textbf{02.6.5.3A — Direct reward term = REJECT / FROZEN}}
+\]
+
+The rejection applies **only to the direct-term role**. \(F_t\) remains admissible evidence. This follows from \(F_t=NEW_t+DUPLICATE_t+FAILED_t\), the 02.6.5.2 double-counting safeguard, and the RO2 requirement to preserve productive versus redundant/unsuccessful dissemination effort.
+
+No decision is made here about normalization, modifier/reference, constraint/context, or no-final-reward roles.
+
+#### 02.6.5.3B — \(F_t\) as Normalization Basis — OPEN
+
+For \(F_t>0\), the candidate role is the already-frozen 02.6.4 representation:
+\[
+\widehat{NEW}_t=\frac{NEW_t}{F_t},\quad
+\widehat{DUPLICATE}_t=\frac{DUPLICATE_t}{F_t},\quad
+\widehat{FAILED}_t=\frac{FAILED_t}{F_t}.
+\]
+
+##### 02.6.5.3B.1(a) — Can \(F_t=0\) Occur? — YES / PASS / FROZEN
+
+Requested fanout does not guarantee realized forwarding. If no eligible forwarding target exists, no direct forwarding attempt is initiated.
+
+\[
+\boxed{|N_e|=0\Rightarrow F_t=0\Rightarrow NEW_t=DUPLICATE_t=FAILED_t=0}
+\]
+
+No eligible forwarding target does **not** constitute a failed initiated transmission:
+\[
+\boxed{F_t=0\not\Rightarrow FAILED_t>0}
+\]
+
+\[
+\boxed{\textbf{02.6.5.3B.1(a) — Can }F_t=0\textbf{ occur? = YES / PASS / FROZEN}}
+\]
+
+##### 02.6.5.3B.1(b) — Zero-Effort Representation Semantics — NO FORWARDING-OUTCOME EVIDENCE / PASS / FROZEN
+
+When \(F_t=0\), no forwarding attempts were initiated; therefore no empirical forwarding-outcome distribution exists for that decision interval.
+
+\[
+\boxed{F_t=0\Rightarrow\textbf{NO FORWARDING-OUTCOME EVIDENCE}}
+\]
+
+Thus the three normalized outcomes have no empirical proportion for that interval. This does not imply \(FAILED_t>0\), \(R_t=0\), or that the Q-learning update is skipped. Those reward and learning decisions remain BLOCKED.
+
+\[
+\boxed{\textbf{02.6.5.3B.1(b) Zero-Effort Representation Semantics}=\textbf{NO FORWARDING-OUTCOME EVIDENCE / PASS / FROZEN}}
+\]
+
+##### 02.6.5.3B.1(c) — Computational Encoding — CONDITIONAL REPRESENTATION / PASS / FROZEN
+
+\[
+\boxed{
+\mathcal{O}_t=
+\begin{cases}
+\left(\dfrac{NEW_t}{F_t},\dfrac{DUPLICATE_t}{F_t},\dfrac{FAILED_t}{F_t}\right),&F_t>0,\\[8pt]
+\text{NO\_FORWARDING\_EVIDENCE},&F_t=0.
+\end{cases}}
+\]
+
+NO_FORWARDING_EVIDENCE is an **implementation condition**, not a numerical reward value, state variable, additional reward component, or fourth outcome.
+
+\[
+\boxed{
+\begin{aligned}
+&\text{No artificial }0/0=0;\\
+&\text{no new scientific signal or reward component};\\
+&\text{no reward value assigned for }F_t=0;\\
+&\text{no Q-update behaviour decided here.}
+\end{aligned}}
+\]
+
+\[
+\boxed{\textbf{02.6.5.3B.1(c) Computational Encoding}=\textbf{CONDITIONAL REPRESENTATION / PASS / FROZEN}}
+\]
+
+The next controlled action is **not** to proceed automatically to candidate C. First determine whether 02.6.5.3B.1(a)--(c), together with 02.6.4 and the 02.6.5.1--02.6.5.2 safeguards, are sufficient to close **02.6.5.3B — \(F_t\) as Normalization Basis**.
 
 ---
 
