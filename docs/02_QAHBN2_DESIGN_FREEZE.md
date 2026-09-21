@@ -2028,6 +2028,53 @@ The next controlled component decision is **02.6.2.4 — forwarding effort $F_t$
 
 ---
 
+#### 02.6.2.4 Forwarding effort $F_t$ — INCLUDE / ADMISSIBLE — FROZEN
+
+The frozen event semantics define $F_t$ as the number of direct forwarding attempts initiated by the selected action:
+
+$$
+F_t=NEW_t+DUPLICATE_t+FAILED_t.
+$$
+
+$F_t$ is scientifically admissible as a local forwarding-effort signal:
+
+$$
+\boxed{
+F_t=
+\text{admissible local evidence of forwarding effort initiated by }a_t
+}
+$$
+
+Its semantic role is different from the terminal outcome categories. $NEW_t$, $DUPLICATE_t$, and $FAILED_t$ describe what happened to initiated attempts, whereas $F_t$ describes how much direct forwarding effort the action initiated.
+
+However, $F_t$ is algebraically determined by the three terminal outcome counts and therefore does not provide an independent outcome count once those components are known. This creates an explicit reward-construction constraint:
+
+$$
+\boxed{
+F_t=NEW_t+DUPLICATE_t+FAILED_t
+\Rightarrow
+\text{later reward construction MUST check for double counting}
+}
+$$
+
+Accordingly:
+
+$$
+\boxed{\text{02.6.2.4 }F=\text{ INCLUDE / ADMISSIBLE / FROZEN}}
+$$
+
+This freezes **component admissibility only**. It does not assert that $F_t$ must appear in the final reward equation, nor does it assert
+
+$$
+F_t\rightarrow -R_t.
+$$
+
+Sign, normalization, weight, coefficient, and the reward equation remain **BLOCKED**.
+
+The next controlled step is **02.6.2.5 — Component Decision Matrix**.
+
+---
+
 ### 02.6.8 Current gate
 
 $$
