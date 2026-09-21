@@ -3242,3 +3242,129 @@ Only if that audit passes may the section be marked:
 
 No additional gate may be inserted merely for completeness, optimization, or extra assurance. If an unexpected validity-critical check is required, it must be logged with its reason, evidence, result, scientific impact, and roadmap impact under the execution protocol in `docs/02A_QAHBN2_ACCELERATED_FREEZE_PLAN.md`.
 
+
+
+---
+
+## 02.7 Learning Parameters — PASS / COMPLETE / FROZEN
+
+### 02.7.1 Gate contract
+
+S02-F freezes the conventional Q-learning parameters required by Section 15 of the master contract:
+
+```text
+F1 learning rate (alpha_Q)
+F2 discount factor (gamma)
+F3 epsilon start
+F4 epsilon minimum
+F5 epsilon decay factor
+F6 cross-source / RO2 / AHBN-boundary reconciliation
+F7 bounded numerical sanity check
+F8 block closure
+```
+
+This is a Category-B conventional design block under the accelerated protocol. It is not a hyperparameter-optimization study.
+
+### 02.7.2 Frozen values
+
+The Q-AHBN2 logical learning-parameter contract is:
+
+$$
+\alpha_Q = 0.25,\qquad
+\gamma = 0.90,\qquad
+\epsilon_0 = 0.30,\qquad
+\epsilon_{\min}=0.03,\qquad
+\lambda_{\epsilon}=0.995.
+$$
+
+The exploration schedule is multiplicative:
+
+$$
+\epsilon_{n+1}=\max\left(\epsilon_{\min},\lambda_{\epsilon}\epsilon_n\right).
+$$
+
+Here $n$ counts learner decision/decay steps. The precise lifecycle placement, episode definition, and reset/persistence behavior remain owned by S02-H and MUST NOT change these frozen numerical values.
+
+### 02.7.3 Source-authority reconciliation
+
+The required historical comparison is recorded in `docs/00_SOURCE_AUTHORITY_REGISTER.md`, Section 12.
+
+- ControlSim historical Q-AHBN: `alpha=0.25`, `gamma=0.90`, `epsilon=0.30`, `epsilon_min=0.03`, `epsilon_decay=0.995`.
+- GKE historical Q-AHBN: `alpha=0.25`, `gamma=0.90`, `epsilon=0.20`, `epsilon_min=0.03`, `epsilon_decay=0.995`.
+
+The common values are retained. The epsilon-start disagreement is reconciled to **0.30**, preserving the historical ControlSim learning-validation value rather than inventing a newly tuned value. Q-AHBN2 requires one logical learning contract across platforms.
+
+### 02.7.4 RO2 alignment
+
+RO2 is used as the scientific problem constraint, not as false evidence for a unique RL optimum.
+
+RO2 established condition-dependent dissemination trade-offs: increasing fanout reduces propagation delay while increasing duplication; failure/overload and churn expose fragility in structured dissemination while gossip remains more robust; heterogeneous conditions reduce efficiency. These findings justify a learner that can remain responsive, value future consequences, and continue bounded exploration across changing conditions.
+
+Accordingly:
+
+- `alpha_Q=0.25` provides moderate incremental adaptation rather than replacing learned values wholesale;
+- `gamma=0.90` retains substantial future-outcome value, appropriate to temporally evolving dissemination conditions;
+- non-zero epsilon exploration is retained because RO2 shows that no single static dissemination behavior dominates all evaluated conditions;
+- the exact numerical values are inherited/reconciled from historical Q-AHBN evidence under the minimum-adaptation rule, **not claimed to be optimized by RO2**.
+
+### 02.7.5 Canonical-AHBN protection
+
+The Q-learning learning rate is written `alpha_Q` in the Q-AHBN2 contract to distinguish it from the immutable canonical AHBN EWMA smoothing coefficient:
+
+$$
+\alpha_{AHBN}=0.30.
+$$
+
+Therefore:
+
+```text
+alpha_AHBN = 0.30   FROZEN CANONICAL EWMA
+alpha_Q    = 0.25   Q-AHBN2 Q-learning rate
+```
+
+No learning parameter modifies AHBN observations, EWMA, score, sigmoid, mode rule, S5 thresholds, or canonical proposal generation.
+
+### 02.7.6 Bounded sanity verification
+
+For the frozen epsilon schedule:
+
+$$
+\epsilon_n=\max(0.03,0.30(0.995)^n).
+$$
+
+The floor is reached after approximately 460 decay steps. This confirms that the schedule is finite, monotone, bounded in $[0.03,0.30]$, and preserves residual exploration.
+
+This check establishes numerical semantics only. Whether epsilon resets per episode/run or persists is deliberately deferred to S02-H.
+
+### 02.7.7 Gate results
+
+| Subgate | Result |
+|---|---|
+| F1 learning rate | PASS / FROZEN — `alpha_Q=0.25` |
+| F2 discount factor | PASS / FROZEN — `gamma=0.90` |
+| F3 epsilon start | PASS / FROZEN — `epsilon_0=0.30` |
+| F4 epsilon minimum | PASS / FROZEN — `epsilon_min=0.03` |
+| F5 epsilon decay | PASS / FROZEN — multiplicative `0.995` |
+| F6 authority + RO2 + AHBN boundary | PASS |
+| F7 numerical sanity | PASS |
+| F8 closure | PASS / COMPLETE / FROZEN |
+
+**S02-F LEARNING PARAMETERS = PASS / COMPLETE / FROZEN.**
+
+No parameter sweep is authorized by this freeze. Performance tuning alone is not grounds to reopen S02-F.
+
+### 02.7.8 Next documented gate
+
+The next unresolved Section-15 requirement is:
+
+```text
+G — Q-Learning Mechanics
+    G1 Q-table initialization
+    G2 Q-update equation
+    G3 exploration/exploitation selection semantics
+    G4 tie handling / deterministic RNG semantics where required
+    G5 bounded known-answer verification
+    G6 closure
+```
+
+S02-G must reconcile the historical mechanics against the already-frozen 81-state × 5-action Q-AHBN2 contract and reward contract. It must not reopen S02-F merely for optimization.
