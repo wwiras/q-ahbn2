@@ -1635,7 +1635,7 @@ RWD-F9 — Reward inputs and evaluation metrics must remain semantically disting
 
 RWD-F10 — No new Q-AHBN2 reward equation or coefficient is justified by this reconstruction alone.
 
-### 02.6.7 Reward-design requirements derived from evidence
+### 02.6.RD Reward-design requirements derived from evidence
 
 Before proposing a candidate equation, the Q-AHBN2 reward SHALL satisfy the following requirements:
 
@@ -2939,6 +2939,46 @@ This freeze does **not** start the deterministic micro-case suite and does **not
 
 ---
 
+### 02.6.7 Deterministic Micro-Case Validation — IN PROGRESS
+
+This gate validates consequences of the already-frozen 02.6.1--02.6.6 reward decisions using deterministic known-answer cases. It introduces no new reward signal, direction, weight, coefficient, threshold, bonus, penalty, clipping rule, or final executable reward equation.
+
+#### 02.6.7.1 All-NEW Micro-Case — PASS / FROZEN
+NEW=1, DUPLICATE=0, FAILED=0, F=1. Expected: R=+1. This verifies the positive boundary.
+
+#### 02.6.7.2 All-DUPLICATE Micro-Case — PASS / FROZEN
+NEW=0, DUPLICATE=1, FAILED=0, F=1. Expected: R=-1. This verifies the negative boundary for a fully redundant outcome. DUPLICATE and FAILED remain operationally distinct despite equal initial absolute reward magnitude.
+
+#### 02.6.7.3 All-FAILED Micro-Case — PASS / FROZEN
+NEW=0, DUPLICATE=0, FAILED=1, F=1. Expected: R=-1.
+
+The distinction remains: F=0 means no forwarding evidence and no reward-bearing Q-update; FAILED=1 means forwarding was attempted and failed, providing negative evidence.
+
+#### 02.6.7.4 Balanced NEW/DUPLICATE Micro-Case — PASS / FROZEN
+NEW=1, DUPLICATE=1, FAILED=0, F=2. Expected: R=0.
+
+This preserves ZERO REWARD != NO REWARD: F>0 with R=0 means observed positive and negative evidence balance; F=0 means no forwarding-outcome evidence.
+
+#### 02.6.7.5 Balanced NEW/FAILED Micro-Case — PASS / FROZEN
+NEW=1, DUPLICATE=0, FAILED=1, F=2. Expected: R=0. This separately verifies mixed NEW and FAILED handling.
+
+#### 02.6.7.6 Three-Outcome Mixed Micro-Case — PASS / FROZEN
+NEW=2, DUPLICATE=1, FAILED=1, F=4. Normalized proportions are 0.50, 0.25, 0.25. Expected: R=0. This verifies common F normalization and aggregation without double-counting F.
+
+#### 02.6.7 Remaining Micro-Case Plan — EXPLICIT / NOT YET FROZEN
+
+Only the following validations remain before final executable reward-contract reconciliation:
+
+1. **02.6.7.7 Interior non-zero mixed outcome** — verify a deterministic mixed case whose expected reward lies strictly inside (-1,+1) and is not zero, demonstrating proportional behavior away from boundaries and exact-balance cases.
+2. **02.6.7.8 Zero-forwarding-evidence execution case** — verify F=0, NEW=DUPLICATE=FAILED=0, no reward value is assigned, and no reward-bearing Q-update occurs.
+3. **02.6.7.9 Proportional-scaling invariance case** — verify that two attribution sets with identical normalized outcome proportions but different absolute F>0 produce the same reward result, confirming that F is a normalization basis/reference and not a reward-magnitude modifier.
+4. **02.6.7.10 Micro-case suite closure audit** — reconcile all deterministic cases against the frozen semantics, directions, dependency, representation, magnitude, scale, zero-evidence rule, natural range, no-clipping safeguard, and double-counting rule.
+
+No additional micro-case category is to be added unless an inconsistency is discovered during one of these remaining validations. The final executable R remains NOT FROZEN until this suite is closed and the subsequent final reward-contract reconciliation is completed.
+
+
+---
+
 ### 02.6.8 Current Gate and Progress Checklist
 
 This subsection is the operational guide/checklist for the current `02.6 Reward Construction` stage. It summarizes the authoritative frozen decisions above; it does **not** replace or modify their scientific content.
@@ -2974,7 +3014,10 @@ This subsection is the operational guide/checklist for the current `02.6 Reward 
 | 02.6.6.2 | Common reward scale | **UNIT SCALE / NO ADDITIONAL SCALING / PASS / FROZEN** |
 | 02.6.6.3 | `F=0` / `NO_FORWARDING_EVIDENCE` handling | **NO REWARD VALUE; NO REWARD-BEARING Q-UPDATE / PASS / FROZEN** |
 | 02.6.6.4 | Reward bounds/range and numerical safety | **NATURAL RANGE [-1,+1]; NO ADDITIONAL CLIPPING / PASS / FROZEN** |
-| **Next controlled area** | Deterministic micro-case validation | **NEXT** |
+| **02.6.7** | **Deterministic micro-case validation** | **IN PROGRESS** |
+| 02.6.7.1--02.6.7.6 | Pure-boundary and mixed/balanced known-answer cases | **PASS / FROZEN** |
+| 02.6.7.7 | Interior non-zero mixed outcome | **NEXT** |
+| 02.6.7.8--02.6.7.10 | Zero-evidence execution, proportional-scaling invariance, suite closure audit | **PLANNED / PENDING** |
 | Remaining 02.6 | Final executable reward-contract reconciliation and closure audit after micro-cases | **BLOCKED / PENDING** |
 | **02.6 overall** | **Reward Construction** | **IN PROGRESS** |
 
@@ -3016,7 +3059,7 @@ These decisions do **not** yet constitute the final executable \(R_t\).
 
 The next unresolved area from the documented 02.6 remaining-work roadmap is:
 
-> **Deterministic micro-case validation.**
+> **02.6.7.7 — Interior non-zero mixed-outcome micro-case.**
 
 Do not jump directly to the final reward equation. The next controlled work must demonstrate that the frozen semantics, directions, dependency, normalized representation, equal relative magnitude, unit scale, \(F_t=0\) handling, natural \([-1,+1]\) bound, and no-clipping safeguard behave consistently in deterministic cases.
 
