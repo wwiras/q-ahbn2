@@ -2602,7 +2602,43 @@ NO_FORWARDING_EVIDENCE is an **implementation condition**, not a numerical rewar
 \boxed{\textbf{02.6.5.3B.1(c) Computational Encoding}=\textbf{CONDITIONAL REPRESENTATION / PASS / FROZEN}}
 \]
 
-The next controlled action is **not** to proceed automatically to candidate C. First determine whether 02.6.5.3B.1(a)--(c), together with 02.6.4 and the 02.6.5.1--02.6.5.2 safeguards, are sufficient to close **02.6.5.3B — \(F_t\) as Normalization Basis**.
+The zero-effort boundary and computational representation have now been resolved. Together with 02.6.4 and the 02.6.5.1--02.6.5.2 safeguards, these results are sufficient to close the normalization-basis role.
+
+\[
+\boxed{\textbf{02.6.5.3B — }F_t\textbf{ as Normalization Basis = ACCEPT / FROZEN}}
+\]
+
+The accepted role is strictly:
+
+\[
+F_t>0
+\Rightarrow
+\left(
+\widehat{NEW}_t,\widehat{DUPLICATE}_t,\widehat{FAILED}_t
+\right)
+=
+\left(
+\frac{NEW_t}{F_t},\frac{DUPLICATE_t}{F_t},\frac{FAILED_t}{F_t}
+\right),
+\]
+
+and:
+
+\[
+F_t=0
+\Rightarrow
+\text{NO\_FORWARDING\_EVIDENCE}.
+\]
+
+Acceptance as a normalization basis does **not** authorize \(F_t\) as a direct reward or penalty. No weight, coefficient, relative severity, reward for \(F_t=0\), Q-update behaviour, or final reward equation is introduced.
+
+#### 02.6.5.3C — Additional Modifier / Reference Role — OPEN
+
+> Given that \(F_t\) is already ACCEPTED / FROZEN as the normalization basis, should \(F_t\) additionally have a modifier/reference role?
+
+This question must establish whether an additional modifier/reference role contributes genuinely distinct and scientifically useful information, or merely reintroduces forwarding-effort information already accounted for by the frozen representation and safeguards.
+
+Only this additional-role question is open. No modifier form, coefficient, weight, threshold, reward equation, or Q-update behaviour is authorized.
 
 ---
 
