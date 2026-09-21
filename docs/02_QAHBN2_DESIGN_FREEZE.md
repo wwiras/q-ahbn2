@@ -1780,6 +1780,86 @@ The next controlled decision remains within **02.6.1B — Reward Attribution Win
 
 ---
 
+### 02.6.1B-2 Outcome Instrumentation and Closure Rule — FROZEN
+
+This sub-decision freezes the minimum cross-platform accounting and closure semantics required to observe the terminal outcomes defined in 02.6.1B-1. It does **not** assign reward values, signs, weights, coefficients, thresholds, bonuses, or penalties.
+
+For every direct forwarding attempt initiated by $a_t^{(i,m)}$, the implementation MUST create one pending attempt record. Each pending attempt MUST resolve exactly once to one frozen terminal outcome:
+
+$$
+o_{ijm}\in\{NEW,DUPLICATE,FAILED\}.
+$$
+
+Conceptually:
+
+$$
+a_t^{(i,m)}
+\rightarrow
+\{\text{pending direct attempts}\}
+\rightarrow
+\{NEW,DUPLICATE,FAILED\}
+\rightarrow
+\text{close attribution window}.
+$$
+
+The attribution window closes only when no initiated direct attempt remains pending. Equivalently:
+
+$$
+\boxed{
+NEW_t+DUPLICATE_t+FAILED_t=F_t
+}
+$$
+
+where $F_t$ is the number of direct forwarding attempts initiated, as frozen in 02.6.1B-1.
+
+This closure rule is outcome-based rather than based on an arbitrary fixed reward-window duration. A platform-specific transport timeout MAY determine that an individual attempt has reached the terminal state $FAILED$, but such a timeout does not define the reward attribution window itself.
+
+#### Zero-attempt edge case
+
+A valid Q-AHBN2 decision can produce no actual forwarding attempts when no eligible target can be realized. In that case:
+
+$$
+F_t=0.
+$$
+
+No synthetic $FAILED$ outcome is created because no forwarding attempt was initiated. Therefore:
+
+$$
+\boxed{
+F_t=0
+\Rightarrow
+NEW_t=DUPLICATE_t=FAILED_t=0
+\Rightarrow
+\text{close immediately}
+}
+$$
+
+The completed action record MUST still be retained as a valid decision with zero realized attempts. This subsection makes **no statement about the eventual reward value** of such an action.
+
+#### Minimum cross-platform instrumentation contract
+
+ControlSim and Kubernetes MUST expose sufficient per-attempt identity and outcome information to associate every initiated direct attempt with:
+
+$$
+(\text{source peer},\text{message},\text{target peer})
+\rightarrow
+\{NEW,DUPLICATE,FAILED\}.
+$$
+
+Existing platform-specific counters, ACKs, exceptions, event labels, or transport mechanisms MAY be used to implement this contract, but they do not redefine the frozen semantics.
+
+For ControlSim, a direct attempt that cannot be delivered MUST be recorded explicitly as $FAILED$ rather than disappearing through a silent return. For Kubernetes, receiver responses and sender-side rejection/timeout/exception paths MUST be mapped onto the same canonical terminal outcomes.
+
+No new network-failure model is introduced by this requirement; this is outcome accounting needed to make the same reward-event semantics observable on both platforms.
+
+$$
+\boxed{\text{02.6.1B-2 OUTCOME INSTRUMENTATION AND CLOSURE RULE = PASS / FROZEN}}
+$$
+
+Reward signs, weights, coefficients, thresholds, bonuses, penalties, and the reward equation remain **BLOCKED**.
+
+---
+
 ### 02.6.8 Current gate
 
 $$
