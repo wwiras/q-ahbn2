@@ -700,7 +700,7 @@ A row marked **PASS / FROZEN** means the corresponding Section 15 requirement is
 | E | Reward contract | reward equation; reward coefficients/magnitudes; penalty/zero-evidence conditions | DOC-02 Section 02.6 | **PASS / COMPLETE / FROZEN** |
 | F | Learning parameters | learning rate; discount factor; epsilon; epsilon decay | DOC-02 Section 02.7 + Source Authority Register Section 12 | **PASS / COMPLETE / FROZEN** |
 | G | Q-learning mechanics | Q-table initialization; Q-update; exploration/exploitation | DOC-02 Section 02.8 + Source Authority Register Section 13 | **PASS / COMPLETE / FROZEN** |
-| H | Learning lifecycle | episode definition; learning trigger; observation interval; action interval; reset/persistence | lifecycle evidence exists historically; exact Q-AHBN2 lifecycle not yet reconciled | **PENDING — NEXT DESIGN BLOCK** |
+| H | Learning lifecycle | episode definition; learning trigger; observation interval; action interval; reset/persistence | DOC-02 02.9 opened; H-X overlapping per-message transition issue logged | **IN PROGRESS — L3 DECISION REQUIRED** |
 | I | Cross-platform / AHBN-boundary audit | exact compatibility of the complete learning mechanism with immutable AHBN and ControlSim/Kubernetes logical parity | architecture/state/action/reward evidence exists; full-chain audit still required | **PENDING** |
 | J | Final S02 closure audit | all Section 15 requirements resolved; no hidden design choice remains | blocked until F--I close | **BLOCKED** |
 
@@ -716,7 +716,7 @@ D Action space + semantics            PASS / FROZEN
 E Reward                              PASS / COMPLETE / FROZEN
 F Learning parameters                 PASS / COMPLETE / FROZEN
 G Q-learning mechanics                PASS / COMPLETE / FROZEN
-H Learning lifecycle                  NEXT / READY
+H Learning lifecycle                  IN PROGRESS — H-X L3
 I Cross-platform / AHBN-boundary      PENDING
 J Final S02 closure audit             BLOCKED
 ```
@@ -726,6 +726,10 @@ The **next genuine unresolved S02 requirement is H — Learning lifecycle**. F a
 ### 15.1.1A S02-F closure record
 
 S02-F was reconciled as one bounded work package on 2026-09-21. Frozen values are `alpha_Q=0.25`, `gamma=0.90`, `epsilon_0=0.30`, `epsilon_min=0.03`, and multiplicative `epsilon_decay=0.995`. Historical ControlSim and GKE sources were compared explicitly; RO2 was used to constrain the scientific rationale without claiming hyperparameter optimality; canonical AHBN `alpha_AHBN=0.30` remains immutable and distinct.
+
+### 15.1.1B Current blocking decision
+
+S02-H exposed a validity-critical concurrency issue when the frozen per-new-message action/reward contract is combined with one-step Q-learning: multiple message-attribution windows may overlap at a peer. DOC-02 Section 02.9 records alternatives and recommends concurrent per-message transition records with $s_{t+1}$ sampled at that action's closure. This is an L3 lifecycle decision and is the current stopping boundary.
 
 ### 15.1.2 S02 completion contract
 
