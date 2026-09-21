@@ -2331,42 +2331,42 @@ This stage freezes the representation needed to compare the three terminal forwa
 
 For reward-bearing actions with \(F_t>0\), the terminal outcome counts are represented as action-local outcome proportions:
 
-\[
+$
 \boxed{
 \widehat{NEW}_t=\frac{NEW_t}{F_t},\qquad
 \widehat{DUPLICATE}_t=\frac{DUPLICATE_t}{F_t},\qquad
 \widehat{FAILED}_t=\frac{FAILED_t}{F_t}
 }
-\]
+$
 
 Using the already-frozen identity
 
-\[
+$
 F_t=NEW_t+DUPLICATE_t+FAILED_t,
-\]
+$
 
 the represented outcome components satisfy
 
-\[
+$
 0\leq\widehat{NEW}_t,\widehat{DUPLICATE}_t,\widehat{FAILED}_t\leq1
-\]
+$
 
 and
 
-\[
+$
 \boxed{
 \widehat{NEW}_t+\widehat{DUPLICATE}_t+\widehat{FAILED}_t=1
 \qquad(F_t>0)
 }
-\]
+$
 
 This converts the differently scaled raw terminal counts into comparable within-action outcome shares while preserving the directions frozen in 02.6.3:
 
-\[
+$
 \widehat{NEW}_t:\textbf{ POSITIVE},\qquad
 \widehat{DUPLICATE}_t:\textbf{ NEGATIVE},\qquad
 \widehat{FAILED}_t:\textbf{ NEGATIVE}.
-\]
+$
 
 #### 02.6.4.4 Representation of forwarding effort \(F_t\)
 
@@ -2390,21 +2390,21 @@ The exact representation or normalization of forwarding effort, if it is later u
 
 Accordingly:
 
-\[
+$
 \boxed{\textbf{02.6.4.5 Reward Component Representation Decision Matrix = PASS / FROZEN}}
-\]
+$
 
 and:
 
-\[
+$
 \boxed{\textbf{02.6.4 Reward Component Representation = PASS / FROZEN}}
-\]
+$
 
 This freeze assigns **no reward weights, coefficient magnitudes, relative severities, tuning values, aggregation architecture, or final \(R_t\) equation**. Those remain:
 
-\[
+$
 \boxed{\textbf{BLOCKED}}
-\]
+$
 
 The next controlled stage is **02.6.5 Reward Component Aggregation Structure**. Only its first sub-decision is opened:
 
@@ -2412,21 +2412,21 @@ The next controlled stage is **02.6.5 Reward Component Aggregation Structure**. 
 
 The dependency audit freezes one simple structural fact:
 
-\[
+$
 \boxed{
 F_t=NEW_t+DUPLICATE_t+FAILED_t
 }
-\]
+$
 
 \(NEW_t\), \(DUPLICATE_t\), and \(FAILED_t\) are the three terminal outcomes of the direct forwarding attempts attributable to action \(a_t\), whereas \(F_t\) is the total number of those forwarding attempts. Therefore \(F_t\) is dependent on the three terminal outcome counts and MUST NOT be treated as an independent fourth terminal outcome.
 
 Under the 02.6.4 representation, for \(F_t>0\),
 
-\[
+$
 \boxed{
 \widehat{NEW}_t+\widehat{DUPLICATE}_t+\widehat{FAILED}_t=1
 }
-\]
+$
 
 so the represented terminal outcomes describe the composition of the same forwarding effort.
 
@@ -2434,7 +2434,7 @@ This distinction is consistent with RO2: the reward evidence must retain useful 
 
 Accordingly:
 
-\[
+$
 \boxed{
 \begin{aligned}
 NEW_t,\ DUPLICATE_t,\ FAILED_t
@@ -2445,21 +2445,21 @@ F_t
 &=NEW_t+DUPLICATE_t+FAILED_t.
 \end{aligned}
 }
-\]
+$
 
 The constraint carried forward is:
 
-\[
+$
 \boxed{
 \textbf{Later reward construction MUST NOT treat all four quantities as independent evidence.}
 }
-\]
+$
 
 This stage identifies the dependency only. It does **not** decide how \(F_t\) will be used or whether it will appear in the final reward equation.
 
-\[
+$
 \boxed{\textbf{02.6.5.1 Component Dependency Audit = PASS / FROZEN}}
-\]
+$
 
 No weight, coefficient, relative severity, aggregation architecture, or final reward equation is authorized.
 
@@ -2467,15 +2467,15 @@ No weight, coefficient, relative severity, aggregation architecture, or final re
 
 The frozen dependency is:
 
-\[
+$
 \boxed{
 F_t=NEW_t+DUPLICATE_t+FAILED_t
 }
-\]
+$
 
 Therefore \(F_t\) MUST NOT be treated as an independent directly signed fourth outcome term when doing so would reward or penalize forwarding evidence already represented by \(NEW_t\), \(DUPLICATE_t\), and \(FAILED_t\).
 
-\[
+$
 \boxed{
 \begin{aligned}
 &F_t=NEW_t+DUPLICATE_t+FAILED_t;\\
@@ -2485,23 +2485,23 @@ Therefore \(F_t\) MUST NOT be treated as an independent directly signed fourth o
 &\text{represented by }NEW_t,DUPLICATE_t,FAILED_t.
 \end{aligned}
 }
-\]
+$
 
 The RO2 safeguard is:
 
-\[
+$
 \boxed{
 \text{Reward construction must preserve the RO2 distinction between}
 }
-\]
+$
 
-\[
+$
 \boxed{
 \text{productive dissemination effort}
 \quad\text{and}\quad
 \text{redundant/unsuccessful dissemination effort}.
 }
-\]
+$
 
 This safeguard follows the RO2 trade-off evidence: dissemination effort can contribute to propagation effectiveness while also creating redundant forwarding. Forwarding volume alone therefore MUST NOT be interpreted as intrinsically favorable or unfavorable.
 
@@ -2511,11 +2511,11 @@ It also introduces **no weight, coefficient, relative severity, aggregation arch
 
 Accordingly:
 
-\[
+$
 \boxed{
 \textbf{02.6.5.2 Double-Counting Audit = PASS / FROZEN}
 }
-\]
+$
 
 ### 02.6.5.3 Aggregation Architecture Decision — OPEN
 
@@ -2527,9 +2527,9 @@ No weight, coefficient, relative severity, tuning value, or final \(R_t\) equati
 
 \(F_t\) MUST NOT enter the reward as an independent directly signed fourth outcome term.
 
-\[
+$
 \boxed{\textbf{02.6.5.3A — Direct reward term = REJECT / FROZEN}}
-\]
+$
 
 The rejection applies **only to the direct-term role**. \(F_t\) remains admissible evidence. This follows from \(F_t=NEW_t+DUPLICATE_t+FAILED_t\), the 02.6.5.2 double-counting safeguard, and the RO2 requirement to preserve productive versus redundant/unsuccessful dissemination effort.
 
@@ -2538,57 +2538,57 @@ No decision is made here about normalization, modifier/reference, constraint/con
 #### 02.6.5.3B — \(F_t\) as Normalization Basis — OPEN
 
 For \(F_t>0\), the candidate role is the already-frozen 02.6.4 representation:
-\[
+$
 \widehat{NEW}_t=\frac{NEW_t}{F_t},\quad
 \widehat{DUPLICATE}_t=\frac{DUPLICATE_t}{F_t},\quad
 \widehat{FAILED}_t=\frac{FAILED_t}{F_t}.
-\]
+$
 
 ##### 02.6.5.3B.1(a) — Can \(F_t=0\) Occur? — YES / PASS / FROZEN
 
 Requested fanout does not guarantee realized forwarding. If no eligible forwarding target exists, no direct forwarding attempt is initiated.
 
-\[
+$
 \boxed{|N_e|=0\Rightarrow F_t=0\Rightarrow NEW_t=DUPLICATE_t=FAILED_t=0}
-\]
+$
 
 No eligible forwarding target does **not** constitute a failed initiated transmission:
-\[
+$
 \boxed{F_t=0\not\Rightarrow FAILED_t>0}
-\]
+$
 
-\[
+$
 \boxed{\textbf{02.6.5.3B.1(a) — Can }F_t=0\textbf{ occur? = YES / PASS / FROZEN}}
-\]
+$
 
 ##### 02.6.5.3B.1(b) — Zero-Effort Representation Semantics — NO FORWARDING-OUTCOME EVIDENCE / PASS / FROZEN
 
 When \(F_t=0\), no forwarding attempts were initiated; therefore no empirical forwarding-outcome distribution exists for that decision interval.
 
-\[
+$
 \boxed{F_t=0\Rightarrow\textbf{NO FORWARDING-OUTCOME EVIDENCE}}
-\]
+$
 
 Thus the three normalized outcomes have no empirical proportion for that interval. This does not imply \(FAILED_t>0\), \(R_t=0\), or that the Q-learning update is skipped. Those reward and learning decisions remain BLOCKED.
 
-\[
+$
 \boxed{\textbf{02.6.5.3B.1(b) Zero-Effort Representation Semantics}=\textbf{NO FORWARDING-OUTCOME EVIDENCE / PASS / FROZEN}}
-\]
+$
 
 ##### 02.6.5.3B.1(c) — Computational Encoding — CONDITIONAL REPRESENTATION / PASS / FROZEN
 
-\[
+$
 \boxed{
 \mathcal{O}_t=
 \begin{cases}
 \left(\dfrac{NEW_t}{F_t},\dfrac{DUPLICATE_t}{F_t},\dfrac{FAILED_t}{F_t}\right),&F_t>0,\\[8pt]
 \text{NO\_FORWARDING\_EVIDENCE},&F_t=0.
 \end{cases}}
-\]
+$
 
 NO_FORWARDING_EVIDENCE is an **implementation condition**, not a numerical reward value, state variable, additional reward component, or fourth outcome.
 
-\[
+$
 \boxed{
 \begin{aligned}
 &\text{No artificial }0/0=0;\\
@@ -2596,11 +2596,11 @@ NO_FORWARDING_EVIDENCE is an **implementation condition**, not a numerical rewar
 &\text{no reward value assigned for }F_t=0;\\
 &\text{no Q-update behaviour decided here.}
 \end{aligned}}
-\]
+$
 
-\[
+$
 \boxed{\textbf{02.6.5.3B.1(c) Computational Encoding}=\textbf{CONDITIONAL REPRESENTATION / PASS / FROZEN}}
-\]
+$
 
 The zero-effort boundary and computational representation have now been resolved. Together with 02.6.4 and the 02.6.5.1--02.6.5.2 safeguards, these results are sufficient to close the normalization-basis role.
 
@@ -2642,7 +2642,7 @@ Normalization preserves forwarding-outcome quality but removes absolute realized
 
 That absolute-effort information is relevant to the RO2 dissemination-efficiency trade-off. However, relevance alone does **not** establish that \(F_t\) must alter reward magnitude.
 
-\[
+$
 \boxed{
 \begin{aligned}
 &\text{Normalization by }F_t\text{ removes absolute forwarding-effort magnitude;}\\
@@ -2650,11 +2650,11 @@ That absolute-effort information is relevant to the RO2 dissemination-efficiency
 &\text{however, relevance alone does not establish the necessity of}\\
 &\text{an additional }F_t\text{-based reward modifier.}
 \end{aligned}}
-\]
+$
 
-\[
+$
 \boxed{\textbf{02.6.5.3C.1 Information Necessity Audit = RELEVANT BUT ADDITIONAL REWARD ROLE NOT YET JUSTIFIED / PASS / FROZEN}}
-\]
+$
 
 ##### 02.6.5.3C.2 — Information Coverage Audit — PASS / FROZEN
 
@@ -2662,18 +2662,18 @@ The selected action \(a_t\) represents forwarding intent, while the normalized \
 
 Accordingly, \(F_t\) contains distinct realized-effort information that is not fully represented elsewhere in the frozen action/outcome structure.
 
-\[
+$
 \boxed{
 \begin{aligned}
 &\text{action }a_t:\ \text{forwarding intent};\\
 &(\widehat{NEW}_t,\widehat{DUPLICATE}_t,\widehat{FAILED}_t):\ \text{forwarding-outcome quality};\\
 &F_t:\ \text{absolute realized forwarding effort}.
 \end{aligned}}
-\]
+$
 
-\[
+$
 \boxed{\textbf{02.6.5.3C.2 Information Coverage Audit = DISTINCT INFORMATION REMAINS / PASS / FROZEN}}
-\]
+$
 
 This finding does **not** authorize \(F_t\) as a reward term or modifier.
 
@@ -2681,7 +2681,7 @@ This finding does **not** authorize \(F_t\) as a reward term or modifier.
 
 The distinct absolute realized-effort information in \(F_t\) can be retained as contextual/reference evidence without requiring \(F_t\) to alter reward magnitude.
 
-\[
+$
 \boxed{
 \begin{aligned}
 &F_t\text{ contains distinct absolute realized-effort information;}\\
@@ -2690,32 +2690,32 @@ The distinct absolute realized-effort information in \(F_t\) can be retained as 
 &\text{no scientific necessity for an additional reward-modifying role}\\
 &\text{has been established.}
 \end{aligned}}
-\]
+$
 
-\[
+$
 \boxed{\textbf{02.6.5.3C.3 Reference-vs-Modifier Necessity = REFERENCE SUFFICIENT; MODIFIER NOT JUSTIFIED / PASS / FROZEN}}
-\]
+$
 
 Therefore the overall C role is frozen as:
 
-\[
+$
 \boxed{\textbf{02.6.5.3C — Modifier/Reference Role = REFERENCE ACCEPTED; REWARD MODIFIER REJECTED / FROZEN}}
-\]
+$
 
-\[
+$
 \boxed{\textbf{02.6.5.3C = COMPLETE / FROZEN}}
-\]
+$
 
 The resulting role boundary is:
 
-\[
+$
 \boxed{
 F_t:
 \begin{cases}
 \text{contextual/reference evidence} & \textbf{ACCEPT},\\
 \text{reward-magnitude modifier} & \textbf{REJECT}.
 \end{cases}}
-\]
+$
 
 Together with the earlier freezes, \(F_t\) is accepted as a normalization basis and as realized-effort reference/context, while it is rejected as an independent direct reward term and as a reward-magnitude modifier.
 
