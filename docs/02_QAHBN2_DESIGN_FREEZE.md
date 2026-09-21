@@ -3493,3 +3493,65 @@ H — Learning Lifecycle
 ```
 
 This is the next unresolved Section-15 requirement.
+
+
+---
+
+## 02.9 Learning Lifecycle — IN PROGRESS
+
+### 02.9.1 H master gate
+
+```text
+H1 episode definition
+H2 learning trigger / decision interval
+H3 observation interval
+H4 action interval
+H5 transition/reward/update ordering
+H6 epsilon decay placement
+H7 reset/persistence policy
+H8 closure
+```
+
+Frozen evidence already requires one Q action for one new-message forwarding decision at one peer, with reward closure only after all direct attempts for that action resolve to NEW, DUPLICATE, or FAILED. Historical next-invocation reward timing is not inherited.
+
+### 02.9.2 Discovered check H-X — overlapping action windows
+
+```text
+DISCOVERED CHECK
+Origin: reconciliation of per-message reward attribution with one-step Q learning
+Reason: another new-message decision may occur before an earlier action closes
+Classification: L3
+Validity-critical: YES
+Scientific decision introduced: YES
+Evidence: DOC-02 02.6.1A/02.6.1B and Source Authority Register Section 14
+Result: a single historical prev_state/prev_action chain is insufficient when
+        multiple per-message attribution windows are simultaneously pending
+Impact on frozen decisions: NONE yet
+Impact on roadmap: H cannot close until H-X is resolved
+```
+
+### 02.9.3 Bounded alternatives
+
+**A — Serialize Q decisions per peer until the current attribution window closes.** This gives a simple sequential chain but changes availability of learned intervention for later new messages.
+
+**B — Permit concurrent per-message attribution records and apply each completed transition to the shared Q table.** Each $(s_t,a_t)$ closes independently. This preserves the frozen one-action-per-new-message contract but requires an explicit next-state rule.
+
+**C — Replace the per-message action unit with a peer-level multi-message control interval.** This would conflict with frozen 02.6.1A and therefore requires reopening that contract.
+
+### 02.9.4 Recommendation at the L3 boundary
+
+**Recommend B.** It preserves the frozen action and reward-attribution contracts without changing canonical AHBN.
+
+If accepted, use this conservative transition rule:
+
+```text
+s_t      = frozen state snapshot at action selection
+R_t      = reward from that action's closed direct-attempt attribution set
+s_(t+1)  = peer's current frozen 81-state representation sampled when that
+           action's attribution window closes
+update   = frozen one-step Q update on (s_t,a_t,R_t,s_(t+1))
+```
+
+This adds no sensor and does not modify AHBN, but it defines causal lifecycle semantics under concurrent message handling and therefore requires explicit L3 approval.
+
+**S02-H = IN PROGRESS — BLOCKED AT H-X L3 DECISION.**
