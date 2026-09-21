@@ -523,3 +523,26 @@ floor is reached after approximately 460 decay steps.
 This is a bounded sanity check, not an optimization claim. The exact episode/reset/persistence semantics remain governed by S02-H.
 
 **Authority impact:** no R1/R2/R3 disposition reversal. Historical implementations remain Level-3 evidence; Q-AHBN2 parameter values become authoritative only through the frozen DOC-02 design contract.
+
+
+---
+
+## 13. S02-G Q-Learning Mechanics Historical Reconciliation — 2026-09-21
+
+Historical ControlSim and GKE Q-AHBN independently implement the same core tabular mechanics despite differing state/action/reward specifications:
+
+| Mechanic | Historical ControlSim | Historical GKE | Q-AHBN2 disposition |
+|---|---|---|---|
+| Q initialization | unseen state/action values initialized to 0.0 | unseen state/action values initialized to 0.0 | **RETAIN** |
+| update | one-step tabular Q-learning | one-step tabular Q-learning | **RETAIN** |
+| target | $r+\gamma\max_{a'}Q(s',a')$ | same | **RETAIN** |
+| exploration | epsilon-greedy; random action | same | **RETAIN** |
+| exploitation | maximum Q | maximum Q | **RETAIN** |
+| equal-max tie | seeded random choice among tied maxima | same | **RETAIN** |
+| RNG | local seeded `random.Random(seed)` | same | **RETAIN concept** |
+
+The mechanics are compatible with the frozen Q-AHBN2 81-state × 5-action table. Historical state/action/reward meanings are **not** inherited through this reconciliation.
+
+RO2 alignment: RO2 motivates adaptation across condition-dependent dissemination trade-offs but does not require a non-standard learning rule. Retaining conventional one-step tabular Q-learning keeps the learning mechanism interpretable and avoids adding algorithmic complexity unsupported by RO2.
+
+No canonical AHBN component is modified.
