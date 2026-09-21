@@ -2604,31 +2604,33 @@ NO_FORWARDING_EVIDENCE is an **implementation condition**, not a numerical rewar
 
 The zero-effort boundary and computational representation have now been resolved. Together with 02.6.4 and the 02.6.5.1--02.6.5.2 safeguards, these results are sufficient to close the normalization-basis role.
 
-\[
-\boxed{\textbf{02.6.5.3B — }F_t\textbf{ as Normalization Basis = ACCEPT / FROZEN}}
-\]
+> **02.6.5.3B — \(F_t\) as Normalization Basis = ACCEPT / FROZEN**
 
 The accepted role is strictly:
 
-\[
-F_t>0
-\Rightarrow
+$
+F_t > 0
+\quad\Rightarrow\quad
 \left(
-\widehat{NEW}_t,\widehat{DUPLICATE}_t,\widehat{FAILED}_t
+\widehat{NEW}_t,\,
+\widehat{DUPLICATE}_t,\,
+\widehat{FAILED}_t
 \right)
 =
 \left(
-\frac{NEW_t}{F_t},\frac{DUPLICATE_t}{F_t},\frac{FAILED_t}{F_t}
-\right),
-\]
+\frac{NEW_t}{F_t},\,
+\frac{DUPLICATE_t}{F_t},\,
+\frac{FAILED_t}{F_t}
+\right)
+$
 
 and:
 
-\[
-F_t=0
-\Rightarrow
-\text{NO\_FORWARDING\_EVIDENCE}.
-\]
+$
+F_t = 0
+\quad\Rightarrow\quad
+\mathrm{NO\_FORWARDING\_EVIDENCE}
+$
 
 Acceptance as a normalization basis does **not** authorize \(F_t\) as a direct reward or penalty. No weight, coefficient, relative severity, reward for \(F_t=0\), Q-update behaviour, or final reward equation is introduced.
 
