@@ -546,3 +546,32 @@ The mechanics are compatible with the frozen Q-AHBN2 81-state × 5-action table.
 RO2 alignment: RO2 motivates adaptation across condition-dependent dissemination trade-offs but does not require a non-standard learning rule. Retaining conventional one-step tabular Q-learning keeps the learning mechanism interpretable and avoids adding algorithmic complexity unsupported by RO2.
 
 No canonical AHBN component is modified.
+
+
+---
+
+## 14. S02-H Historical Lifecycle Reconciliation — 2026-09-21
+
+Historical lifecycle evidence was inspected before freezing Q-AHBN2 lifecycle semantics.
+
+### Historical ControlSim
+- learner state is in memory;
+- the previous state/action is stored per peer/state object identity;
+- at a later controller invocation, the previous pair is updated using the then-current reward/state;
+- one next action is selected;
+- epsilon decays once per decision;
+- the inspected core does not establish a formal train/freeze/evaluate persistence contract.
+
+### Historical GKE
+- one in-memory learner is constructed per Q-AHBN pod/process;
+- a single `prev_state/prev_action` pair is updated at the next learner invocation;
+- one next action is selected;
+- epsilon decays once per decision;
+- no inspected core persistence/load mechanism establishes survival across process/pod replacement.
+
+### Q-AHBN2 impact
+The historical “update previous pair at next invocation” timing is **not authoritative** because DOC-02 Section 02.6 explicitly rejected historical reward/update timing and froze per-new-message action attribution with outcome-based closure.
+
+A validity-critical lifecycle issue therefore remains: Q-AHBN2 may have more than one new-message action in flight at a peer before an earlier action's direct-attempt outcomes have all closed. A single `prev_state/prev_action` chain cannot be inherited without deciding how overlapping attribution windows map to sequential Q-learning transitions.
+
+This is a new Q-AHBN2 lifecycle decision, not an R1/R2/R3 reinterpretation.
