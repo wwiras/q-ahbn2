@@ -2075,6 +2075,70 @@ The next controlled step is **02.6.2.5 — Component Decision Matrix**.
 
 ---
 
+#### 02.6.2.5 Component Decision Matrix — PASS / FROZEN
+
+The four component-admissibility decisions are consolidated below. This matrix freezes admissibility and dependency only.
+
+| Component | Frozen semantic meaning | Admissibility | Dependency / constraint |
+|---|---|---|---|
+| $NEW_t$ | New/previously unseen successful dissemination outcomes attributable to $a_t$ within the frozen attribution boundary | **INCLUDE / ADMISSIBLE** | Terminal outcome component; obeys the frozen action-attribution and closure semantics |
+| $DUPLICATE_t$ | Duplicate dissemination outcomes attributable to $a_t$ within the frozen attribution boundary | **INCLUDE / ADMISSIBLE** | Terminal outcome component; distinct from $NEW_t$ |
+| $FAILED_t$ | Initiated forwarding attempts attributable to $a_t$ that did not successfully deliver | **INCLUDE / ADMISSIBLE** | Terminal outcome component; admissibility does not imply a negative reward contribution |
+| $F_t$ | Local evidence of forwarding effort initiated by $a_t$ | **INCLUDE / ADMISSIBLE** | Algebraically dependent on the three terminal outcomes; later reward construction MUST check for double counting |
+
+The explicit dependency constraint remains:
+
+$$
+\boxed{
+F_t=NEW_t+DUPLICATE_t+FAILED_t
+}
+$$
+
+Therefore, the four admissible components are not four independent signals. $NEW_t$, $DUPLICATE_t$, and $FAILED_t$ classify the terminal outcomes of initiated forwarding attempts, while $F_t$ is their aggregate forwarding-effort quantity.
+
+The admissible candidate set is:
+
+$$
+\boxed{
+\mathcal{C}_R=\{NEW_t,\;DUPLICATE_t,\;FAILED_t,\;F_t\}
+}
+$$
+
+with the governing interpretation:
+
+$$
+\boxed{
+\text{ADMISSIBLE}\neq\text{necessarily an independent additive reward term}
+}
+$$
+
+In particular, admissibility of $F_t$ does not authorize treating all four quantities as independent additive terms. Any later reward construction MUST explicitly account for the identity $F_t=NEW_t+DUPLICATE_t+FAILED_t$ and prevent unintended double counting.
+
+This freeze assigns **no signs, normalization, weights, coefficients, thresholds, bonuses, penalties, aggregation form, or reward equation**.
+
+Accordingly:
+
+$$
+\boxed{
+\textbf{02.6.2.5 Component Decision Matrix = PASS / FROZEN}
+}
+$$
+
+with **four admissible components and one explicit dependency constraint**, and **no reward mathematics beyond the already established semantic identity for $F_t$**.
+
+Therefore:
+
+$$
+\boxed{
+\textbf{02.6.2 Reward Component Selection = PASS / FROZEN}
+}
+$$
+
+The next and only controlled step is **02.6.3**. No sign, normalization, weight, coefficient, aggregation form, or reward equation is pre-authorized by closing 02.6.2.
+
+
+---
+
 ### 02.6.8 Current gate
 
 $$
