@@ -5,7 +5,15 @@
 **Path:** `docs/02_QAHBN2_DESIGN_FREEZE.md`  
 **Status:** PARTIAL DESIGN FREEZE — Sections 02.1–02.4 FROZEN  
 **Freeze date for Sections 02.1–02.4:** 2026-09-19  
-**Scope:** Q-AHBN2 learning-layer design only. The canonical AHBN boundary in `docs/01_CANONICAL_AHBN_CONTRACT.md` is immutable.
+**Scope:** Q-AHBN2 learning-layer design only. The canonical AHBN boundary in `docs/01_CANONICAL_AHBN_CONTRACT.md` is immutable.  
+**Math notation policy:** Mathematical variables, sets, inequalities, mappings, and equations use GitHub Markdown LaTeX (`$...# Q-AHBN2 Design Freeze
+
+**Document ID:** QAHBN2-DOC-02  
+**Repository:** `wwiras/q-ahbn2`  
+**Path:** `docs/02_QAHBN2_DESIGN_FREEZE.md`  
+**Status:** PARTIAL DESIGN FREEZE — Sections 02.1–02.4 FROZEN  
+**Freeze date for Sections 02.1–02.4:** 2026-09-19  
+ inline and `$...$` for display mathematics). Code identifiers, file paths, literal implementation snippets, status blocks, and ASCII architecture diagrams remain fenced/code-formatted where mathematical rendering would reduce precision or readability.
 
 ---
 
@@ -49,12 +57,12 @@ Q-AHBN2 MUST NOT alter:
 
 - the four canonical AHBN observation meanings;
 - environment-specific canonical observation adapters;
-- EWMA formulation or `α=0.30`;
+- EWMA formulation or $\\alpha=0.30$;
 - score coefficients or zero centres;
 - sigmoid definition or scale;
 - mode threshold or two-mode semantics;
 - final S5 thresholds;
-- canonical AHBN requested-fanout set `{2,3,4,5,6}`;
+- canonical AHBN requested-fanout set $\\{2,3,4,5,6\\}$;
 - canonical mode-specific eligible-target semantics.
 
 Thus, the canonical AHBN proposal remains reproducible independently of Q-AHBN2.
@@ -84,9 +92,9 @@ That Q-layer upper cap is **REMOVED in Q-AHBN2**.
 
 This does **not** modify canonical AHBN. Canonical AHBN remains required to produce:
 
-```text
-k_AHBN ∈ {2,3,4,5,6}
-```
+$$
+k_{\mathrm{AHBN}} \in \{2,3,4,5,6\}
+$$
 
 The distinction is:
 
@@ -109,20 +117,20 @@ canonical execution constraint:
 
 Therefore, **6 remains the maximum canonical AHBN proposal, but it is not an upper cap on a later Q-AHBN2 request**.
 
-No arbitrary replacement Q-layer maximum is introduced in Sections 02.1–02.2. Any action semantics affecting `k_Q` must be defined and justified in the later action-space section. Physical/topological realization remains naturally bounded by the eligible set `N_e`.
+No arbitrary replacement Q-layer maximum is introduced in Sections 02.1–02.2. Any action semantics affecting $k_Q$ must be defined and justified in the later action-space section. Physical/topological realization remains naturally bounded by the eligible set $N_e$.
 
-This separation is mandatory because clipping a learned positive intervention back to the canonical AHBN maximum would make some Q actions ineffective whenever AHBN already proposes `k_AHBN=6`, while incorrectly presenting the clipping rule as part of canonical AHBN.
+This separation is mandatory because clipping a learned positive intervention back to the canonical AHBN maximum would make some Q actions ineffective whenever AHBN already proposes $k_{\\mathrm{AHBN}}=6$, while incorrectly presenting the clipping rule as part of canonical AHBN.
 
 ### 02.1.5 Proposal-versus-intervention principle
 
 The following quantities are scientifically distinct and MUST never be conflated:
 
-- `mode_AHBN`: untouched canonical AHBN proposed mode;
-- `k_AHBN`: untouched canonical AHBN S5 requested fanout;
-- `a_Q`: selected Q-AHBN2 action;
-- `mode_Q`: final Q-AHBN2 requested mode;
-- `k_Q`: final Q-AHBN2 requested fanout after the learning intervention;
-- `k_real`: realized number of forwarding targets after eligibility/topology constraints.
+- $mode_{\\mathrm{AHBN}}$: untouched canonical AHBN proposed mode;
+- $k_{\\mathrm{AHBN}}$: untouched canonical AHBN S5 requested fanout;
+- $a_Q$: selected Q-AHBN2 action;
+- $mode_Q$: final Q-AHBN2 requested mode;
+- $k_Q$: final Q-AHBN2 requested fanout after the learning intervention;
+- $k_{\\mathrm{real}}$: realized number of forwarding targets after eligibility/topology constraints.
 
 A Q-AHBN2 intervention does not retroactively change what AHBN proposed.
 
@@ -140,7 +148,7 @@ A Q-AHBN2 action must result from the frozen Q-learning decision process unless 
 
 ### 02.1.7 No tau actuator
 
-Historical ControlSim Q-AHBN meta-actions modified `tau`. Canonical AHBN has no tau-based suppression actuator. Therefore tau manipulation is architecturally incompatible and is removed from Q-AHBN2.
+Historical ControlSim Q-AHBN meta-actions modified $\\tau$. Canonical AHBN has no tau-based suppression actuator. Therefore tau manipulation is architecturally incompatible and is removed from Q-AHBN2.
 
 ### 02.1.8 Local-learning principle
 
@@ -226,16 +234,16 @@ Sections 02.1–02.2 freeze this ordering only. They do not yet freeze the state
 | raw observation acquisition | canonical environment adapter | inherited |
 | logical `d,l,u,c` | canonical AHBN | immutable |
 | EWMA `d_hat,l_hat,u_hat,c_hat` | canonical AHBN | immutable |
-| `z`, `w` | canonical AHBN | immutable |
-| `mode_AHBN` | canonical AHBN | immutable proposal |
+| $z$, $w$ | canonical AHBN | immutable |
+| $mode_{\\mathrm{AHBN}}$ | canonical AHBN | immutable proposal |
 | `k_AHBN ∈ {2,3,4,5,6}` | canonical AHBN | immutable proposal |
-| RL state `s_t` | Q-AHBN2 | to freeze in 02.3 |
+| RL state $s_t$ | Q-AHBN2 | to freeze in 02.3 |
 | discretization | Q-AHBN2 | to freeze after state |
-| learned action `a_t` | Q-AHBN2 | to freeze later |
-| `mode_Q` | Q-AHBN2 | permitted intervention output; semantics not yet frozen |
-| `k_Q` | Q-AHBN2 | permitted intervention output; no historical upper fanout cap |
+| learned action $a_t$ | Q-AHBN2 | to freeze later |
+| $mode_Q$ | Q-AHBN2 | permitted intervention output; semantics not yet frozen |
+| $k_Q$ | Q-AHBN2 | permitted intervention output; no historical upper fanout cap |
 | eligible-target construction/realization | canonical execution boundary | inherited |
-| `k_real` | execution outcome | bounded by eligible set |
+| $k_{\\mathrm{real}}$ | execution outcome | bounded by eligible set |
 | reward | Q-AHBN2 | to freeze later |
 | Q update/lifecycle | Q-AHBN2 | to freeze later |
 
@@ -275,7 +283,7 @@ k_Q is NOT upper-clipped to 6 merely because
 0 <= k_real <= min(k_Q, |N_e|)
 ```
 
-The later action-space freeze must define how actions transform `k_AHBN` into `k_Q`, including legal lower-bound behavior. Sections 02.1–02.2 intentionally do not pre-empt that decision.
+The later action-space freeze must define how actions transform $k_{\\mathrm{AHBN}}$ into $k_Q$, including legal lower-bound behavior. Sections 02.1–02.2 intentionally do not pre-empt that decision.
 
 ### 02.2.5 Mode semantics
 
@@ -316,7 +324,7 @@ At minimum, future implementation must never expose only a generic `mode` or `fa
 | preserve AHBN proposal before Q intervention | **RETAIN / STRENGTHEN** | required for attribution and comparison |
 | Q layer may refine mode/fanout | **RETAIN AS ARCHITECTURAL CAPABILITY** | exact actions deferred to action-space freeze |
 | Q-layer `max_fanout=6` clipping | **REMOVE — MANDATORY** | canonical S5 maximum is an AHBN proposal bound, not a learner-output cap |
-| canonical AHBN S5 `k∈{2..6}` | **RETAIN IMMUTABLY** | canonical contract |
+| canonical AHBN S5 $k\\in\\{2,\\ldots,6\\}$ | **RETAIN IMMUTABLY** | canonical contract |
 | tau modification | **REMOVE** | not part of canonical AHBN |
 | historical rule-based GKE `adaptive_update()` as AHBN | **REMOVE / REPLACE WITH CANONICAL AHBN** | conflicts with canonical contract |
 | historical `fail_pressure` direct controller | **DO NOT INHERIT** | failure/churn must enter through approved canonical observations / later RL design |
@@ -330,13 +338,13 @@ The following are now frozen:
 
 **A1 — Canonical-first:** canonical AHBN executes completely before Q-AHBN2.
 
-**A2 — Immutable proposal:** `mode_AHBN` and `k_AHBN` are recorded unchanged.
+**A2 — Immutable proposal:** $mode_{\\mathrm{AHBN}}$ and $k_{\\mathrm{AHBN}}$ are recorded unchanged.
 
 **A3 — Post-AHBN learning:** Q-AHBN2 acts only after the AHBN proposal.
 
-**A4 — Canonical S5 preserved:** AHBN itself remains restricted to `k_AHBN∈{2,3,4,5,6}`.
+**A4 — Canonical S5 preserved:** AHBN itself remains restricted to $k_{\\mathrm{AHBN}}\\in\\{2,3,4,5,6\\}$.
 
-**A5 — Historical Q fanout cap removed:** Q-AHBN2 `k_Q` is not upper-clipped to AHBN's maximum of 6.
+**A5 — Historical Q fanout cap removed:** Q-AHBN2 $k_Q$ is not upper-clipped to AHBN's maximum of 6.
 
 **A6 — Realization remains bounded:** actual forwarding remains constrained by eligible peers, `k_real <= min(k_Q, |N_e|)`.
 
@@ -421,21 +429,16 @@ Q-AHBN2 therefore does **not** inherit either historical state tuple.
 
 The Q-AHBN2 logical state is frozen as the four canonical AHBN EWMA observations:
 
-```text
-s_t = (
-    d_hat_t,
-    l_hat_t,
-    u_hat_t,
-    c_hat_t
-)
-```
+$$
+s_t = \left(\hat d_t,\hat \ell_t,\hat u_t,\hat c_t\right)
+$$
 
 where:
 
-- `d_hat_t` = canonical EWMA duplicate pressure;
-- `l_hat_t` = canonical EWMA latency pressure;
-- `u_hat_t` = canonical EWMA processing/utilization pressure;
-- `c_hat_t` = canonical EWMA churn/dynamic-membership pressure.
+- $\\hat d_t$ = canonical EWMA duplicate pressure;
+- $\\hat \\ell_t$ = canonical EWMA latency pressure;
+- $\\hat u_t$ = canonical EWMA processing/utilization pressure;
+- $\\hat c_t$ = canonical EWMA churn/dynamic-membership pressure.
 
 These are the **continuous logical state variables**. Section 02.4 will define how they are discretized for tabular Q-learning.
 
@@ -460,29 +463,29 @@ This is intentionally more conservative than introducing new sensors or historic
 
 The following are **not** independent Q-AHBN2 state dimensions.
 
-#### A. `z`
+#### A. $z$
 
 Excluded because:
 
-```text
-z = -d_hat + l_hat + u_hat + c_hat
-```
+$$
+z=-\hat d+\hat \ell+\hat u+\hat c
+$$
 
 It is deterministically derivable from the four frozen state variables. Including it would add no new information.
 
-#### B. `w`
+#### B. $w$
 
 Excluded because:
 
-```text
-w = sigmoid(z)
-```
+$$
+w=\sigma(z)=\frac{1}{1+e^{-z}}
+$$
 
-It is deterministically derivable from `z`, which is itself derivable from the four state variables.
+It is deterministically derivable from $z$, which is itself derivable from the four state variables.
 
-#### C. `mode_AHBN`
+#### C. $mode_{\\mathrm{AHBN}}$
 
-Excluded from the RL state because canonical mode is deterministically derived from `w`. It remains a mandatory **base-proposal input to action application** and a mandatory observability field, but it is not an additional Q-table state dimension.
+Excluded from the RL state because canonical mode is deterministically derived from $w$. It remains a mandatory **base-proposal input to action application** and a mandatory observability field, but it is not an additional Q-table state dimension.
 
 This distinction is important:
 
@@ -490,11 +493,11 @@ This distinction is important:
 used by action application ≠ independent RL state dimension
 ```
 
-#### D. `k_AHBN`
+#### D. $k_{\\mathrm{AHBN}}$
 
-Excluded from the RL state because S5 deterministically derives it from canonical `z`. It remains the immutable fanout proposal that the selected Q action may later refine.
+Excluded from the RL state because S5 deterministically derives it from canonical $z$. It remains the immutable fanout proposal that the selected Q action may later refine.
 
-Removing the historical Q-layer fanout cap does not justify adding `k_AHBN` as another state dimension; the learner already receives the underlying canonical condition vector from which S5 produced it.
+Removing the historical Q-layer fanout cap does not justify adding $k_{\\mathrm{AHBN}}$ as another state dimension; the learner already receives the underlying canonical condition vector from which S5 produced it.
 
 #### E. failure/recovery phase labels
 
@@ -508,11 +511,11 @@ Excluded as independent state variables.
 
 Q-AHBN2 must not reintroduce the historical GKE direct-control path through the RL state. Effects of failure, overload, and bottleneck conditions must reach the learner through the approved canonical observation semantics where applicable, particularly latency, utilization, and churn/dynamic-membership pressure.
 
-#### G. historical `rho_hat`, `r_hat`, and old `c_hat` semantics
+#### G. historical $\\hat\\rho$, $\\hat r$, and old $\\hat c$ semantics
 
 These are not inherited merely because they existed in old ControlSim Q-AHBN.
 
-Q-AHBN2 uses the notation and meanings frozen by the canonical AHBN contract. In Q-AHBN2, `c_hat` means canonical **churn/dynamic-membership pressure**. Historical variables with different meanings must not be silently mapped onto it.
+Q-AHBN2 uses the notation and meanings frozen by the canonical AHBN contract. In Q-AHBN2, $\\hat c$ means canonical **churn/dynamic-membership pressure**. Historical variables with different meanings must not be silently mapped onto it.
 
 #### H. counters and outcome variables
 
@@ -610,9 +613,9 @@ The following are now frozen:
 
 **S3 — Canonical EWMA only:** Q-AHBN2 does not introduce a second smoothing layer for these state variables.
 
-**S4 — No redundant AHBN derivatives:** `z`, `w`, `mode_AHBN`, and `k_AHBN` are not additional Q-table state dimensions.
+**S4 — No redundant AHBN derivatives:** $z$, $w$, $mode_{\\mathrm{AHBN}}$, and $k_{\\mathrm{AHBN}}$ are not additional Q-table state dimensions.
 
-**S5 — Proposal preserved separately:** `mode_AHBN` and `k_AHBN` remain available to the action-application layer and observability.
+**S5 — Proposal preserved separately:** $mode_{\\mathrm{AHBN}}$ and $k_{\\mathrm{AHBN}}$ remain available to the action-application layer and observability.
 
 **S6 — No historical disturbance phase:** failure/recovery phase labels are not independent state dimensions.
 
@@ -645,16 +648,11 @@ Q-AHBN2 = learned refinement over the same canonical condition space
 
 The Q-AHBN2 state representation is accepted as:
 
-```text
-s_t = (
-    d_hat_t,
-    l_hat_t,
-    u_hat_t,
-    c_hat_t
-)
-```
+$$
+s_t = \left(\hat d_t,\hat \ell_t,\hat u_t,\hat c_t\right)
+$$
 
-with `mode_AHBN` and `k_AHBN` retained separately as the immutable canonical proposal on which the selected learned action operates.
+with $mode_{\\mathrm{AHBN}}$ and $k_{\\mathrm{AHBN}}$ retained separately as the immutable canonical proposal on which the selected learned action operates.
 
 **02.3 STATE REPRESENTATION GATE: PASS / FROZEN.**
 
@@ -945,10 +943,11 @@ Therefore Q-AHBN2 does not exist merely because Q-learning is available. It exis
 
 The RO2 draft expresses this interpretation using a reduced trade-off objective:
 
-```text
-min J_LD = alpha * L_tilde + beta * D_tilde
-subject to DeliveryRatio >= rho_min
-```
+$$
+\min J_{LD}=\alpha\widetilde L+\beta\widetilde D
+\qquad\text{subject to}\qquad
+\mathrm{DeliveryRatio}\ge\rho_{\min}
+$$
 
 and a broader formulation that also accounts for total transmissions and incomplete delivery. Q-AHBN2 does not directly inherit or optimize these equations unless a later reward contract explicitly does so; they are retained here only as the scientific motivation for adaptive control.
 
@@ -996,8 +995,8 @@ Representative cases SHALL include at least:
 - a low-pressure/ordinary canonical condition;
 - a duplicate-dominant condition motivated by RO2 Gossip redundancy;
 - a latency/utilization/churn pressure condition motivated by RO2 dynamic-condition findings;
-- the canonical upper fanout boundary `k_AHBN=6`;
-- the canonical lower fanout boundary `k_AHBN=2`;
+- the canonical upper fanout boundary $k_{\\mathrm{AHBN}}=6$;
+- the canonical lower fanout boundary $k_{\\mathrm{AHBN}}=2$;
 - at least one Gossip proposal and one Structured proposal.
 
 Where useful, an action transform may be written as:
@@ -1127,7 +1126,7 @@ This case exposes why the historical Q-layer upper cap can make a nominal positi
 
 #### Case C4/C6 — lower fanout boundary
 
-For an AHBN proposal with `k_AHBN=2`, a -1 primitive produces a requested fanout of 1 if the candidate contract permits the direct unit refinement:
+For an AHBN proposal with $k_{\\mathrm{AHBN}}=2$, a -1 primitive produces a requested fanout of 1 if the candidate contract permits the direct unit refinement:
 
 ```text
 2 - 1 -> 1
@@ -1237,37 +1236,31 @@ A = {
 
 Let the untouched canonical AHBN proposal be:
 
-```text
-p_AHBN = (mode_AHBN, k_AHBN)
-```
+$$
+p_{\mathrm{AHBN}}=(mode_{\mathrm{AHBN}},k_{\mathrm{AHBN}})
+$$
 
 where:
 
-```text
-mode_AHBN ∈ {Gossip, Structured}
-k_AHBN ∈ {2,3,4,5,6}
-```
+$$
+mode_{\mathrm{AHBN}}\in\{\mathrm{Gossip},\mathrm{Structured}\},\qquad
+k_{\mathrm{AHBN}}\in\{2,3,4,5,6\}
+$$
 
 Q-AHBN2 applies exactly one selected action after the complete AHBN proposal and before canonical eligible-target realization.
 
 The frozen action transforms are:
 
-```text
-KEEP:
-    (mode_Q, k_Q) = (mode_AHBN, k_AHBN)
-
-FANOUT_DOWN:
-    (mode_Q, k_Q) = (mode_AHBN, k_AHBN - 1)
-
-FANOUT_UP:
-    (mode_Q, k_Q) = (mode_AHBN, k_AHBN + 1)
-
-SET_GOSSIP:
-    (mode_Q, k_Q) = (Gossip, k_AHBN)
-
-SET_STRUCTURED:
-    (mode_Q, k_Q) = (Structured, k_AHBN)
-```
+$
+(mode_Q,k_Q)=
+\begin{cases}
+(mode_{\mathrm{AHBN}},k_{\mathrm{AHBN}}), & a=\mathrm{KEEP},\\
+(mode_{\mathrm{AHBN}},k_{\mathrm{AHBN}}-1), & a=\mathrm{FANOUT\_DOWN},\\
+(mode_{\mathrm{AHBN}},k_{\mathrm{AHBN}}+1), & a=\mathrm{FANOUT\_UP},\\
+(\mathrm{Gossip},k_{\mathrm{AHBN}}), & a=\mathrm{SET\_GOSSIP},\\
+(\mathrm{Structured},k_{\mathrm{AHBN}}), & a=\mathrm{SET\_STRUCTURED}.
+\end{cases}
+$
 
 Equivalently:
 
@@ -1287,7 +1280,7 @@ RO2 establishes the dissemination problem and identifies two control-relevant di
 1. forwarding intensity, represented operationally by requested fanout; and
 2. Gossip-versus-Structured dissemination behavior.
 
-RO3 canonical AHBN operationalizes these dimensions as `k_AHBN` and `mode_AHBN`.
+RO3 canonical AHBN operationalizes these dimensions as $k_{\\mathrm{AHBN}}$ and $mode_{\\mathrm{AHBN}}$.
 
 RO4 Q-AHBN2 therefore does not introduce unrelated dissemination controls. Its learned intervention is restricted to:
 
@@ -1303,33 +1296,33 @@ This derivation establishes scientific relevance and attribution; it does not cl
 
 Canonical AHBN remains unchanged:
 
-```text
-k_AHBN ∈ {2,3,4,5,6}
-```
+$$
+k_{\mathrm{AHBN}} \in \{2,3,4,5,6\}
+$$
 
 The Q layer is a one-step refinement:
 
-```text
-Delta k_Q ∈ {-1,0,+1}
-```
+$$
+\Delta k_Q\in\{-1,0,+1\}
+$$
 
 Therefore the reachable Q-requested fanout is:
 
-```text
-k_Q ∈ {1,2,3,4,5,6,7}
-```
+$$
+k_Q\in\{1,2,3,4,5,6,7\}
+$$
 
 or:
 
-```text
-1 <= k_Q <= 7
-```
+$$
+1\le k_Q\le 7
+$$
 
 This range is derived from the frozen AHBN range plus the frozen unit refinement:
 
-```text
-[2,6] + [-1,+1] -> [1,7]
-```
+$$
+[2,6]+[-1,+1]\rightarrow[1,7]
+$$
 
 The values 1 and 7 are therefore not newly tuned AHBN parameters and do not alter S5.
 
@@ -1341,7 +1334,7 @@ FANOUT_DOWN
 2 - 1 -> k_Q = 1
 ```
 
-This is permitted. RO2 independently evaluated `k=1` as a meaningful forwarding-intensity operating point; this does not imply that `k=1` is always beneficial.
+This is permitted. RO2 independently evaluated $k=1$ as a meaningful forwarding-intensity operating point; this does not imply that $k=1$ is always beneficial.
 
 Upper boundary:
 
@@ -1353,27 +1346,27 @@ FANOUT_UP
 
 This is permitted. The historical Q-layer upper clip to 6 SHALL NOT be inherited.
 
-Q-AHBN2 does not define a learned `k_Q=0` action. A zero requested fanout would constitute intentional forwarding suppression rather than the frozen one-step refinement. Realized forwarding may nevertheless be zero when no eligible target exists.
+Q-AHBN2 does not define a learned $k_Q=0$ action. A zero requested fanout would constitute intentional forwarding suppression rather than the frozen one-step refinement. Realized forwarding may nevertheless be zero when no eligible target exists.
 
 #### Requested-versus-realized forwarding
 
 The three fanout quantities SHALL remain distinct:
 
-```text
-k_AHBN -> k_Q -> k_real
-```
+$$
+k_{\mathrm{AHBN}}\rightarrow k_Q\rightarrow k_{\mathrm{real}}
+$$
 
 where:
 
-- `k_AHBN` is the untouched canonical S5 proposal;
-- `k_Q` is the post-AHBN Q-AHBN2 requested fanout;
-- `k_real` is the actual realized forwarding count after canonical mode-specific eligibility.
+- $k_{\\mathrm{AHBN}}$ is the untouched canonical S5 proposal;
+- $k_Q$ is the post-AHBN Q-AHBN2 requested fanout;
+- $k_{\\mathrm{real}}$ is the actual realized forwarding count after canonical mode-specific eligibility.
 
 The execution bound remains:
 
-```text
-0 <= k_real <= min(k_Q, |N_e|)
-```
+$$
+0 \le k_{\mathrm{real}} \le \min\!\left(k_Q, |N_e|\right)
+$$
 
 Q-AHBN2 changes only the requested post-AHBN proposal. It does not bypass canonical eligible-target realization.
 
@@ -1393,25 +1386,25 @@ A6 — `SET_GOSSIP` and `SET_STRUCTURED` SHALL modify mode only and SHALL NOT mo
 
 A7 — A mode-setting action MAY be a proposal-level no-op when AHBN already selected that mode. The selected action and whether the proposal changed SHALL be logged separately.
 
-A8 — The Q layer SHALL NOT modify canonical `z`, `w=sigmoid(z)`, EWMA state, normalization, S5 thresholds, or canonical AHBN mode computation.
+A8 — The Q layer SHALL NOT modify canonical $z$, $w=\\sigma(z)$, EWMA state, normalization, S5 thresholds, or canonical AHBN mode computation.
 
-A9 — The Q layer SHALL NOT introduce or modify `tau`.
+A9 — The Q layer SHALL NOT introduce or modify $\\tau$.
 
 A10 — Historical outcome-labelled actions such as `recovery_push`, `duplicate_suppression`, and `resource_conservative` SHALL NOT be inherited as Q-AHBN2 actions.
 
 A11 — Deterministic failure/recovery overrides SHALL NOT be represented or logged as learned Q actions.
 
-A12 — The historical Q-layer upper fanout cap of 6 SHALL NOT be inherited. `FANOUT_UP` applied to `k_AHBN=6` SHALL yield `k_Q=7`.
+A12 — The historical Q-layer upper fanout cap of 6 SHALL NOT be inherited. `FANOUT_UP` applied to $k_{\\mathrm{AHBN}}=6$ SHALL yield $k_Q=7$.
 
-A13 — `FANOUT_DOWN` applied to `k_AHBN=2` SHALL yield `k_Q=1`.
+A13 — `FANOUT_DOWN` applied to $k_{\\mathrm{AHBN}}=2$ SHALL yield $k_Q=1$.
 
-A14 — Q-AHBN2 SHALL NOT deliberately request `k_Q=0` under this action contract.
+A14 — Q-AHBN2 SHALL NOT deliberately request $k_Q=0$ under this action contract.
 
 A15 — Realized forwarding SHALL remain bounded by canonical mode-specific eligible-target realization: `0 <= k_real <= min(k_Q, |N_e|)`.
 
 A16 — Action semantics SHALL be identical across ControlSim and Kubernetes.
 
-A17 — The implementation and trace SHALL distinguish `mode_AHBN`, `k_AHBN`, selected `a_Q`, `mode_Q`, `k_Q`, and `k_real`.
+A17 — The implementation and trace SHALL distinguish $mode_{\\mathrm{AHBN}}$, $k_{\\mathrm{AHBN}}$, selected $a_Q$, $mode_Q$, $k_Q$, and $k_{\\mathrm{real}}$.
 
 A18 — No action in this frozen contract is interpreted as intrinsically beneficial. Which action is useful in a state is an empirical learning question.
 
@@ -1419,11 +1412,9 @@ A18 — No action in this frozen contract is interpreted as intrinsically benefi
 
 Section 02.4 freezes 81 discrete Q states and this section freezes 5 actions. Therefore the tabular learner contains:
 
-```text
-|S| = 81
-|A| = 5
-|Q| = 81 x 5 = 405 state-action values
-```
+$$
+|\mathcal S|=81,\qquad |\mathcal A|=5,\qquad |Q|=81\times5=405
+$$
 
 This is a structural consequence of the frozen state and action contracts, not evidence of learning quality or convergence.
 
@@ -1491,10 +1482,11 @@ RO2 treats dissemination as a multi-objective trade-off among propagation perfor
 
 Its reduced analytical formulation is:
 
-```text
-min J_LD = alpha * L_tilde + beta * D_tilde
-subject to DeliveryRatio >= rho_min
-```
+$$
+\min J_{LD}=\alpha\widetilde L+\beta\widetilde D
+\qquad\text{subject to}\qquad
+\mathrm{DeliveryRatio}\ge\rho_{\min}
+$$
 
 The manuscript also expresses the trade-off as minimizing expected propagation delay and duplicate transmissions subject to a minimum expected delivery ratio.
 
@@ -1537,16 +1529,10 @@ recovery_pressure =
 
 The active base reward is:
 
-```text
-R_CS =
-    15.00 * delivery_estimate
-  -  0.15 * dup
-  -  0.10 * lat
-  -  0.05 * load
-  -  0.05 * red
-  -  0.05 * churn
-  -  0.05 * cap
-```
+$
+R_{CS}=15.00\,delivery_{estimate}
+-0.15\,dup-0.10\,lat-0.05\,load-0.05\,red-0.05\,churn-0.05\,cap
+$
 
 with an additional poor-delivery penalty:
 
@@ -1566,8 +1552,8 @@ Important reconstruction notes:
 
 - delivery is deliberately dominant in the active historical weights;
 - the file comments state that this was a redesign after an earlier behavior reduced duplicates while also reducing delivery;
-- the historical reward includes variables that are not part of the frozen canonical Q-AHBN2 state semantics, including `r_hat`, historical `rho_hat`, and historical capacity-semantic `c_hat`;
-- its historical `c_hat` MUST NOT be confused with canonical AHBN `c_hat`, which means churn/instability pressure;
+- the historical reward includes variables that are not part of the frozen canonical Q-AHBN2 state semantics, including $\\hat r$, historical $\\hat\\rho$, and historical capacity-semantic $\\hat c$;
+- its historical $\\hat c$ MUST NOT be confused with canonical AHBN $\\hat c$, which means churn/instability pressure;
 - the dynamic recovery bonus embeds an explicit heuristic preference under high historical churn/latency;
 - the historical 0.80 delivery threshold and all numerical coefficients are historical evidence, not Q-AHBN2 defaults.
 
@@ -1600,13 +1586,9 @@ recovery =
 
 and:
 
-```text
-R_GKE =
-    8.00 * delivery_proxy
-  - 0.30 * dup
-  - 0.10 * f_norm
-  + 2.00 * recovery
-```
+$
+R_{GKE}=8.00\,delivery_{proxy}-0.30\,dup-0.10\,f_{norm}+2.00\,recovery
+$
 
 Important reconstruction notes:
 
@@ -1641,7 +1623,7 @@ RWD-F3 — Only the historical ControlSim reward explicitly penalizes latency, d
 
 RWD-F4 — Only the historical GKE reward explicitly penalizes forwarding count, providing a local communication-cost signal distinct from duplicate ratio.
 
-RWD-F5 — Historical ControlSim `r_hat`, `rho_hat`, and capacity-semantic `c_hat`, and historical GKE `fail_pressure`, cannot be imported directly because their semantics do not match the frozen canonical Q-AHBN2 contract.
+RWD-F5 — Historical ControlSim $\\hat r$, $\\hat\\rho$, and capacity-semantic $\\hat c$, and historical GKE `fail_pressure`, cannot be imported directly because their semantics do not match the frozen canonical Q-AHBN2 contract.
 
 RWD-F6 — The historical ControlSim 0.80 poor-delivery threshold, recovery bonus, and all historical numerical weights are design choices from the old learner; RO2 does not independently validate those values.
 
