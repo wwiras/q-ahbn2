@@ -2139,6 +2139,194 @@ The next and only controlled step is **02.6.3**. No sign, normalization, weight,
 
 ---
 
+### 02.6.3 Reward Component Direction — PASS / FROZEN
+
+This stage freezes only the qualitative reward direction of the four components already admitted in 02.6.2. It assigns no numerical magnitude and does not construct the reward equation.
+
+#### 02.6.3.1 Direction of $NEW_t$ — POSITIVE / FROZEN
+
+$NEW_t$ is local, action-attributable evidence of successful coverage expansion. Therefore:
+
+$
+\boxed{
+NEW_t \uparrow
+\Rightarrow
+\text{directionally more favorable reward evidence}
+}
+$
+
+Accordingly:
+
+$
+\boxed{
+\textbf{02.6.3.1 }NEW_t=\textbf{ POSITIVE / FROZEN}
+}
+$
+
+This direction does not make $NEW_t$ equivalent to experiment-level delivery ratio and assigns no magnitude, normalization, weight, coefficient, or reward term.
+
+#### 02.6.3.2 Direction of $DUPLICATE_t$ — NEGATIVE / FROZEN
+
+$DUPLICATE_t$ is local evidence of successful but redundant dissemination. Therefore:
+
+$
+\boxed{
+DUPLICATE_t \uparrow
+\Rightarrow
+\text{directionally less favorable reward evidence}
+}
+$
+
+Accordingly:
+
+$
+\boxed{
+\textbf{02.6.3.2 }DUPLICATE_t=\textbf{ NEGATIVE / FROZEN}
+}
+$
+
+A lower duplicate count does not by itself establish a better action, because forwarding collapse could also reduce duplicates.
+
+#### 02.6.3.3 Direction of $FAILED_t$ — NEGATIVE / FROZEN
+
+$FAILED_t$ is local evidence that an initiated direct forwarding attempt did not successfully deliver. Therefore:
+
+$
+\boxed{
+FAILED_t \uparrow
+\Rightarrow
+\text{directionally less favorable reward evidence}
+}
+$
+
+Accordingly:
+
+$
+\boxed{
+\textbf{02.6.3.3 }FAILED_t=\textbf{ NEGATIVE / FROZEN}
+}
+$
+
+This direction does not assert that the selected action caused the underlying network failure and does not determine the relative severity of a failure.
+
+#### 02.6.3.4 Direction of forwarding effort $F_t$ — NEUTRAL / NON-DIRECT / FROZEN
+
+The frozen identity is:
+
+$
+F_t=NEW_t+DUPLICATE_t+FAILED_t.
+$
+
+$F_t$ measures the total direct forwarding effort initiated, but its magnitude alone does not establish whether that effort was useful, redundant, or unsuccessful. Therefore neither an unconditional positive nor an unconditional negative direction is justified:
+
+$
+\boxed{
+F_t \uparrow
+\not\Rightarrow
+\text{intrinsically more favorable or less favorable reward evidence}
+}
+$
+
+Accordingly:
+
+$
+\boxed{
+\textbf{02.6.3.4 }F_t
+=
+\textbf{ NEUTRAL / NON\text{-}DIRECT / FROZEN}
+}
+$
+
+This does not exclude $F_t$ from later reward construction. It remains admissible evidence, but it has no unconditional direct reward direction. Any later mathematical use of $F_t$ must also respect its algebraic dependency on the three terminal outcome counts and prevent unintended double counting.
+
+#### 02.6.3.5 Reward Component Direction Decision Matrix — PASS / FROZEN
+
+The four individually frozen direction decisions are consolidated below.
+
+| Component | Frozen semantic role | Admissibility | Direction | Directional interpretation |
+|---|---|---|---|---|
+| $NEW_t$ | New/previously unseen successful dissemination attributable to $a_t$ | **INCLUDE / ADMISSIBLE** | **POSITIVE** | More $NEW_t$ is directionally more favorable because it expands coverage |
+| $DUPLICATE_t$ | Successful but redundant dissemination attributable to $a_t$ | **INCLUDE / ADMISSIBLE** | **NEGATIVE** | More $DUPLICATE_t$ is directionally less favorable because it represents redundancy |
+| $FAILED_t$ | Initiated forwarding attempt attributable to $a_t$ that did not successfully deliver | **INCLUDE / ADMISSIBLE** | **NEGATIVE** | More $FAILED_t$ is directionally less favorable because initiated effort produced no successful delivery |
+| $F_t$ | Total direct forwarding attempts initiated by $a_t$ | **INCLUDE / ADMISSIBLE** | **NEUTRAL / NON-DIRECT** | Forwarding volume alone does not establish whether dissemination was useful or wasteful |
+
+The resulting directional structure is:
+
+$
+\boxed{
+NEW_t:+,\qquad
+DUPLICATE_t:-,\qquad
+FAILED_t:-,\qquad
+F_t:\varnothing_{\mathrm{direct}}
+}
+$
+
+where $\varnothing_{\mathrm{direct}}$ means **no unconditional direct reward direction**, not exclusion from later reward construction.
+
+The structural dependency remains authoritative:
+
+$
+\boxed{
+F_t=NEW_t+DUPLICATE_t+FAILED_t
+}
+$
+
+Therefore:
+
+$
+\boxed{
+\text{ADMISSIBLE}
+\neq
+\text{DIRECTLY SIGNED}
+\neq
+\text{INDEPENDENT ADDITIVE TERM}
+}
+$
+
+In particular, $F_t$ remains admissible but MUST NOT be treated casually as an independent fourth outcome with an additional signed contribution. Any later use must explicitly account for the frozen identity and avoid unintended double counting.
+
+The qualitative directions frozen by 02.6.3 are:
+
+$
+\boxed{
+\begin{aligned}
+NEW_t &:\ \textbf{POSITIVE}\\
+DUPLICATE_t &:\ \textbf{NEGATIVE}\\
+FAILED_t &:\ \textbf{NEGATIVE}\\
+F_t &:\ \textbf{NEUTRAL / NON\text{-}DIRECT}
+\end{aligned}
+}
+$
+
+Accordingly:
+
+$
+\boxed{
+\textbf{02.6.3.5 Reward Component Direction Decision Matrix = PASS / FROZEN}
+}
+$
+
+and:
+
+$
+\boxed{
+\textbf{02.6.3 Reward Component Direction = PASS / FROZEN}
+}
+$
+
+This freeze assigns **no normalization, transformation, magnitude, relative severity, weight, coefficient, threshold, bonus, penalty magnitude, aggregation form, or final reward equation**.
+
+Those remain:
+
+$
+\boxed{\textbf{BLOCKED}}
+$
+
+Accordingly, **02.6.3 is complete**. The next stage must begin by deciding how these differently structured raw counts can be represented comparably before any weights or final $R_t$ are introduced.
+
+
+---
+
 ### 02.6.8 Current gate
 
 $$
