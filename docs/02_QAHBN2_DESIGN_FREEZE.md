@@ -2725,88 +2725,153 @@ The next controlled action is **not** to accept or reject candidate D automatica
 
 ---
 
-### 02.6.8 Current gate
+### 02.6.8 Current Gate and Progress Checklist
+
+This subsection is the operational guide/checklist for the current `02.6 Reward Construction` stage. It summarizes the authoritative frozen decisions above; it does **not** replace or modify their scientific content.
+
+> **Current position:** `02.6.5.3D — Constraint/context-only role` is the **NEXT CONTROLLED DECISION**.
+
+### 02.6.8.1 Full progress map
+
+| Gate / task | Purpose | Current status |
+|---|---|---|
+| **02.6 evidence reconstruction** | Reconcile historical reward evidence before redesign | **PASS** |
+| **02.6.1** | **Reward Event Semantics** | **Substantively complete** |
+| 02.6.1A | Action lifetime | **PASS / FROZEN** |
+| 02.6.1B-1 | Terminal outcome semantics: `NEW`, `DUPLICATE`, `FAILED`, `F` | **PASS / FROZEN** |
+| 02.6.1B-2 | Outcome instrumentation + attribution-window closure | **PASS / FROZEN** |
+| **02.6.2** | **Reward Component Selection** | **PASS / FROZEN** |
+| 02.6.2.1 | `NEW` admissibility | **INCLUDE / FROZEN** |
+| 02.6.2.2 | `DUPLICATE` admissibility | **INCLUDE / FROZEN** |
+| 02.6.2.3 | `FAILED` admissibility | **INCLUDE / FROZEN** |
+| 02.6.2.4 | `F` admissibility | **INCLUDE / FROZEN** |
+| 02.6.2.5 | Component decision matrix | **PASS / FROZEN** |
+| **02.6.3** | **Reward Component Direction** | **PASS / FROZEN** |
+| 02.6.3.1 | `NEW` direction | **POSITIVE / FROZEN** |
+| 02.6.3.2 | `DUPLICATE` direction | **NEGATIVE / FROZEN** |
+| 02.6.3.3 | `FAILED` direction | **NEGATIVE / FROZEN** |
+| 02.6.3.4 | `F` direction | **NEUTRAL / NON-DIRECT / FROZEN** |
+| 02.6.3.5 | Direction matrix | **PASS / FROZEN** |
+| **02.6.4** | **Reward Component Representation** | **PASS / FROZEN** |
+| — | `NEW/F`, `DUPLICATE/F`, `FAILED/F` for `F>0` | **FROZEN** |
+| — | `F` not accepted as directly comparable fourth outcome | **FROZEN** |
+| **02.6.5** | **Reward Component Aggregation Structure** | **IN PROGRESS — CURRENT STAGE** |
+| 02.6.5.1 | Component dependency audit | **PASS / FROZEN** |
+| 02.6.5.2 | Double-counting audit | **PASS / FROZEN** |
+| 02.6.5.3 | Aggregation architecture decision | **OPEN** |
+| 02.6.5.3A | `F` as independent direct reward term | **REJECT / FROZEN** |
+| 02.6.5.3B | `F` as normalization basis | **ACCEPT / FROZEN** |
+| 02.6.5.3B.1(a) | Can `F=0` occur? | **YES / FROZEN** |
+| 02.6.5.3B.1(b) | Meaning of `F=0` | **NO FORWARDING-OUTCOME EVIDENCE / FROZEN** |
+| 02.6.5.3B.1(c) | Computational encoding of `F=0` | **CONDITIONAL REPRESENTATION / FROZEN** |
+| 02.6.5.3C | Additional modifier/reference role | **COMPLETE / FROZEN** |
+| 02.6.5.3C.1 | Information necessity | **PASS / FROZEN** |
+| 02.6.5.3C.2 | Information coverage | **PASS / FROZEN** |
+| 02.6.5.3C.3 | Reference vs modifier | **REFERENCE SUFFICIENT; MODIFIER NOT JUSTIFIED / FROZEN** |
+| **02.6.5.3D** | **Constraint/context-only role** | **NEXT CONTROLLED DECISION** |
+| Remaining 02.6 | Final aggregation/reward mathematics and closure gates | **BLOCKED until current architecture closes** |
+| **02.6 overall** | **Reward Construction** | **IN PROGRESS** |
+
+### 02.6.8.2 Where exactly are we?
+
+```text
+02.6 Reward Construction
+│
+├── 02.6.1 Event Semantics                 PASS / FROZEN
+├── 02.6.2 Component Selection             PASS / FROZEN
+├── 02.6.3 Component Direction             PASS / FROZEN
+├── 02.6.4 Component Representation        PASS / FROZEN
+│
+└── 02.6.5 Aggregation Structure           IN PROGRESS
+      │
+      ├── .1 Dependency Audit              PASS / FROZEN
+      ├── .2 Double-Counting Audit         PASS / FROZEN
+      │
+      └── .3 Aggregation Architecture      OPEN
+            ├── A Direct term              REJECT / FROZEN
+            ├── B Normalization basis      ACCEPT / FROZEN
+            ├── C Modifier/reference       COMPLETE / FROZEN
+            │
+            └── D Constraint/context       NEXT CONTROLLED DECISION
+```
+
+The authoritative identity remains:
 
 $$
-\boxed{\text{02.6 Reward Evidence Reconstruction = PASS}}
+F_t=NEW_t+DUPLICATE_t+FAILED_t.
 $$
 
-$$
-\boxed{\text{02.6.1A Action Lifetime = PASS / FROZEN}}
-$$
+The currently frozen roles of $F_t$ are:
+
+| Candidate role for $F_t$ | Current decision |
+|---|---|
+| Independent direct fourth reward term | **REJECTED** |
+| Normalization basis | **ACCEPTED** |
+| Absolute realized-effort information | **RETAINED** |
+| Reward-magnitude modifier | **REJECTED** |
+| Context/reference evidence | **ACCEPTED** |
+| Constraint/context-only role beyond the frozen A--C decisions | **NOT YET DECIDED — 02.6.5.3D** |
+
+### 02.6.8.3 Immediate controlled question
+
+The next question is deliberately narrow:
+
+> **Does candidate D — constraint/context only — define any scientifically distinct role for $F_t$ that has not already been resolved by the frozen A--C decisions?**
+
+Candidate D MUST NOT be accepted automatically and MUST NOT introduce a new mechanism merely to fill a design slot. If the frozen C decision already subsumes the scientifically justified context/reference role, D may be closed without adding another reward mechanism.
+
+No new reward weight, coefficient, threshold, penalty, bonus, modifier, or Q-update rule is authorized by opening 02.6.5.3D.
+
+### 02.6.8.4 What remains after 02.6.5.3D?
+
+Completion of D does **not** by itself complete 02.6.
+
+After the aggregation architecture closes, the remaining work must be limited to the **minimum scientifically necessary gates** required to produce an executable and reproducible reward contract.
+
+At minimum, the remaining closure work must resolve, where required by the selected architecture:
+
+1. the final aggregation architecture;
+2. the executable reward formulation;
+3. relative magnitudes / coefficients if the selected formulation requires them;
+4. explicit reward handling for the already-frozen $F_t=0$ / `NO_FORWARDING_EVIDENCE` condition;
+5. reward bounds/range and any necessary numerical-safety rule;
+6. deterministic micro-cases demonstrating that the final reward behaves consistently with the frozen semantics, directions, dependency, and double-counting safeguards;
+7. final 02.6 closure audit.
+
+The exact numbering of these remaining gates is **not pre-frozen here**. It must be determined only after 02.6.5 closes so that unnecessary design stages are not invented.
+
+This follows the accelerated operating principle in `docs/02A_QAHBN2_ACCELERATED_FREEZE_PLAN.md`:
+
+> Preserve all existing 02.6 scientific assets, complete 02.6 cleanly using the detailed process, and use only as many remaining gates as are necessary for scientific validity and reproducibility.
+
+### 02.6.8.5 02.6 exit condition
+
+Section 02.6 may close only when the final reward contract is executable, internally consistent, reproducible, and minimally verified.
+
+The target closure is:
 
 $$
-\boxed{\text{02.6.1B-1 Terminal Outcome Semantics = PASS / FROZEN}}
+\boxed{\textbf{02.6 Reward Construction = PASS / FROZEN}}
 $$
 
-$$
-\boxed{\text{02.6 Reward Equation = NOT YET PROPOSED}}
-$$
+Until that closure:
 
 $$
-\boxed{\text{02.6 Reward Design Gate = PENDING}}
+\boxed{\textbf{02.6 Reward Construction = IN PROGRESS}}
 $$
 
-The evidence-reconstruction stage is complete, but reward construction **MUST NOT** yet proceed to component signs, weights, coefficients, thresholds, bonuses, penalties, or a reward equation.
-
-The next controlled decision is:
-
-### 02.6.1 — Reward Event Semantics
-
-> **What constitutes one reward-bearing decision interval?**
-
-Before any reward terms are combined, Q-AHBN2 must establish when one reward $R_t$ is produced and which observed outcomes are causally attributable to the selected action $a_t$.
-
-Conceptually:
+and the immediate next action remains:
 
 $$
-s_t
-\xrightarrow{a_t}
-\underbrace{\text{dissemination outcomes during interval }t}_{NEW_t,\;DUPLICATE_t,\;FAILED_t,\;F_t}
-\xrightarrow{}
-R_t
-\xrightarrow{}
-s_{t+1}
+\boxed{\textbf{02.6.5.3D — Constraint/Context Role}}
 $$
 
-The controlled question is therefore:
+After 02.6 becomes **PASS / FROZEN**, the project must update `docs/02A_QAHBN2_ACCELERATED_FREEZE_PLAN.md` so that:
 
-$$
-\boxed{
-\text{Which events are causally attributed to }a_t
-\text{ before }R_t\text{ is evaluated?}
-}
-$$
+```text
+P3  02.6 Reward Construction     -> PASS / FROZEN
+A   State Representation Freeze  -> READY / IN PROGRESS
+```
 
-This stage MUST distinguish candidate reward boundaries such as **per-forwarding-attempt**, **per-message**, and **per-control-interval** semantics. No candidate is frozen merely by being listed.
+Only then does the accelerated post-02.6 workflow become active.
 
-The first sub-decision under 02.6.1 is **action lifetime**:
-
-$$
-\boxed{
-\text{When }a_t\text{ is selected, exactly which dissemination operations does it govern?}
-}
-$$
-
-Only after the action lifetime and attribution boundary are established may the design determine which admissible $NEW_t$, $DUPLICATE_t$, $FAILED_t$, and forwarding-effort $F_t$ observations belong to one reward.
-
-Accordingly:
-
-$$
-\boxed{\text{02.6 evidence reconstruction = PASS}}
-$$
-
-but
-
-$$
-\boxed{\text{02.6.1B Reward Attribution Window = OPEN / NOT FROZEN}}
-$$
-
-Therefore:
-
-$$
-\text{signs, weights, coefficients, thresholds, bonuses/penalties, and }R_t
-\quad\text{remain BLOCKED.}
-$$
-
-The reward-design gate remains **PENDING** until reward event semantics and the subsequent controlled reward-construction decisions are explicitly frozen.
