@@ -107,6 +107,113 @@ Q-AHBN2 does NOT redesign AHBN.
 
 ---
 
+## 2.1 Current Conceptual Architecture — RO2 → Frozen AHBN → Q-AHBN2
+
+This subsection is the compact conceptual map for the current Q-AHBN2 design. It is intended to evolve gradually as S02 decisions are completed. Detailed frozen semantics remain authoritative in `docs/01_CANONICAL_AHBN_CONTRACT.md` and `docs/02_QAHBN2_DESIGN_FREEZE.md`.
+
+The scientific progression is:
+
+```text
+RO2 — CHARACTERIZE
+What dissemination trade-offs and dynamic-condition effects exist?
+        ↓
+RO3 — ADAPT
+Frozen canonical AHBN responds deterministically to local observations.
+        ↓
+RO4 — LEARN
+Q-AHBN2 learns bounded refinements of the AHBN proposal from experience.
+```
+
+In compact form:
+
+```text
+RO2 evidence
+  • fanout ↔ propagation-delay / duplication trade-off
+  • Gossip ↔ robustness with higher redundancy
+  • Structured ↔ efficiency with greater dynamic-condition fragility
+  • failure / overload / churn change dissemination behaviour
+  • heterogeneity reduces efficiency
+        ↓
+        │ defines the adaptation problem
+        ↓
+Local canonical observations
+  duplication, latency, utilization, churn
+        ↓
+FROZEN CANONICAL AHBN
+  canonical normalization + EWMA
+        ↓
+  z = -d + l + u + c
+        ↓
+  canonical mode + S5 fanout proposal
+        ↓
+  (mode_AHBN, k_AHBN)
+        ↓
+        │ deterministic proposal; AHBN remains immutable
+        ↓
+Q-AHBN2 LEARNING LAYER
+  construct frozen discrete state from the canonical observations
+        ↓
+  select one bounded meta-action:
+    KEEP
+    FANOUT_DOWN
+    FANOUT_UP
+    SET_GOSSIP
+    SET_STRUCTURED
+        ↓
+  refine the AHBN proposal only
+        ↓
+  (mode_Q, k_Q)
+        ↓
+eligible-target realization + forwarding
+        ↓
+direct attributable outcomes
+  NEW | DUPLICATE | FAILED
+        ↓
+reward evidence
+        ↓
+learn / update Q(s,a)
+        └────────────────────────→ future Q-AHBN2 decisions
+```
+
+The conceptual runtime cycle is therefore:
+
+```text
+OBSERVE
+   ↓
+AHBN ADAPT
+   ↓
+Q-AHBN2 REFINE
+   ↓
+EXECUTE
+   ↓
+OUTCOME
+   ↓
+LEARN
+   └──────────────↺
+```
+
+The central interpretation is:
+
+> **AHBN deterministically adapts dissemination to the observed network condition; Q-AHBN2 learns whether a bounded refinement of that AHBN decision is useful from experience.**
+
+Accordingly, Q-AHBN2 is **not** a replacement controller and does not select a policy before AHBN executes. Canonical AHBN is evaluated first and produces the independently traceable proposal `(mode_AHBN, k_AHBN)`. Q-AHBN2 acts only at the approved post-AHBN intervention boundary.
+
+RO2 is the scientific problem authority for why the adaptation dimensions matter; it does not directly prescribe a Q-AHBN2 action, reward, learning parameter, or numerical hyperparameter. Frozen AHBN supplies the deterministic adaptive baseline. Q-AHBN2 tests whether experience-based bounded refinement can enhance that baseline under the evaluated conditions.
+
+### 2.1.1 Current design boundary
+
+The following conceptual boundaries are already established:
+
+- canonical AHBN sensing, normalization, EWMA, score, sigmoid, mode rule, S5 thresholds, and proposal generation remain immutable;
+- Q-AHBN2 uses the canonical local-condition dimensions rather than privileged failure/event labels;
+- Q-AHBN2 intervention is post-AHBN and bounded to the frozen Q-AHBN2 action contract;
+- forwarding outcomes provide locally attributable learning evidence;
+- requested/refined behaviour remains distinct from realized behaviour under eligible-neighbour constraints.
+
+Learning lifecycle and temporal-causality details that remain under active design review MUST be updated here only after their corresponding S02 gates are resolved. In particular, this conceptual map intentionally does not pre-judge unresolved successor-state / overlapping-transition semantics or the final numerical learning-parameter values.
+
+---
+
 # 3. Absolute Scientific Rule — Canonical AHBN Is Immutable
 
 The latest approved canonical AHBN is a READ-ONLY scientific dependency.
