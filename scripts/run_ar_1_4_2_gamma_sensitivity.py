@@ -38,12 +38,9 @@ REQUIRED_METRICS = (
 
 
 def run_controlsim_learning_validation(*, gamma: float, seed: int) -> Dict[str, object]:
-    """Integration point for the real Q-AHBN2 ControlSim learning-validation run."""
-    raise NotImplementedError(
-        "AR-1.4.2 is protocol-frozen but execution is blocked until the real "
-        "Q-AHBN2 ControlSim Learning Validation adapter is integrated. "
-        "Do not replace this with synthetic/toy data."
-    )
+    """Execute one real canonical-ControlSim Q-AHBN2 Learning Validation run."""
+    from qahbn2.learning_validation import run_learning_validation
+    return run_learning_validation(gamma=gamma, seed=seed)
 
 
 def validate_matrix(gammas: Iterable[float], seeds: Iterable[int]) -> None:
