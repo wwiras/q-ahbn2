@@ -5,3 +5,6 @@ __pycache__/
 
 # Local Python virtual environment (kept outside Git/GitHub)
 .venv/
+
+# Generated simulation evidence directories (Drive evidence, not Git)
+q-ahbn-*/
