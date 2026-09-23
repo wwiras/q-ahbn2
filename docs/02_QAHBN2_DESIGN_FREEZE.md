@@ -3880,3 +3880,20 @@ Additional safeguards completed after the implementation mapping:
 The human execution must first run the repository regression/unit suite and may proceed to the sensitivity runner only if that suite passes. The canonical AHBN commit guard then independently blocks execution against the wrong AHBN revision.
 
 No result-dependent parameter change is permitted between test PASS and execution of the 15-run matrix.
+
+
+---
+
+## AR-1.4.2B.4 — Pre-Execution Validity Audit / Blocker Resolution
+
+**Status:** PASS / FROZEN — 2026-09-23
+
+A final pre-execution audit was completed before any formal gamma-sensitivity cell was run.
+
+1. **Canonical simulator queue-drain audit — PASS.** Pinned AHBN v0.63 commit `936a79480bc1252c79b6ee01f65c88c740af2844` processes queued events by assigning the simulator clock to each event time and does not force the clock to infinity after `run(until=float("inf"))`. The suspected infinity-clock contamination is therefore not present.
+2. **Q-AHBN2 fanout-boundary audit — PASS.** Section 02.5 already freezes the post-AHBN requested range as `k_Q in {1,...,7}`; `FANOUT_DOWN` at canonical `k_AHBN=2` yields 1 and `FANOUT_UP` at canonical `k_AHBN=6` yields 7. No clamp to the canonical AHBN proposal range is permitted.
+3. **Stabilization semantics — APPROVED CORRECTION.** The researcher explicitly approved detection-time semantics. The diagnostic continues to use reward-bearing Q-updates only, non-overlapping `W=50` windows, `delta <= 0.05`, and three consecutive qualifying window-mean comparisons. The reported stabilization point is now the **first reward-bearing Q-update at which the complete three-comparison criterion is observable**. Consequently, a constant 200-update reward sequence stabilizes at update **200**, not 100.
+4. This correction changes only the reporting semantics of the stabilization diagnostic. It does **not** change the reward equation, Q-update, workload, action/state contracts, canonical AHBN, `alpha_Q`, epsilon schedule, gamma candidate set, seed set, or any dissemination outcome.
+5. No gamma-sensitivity cell had been executed and no gamma had been selected when this correction was approved.
+
+**Execution boundary:** rerun the complete regression suite on the corrected repository. Only a full PASS reopens the frozen 15-run human sensitivity execution gate.
