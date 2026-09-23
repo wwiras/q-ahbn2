@@ -3672,3 +3672,81 @@ AR-1.4.2A.2 = PASS / COMPLETE / FROZEN
 ```
 
 No predeclared AR-1.4.2A.3 exists. The next permitted scientific action is the already-predeclared **AR-1.4.2 minimal gamma sensitivity protocol** over the frozen candidate set `{0.70, 0.80, 0.90}`; this evidence-promotion entry does not alter that protocol or select gamma.
+
+
+---
+
+## AR-1.4.2B.3A.1 — Stabilization Diagnostic Freeze
+
+**Classification:** bounded methodological definition and evidence promotion.  
+**Date:** 2026-09-23  
+**Result:** **PASS / COMPLETE / FROZEN**
+
+### Purpose
+
+Freeze one predeclared, mathematically reproducible stabilization diagnostic for the fixed 1,000-message Q-AHBN2 ControlSim Learning Validation workload.
+
+This diagnostic is used only for bounded Learning Validation and the AR-1.4.2 gamma sensitivity. It does not alter the workload stopping rule and does not constitute a claim of Q-learning convergence or policy optimality.
+
+### Frozen definition
+
+Let \(R_t\) denote the numerical reward associated with the \(t\)-th reward-bearing Q-update. Transitions for which \(F_t=0\) produce no numerical reward under the frozen reward contract and are excluded from the stabilization sequence.
+
+Partition the reward-bearing update sequence into consecutive, non-overlapping windows of:
+
+\[
+W=50
+\]
+
+reward-bearing Q-updates. For window \(j\),
+
+\[
+\bar{R}_j=\frac{1}{W}\sum_{t=(j-1)W+1}^{jW}R_t.
+\]
+
+For consecutive windows define:
+
+\[
+\Delta_j=\left|\bar{R}_j-\bar{R}_{j-1}\right|.
+\]
+
+A run satisfies the operational stabilization criterion when three consecutive window comparisons satisfy:
+
+\[
+\Delta_j\le0.05,\qquad
+\Delta_{j+1}\le0.05,\qquad
+\Delta_{j+2}\le0.05.
+\]
+
+The stabilization point is:
+
+\[
+T_{\mathrm{stab}}=50j
+\]
+
+measured in reward-bearing Q-updates. If no qualifying sequence occurs before completion of the fixed Learning Validation workload, report `NOT_STABILIZED`.
+
+### Frozen parameters
+
+| Parameter | Frozen value |
+|---|---:|
+| Window size \(W\) | 50 reward-bearing Q-updates |
+| Absolute mean-reward change threshold \(\delta\) | 0.05 |
+| Required consecutive qualifying comparisons \(C\) | 3 |
+| Stabilization output | \(T_{\mathrm{stab}}\) |
+| Output unit | reward-bearing Q-updates |
+| Unmet criterion | `NOT_STABILIZED` |
+
+### Interpretation boundary
+
+`T_stab` is an operational reward-stability diagnostic for bounded Learning Validation only. It MUST NOT be interpreted as mathematical convergence of Q-learning, Q-table convergence, policy optimality, cessation of exploration, or a composite Adaptation Efficiency score. It MUST NOT terminate a run early.
+
+The parameters \(W=50\), \(\delta=0.05\), and \(C=3\) are frozen before execution of the 15-run gamma-sensitivity matrix and MUST NOT be tuned post hoc against observed results.
+
+### Scientific isolation
+
+This diagnostic does not modify canonical AHBN, Q-AHBN2 state/action/reward semantics, the Q-update equation, learning parameters, topology, workload, seeds, network metrics, or the AR-1.4.2 run count.
+
+**AR-1.4.2B.3A = PASS / COMPLETE / FROZEN.**
+
+The stabilization-semantics blocker identified by AR-1.4.2B.3 is closed. AR-1.4.2 execution remains blocked until the remaining implementation-readiness items are implemented and verified.
