@@ -3398,9 +3398,9 @@ $$
 Q(s_t,a_t)\leftarrow Q(s_t,a_t)+\alpha_Q\left[R_t+\gamma\max_{a'}Q(s_{t+1},a')-Q(s_t,a_t)\right],
 $$
 
-with the S02-F constants:
+with the current frozen S02 learning constants (AR-1.4.4 supersedes the historical S02-F gamma value):
 
-$$\alpha_Q=0.25,\qquad\gamma=0.90.$$
+$\alpha_Q=0.25,\qquad\gamma=0.70.$
 
 This is ordinary off-policy one-step tabular Q-learning. No eligibility traces, replay buffer, target network, model-based update, or additional optimizer is introduced.
 
@@ -4080,3 +4080,28 @@ This was a read-only scientific/administrative audit. No simulation, experiment,
 `S02-CLOSE` does **not** receive PASS in the repository's present state because the one-authoritative-value requirement is violated by stale gamma/status text and the learner's default gamma, and the Master still records S02-I as pending.
 
 No new scientific design decision is required. The minimum permitted next work is a bounded **S02-CLOSE consistency-correction pass**: supersede stale status/gamma wording, align the learner default with frozen `gamma=0.70`, complete/document the S02-I design-level AHBN-boundary reconciliation, then re-audit for PASS. No simulation, experiment, tuning, or redesign is authorized by this finding.
+
+
+---
+
+## S02-CLOSE-C1 — Consistency Correction & S02-I Reconciliation — 2026-09-23
+
+**Result:** **PASS / COMPLETE.**
+
+No simulation, experiment, tuning, or redesign was performed.
+
+### Authority correction
+
+Historical passages in this document that describe `gamma=0.90` as active, gamma selection as pending, or S02-H as unresolved are retained as chronological gate evidence but are **SUPERSEDED for current-state interpretation** by the later AR closures and AR-1.4.4 approval. The current authoritative learning constants are `alpha_Q=0.25`, `gamma=0.70`, `epsilon_0=0.30`, `epsilon_min=0.03`, and multiplicative `epsilon_decay=0.995` once per learner decision.
+
+### S02-I — design-level AHBN-boundary / cross-platform reconciliation
+
+**PASS / RECONCILED.** Q-AHBN2 does not alter canonical AHBN. Across ControlSim and Kubernetes, the required logical chain is: environment-specific raw acquisition -> canonical logical observations -> immutable canonical AHBN -> independently traceable `(mode_AHBN,k_AHBN)` proposal -> Q-AHBN2 bounded post-AHBN refinement -> canonical execution/eligible-target realization -> directly attributable outcomes -> frozen reward/transition/Q update. Environment-specific raw sensing or execution plumbing does not change the logical learning contract.
+
+The frozen Q-AHBN2 state, discretization, five actions, reward semantics, same-peer next-decision transition semantics, Q update, exploration mechanics and learning parameters therefore remain platform-independent design requirements. Empirical implementation parity is not claimed by this S02 design audit and remains a later S03/S04 validation obligation.
+
+### Historical DEFER/TBD interpretation
+
+Earlier `DEFER`, pending-selection, or in-progress language is historical only where a later frozen gate resolves the same item. It must not be read as reopening state/action/reward/lifecycle/learning decisions. No unresolved S02 scientific design choice was identified by C1.
+
+**C1 disposition:** corrections complete; S02-CLOSE may now be re-audited. S03 remains blocked until that audit passes.
