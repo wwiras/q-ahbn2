@@ -3585,4 +3585,13 @@ Implementation requirements before any γ sensitivity execution:
 6. $F_t=0$ retains the frozen no-numerical-reward / no-reward-bearing-update rule;
 7. deterministic tests cover sequential, next-state-first, reward-first, overlapping/out-of-order, and terminal cases.
 
-**S02-H = IN PROGRESS — AR-1.4.1 IMPLEMENTATION READINESS PENDING.**
+**AR-1.4.1B implementation readiness = PASS.**
+
+Implementation evidence:
+- `qahbn2/transition.py` implements per-decision records, same-peer successor linking, independent delayed reward attachment, update readiness, terminal zero-bootstrap semantics, and the frozen no-forwarding-evidence no-update rule.
+- `tests/test_transition_bookkeeping.py` contains the five predeclared deterministic cases: sequential, next-state-first, reward-first, overlapping/out-of-order, and terminal plus $F_t=0$.
+- AR-1.4.1B.2 execution result: **5/5 PASS**.
+
+This PASS releases the predeclared 15-run AR-1.4 minimal $\gamma$ sensitivity protocol; it does not itself select a numerical $\gamma$.
+
+**S02-H = IN PROGRESS — TRANSITION BOOKKEEPING READINESS PASS; broader lifecycle closure remains pending.**
