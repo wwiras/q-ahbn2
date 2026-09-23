@@ -42,6 +42,7 @@ STABILIZATION_WINDOW = 50
 STABILIZATION_DELTA = 0.05
 STABILIZATION_CONSECUTIVE = 3
 TOTAL_STATE_ACTION_PAIRS = 81 * len(ACTIONS)
+CANONICAL_AHBN_COMMIT = "936a79480bc1252c79b6ee01f65c88c740af2844"
 
 
 def _canonical_root() -> Path:
@@ -52,7 +53,25 @@ def _canonical_root() -> Path:
     candidates.append(Path(__file__).resolve().parents[2] / "ahbn" / "v0.63")
     for root in candidates:
         if (root / "ahbn" / "simulator.py").is_file():
-            return root.resolve()
+            resolved = root.resolve()
+            repo_root = resolved.parent
+            try:
+                head = subprocess.check_output(
+                    ["git", "-C", str(repo_root), "rev-parse", "HEAD"],
+                    text=True, stderr=subprocess.STDOUT,
+                ).strip()
+            except (OSError, subprocess.CalledProcessError) as exc:
+                raise RuntimeError(
+                    "Canonical AHBN execution requires a Git checkout so the "
+                    "pinned authority commit can be verified."
+                ) from exc
+            if head != CANONICAL_AHBN_COMMIT:
+                raise RuntimeError(
+                    "Canonical AHBN checkout mismatch: expected "
+                    f"{CANONICAL_AHBN_COMMIT}, found {head}. "
+                    "Do not execute sensitivity on an unpinned AHBN revision."
+                )
+            return resolved
     raise RuntimeError(
         "Canonical AHBN v0.63 checkout not found. Set AHBN_V063_ROOT to the "
         "pinned wwiras/ahbn checkout's v0.63 directory "
