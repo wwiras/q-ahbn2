@@ -3750,3 +3750,117 @@ This diagnostic does not modify canonical AHBN, Q-AHBN2 state/action/reward sema
 **AR-1.4.2B.3A = PASS / COMPLETE / FROZEN.**
 
 The stabilization-semantics blocker identified by AR-1.4.2B.3 is closed. AR-1.4.2 execution remains blocked until the remaining implementation-readiness items are implemented and verified.
+
+
+---
+
+## AR-1.4.2B — Real ControlSim Learning-Validation Workload Closure
+
+**Date:** 2026-09-23  
+**Scope:** minimum workload and implementation readiness required to execute the already-frozen AR-1.4.2 15-run gamma sensitivity.  
+**Canonical AHBN impact:** NONE.
+
+### AR-1.4.2B.1 — Read-only workload audit
+
+**Result:** **COMPLETE.**
+
+The current Q-AHBN2 integration, pinned canonical ControlSim at `wwiras/ahbn@936a79480bc1252c79b6ee01f65c88c740af2844`, and historical `wwiras/q-ahbn` Learning Validation antecedent were reconciled. Historical synthetic/random-state Learning Validation is rejected as an evaluation workload. The real canonical event-driven ControlSim is required.
+
+### AR-1.4.2B.2 — Minimal Learning-Validation workload contract
+
+**Result:** **PASS / COMPLETE / FROZEN.**
+
+The frozen workload is:
+
+| Item | Frozen value |
+|---|---|
+| purpose | stationary bounded Learning Validation for gamma discrimination only |
+| canonical simulator | pinned AHBN v0.63 ControlSim |
+| topology | Barabasi-Albert |
+| nodes | 100 |
+| BA parameter | m=3 |
+| source peer | 0 |
+| messages per run | 1,000 |
+| injection pattern | sequential; inject next message only after the current event queue reaches exhaustion |
+| dynamic disturbance | none |
+| base one-hop delay | 1.0 |
+| jitter | 0.2 |
+| static clusters | 4 |
+| learner reset | fresh learner/Q-table for every (gamma, seed) run |
+| AHBN/control reset | fresh topology/nodes/controller for every (gamma, seed) run |
+| within-run persistence | learner, Q-table, canonical AHBN states, and node counters persist across all 1,000 messages |
+| gamma candidates | {0.70, 0.80, 0.90} |
+| seeds | {42,43,44,45,46} |
+| total runs | 15 |
+| alpha_Q | 0.25 |
+| epsilon_0 | 0.30 |
+| epsilon_min | 0.03 |
+| epsilon_decay | 0.995 multiplicative |
+| canonical AHBN | immutable S5 contract |
+
+Scientific justification:
+
+1. **BA(100,m=3), source 0** reuses the canonical ControlSim/RO2 Exp07 reference geometry rather than inventing a new topology. RO2 established fanout-related latency/duplication trade-offs on this setting.
+2. **No disturbance** isolates the learning-mechanics/gamma question. Failure, churn, and heterogeneity remain owned by Exp10-Q, Exp11-Q, and Exp12-Q and are not duplicated here.
+3. **1,000 messages** retains the historical Learning Validation horizon as bounded provenance, but replaces the historical synthetic random-state episodes with genuine canonical ControlSim message dissemination. The count is a workload horizon, not evidence that 1,000 is an optimal training length.
+4. **Sequential queue-to-exhaustion injection** is the minimum deterministic extension of canonical `run_single()` one-message semantics to repeated learning: each message is fully disseminated before the next injection, avoiding a new inter-message arrival-rate parameter and preventing workload overlap from becoming an uncontrolled confound.
+5. **base_delay=1.0, jitter=0.2, four static clusters** reuse canonical Exp07 defaults. These values preserve the canonical normalization/runtime context and are not newly tuned for Q-AHBN2.
+6. **Fresh run reset / within-run persistence** permits learning over the 1,000-message run while preserving independence across the 15 gamma-seed cells.
+7. The five non-gamma Q-learning constants are inherited from the already-frozen S02-F contract; they are not tuned by AR-1.4.2.
+
+### Metric aggregation contract
+
+The runner emits exactly the ten predeclared fields:
+
+- `mean_reward`: arithmetic mean over reward-bearing Q-updates;
+- `cumulative_reward`: sum over reward-bearing Q-updates;
+- `stabilization`: frozen B.3A diagnostic;
+- `q_updates`: count of consumed reward-bearing Q updates;
+- `state_action_coverage`: number of distinct selected (state, action) pairs divided by the fixed logical space 81 x 5 = 405;
+- `action_distribution`: counts for each of the five frozen actions over all learner decisions;
+- `delivery_ratio`: arithmetic mean of the canonical per-message delivery ratios across the 1,000 messages;
+- `propagation_delay`: arithmetic mean of canonical per-message propagation delays across messages with a defined delay;
+- `duplicates`: sum of canonical per-message duplicate counts;
+- `total_forwards`: sum of canonical per-message forward counts.
+
+The fixed denominator 405 is used for state-action coverage so that coverage is comparable across gamma/seed runs; a visited-state-dependent denominator is rejected because it changes with the trajectory being measured.
+
+### AR-1.4.2B.3 — Implementation readiness closure
+
+Implementation points are now present:
+
+- `qahbn2/learning.py`: frozen epsilon schedule plus decision/action/reward diagnostics;
+- `qahbn2/learning_validation.py`: real canonical-ControlSim 1,000-message workload, direct-attempt attribution, metric aggregation, and B.3A stabilization calculation;
+- `scripts/run_ar_1_4_2_gamma_sensitivity.py`: real workload adapter wired into the frozen 15-run matrix;
+- `tests/test_learning_schedule.py`: deterministic epsilon-schedule guards;
+- `tests/test_learning_validation_contract.py`: workload/stabilization/coverage constant guards;
+- existing AR-1.4.2 protocol tests continue to guard the exact gamma/seed matrix.
+
+Epsilon lifecycle is frozen as:
+
+\[
+\epsilon_{n+1}=\max(0.03,0.995\epsilon_n)
+\]
+
+with decision \(n\) using \(\epsilon_n\), followed by exactly one decay after that action selection. This preserves \(\epsilon_0=0.30\) for the first decision and follows the common historical ControlSim/GKE per-decision decay placement without introducing a new tuning schedule.
+
+At the end of the fixed workload, each peer's final rewarded decision is marked terminal and uses zero bootstrap. Decisions with \(F_t=0\) remain non-reward-bearing and never create a Q update.
+
+**AR-1.4.2B.3 = IMPLEMENTATION COMPLETE / EXECUTION VERIFICATION PENDING HUMAN RUNTIME.**
+
+No sensitivity result has been generated and no gamma has been selected.
+
+### S02-H lifecycle closure for this Learning Validation protocol
+
+The executable lifecycle is now explicit:
+
+- H1 episode/run definition: one independent run = 1,000 sequential messages;
+- H2 learning trigger: one Q-AHBN2 decision at each new-message forwarding decision opportunity;
+- H3 observation interval: canonical event-driven AHBN observation/update semantics; no synthetic observation interval;
+- H4 action interval: one action per qualifying new-message forwarding decision;
+- H5 transition ordering: previously frozen same-peer next-decision semantics with independently attributed reward closure;
+- H6 epsilon decay: once after every learner decision, bounded by epsilon_min;
+- H7 reset/persistence: fresh learner/controller/topology per run; learning state persists within the 1,000-message run only;
+- H8 closure: complete for AR-1.4.2 Learning Validation.
+
+This lifecycle does not reopen canonical AHBN and does not claim that the later formal dynamic experiments must use the same message count or stationary workload.
