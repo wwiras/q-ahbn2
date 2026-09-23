@@ -576,3 +576,14 @@ The historical “update previous pair at next invocation” timing is **not aut
 A validity-critical lifecycle issue therefore remains: Q-AHBN2 may have more than one new-message action in flight at a peer before an earlier action's direct-attempt outcomes have all closed. A single `prev_state/prev_action` chain cannot be inherited without deciding how overlapping attribution windows map to sequential Q-learning transitions.
 
 This is a new Q-AHBN2 lifecycle decision, not an R1/R2/R3 reinterpretation.
+
+
+---
+
+## S02-CLOSE-C1 Current-Authority Supersession Note — 2026-09-23
+
+Historical `DEFER` classifications and historical `gamma=0.90` references in this register are preserved as source-reconciliation provenance. They do **not** represent unresolved current Q-AHBN2 design choices where later S02/AR gates have frozen a decision.
+
+For current S02 interpretation, the later frozen design authority supersedes those historical statuses: `alpha_Q=0.25`, `gamma=0.70`, `epsilon_0=0.30`, `epsilon_min=0.03`, and multiplicative `epsilon_decay=0.995`; the frozen 81-state/five-action/reward/transition/lifecycle contracts remain as recorded in `02_QAHBN2_DESIGN_FREEZE.md`.
+
+This note changes no historical evidence and makes no new scientific design decision.
