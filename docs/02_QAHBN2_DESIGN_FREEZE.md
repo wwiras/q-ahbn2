@@ -4105,3 +4105,16 @@ The frozen Q-AHBN2 state, discretization, five actions, reward semantics, same-p
 Earlier `DEFER`, pending-selection, or in-progress language is historical only where a later frozen gate resolves the same item. It must not be read as reopening state/action/reward/lifecycle/learning decisions. No unresolved S02 scientific design choice was identified by C1.
 
 **C1 disposition:** corrections complete; S02-CLOSE may now be re-audited. S03 remains blocked until that audit passes.
+
+
+---
+
+## S02-CLOSE-C2 — Residual Stale-Status Supersession — REGISTERED 2026-09-23
+
+**Status:** **REGISTERED / NEXT.**
+
+This is a documentation-consistency correction only. It is authorized solely to make already-superseded historical/current-looking statements unambiguous at their local occurrence while retaining the historical record.
+
+C2 may not run simulations or experiments, tune parameters, redesign Q-AHBN2, reopen `gamma=0.70`, alter the S02-I design-level PASS, or modify canonical AHBN.
+
+After C2, the exact S02-CLOSE static audit must be rerun. Formal `S02 = PASS / CLOSED / FROZEN` and `S03 = NEXT` are permitted only if that re-audit finds no apparently active historical `gamma=0.90`, unresolved S02-H, pending S02-I, blocked S02-J, or other unresolved S02 scientific decision.
