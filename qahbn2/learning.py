@@ -20,7 +20,7 @@ ACTIONS: Tuple[ActionName, ...] = (
 
 
 class QAHBN2Learner:
-    def __init__(self, *, alpha: float = 0.25, gamma: float = 0.90,
+    def __init__(self, *, alpha: float = 0.25, gamma: float = 0.70,
                  epsilon: float = 0.30, epsilon_min: float = 0.03,
                  epsilon_decay: float = 0.995, seed: int = 42) -> None:
         self.alpha = float(alpha)
