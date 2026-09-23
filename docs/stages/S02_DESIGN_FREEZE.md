@@ -1,6 +1,6 @@
 # S02 — Design Freeze
 
-**Status:** CLOSURE — S02-CLOSE-C1 PASS; FINAL S02-CLOSE RE-AUDIT NEXT
+**Status:** CLOSURE — S02-CLOSE-C2 REGISTERED / NEXT
 
 ## Authoritative evidence
 Detailed gate history remains in `../02_QAHBN2_DESIGN_FREEZE.md`; this stage file is a navigation/status record, not a duplicate authority.
@@ -72,3 +72,16 @@ Completed without simulation, experiment, tuning, or redesign:
 **Next controlled gate:** **S02-CLOSE — Final Design-Freeze Consistency / Closure Audit (re-audit).**
 
 S03 remains blocked until that re-audit returns PASS.
+
+
+---
+
+## S02-CLOSE-C2 — Residual Stale-Status Supersession
+
+**Status:** **REGISTERED / NEXT.**
+
+Minimum corrective scope only: locally supersede residual current-looking stale status text while preserving historical evidence. Target conditions are apparently active historical `gamma=0.90`, unresolved S02-H, pending S02-I, and blocked S02-J wording.
+
+No simulation, experiment, tuning, redesign, new scientific decision, or canonical-AHBN modification is authorized.
+
+**After C2:** rerun the same static S02-CLOSE audit. Only a clean re-audit may record **S02 = PASS / CLOSED / FROZEN** and advance **S03 = NEXT**.
