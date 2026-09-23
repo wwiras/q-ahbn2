@@ -10,7 +10,7 @@ from qahbn2.learning import QAHBN2Learner
 class TestControlSimEventBridge(unittest.TestCase):
     def make_bridge(self):
         # epsilon=0 keeps this test deterministic; explicit Q values select action.
-        learner = QAHBN2Learner(alpha=0.25, gamma=0.80, epsilon=0.0, seed=42)
+        learner = QAHBN2Learner(alpha=0.25, gamma=0.80, epsilon=0.0, epsilon_min=0.0, epsilon_decay=1.0, seed=42)
         return learner, ControlSimEventBridge(ControlSimQAHBN2Adapter(learner))
 
     def test_smoke_new_message_to_reward_to_update(self):
