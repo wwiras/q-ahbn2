@@ -3932,3 +3932,80 @@ A final pre-execution audit was completed before any formal gamma-sensitivity ce
 `AR-1.4.3 = PASS — EVIDENCE INTEGRITY / COMPLETENESS VERIFIED`.
 
 The 15-run sensitivity dataset is structurally complete and provenance-traceable for the next controlled gate. This PASS is not a convergence claim, policy-optimality claim, or gamma-performance conclusion.
+
+
+---
+
+## AR-1.4.4 — Gamma Sensitivity Analysis and Selection — 2026-09-23
+
+**Status:** ANALYSIS COMPLETE — RECOMMENDATION PENDING RESEARCHER APPROVAL.  
+**Scope:** Existing 15-run AR-1.4.2 evidence only. No new simulation, rerun, seed, gamma candidate, reward change, or post-hoc tuning was introduced.
+
+### AR-1.4.4.1 — Paired-Seed Descriptive Comparison
+
+The three candidates were compared over the same five seeds (42–46). Descriptive means are:
+
+| Metric | gamma=0.70 | gamma=0.80 | gamma=0.90 |
+|---|---:|---:|---:|
+| mean_reward | -0.264444 | -0.268304 | -0.268232 |
+| cumulative_reward | -22880.01 | -23103.11 | -22908.55 |
+| stabilization (updates) | 2230 | 2210 | 2070 |
+| q_updates | 86406.6 | 85995.6 | 85350.6 |
+| state_action_coverage | 0.07704 | 0.07753 | 0.07753 |
+| delivery_ratio | 0.86552 | 0.86181 | 0.85597 |
+| propagation_delay | 10.05872 | 10.07401 | 10.16041 |
+| duplicates | 140637.4 | 140283.4 | 138342.6 |
+| total_forwards | 226189.6 | 225464.6 | 222940.0 |
+
+Paired-seed direction checks show gamma=0.70 has higher mean reward than gamma=0.80 on 4/5 seeds and gamma=0.90 on 4/5 seeds. It also has higher delivery than gamma=0.80 on 4/5 seeds and gamma=0.90 on 4/5 seeds. Against gamma=0.90, gamma=0.70 has lower propagation delay on 5/5 seeds. Conversely, gamma=0.90 has lower duplicate and forwarding totals on 4/5 seeds relative to gamma=0.70.
+
+**AR-1.4.4.1 result: PASS.** The paired design exposes a genuine trade-off rather than a universal winner on every metric.
+
+### AR-1.4.4.2 — Learning-Behaviour Consistency Audit
+
+No candidate exhibits a structural learning anomaly. Mean reward differences are small, state-action coverage is nearly identical, and all candidates generated substantial reward-bearing Q updates. The stabilization diagnostic varies materially by seed for all candidates and is therefore treated as a bounded diagnostic, not convergence evidence.
+
+Aggregated action shares remain broadly similar across candidates:
+
+| Action | gamma=0.70 | gamma=0.80 | gamma=0.90 |
+|---|---:|---:|---:|
+| FANOUT_DOWN | 20.06% | 19.86% | 20.26% |
+| FANOUT_UP | 19.12% | 19.60% | 18.13% |
+| KEEP | 19.62% | 19.74% | 20.25% |
+| SET_GOSSIP | 39.16% | 38.47% | 38.45% |
+| SET_STRUCTURED | 2.04% | 2.33% | 2.91% |
+
+Thus, no candidate is rejected for pathological action collapse, absent updating, or materially deficient state-action coverage.
+
+**AR-1.4.4.2 result: PASS.**
+
+### AR-1.4.4.3 — Dissemination Sanity / Trade-off Audit
+
+The dissemination results are consistent with the known RO2 trade-off structure: greater redundancy/forwarding effort can accompany stronger delivery, while lower forwarding effort can reduce duplication at some delivery cost. The sensitivity evidence must therefore not be reduced to a single efficiency metric.
+
+gamma=0.70 provides the highest mean delivery (0.86552) and the lowest mean propagation delay (10.05872), but incurs more duplicates/forwards than gamma=0.90. gamma=0.90 provides the lowest mean duplicates and forwards, but also the lowest mean delivery (0.85597) and highest mean delay (10.16041). gamma=0.80 lies between these candidates on several dissemination quantities and does not show a clear compensating learning advantage.
+
+These differences are bounded Learning Validation evidence from one stationary workload. They are not evidence that any gamma is globally optimal under failure, churn, or heterogeneity.
+
+**AR-1.4.4.3 result: PASS.**
+
+### AR-1.4.4.4 — Gamma Selection / Freeze Recommendation
+
+**Recommendation: select and freeze gamma=0.70, subject to researcher approval.**
+
+Scientific justification:
+
+1. The selection criterion is not a composite post-hoc score and does not require one candidate to dominate every metric.
+2. gamma=0.70 has the strongest mean reward of the three candidates and beats both alternatives on mean reward in 4/5 paired seeds.
+3. It also has the highest mean delivery and beats each alternative on delivery in 4/5 paired seeds.
+4. Its mean propagation delay is lowest; relative to gamma=0.90 it is lower on all five paired seeds.
+5. gamma=0.90's efficiency advantage (fewer duplicates/forwards and earlier mean stabilization) is acknowledged, but it coincides with lower delivery and higher delay in this workload.
+6. gamma=0.80 does not provide a sufficiently clear learning or dissemination advantage to justify selecting the intermediate candidate.
+7. gamma=0.70 remains a positive future-value discount and therefore retains multi-step bootstrapping while applying less weight to distant estimated returns than the historical gamma=0.90.
+8. The recommendation is deliberately limited to choosing one fixed gamma for subsequent Q-AHBN2 evaluation. It does not claim mathematical convergence, policy optimality, global hyperparameter optimality, or superiority under the later dynamic experiments.
+
+### Approval boundary
+
+No gamma is frozen by this entry yet. Human researcher approval is required before changing the authoritative Q-AHBN2 parameter contract from the bounded candidate set to gamma=0.70.
+
+**AR-1.4.4 status: RECOMMENDATION COMPLETE / AWAITING RESEARCHER APPROVAL.**
