@@ -1,12 +1,8 @@
 """AR-1.4.2 minimal gamma sensitivity runner.
 
-This runner intentionally refuses to execute until the Q-AHBN2 ControlSim
-integration supplies a real episode/run adapter.  It freezes the experimental
-matrix now so that no additional gamma values or seeds can be introduced
-silently.
-
-The adapter must execute the existing Q-AHBN2 Learning Validation workload and
-return the predeclared learning/network diagnostics.  Do not substitute a toy
+This runner executes the real Q-AHBN2 ControlSim Learning Validation adapter
+over the predeclared matrix.  The matrix remains guarded so that no additional
+gamma values or seeds can be introduced silently.  Do not substitute a toy
 MDP: AR-1.4.2 is a ControlSim sensitivity protocol.
 """
 
@@ -14,6 +10,9 @@ from __future__ import annotations
 
 import argparse
 import csv
+import json
+import subprocess
+from datetime import datetime
 from pathlib import Path
 from typing import Dict, Iterable
 
