@@ -3261,7 +3261,7 @@ This is a Category-B conventional design block under the accelerated protocol. I
 
 The Q-AHBN2 logical learning-parameter contract is:
 
-The historical numerical block below is retained for provenance but is **not fully frozen** while AR-1 is active:
+**HISTORICAL / SUPERSEDED PARAMETER BLOCK.** The numerical block below records the pre-AR-1.4.4 state and is retained for provenance only; it is not current authority:
 
 $
 \alpha_Q = 0.25,\qquad
@@ -3277,13 +3277,13 @@ $
 \boxed{\gamma>0\ \text{is retained as a design mechanism}}
 $
 
-but the historical value $\gamma=0.90$ is **UNFROZEN** and is now one candidate in the bounded set
+At that historical gate, $\gamma=0.90$ was **UNFROZEN / CANDIDATE ONLY** in the bounded set
 
 $
 \boxed{\Gamma=\{0.70,0.80,0.90\}}.
 $
 
-No candidate is selected yet. The value will be frozen only after the AR-1 transition-readiness checks and the predeclared minimal sensitivity protocol are completed.
+**SUPERSEDED:** that selection was subsequently completed by AR-1.4.3/AR-1.4.4. Current authority is $\gamma=0.70$ **FROZEN**.
 
 The exploration schedule is multiplicative:
 
@@ -3311,7 +3311,7 @@ RO2 established condition-dependent dissemination trade-offs: increasing fanout 
 Accordingly:
 
 - `alpha_Q=0.25` provides moderate incremental adaptation rather than replacing learned values wholesale;
-- `gamma=0.90` retains substantial future-outcome value, appropriate to temporally evolving dissemination conditions;
+- **historical rationale only:** `gamma=0.90` was initially retained as a future-outcome-value candidate for temporally evolving dissemination conditions; AR-1.4.4 later superseded this numerical choice with `gamma=0.70` FROZEN;
 - non-zero epsilon exploration is retained because RO2 shows that no single static dissemination behavior dominates all evaluated conditions;
 - the exact numerical values are inherited/reconciled from historical Q-AHBN evidence under the minimum-adaptation rule, **not claimed to be optimized by RO2**.
 
