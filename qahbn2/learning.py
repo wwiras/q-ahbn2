@@ -21,16 +21,26 @@ ACTIONS: Tuple[ActionName, ...] = (
 
 class QAHBN2Learner:
     def __init__(self, *, alpha: float = 0.25, gamma: float = 0.90,
-                 epsilon: float = 0.30, seed: int = 42) -> None:
+                 epsilon: float = 0.30, epsilon_min: float = 0.03,
+                 epsilon_decay: float = 0.995, seed: int = 42) -> None:
         self.alpha = float(alpha)
         self.gamma = float(gamma)
         self.epsilon = float(epsilon)
+        self.epsilon_min = float(epsilon_min)
+        self.epsilon_decay = float(epsilon_decay)
+        if not (0.0 <= self.epsilon_min <= self.epsilon <= 1.0):
+            raise ValueError("require 0 <= epsilon_min <= epsilon <= 1")
+        if not (0.0 < self.epsilon_decay <= 1.0):
+            raise ValueError("require 0 < epsilon_decay <= 1")
         self.rng = random.Random(seed)
         self.transitions = TransitionBookkeeper()
         self.q_table: DefaultDict[StateKey, Dict[ActionName, float]] = defaultdict(
             lambda: {a: 0.0 for a in ACTIONS}
         )
         self.update_count = 0
+        self.decision_count = 0
+        self.action_history: list[tuple[StateKey, ActionName]] = []
+        self.reward_history: list[float] = []
 
     @staticmethod
     def bucket3(value: float) -> str:
@@ -45,12 +55,21 @@ class QAHBN2Learner:
         return tuple(self.bucket3(max(0.0, min(1.0, float(v)))) for v in values)  # type: ignore[return-value]
 
     def choose_action(self, state: StateKey) -> ActionName:
-        if self.rng.random() < self.epsilon:
-            return self.rng.choice(ACTIONS)
-        qvals = self.q_table[state]
-        best = max(qvals.values())
-        tied = [a for a in ACTIONS if qvals[a] == best]
-        return self.rng.choice(tied)
+        epsilon_used = self.epsilon
+        if self.rng.random() < epsilon_used:
+            action = self.rng.choice(ACTIONS)
+        else:
+            qvals = self.q_table[state]
+            best = max(qvals.values())
+            tied = [a for a in ACTIONS if qvals[a] == best]
+            action = self.rng.choice(tied)
+
+        # Frozen S02-F/S02-H schedule: the first decision uses epsilon_0,
+        # then epsilon decays exactly once after each learner decision.
+        self.decision_count += 1
+        self.action_history.append((state, action))
+        self.epsilon = max(self.epsilon_min, self.epsilon_decay * epsilon_used)
+        return action
 
     @staticmethod
     def refine(mode_ahbn: str, k_ahbn: int, action: ActionName) -> Tuple[str, int]:
@@ -109,5 +128,6 @@ class QAHBN2Learner:
             bootstrap = max(self.q_table[record.bootstrap_state].values())
         target = float(record.reward_t) + self.gamma * bootstrap
         self.q_table[record.state_t][record.action_t] = old + self.alpha * (target - old)
+        self.reward_history.append(float(record.reward_t))
         self.transitions.consume_update(record.decision_id)
         self.update_count += 1
