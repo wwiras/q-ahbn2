@@ -98,6 +98,63 @@ No simulation, experiment, parameter tuning, redesign, new scientific decision, 
 C2 does not itself close S02. The next controlled gate is the exact static **S02-CLOSE re-audit**.
 
 
+
+---
+
+## Scientific Justification of Frozen Q-AHBN2 Learning Parameters — Closure Record
+
+**Purpose:** record the scientific basis for closing the Q-AHBN2 learning configuration at the correct claim level before the final static S02 closure re-audit. This record does not reopen any frozen value and does not claim global hyperparameter optimality.
+
+| Item | Basis for closure | Scientific status |
+|---|---|---|
+| Tabular Q-learning | Four frozen AHBN observation dimensions, each discretized to three levels, give (3^4=81) logical states. Five frozen Q-AHBN2 actions therefore give (81\times5=405) state-action entries, allowing direct tabular representation without function-approximation complexity. | **JUSTIFIED** |
+| Zero initialization | All Q-values start equally at zero, imposing no prior learned-action preference in an unseen state and providing a neutral, reproducible starting condition. | **JUSTIFIED** |
+| Seeded epsilon-greedy | Supports explicit exploration and seeded random resolution of tied maximum-Q actions while making the stochastic action-selection sequence reproducible under the same configuration. | **JUSTIFIED** |
+| (alpha_Q=0.25) | **Proven behaviour:** each update incorporates 25% of the current TD correction. **Rationale:** provides the intended incremental-update behaviour so an individual observation modifies rather than replaces the accumulated estimate; holding the value fixed also constrains additional tuning degrees of freedom. **Limitation:** not claimed optimal. | **JUSTIFIED AS FIXED DESIGN PARAMETER** |
+| (epsilon_0=0.30) | **Proven behaviour:** 30% explicit exploration initially. **Rationale:** provides substantial early exploration while allowing accumulated Q-values to influence the majority of decisions as learning develops. **Limitation:** 0.30 is not claimed optimal. | **JUSTIFIED AS FIXED DESIGN PARAMETER** |
+| (epsilon_{\min}=0.03) | **Proven behaviour:** exploration never falls below 3%. **Rationale:** preserves limited alternative-action sampling rather than a permanently greedy policy in the dynamic dissemination setting. **Limitation:** 0.03 is not claimed optimal and provides no convergence guarantee. | **JUSTIFIED AS FIXED DESIGN PARAMETER** |
+| (lambda_\epsilon=0.995) | **Proven behaviour:** exploration half-life is approximately 138 learner decisions and the 0.03 floor is reached after approximately 459 decisions. **Rationale:** the retained decay factor therefore produces a gradual exploration schedule compatible with the frozen 1,000-decision Learning Validation horizon. **Limitation:** this compatibility does not establish optimality or guarantee state-action coverage. | **JUSTIFIED AS FIXED DESIGN PARAMETER** |
+| (gamma=0.70) | **Evidence:** evaluated against 0.80 and 0.90 under the bounded AR-1.4 sensitivity protocol across seeds 42--46. **Rationale:** selected from that bounded evidence and subsequent researcher adjudication. **Limitation:** the selection applies to the investigated Learning Validation configuration and is not claimed globally optimal. | **EMPIRICALLY JUSTIFIED WITHIN THE TESTED SETTING** |
+
+### Claim boundary
+
+The controlling terminology is **fixed design parameter**, not **optimal parameter**.
+
+For (alpha_Q), (epsilon_0), (epsilon_{\min}), and (lambda_\epsilon), the frozen values have explicitly characterized behaviour and a bounded methodological rationale. They are held constant to reduce an additional source of experimental variation while evaluating the Q-AHBN2 learning architecture. They are **not** claimed to be empirically optimized or globally optimal, and holding them fixed does not establish that alternative values would perform worse.
+
+For (gamma), a stronger but still bounded claim is supported: (gamma=0.70) was selected from the specified bounded sensitivity analysis under the frozen Learning Validation protocol. This does not establish global optimality, convergence, or universal superiority.
+
+### Hyperparameter-sensitivity boundary
+
+No additional (alpha_Q) sensitivity experiment is required solely to strengthen the appearance of the thesis or to manufacture an optimization claim. Extending sensitivity analysis to (alpha_Q) would naturally raise the same tuning question for (epsilon_0), (epsilon_{\min}), and (lambda_\epsilon), shifting the work toward comprehensive hyperparameter optimization. That is not the scientific contribution of Q-AHBN2.
+
+A parameter does not need to be experimentally optimized in order to be scientifically specified for a bounded experimental design. For closure here, its role must be defined, its resulting behaviour understood, its rationale documented, its limitations acknowledged, and its value applied consistently.
+
+### Closure formulation
+
+The preferred defence for each retained parameter is:
+
+[
+\boxed{\text{Proven behaviour} + \text{methodological rationale} + \text{explicit limitation}}
+]
+
+Accordingly:
+
+[
+\boxed{\text{The learning-parameter rationale is sufficient for S02 design closure.}}
+]
+
+with the explicit boundary:
+
+[
+\boxed{alpha_Q,\epsilon_0,\epsilon_{\min},\lambda_\epsilon
+\neq \text{ empirically optimized parameters}.}
+]
+
+They are scientifically motivated fixed design parameters. (gamma=0.70) additionally has bounded empirical selection evidence.
+
+This justification is a closure record only. It introduces no new parameter, experiment, tuning decision, redesign, canonical-AHBN change, or claim that the retained numerical values are globally optimal.
+
 ---
 
 ## S02-CLOSE-C3 — Final Residual-Status Supersession — 2026-09-23
