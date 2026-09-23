@@ -210,7 +210,9 @@ The following conceptual boundaries are already established:
 - forwarding outcomes provide locally attributable learning evidence;
 - requested/refined behaviour remains distinct from realized behaviour under eligible-neighbour constraints.
 
-Learning lifecycle and temporal-causality details that remain under active design review MUST be updated here only after their corresponding S02 gates are resolved. In particular, this conceptual map intentionally does not pre-judge unresolved successor-state / overlapping-transition semantics or the final numerical learning-parameter values.
+The temporal transition semantics have now been resolved conceptually by AR-1.1–AR-1.2: for a decision at peer $p$, $s_{t+1}$ is the frozen Q-AHBN2 state observed at that same peer's next Q-AHBN2 decision opportunity, while $R_t$ remains owned by the originating action's direct-attempt attribution record even if reward closure is delayed or out of order. Implementation readiness for this concurrent bookkeeping remains pending under AR-1.4.1.
+
+Future-value bootstrapping is retained as a Q-AHBN2 design mechanism ($\gamma>0$), but the historical numerical value $\gamma=0.90$ is not currently frozen. The bounded candidate set is $\Gamma=\{0.70,0.80,0.90\}$, with final selection deferred until the transition implementation passes deterministic readiness tests and the predeclared minimal sensitivity protocol is executed.
 
 ---
 
