@@ -1755,3 +1755,25 @@ At that point:
 ## Consolidation note
 
 This canonical file consolidates the former `docs/00_QAHBN2_MASTER.md` and `docs/qahbn2/00_QAHBN2_MASTER.md` authorities. The nested path is retired to eliminate competing master documents. Scientifically relevant operating rules from both versions are retained here; current stage status is governed by the current stage/control document and verified repository state rather than historical entry-gate wording.
+
+
+---
+
+## 15.1.1C AR-1.4.2 Learning-Validation readiness update — 2026-09-23
+
+The bounded AR-1.4.2B preparation chain has been completed through implementation:
+
+- AR-1.4.2A.1 event-path integration: PASS;
+- AR-1.4.2A.2 one-seed deterministic integration smoke: PASS / FROZEN;
+- AR-1.4.2B.1 real-workload audit: COMPLETE;
+- AR-1.4.2B.2 minimal Learning Validation workload: PASS / FROZEN;
+- AR-1.4.2B.3A stabilization diagnostic: PASS / FROZEN;
+- AR-1.4.2B.3 implementation: COMPLETE, pending execution verification in the researcher's local canonical-ControlSim environment.
+
+The next permitted execution is the predeclared AR-1.4.2 sensitivity matrix only:
+
+`gamma={0.70,0.80,0.90} x seed={42,43,44,45,46}`, exactly 15 runs.
+
+No gamma has been selected. No sensitivity result exists yet. The human researcher performs the execution and returns the immutable output for verification before any gamma-selection decision is recorded.
+
+The later AR-1 amendment that reopens the exact numerical gamma supersedes the older S02-F wording `gamma=0.90` **for gamma selection only**. Alpha and epsilon schedule values remain frozen as documented. Canonical AHBN remains immutable.
