@@ -1777,3 +1777,21 @@ The next permitted execution is the predeclared AR-1.4.2 sensitivity matrix only
 No gamma has been selected. No sensitivity result exists yet. The human researcher performs the execution and returns the immutable output for verification before any gamma-selection decision is recorded.
 
 The later AR-1 amendment that reopens the exact numerical gamma supersedes the older S02-F wording `gamma=0.90` **for gamma selection only**. Alpha and epsilon schedule values remain frozen as documented. Canonical AHBN remains immutable.
+
+
+## AR-1.4.2B.4 — Pre-Execution Validity Audit / Blocker Resolution
+
+**Decision date:** 2026-09-23  
+**Status:** IMPLEMENTATION/DOCUMENTATION CORRECTED — HUMAN REGRESSION VERIFICATION REQUIRED
+
+Before the first formal gamma-sensitivity run, the pre-execution validity audit resolved three candidate blockers:
+
+- canonical AHBN v0.63 queue-drain behavior: **PASS / no defect**;
+- Q-AHBN2 requested fanout range 1..7: **PASS / matches frozen Section 02.5 contract**;
+- stabilization timestamp semantics: **researcher-approved correction to detection time**.
+
+The stabilization diagnostic retains `W=50`, `delta=0.05`, and three consecutive comparisons, but reports the first reward-bearing Q-update at which all three comparisons are observable. The constant-reward 200-update micro-case therefore returns 200.
+
+No sensitivity cell was executed and no gamma was selected before this correction.
+
+**Next permitted gate:** human pulls the corrected HEAD, verifies the pinned canonical AHBN checkout, and reruns the full regression suite. Only if the complete suite passes may the frozen 15-run gamma sensitivity begin.
