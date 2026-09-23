@@ -3595,3 +3595,80 @@ Implementation evidence:
 This PASS releases the predeclared 15-run AR-1.4 minimal $\gamma$ sensitivity protocol; it does not itself select a numerical $\gamma$.
 
 **S02-H = IN PROGRESS — TRANSITION BOOKKEEPING READINESS PASS; broader lifecycle closure remains pending.**
+
+
+---
+
+## AR-1.4.2A.2 — Evidence Promotion / Gate Closure
+
+**Classification:** administrative evidence promotion only; not a new scientific subgate.  
+**Date:** 2026-09-23  
+**Result:** **PASS / COMPLETE / FROZEN**
+
+### Execution evidence
+
+The predeclared deterministic one-seed end-to-end ControlSim smoke was executed locally from the repository root in the active Python virtual environment.
+
+Unit/smoke test:
+
+```text
+python -m unittest tests.test_ar_1_4_2a_2_smoke -v
+test_seed42_end_to_end ... ok
+Ran 1 test in 0.000s
+OK
+```
+
+Direct runner initially exposed a Python module-discovery/entry-point issue:
+
+```text
+python scripts/run_ar_1_4_2a_2_smoke.py
+ModuleNotFoundError: No module named 'qahbn2'
+```
+
+No scientific code or frozen AHBN/Q-AHBN2 semantics were changed. Re-execution from the repository root with the repository root explicitly on the Python import path succeeded:
+
+```text
+PYTHONPATH=. python scripts/run_ar_1_4_2a_2_smoke.py
+{'seed': 42, 'gamma_fixture': 0.8, 'd1_ahbn': ('gossip', 3), 'd1_q': ('gossip', 3), 'd1_outcomes': ('NEW', 'NEW', 'NEW'), 'd1_reward': 1.0, 'd1_successor': ('M', 'L', 'L', 'L'), 'd1_updated': True, 'd2_outcomes': ('NEW', 'NEW'), 'd2_reward': 1.0, 'd2_terminal': True, 'd2_updated': True, 'q_updates': 2}
+```
+
+### Gate adjudication
+
+The deterministic seed-42 smoke verifies the integrated path:
+
+```text
+canonical AHBN proposal
+    -> Q-AHBN2 refinement
+    -> eligible-target/direct-attempt outcomes
+    -> reward closure
+    -> same-peer successor-state handling
+    -> Q update
+    -> terminal rewarded transition handling
+```
+
+Observed frozen-fixture evidence:
+
+- seed = `42`;
+- gamma fixture = `0.8`;
+- D1 canonical AHBN proposal = `('gossip', 3)`;
+- D1 Q-AHBN2 refined decision = `('gossip', 3)`;
+- D1 direct outcomes = `NEW, NEW, NEW`;
+- D1 reward = `1.0`;
+- D1 successor state = `('M', 'L', 'L', 'L')`;
+- D1 update executed;
+- D2 direct outcomes = `NEW, NEW`;
+- D2 reward = `1.0`;
+- D2 terminal transition handled;
+- D2 update executed;
+- total Q updates = `2`.
+
+The initial `ModuleNotFoundError` is classified as a **runner invocation/import-path issue**, not a scientific/integration failure, because the unchanged implementation passes the unit smoke and the direct runner succeeds when repository-root package discovery is supplied.
+
+No canonical AHBN internals, Q-AHBN2 scientific logic, reward semantics, transition semantics, topology, seed, or experimental fixture were modified to obtain the PASS.
+
+```text
+AR-1.4.2A.1 = PASS
+AR-1.4.2A.2 = PASS / COMPLETE / FROZEN
+```
+
+No predeclared AR-1.4.2A.3 exists. The next permitted scientific action is the already-predeclared **AR-1.4.2 minimal gamma sensitivity protocol** over the frozen candidate set `{0.70, 0.80, 0.90}`; this evidence-promotion entry does not alter that protocol or select gamma.
