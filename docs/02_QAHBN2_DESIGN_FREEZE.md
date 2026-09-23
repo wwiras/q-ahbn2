@@ -3938,7 +3938,7 @@ The 15-run sensitivity dataset is structurally complete and provenance-traceable
 
 ## AR-1.4.4 — Gamma Sensitivity Analysis and Selection — 2026-09-23
 
-**Status:** ANALYSIS COMPLETE — RECOMMENDATION PENDING RESEARCHER APPROVAL.  
+**Status:** PASS / APPROVED — gamma=0.70 FROZEN.  
 **Scope:** Existing 15-run AR-1.4.2 evidence only. No new simulation, rerun, seed, gamma candidate, reward change, or post-hoc tuning was introduced.
 
 ### AR-1.4.4.1 — Paired-Seed Descriptive Comparison
@@ -4009,3 +4009,27 @@ Scientific justification:
 No gamma is frozen by this entry yet. Human researcher approval is required before changing the authoritative Q-AHBN2 parameter contract from the bounded candidate set to gamma=0.70.
 
 **AR-1.4.4 status: RECOMMENDATION COMPLETE / AWAITING RESEARCHER APPROVAL.**
+
+
+---
+
+## AR-1.4.4 Approval / Gamma Parameter Freeze — 2026-09-23
+
+**Researcher decision:** APPROVED.
+
+The researcher reviewed and approved the AR-1.4.4 gamma-sensitivity recommendation. The bounded sensitivity gate is therefore closed with:
+
+[
+\boxed{\gamma = 0.70}
+]
+
+### Frozen decision
+
+- Q-AHBN2 discount factor: **gamma = 0.70**.
+- Status: **FROZEN for subsequent Q-AHBN2 development, validation, and controlled evaluation unless a formally documented scientific defect requires reopening.**
+- Selection evidence: completed AR-1.4.2 15-run ControlSim sensitivity matrix, integrity-verified under AR-1.4.3 and scientifically compared under AR-1.4.4.
+- No additional simulation or rerun was required for approval.
+- The selection does not alter canonical AHBN.
+- The selection does not claim mathematical convergence, policy optimality, global hyperparameter optimality, or universal superiority under failure, churn, heterogeneity, or Kubernetes conditions.
+
+**AR-1.4.4 = PASS / APPROVED / gamma=0.70 FROZEN.**
