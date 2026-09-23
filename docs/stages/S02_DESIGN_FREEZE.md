@@ -96,3 +96,33 @@ Residual current-looking status ambiguity was corrected locally while preserving
 No simulation, experiment, parameter tuning, redesign, new scientific decision, or canonical-AHBN modification was performed.
 
 C2 does not itself close S02. The next controlled gate is the exact static **S02-CLOSE re-audit**.
+
+
+---
+
+## S02-CLOSE-C3 — Final Residual-Status Supersession — 2026-09-23
+
+**Status:** PASS / COMPLETE — FINAL STATIC S02-CLOSE RE-AUDIT NEXT
+
+**Scope:** documentation/status reconciliation only. No scientific redesign, parameter change, experiment, simulation, tuning, code modification, deletion of historical evidence, or canonical-AHBN modification was authorized or performed.
+
+### Corrections completed
+
+1. `docs/00_QAHBN2_MASTER.md` — the residual pre-selection statement that no gamma had been selected/no sensitivity evidence existed is now locally marked **HISTORICAL / SUPERSEDED** and points to the later AR-1.4.3/AR-1.4.4 authority freezing `gamma=0.70`.
+2. `docs/02A_QAHBN2_ACCELERATED_FREEZE_PLAN.md` — the old READY/BLOCKED progress tracker and dated current-action block are now explicitly historical/superseded and cannot be read as current S02 status.
+3. `README.md` — repository-level status now states that S02 scientific design is complete/reconciled and that formal closure awaits the final static re-audit; S03 remains unreleased.
+
+### Boundary
+
+C3 does **not** close S02 and does not reopen any frozen scientific decision. The next permitted gate is exactly:
+
+```text
+S02-CLOSE — Final Static Design-Freeze Closure Re-Audit
+```
+
+Only a clean re-audit may authorize:
+
+```text
+S02 = PASS / CLOSED / FROZEN
+S03 = NEXT
+```
