@@ -21,5 +21,12 @@ Detailed gate history remains in `../02_QAHBN2_DESIGN_FREEZE.md`; this stage fil
 ## Boundary
 No new parameter, experiment, or redesign is authorized by this summary.
 
-## Next
-Perform the final S02 design-freeze consistency/closure audit, then enter S03.
+## Next controlled gate
+
+**S02-CLOSE — Final Design-Freeze Consistency / Closure Audit**
+
+Audit only: reconcile the full frozen design, remove/supersede stale contradictions without deleting historical evidence, verify one authoritative value/semantic for every required design item, and formally close S02 on PASS.
+
+**Prohibited at this gate:** simulations, new experiments, parameter tuning, or redesign unless the audit discovers a genuine scientific inconsistency.
+
+**Status:** S02-CLOSE = NEXT / NOT YET EXECUTED. S03 remains blocked until closure PASS.
