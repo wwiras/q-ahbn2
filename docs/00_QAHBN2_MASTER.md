@@ -1795,3 +1795,38 @@ The stabilization diagnostic retains `W=50`, `delta=0.05`, and three consecutive
 No sensitivity cell was executed and no gamma was selected before this correction.
 
 **Next permitted gate:** human pulls the corrected HEAD, verifies the pinned canonical AHBN checkout, and reruns the full regression suite. Only if the complete suite passes may the frozen 15-run gamma sensitivity begin.
+
+
+---
+
+## AR-1.4.3 — 15-Run Evidence Integrity / Completeness Audit — 2026-09-23
+
+**Gate result: PASS.** This gate is evidence-integrity/completeness only. It does not select or rank gamma values and does not interpret comparative scientific performance.
+
+### Audited evidence
+
+- run directory: `q-ahbn-23092026115202-ar142-gamma-sensitivity-rl-validation`;
+- environment/event: ControlSim / `rl-validation`;
+- Q-AHBN2 producing commit: `f689532647dcd167ed4603b1ff3ae3d1b4975528`;
+- canonical AHBN authority commit: `936a79480bc1252c79b6ee01f65c88c740af2844`;
+- matrix: `gamma={0.70,0.80,0.90} x seed={42,43,44,45,46}`;
+- expected/completed: 15/15;
+- artifacts present: `RUN.md`, `manifest.json`, `ar_1_4_2_gamma_sensitivity.csv`;
+- CSV cardinality: 16 total lines = 1 header + exactly 15 data rows.
+
+### Integrity/completeness findings
+
+1. **Artifact integrity — PASS.** All three required artifacts exist and are non-empty.
+2. **Cardinality — PASS.** Exactly 15 data rows are present.
+3. **Matrix completeness — PASS.** All 15 predeclared gamma/seed combinations are present: five seeds for each of the three candidate gamma values.
+4. **Uniqueness — PASS.** No duplicate `(gamma, seed)` pair is present in the supplied CSV.
+5. **Required metrics — PASS.** Every row contains the frozen fields: `mean_reward`, `cumulative_reward`, `stabilization`, `q_updates`, `state_action_coverage`, `action_distribution`, `delivery_ratio`, `propagation_delay`, `duplicates`, and `total_forwards`.
+6. **Protocol provenance — PASS.** The producing commit's guarded runner fixes the exact 15-run matrix and required metrics. Its ControlSim Learning Validation adapter fixes the stationary 1,000-message workload (BA(100,m=3), source 0, base delay 1.0, jitter 0.2, four static clusters, no failure/churn/resource disturbance), `alpha_Q=0.25`, `epsilon_0=0.30`, `epsilon_min=0.03`, `epsilon_decay=0.995`, and verifies the pinned canonical AHBN commit before execution.
+7. **Structural anomaly audit — PASS.** The supplied rows contain no missing required field, malformed gamma/seed pair, non-finite reported scalar, delivery ratio outside [0,1], negative count, or other obvious indication of partial execution. Action-distribution fields are parseable count mappings over the frozen five actions.
+8. **Interpretation boundary — ENFORCED.** No gamma is selected, preferred, ranked, or frozen by AR-1.4.3. The evidence remains raw bounded sensitivity evidence pending the separately controlled scientific comparison/selection gate.
+
+### Scientific decision
+
+`AR-1.4.3 = PASS — EVIDENCE INTEGRITY / COMPLETENESS VERIFIED`.
+
+The 15-run sensitivity dataset is structurally complete and provenance-traceable for the next controlled gate. This PASS is not a convergence claim, policy-optimality claim, or gamma-performance conclusion.
