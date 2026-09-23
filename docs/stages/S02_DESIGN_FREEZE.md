@@ -1,6 +1,6 @@
 # S02 — Design Freeze
 
-**Status:** CLOSURE — SCIENTIFIC DESIGN COMPLETE; FINAL CONSISTENCY CLOSURE AUDIT NEXT
+**Status:** CLOSURE — S02-CLOSE-C1 PASS; FINAL S02-CLOSE RE-AUDIT NEXT
 
 ## Authoritative evidence
 Detailed gate history remains in `../02_QAHBN2_DESIGN_FREEZE.md`; this stage file is a navigation/status record, not a duplicate authority.
@@ -29,7 +29,7 @@ Audit only: reconcile the full frozen design, remove/supersede stale contradicti
 
 **Prohibited at this gate:** simulations, new experiments, parameter tuning, or redesign unless the audit discovers a genuine scientific inconsistency.
 
-**Status:** S02-CLOSE = NEXT / NOT YET EXECUTED. S03 remains blocked until closure PASS.
+**Historical status at gate registration:** S02-CLOSE = NEXT / NOT YET EXECUTED. The first audit was subsequently executed and placed on HOLD; see below.
 
 
 ---
@@ -53,3 +53,22 @@ This was a read-only scientific/administrative audit. No simulation, experiment,
 `S02-CLOSE` does **not** receive PASS in the repository's present state because the one-authoritative-value requirement is violated by stale gamma/status text and the learner's default gamma, and the Master still records S02-I as pending.
 
 No new scientific design decision is required. The minimum permitted next work is a bounded **S02-CLOSE consistency-correction pass**: supersede stale status/gamma wording, align the learner default with frozen `gamma=0.70`, complete/document the S02-I design-level AHBN-boundary reconciliation, then re-audit for PASS. No simulation, experiment, tuning, or redesign is authorized by this finding.
+
+
+---
+
+## S02-CLOSE-C1 — Consistency Correction & S02-I Reconciliation
+
+**Status:** **PASS / COMPLETE.**
+
+Completed without simulation, experiment, tuning, or redesign:
+
+- stale current-state gamma/lifecycle/status wording superseded while historical evidence was retained;
+- `qahbn2/learning.py` default aligned from historical `gamma=0.90` to frozen `gamma=0.70`;
+- S02-I design-level AHBN-boundary/cross-platform reconciliation completed as PASS;
+- canonical AHBN remains immutable;
+- later S03/S04 implementation/regression/parity obligations remain explicitly separate from this design-level closure.
+
+**Next controlled gate:** **S02-CLOSE — Final Design-Freeze Consistency / Closure Audit (re-audit).**
+
+S03 remains blocked until that re-audit returns PASS.
