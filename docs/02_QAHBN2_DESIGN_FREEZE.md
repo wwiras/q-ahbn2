@@ -4118,3 +4118,31 @@ This is a documentation-consistency correction only. It is authorized solely to 
 C2 may not run simulations or experiments, tune parameters, redesign Q-AHBN2, reopen `gamma=0.70`, alter the S02-I design-level PASS, or modify canonical AHBN.
 
 After C2, the exact S02-CLOSE static audit must be rerun. Formal `S02 = PASS / CLOSED / FROZEN` and `S03 = NEXT` are permitted only if that re-audit finds no apparently active historical `gamma=0.90`, unresolved S02-H, pending S02-I, blocked S02-J, or other unresolved S02 scientific decision.
+
+
+---
+
+## S02 Learning-Parameter Scientific Justification for Closure — 2026-09-23
+
+This closure rationale records the scientific status of the frozen Q-AHBN2 learning contract without converting fixed design parameters into optimization claims.
+
+| Item | Basis for closure | Scientific status |
+|---|---|---|
+| Tabular Q-learning | The frozen state/action contract contains (3^4=81) logical states and 5 actions, hence 405 state-action entries; direct tabular representation is sufficient for this bounded discrete problem. | **JUSTIFIED** |
+| Zero initialization | All state-action values begin equally at zero, imposing no prior learned-action preference and providing a neutral, reproducible starting condition. | **JUSTIFIED** |
+| Seeded epsilon-greedy | Provides explicit exploration and random tied-max-Q resolution while making the stochastic sequence reproducible under the same seed/configuration. | **JUSTIFIED** |
+| (alpha_Q=0.25) | Each update incorporates 25% of the current temporal-difference correction, giving incremental rather than single-observation replacement of the learned estimate. The value is held fixed to constrain additional tuning degrees of freedom. | **JUSTIFIED AS FIXED DESIGN PARAMETER** |
+| (epsilon_0=0.30) | Provides substantial explicit early exploration while allowing accumulated Q-values to influence the majority of decisions as learning develops. | **JUSTIFIED AS FIXED DESIGN PARAMETER** |
+| (epsilon_{min}=0.03) | Preserves limited non-zero exploration so the learner does not become permanently greedy in the dynamic dissemination setting. | **JUSTIFIED AS FIXED DESIGN PARAMETER** |
+| (lambda_epsilon=0.995) | Produces a gradual, explicitly characterized exploration schedule: exploration half-life is approximately 138 learner decisions and the 0.03 floor is reached at approximately 459 decisions, about 46% of the frozen 1,000-decision Learning Validation horizon. | **JUSTIFIED AS FIXED DESIGN PARAMETER** |
+| (gamma=0.70) | Selected after the bounded AR-1.4 sensitivity analysis over ({0.70,0.80,0.90}) across seeds 42--46 and subsequent researcher adjudication. | **EMPIRICALLY JUSTIFIED WITHIN THE TESTED SETTING** |
+
+### Claim boundary
+
+The frozen values (alpha_Q=0.25), (epsilon_0=0.30), (epsilon_{min}=0.03), and (lambda_epsilon=0.995) are scientifically motivated **fixed design parameters**. Their roles, resulting behavior, and limitations are explicitly defined. They are **not** claimed to be empirically optimized or globally optimal.
+
+Holding these parameters constant constrains additional experimental degrees of freedom while evaluating the Q-AHBN2 learning architecture. This does not establish that alternative numerical values would perform worse.
+
+The discount factor is treated separately: (gamma=0.70) has bounded empirical selection evidence under the frozen Learning Validation protocol. That evidence does not establish global optimality, convergence, or universal superiority.
+
+No additional (alpha_Q) or epsilon-grid sensitivity experiment is required for S02 design closure solely to manufacture an optimization claim. Hyperparameter optimization is outside the frozen Q-AHBN2 contribution. Any later reopening requires an explicit validity/correctness defect or formal change control, not merely the possibility that another parameter might improve performance.
