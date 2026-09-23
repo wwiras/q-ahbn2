@@ -813,9 +813,12 @@ A row marked **PASS / FROZEN** means the corresponding Section 15 requirement is
 | I | Cross-platform / AHBN-boundary audit | design-level compatibility of the complete learning mechanism with immutable AHBN and one logical ControlSim/Kubernetes learning contract | S02-CLOSE-C1 reconciliation; implementation/regression parity remains later-stage work | **PASS / DESIGN-LEVEL RECONCILED** |
 | J | Final S02 closure audit | all Section 15 requirements resolved; no hidden design choice remains | S02-CLOSE audit held for C1 corrections | **READY FOR RE-AUDIT AFTER C1** |
 
-### 15.1.1 Current S02 position
+### 15.1.1 Historical S02 position before later lifecycle / C1 closures — SUPERSEDED
+
+> **Historical status only — SUPERSEDED.** The block below records the earlier S02 position before the later lifecycle/transition closures and S02-CLOSE-C1 reconciliation. It is preserved for provenance and is not the current project status.
 
 ```text
+HISTORICAL / SUPERSEDED:
 S02 — Q-AHBN2 DESIGN FREEZE = IN PROGRESS
 
 A Architecture                         PASS / FROZEN
@@ -825,12 +828,12 @@ D Action space + semantics            PASS / FROZEN
 E Reward                              PASS / COMPLETE / FROZEN
 F Learning parameters                 PASS / COMPLETE / FROZEN
 G Q-learning mechanics                PASS / COMPLETE / FROZEN
-H Learning lifecycle                  IN PROGRESS — H-X L3
-I Cross-platform / AHBN-boundary      PENDING
-J Final S02 closure audit             BLOCKED
+H Learning lifecycle                  HISTORICAL — later PASS / COMPLETE / FROZEN
+I Cross-platform / AHBN-boundary      HISTORICAL — later PASS / DESIGN-LEVEL RECONCILED
+J Final S02 closure audit             HISTORICAL — later advanced to C1/C2 re-audit
 ```
 
-The **next genuine unresolved S02 requirement is H — Learning lifecycle**. F and G are now PASS / COMPLETE / FROZEN under DOC-02 Sections 02.7–02.8 and Source Authority Register Sections 12–13.
+**Current authority:** H is PASS / COMPLETE / FROZEN; I is PASS / DESIGN-LEVEL RECONCILED; J is awaiting the post-C2 static S02-CLOSE re-audit. No scientific decision in H or I is currently unresolved.
 
 ### 15.1.1A S02-F closure record
 
