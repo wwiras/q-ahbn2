@@ -112,8 +112,10 @@ def stabilization_point(rewards: list[float]) -> int | str:
     needed = STABILIZATION_CONSECUTIVE
     for start in range(0, len(deltas) - needed + 1):
         if all(delta <= STABILIZATION_DELTA for delta in deltas[start:start + needed]):
-            # deltas[start] compares windows j-1 and j, with one-based j=start+2.
-            return w * (start + 2)
+            # Three qualifying comparisons require four complete windows.
+            # Report the first reward-bearing Q-update at which the complete
+            # stabilization criterion is observable (detection time).
+            return w * (start + needed + 1)
     return "NOT_STABILIZED"
 
 
