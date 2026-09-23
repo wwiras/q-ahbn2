@@ -1830,3 +1830,18 @@ No sensitivity cell was executed and no gamma was selected before this correctio
 `AR-1.4.3 = PASS — EVIDENCE INTEGRITY / COMPLETENESS VERIFIED`.
 
 The 15-run sensitivity dataset is structurally complete and provenance-traceable for the next controlled gate. This PASS is not a convergence claim, policy-optimality claim, or gamma-performance conclusion.
+
+
+---
+
+## AR-1.4.4 — Gamma Sensitivity Analysis and Selection — APPROVED 2026-09-23
+
+Researcher approval received after the controlled 15-run gamma-sensitivity analysis.
+
+**Scientific decision:** `gamma=0.70` is **FROZEN** for subsequent Q-AHBN2 development, validation, and controlled evaluation.
+
+Basis: AR-1.4.3 verified the complete 15-run evidence matrix; AR-1.4.4 compared the three predeclared candidates using paired seeds and the frozen learning/dissemination metrics. gamma=0.70 was recommended on the combined evidence, with the efficiency trade-off of gamma=0.90 explicitly retained as a limitation rather than suppressed.
+
+No new run, seed, gamma candidate, reward modification, or post-hoc retuning was introduced. This freeze does not modify canonical AHBN and is not a claim of convergence, policy optimality, global hyperparameter optimality, or universal superiority.
+
+**AR-1.4.4 = PASS / APPROVED / gamma=0.70 FROZEN.**
