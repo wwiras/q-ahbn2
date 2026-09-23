@@ -42,7 +42,7 @@ class MiniControlSim:
 
 def run_smoke() -> dict:
     learner = QAHBN2Learner(
-        alpha=0.25, gamma=SMOKE_GAMMA, epsilon=0.0, seed=SMOKE_SEED
+        alpha=0.25, gamma=SMOKE_GAMMA, epsilon=0.0, epsilon_min=0.0, epsilon_decay=1.0, seed=SMOKE_SEED
     )
     bridge = ControlSimEventBridge(ControlSimQAHBN2Adapter(learner))
     sim = MiniControlSim()
