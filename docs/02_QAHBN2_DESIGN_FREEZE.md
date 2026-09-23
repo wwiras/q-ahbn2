@@ -3246,7 +3246,7 @@ No additional gate may be inserted merely for completeness, optimization, or ext
 
 ---
 
-## 02.7 Learning Parameters — PASS / COMPLETE / FROZEN
+## 02.7 Learning Parameters — PARTIALLY REOPENED FOR CONTROLLED γ RECONCILIATION
 
 ### 02.7.1 Gate contract
 
@@ -3269,13 +3269,29 @@ This is a Category-B conventional design block under the accelerated protocol. I
 
 The Q-AHBN2 logical learning-parameter contract is:
 
-$$
+The historical numerical block below is retained for provenance but is **not fully frozen** while AR-1 is active:
+
+$
 \alpha_Q = 0.25,\qquad
 \gamma = 0.90,\qquad
 \epsilon_0 = 0.30,\qquad
 \epsilon_{\min}=0.03,\qquad
 \lambda_{\epsilon}=0.995.
-$$
+$
+
+For the discount factor specifically, the current controlled contract is:
+
+$
+\boxed{\gamma>0\ \text{is retained as a design mechanism}}
+$
+
+but the historical value $\gamma=0.90$ is **UNFROZEN** and is now one candidate in the bounded set
+
+$
+\boxed{\Gamma=\{0.70,0.80,0.90\}}.
+$
+
+No candidate is selected yet. The value will be frozen only after the AR-1 transition-readiness checks and the predeclared minimal sensitivity protocol are completed.
 
 The exploration schedule is multiplicative:
 
@@ -3341,7 +3357,7 @@ This check establishes numerical semantics only. Whether epsilon resets per epis
 | Subgate | Result |
 |---|---|
 | F1 learning rate | PASS / FROZEN — `alpha_Q=0.25` |
-| F2 discount factor | PASS / FROZEN — `gamma=0.90` |
+| F2 discount factor | **REOPENED / CONTROLLED** — $\gamma>0$ retained; $\Gamma=\{0.70,0.80,0.90\}$; exact value pending AR-1.4 |
 | F3 epsilon start | PASS / FROZEN — `epsilon_0=0.30` |
 | F4 epsilon minimum | PASS / FROZEN — `epsilon_min=0.03` |
 | F5 epsilon decay | PASS / FROZEN — multiplicative `0.995` |
@@ -3349,9 +3365,9 @@ This check establishes numerical semantics only. Whether epsilon resets per epis
 | F7 numerical sanity | PASS |
 | F8 closure | PASS / COMPLETE / FROZEN |
 
-**S02-F LEARNING PARAMETERS = PASS / COMPLETE / FROZEN.**
+**S02-F LEARNING PARAMETERS = PARTIALLY REOPENED — F2 DISCOUNT FACTOR ONLY.**
 
-No parameter sweep is authorized by this freeze. Performance tuning alone is not grounds to reopen S02-F.
+This is a bounded scientific reconciliation, not general hyperparameter optimization. The reopening is limited to the numerical value of $\gamma$ after AR-1 established that future-value bootstrapping is retained. Other learning parameters are not validated or retuned by AR-1.4.
 
 ### 02.7.8 Next documented gate
 
@@ -3546,12 +3562,27 @@ If accepted, use this conservative transition rule:
 
 ```text
 s_t      = frozen state snapshot at action selection
+a_t      = Q-AHBN2 action selected for that decision
 R_t      = reward from that action's closed direct-attempt attribution set
-s_(t+1)  = peer's current frozen 81-state representation sampled when that
-           action's attribution window closes
-update   = frozen one-step Q update on (s_t,a_t,R_t,s_(t+1))
+s_(t+1)  = frozen 81-state representation observed at the SAME PEER'S
+           NEXT Q-AHBN2 DECISION OPPORTUNITY
+update   = execute only after both R_t and s_(t+1) are available; reward
+           closure order does not redefine transition order
 ```
 
 This adds no sensor and does not modify AHBN, but it defines causal lifecycle semantics under concurrent message handling and therefore requires explicit L3 approval.
 
-**S02-H = IN PROGRESS — BLOCKED AT H-X L3 DECISION.**
+**H-X L3 DECISION = RESOLVED / APPROVED via AR-1.1–AR-1.2.**
+
+Concurrent per-message attribution records are retained (Alternative B), but the earlier closure-time successor-state proposal is superseded. Transition order follows successive Q-AHBN2 decision opportunities at the same peer; reward ownership follows the originating decision even when rewards close out of order.
+
+Implementation requirements before any γ sensitivity execution:
+1. per-decision transition identity and bookkeeping;
+2. capture the next same-peer decision state as $s_{t+1}$;
+3. allow $R_t$ and $s_{t+1}$ to arrive in either order;
+4. update only when both are available;
+5. terminal rewarded transitions use zero bootstrap;
+6. $F_t=0$ retains the frozen no-numerical-reward / no-reward-bearing-update rule;
+7. deterministic tests cover sequential, next-state-first, reward-first, overlapping/out-of-order, and terminal cases.
+
+**S02-H = IN PROGRESS — AR-1.4.1 IMPLEMENTATION READINESS PENDING.**
