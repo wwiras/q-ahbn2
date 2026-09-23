@@ -1845,3 +1845,36 @@ Basis: AR-1.4.3 verified the complete 15-run evidence matrix; AR-1.4.4 compared 
 No new run, seed, gamma candidate, reward modification, or post-hoc retuning was introduced. This freeze does not modify canonical AHBN and is not a claim of convergence, policy optimality, global hyperparameter optimality, or universal superiority.
 
 **AR-1.4.4 = PASS / APPROVED / gamma=0.70 FROZEN.**
+
+
+---
+
+# DOC-SYNC-1 — Repository Control-Structure Reconciliation — 2026-09-23
+
+**Result:** PASS / COMPLETE.
+
+Administrative synchronization only. No scientific redesign, experiment, new parameter, deletion of historical evidence, or movement of existing authoritative files was performed.
+
+The planned control structure has now been instantiated under `docs/`:
+- `03_EXPERIMENT_CONTRACT.md`
+- `04_STATISTICAL_CONTRACT.md`
+- `05_REVIEWER_LESSONS.md`
+- `06_RESULTS_REGISTER.md`
+- `07_CLAIM_EVIDENCE_MATRIX.md`
+- `stages/S00_SOURCE_AUDIT.md` through `stages/S14_SUBMISSION_AUDIT.md`.
+
+Existing authoritative files remain in place. Detailed AR gate history remains authoritative in `02_QAHBN2_DESIGN_FREEZE.md`; stage files are concise navigation/status records and do not duplicate or replace that evidence.
+
+Current stage map after synchronization:
+
+```text
+S00  PASS / historical complete
+S01  PASS / complete
+S02  scientific design complete; final consistency/closure audit next
+S03  next after S02 closure
+S04-S14  pending
+```
+
+The approved AR-1.4.4 decision remains `gamma=0.70` FROZEN. Formal Exp10-Q/Exp11-Q/Exp12-Q execution remains blocked until the intervening stage gates and frozen experiment/statistical contracts permit it.
+
+**Next controlled gate:** `S02-CLOSE — Final Design-Freeze Consistency / Closure Audit`.
