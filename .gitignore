@@ -8,3 +8,13 @@ __pycache__/
 
 # Generated simulation evidence directories (Drive evidence, not Git)
 q-ahbn-*/
+
+# Local experiment outputs — preserved via Google Drive sync
+outputs/
+q-ahbn-*/
+q-ahbn-gke-*/
+
+# Local experiment outputs — preserved via Google Drive sync
+outputs/
+q-ahbn-*/
+q-ahbn-gke-*/
