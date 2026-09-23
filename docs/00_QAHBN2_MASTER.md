@@ -1935,3 +1935,24 @@ This is a **design-level compatibility audit**, not a claim that Kubernetes Q-AH
 No canonical AHBN equation, normalization, EWMA parameter, score coefficient, sigmoid, mode threshold, S5 threshold/mapping, eligible-neighbour semantic, or realized-fanout rule is changed by C1.
 
 **Next permitted gate:** rerun **S02-CLOSE — Final Design-Freeze Consistency / Closure Audit**. S03 remains blocked until that re-audit returns PASS.
+
+
+---
+
+## S02-CLOSE-C2 — Residual Stale-Status Supersession — REGISTERED 2026-09-23
+
+**Status:** **REGISTERED / NEXT.**
+
+**Purpose:** perform the minimum residual documentation correction required by the S02-CLOSE re-audit. C2 must locally mark or replace stale current-looking statements so repository searches no longer expose an apparently active `gamma=0.90`, unresolved S02-H, pending S02-I, or blocked S02-J when those items have already been superseded by later frozen authority.
+
+**Strict boundary:** documentation-status supersession only. Preserve historical evidence and provenance. No simulation, experiment, parameter tuning, redesign, new scientific decision, or canonical-AHBN modification is authorized. The already-frozen `gamma=0.70` and S02-I design-level PASS are not reopened.
+
+**Required completion checks:**
+1. residual `gamma=0.90` occurrences are either unmistakably historical/candidate evidence or removed from current-authority wording;
+2. no current Master status presents S02-H as unresolved;
+3. no current Master status presents S02-I as pending;
+4. no current Master status presents S02-J as blocked by already-resolved F--I work;
+5. historical records remain preserved and clearly labelled as historical/superseded;
+6. rerun the same static S02-CLOSE repository audit after C2.
+
+**Closure rule:** C2 itself does not close S02. Only a clean subsequent S02-CLOSE static re-audit may authorize `S02 = PASS / CLOSED / FROZEN` and `S03 = NEXT`.
