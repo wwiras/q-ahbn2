@@ -474,6 +474,9 @@ The dates after design freeze are planning targets and may move if a genuine cor
 
 # 11. Progress tracker
 
+> **HISTORICAL / SUPERSEDED TRACKER — 2026-09-23.** The READY/BLOCKED statuses in the table below record the accelerated-plan position when this tracker was active. They are preserved for provenance and MUST NOT be read as current S02 status. Subsequent detailed S02 gates completed/reconciled Blocks A--E and the learning/lifecycle design. Current authority is `docs/00_QAHBN2_MASTER.md`, `docs/02_QAHBN2_DESIGN_FREEZE.md`, and `docs/stages/S02_DESIGN_FREEZE.md`. At S02-CLOSE-C3, the scientific design is complete and the only remaining S02 action is the final static closure re-audit; S03 remains blocked until that audit passes.
+
+
 This table is the operational progress reference for the accelerated plan.
 
 | ID | Design / execution block | Status | Evidence / notes |
@@ -549,7 +552,10 @@ The formal evidence determines the conclusion.
 
 ---
 
-# 15. Current controlled action
+# 15. Historical controlled action — SUPERSEDED
+
+> The dated 2026-09-21 action block below is historical provenance from the accelerated-plan period. It is not the current project entry gate. Current S02 status is governed by the authoritative Master, DOC-02, and S02 stage record; after S02-CLOSE-C3 the next permitted action is the final static S02-CLOSE re-audit.
+
 
 As of 2026-09-21:
 
