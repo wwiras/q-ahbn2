@@ -46,7 +46,7 @@ class TestLearningValidationContract(unittest.TestCase):
 
     def test_stabilization_constant_reward_sequence(self):
         # Four full windows are required for three consecutive comparisons.
-        self.assertEqual(stabilization_point([0.25] * 200), 100)
+        self.assertEqual(stabilization_point([0.25] * 200), 200)
 
     def test_stabilization_reports_not_stabilized_when_insufficient(self):
         self.assertEqual(stabilization_point([0.25] * 199), "NOT_STABILIZED")
