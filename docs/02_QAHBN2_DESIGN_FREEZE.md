@@ -3864,3 +3864,19 @@ The executable lifecycle is now explicit:
 - H8 closure: complete for AR-1.4.2 Learning Validation.
 
 This lifecycle does not reopen canonical AHBN and does not claim that the later formal dynamic experiments must use the same message count or stationary workload.
+
+
+### AR-1.4.2B.3 final execution handoff
+
+**Status:** **READY FOR HUMAN EXECUTION — NO SENSITIVITY RUN EXECUTED YET.**
+
+Additional safeguards completed after the implementation mapping:
+
+- the Learning Validation adapter refuses to run unless the canonical AHBN checkout HEAD is exactly `936a79480bc1252c79b6ee01f65c88c740af2844`;
+- generated `q-ahbn-*/` simulation evidence directories are ignored by Git and remain eligible for deliberate Drive evidence promotion;
+- the sensitivity runner creates a new immutable timestamped directory and writes the CSV, `manifest.json`, and `RUN.md`;
+- the frozen 15-cell matrix remains guarded by `tests/test_ar_1_4_2_protocol.py`.
+
+The human execution must first run the repository regression/unit suite and may proceed to the sensitivity runner only if that suite passes. The canonical AHBN commit guard then independently blocks execution against the wrong AHBN revision.
+
+No result-dependent parameter change is permitted between test PASS and execution of the 15-run matrix.
