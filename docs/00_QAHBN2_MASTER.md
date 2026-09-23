@@ -1777,7 +1777,7 @@ The next permitted execution is the predeclared AR-1.4.2 sensitivity matrix only
 
 `gamma={0.70,0.80,0.90} x seed={42,43,44,45,46}`, exactly 15 runs.
 
-No gamma has been selected. No sensitivity result exists yet. The human researcher performs the execution and returns the immutable output for verification before any gamma-selection decision is recorded.
+> **HISTORICAL / SUPERSEDED STATUS:** At this earlier AR-1.4.2B preparation point, no gamma had yet been selected and no sensitivity result yet existed. This statement is preserved only as chronological provenance. Subsequent AR-1.4.3 evidence-integrity verification and AR-1.4.4 researcher adjudication completed the bounded selection; the current authoritative value is `gamma=0.70` **FROZEN**.
 
 The later AR-1 amendment that reopens the exact numerical gamma supersedes the older S02-F wording `gamma=0.90` **for gamma selection only**. Alpha and epsilon schedule values remain frozen as documented. Canonical AHBN remains immutable.
 
