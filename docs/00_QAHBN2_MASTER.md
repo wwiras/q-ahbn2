@@ -212,7 +212,7 @@ The following conceptual boundaries are already established:
 
 The temporal transition semantics have now been resolved conceptually by AR-1.1–AR-1.2: for a decision at peer $p$, $s_{t+1}$ is the frozen Q-AHBN2 state observed at that same peer's next Q-AHBN2 decision opportunity, while $R_t$ remains owned by the originating action's direct-attempt attribution record even if reward closure is delayed or out of order. Implementation readiness for this concurrent bookkeeping remains pending under AR-1.4.1.
 
-Future-value bootstrapping is retained as a Q-AHBN2 design mechanism ($\gamma>0$), but the historical numerical value $\gamma=0.90$ is not currently frozen. The bounded candidate set is $\Gamma=\{0.70,0.80,0.90\}$, with final selection deferred until the transition implementation passes deterministic readiness tests and the predeclared minimal sensitivity protocol is executed.
+**Historical note (superseded by AR-1.4.4):** future-value bootstrapping was retained while the historical `gamma=0.90` was reopened over the bounded candidate set `{0.70,0.80,0.90}`. That selection process is now complete. The current authoritative Q-AHBN2 discount factor is **`gamma=0.70` FROZEN**.
 
 ---
 
@@ -809,9 +809,9 @@ A row marked **PASS / FROZEN** means the corresponding Section 15 requirement is
 | E | Reward contract | reward equation; reward coefficients/magnitudes; penalty/zero-evidence conditions | DOC-02 Section 02.6 | **PASS / COMPLETE / FROZEN** |
 | F | Learning parameters | learning rate; discount factor; epsilon; epsilon decay | DOC-02 Section 02.7 + Source Authority Register Section 12 | **PASS / COMPLETE / FROZEN** |
 | G | Q-learning mechanics | Q-table initialization; Q-update; exploration/exploitation | DOC-02 Section 02.8 + Source Authority Register Section 13 | **PASS / COMPLETE / FROZEN** |
-| H | Learning lifecycle | episode definition; learning trigger; observation interval; action interval; reset/persistence | DOC-02 02.9 opened; H-X overlapping per-message transition issue logged | **IN PROGRESS — L3 DECISION REQUIRED** |
-| I | Cross-platform / AHBN-boundary audit | exact compatibility of the complete learning mechanism with immutable AHBN and ControlSim/Kubernetes logical parity | architecture/state/action/reward evidence exists; full-chain audit still required | **PENDING** |
-| J | Final S02 closure audit | all Section 15 requirements resolved; no hidden design choice remains | blocked until F--I close | **BLOCKED** |
+| H | Learning lifecycle | episode definition; learning trigger; observation interval; action interval; reset/persistence | DOC-02 02.9 + later AR transition/lifecycle closures | **PASS / COMPLETE / FROZEN** |
+| I | Cross-platform / AHBN-boundary audit | design-level compatibility of the complete learning mechanism with immutable AHBN and one logical ControlSim/Kubernetes learning contract | S02-CLOSE-C1 reconciliation; implementation/regression parity remains later-stage work | **PASS / DESIGN-LEVEL RECONCILED** |
+| J | Final S02 closure audit | all Section 15 requirements resolved; no hidden design choice remains | S02-CLOSE audit held for C1 corrections | **READY FOR RE-AUDIT AFTER C1** |
 
 ### 15.1.1 Current S02 position
 
@@ -834,7 +834,7 @@ The **next genuine unresolved S02 requirement is H — Learning lifecycle**. F a
 
 ### 15.1.1A S02-F closure record
 
-S02-F was reconciled as one bounded work package on 2026-09-21. Frozen values are `alpha_Q=0.25`, `gamma=0.90`, `epsilon_0=0.30`, `epsilon_min=0.03`, and multiplicative `epsilon_decay=0.995`. Historical ControlSim and GKE sources were compared explicitly; RO2 was used to constrain the scientific rationale without claiming hyperparameter optimality; canonical AHBN `alpha_AHBN=0.30` remains immutable and distinct.
+S02-F was reconciled as one bounded work package on 2026-09-21. **Historical S02-F initially carried `gamma=0.90`; AR-1.4.4 later superseded that numerical value.** Current frozen values are `alpha_Q=0.25`, `gamma=0.70`, `epsilon_0=0.30`, `epsilon_min=0.03`, and multiplicative `epsilon_decay=0.995`. Historical ControlSim and GKE sources were compared explicitly; RO2 was used to constrain the scientific rationale without claiming hyperparameter optimality; canonical AHBN `alpha_AHBN=0.30` remains immutable and distinct.
 
 ### 15.1.1B Current blocking decision
 
@@ -1910,3 +1910,28 @@ A design change is permitted only if S02-CLOSE discovers a genuine scientific in
 **Current status:** `S02-CLOSE = NEXT / NOT YET EXECUTED`.
 
 No simulation or redesign is authorized by registering this gate.
+
+
+---
+
+## S02-CLOSE-C1 — Consistency Correction & S02-I Reconciliation — 2026-09-23
+
+**Status:** **PASS / COMPLETE — READY FOR S02-CLOSE RE-AUDIT.**
+
+This gate performed documentation/code consistency correction and design-level reconciliation only. No simulation, experiment, parameter tuning, redesign, or canonical-AHBN modification was performed.
+
+### C1 corrections
+
+1. Stale Master statements that presented gamma selection or S02-H/S02-I as currently unresolved are explicitly superseded by the later frozen decisions; historical provenance is retained.
+2. The executable learner default is aligned to the already-approved **gamma=0.70**. This is implementation consistency, not parameter selection.
+3. **S02-I design-level reconciliation = PASS.** The complete learning mechanism remains outside canonical AHBN: canonical environment adapters produce the logical observations; canonical AHBN alone owns normalization/EWMA, score, sigmoid, mode rule and S5 proposal; Q-AHBN2 consumes the frozen canonical observation state and acts only after `(mode_AHBN,k_AHBN)` exists; eligible-target construction/realization remains the execution boundary. The same logical Q-AHBN2 state/action/reward/transition/learning contract is required in ControlSim and Kubernetes. Raw sensing and execution mechanics may remain environment-specific as already permitted by the canonical contract.
+
+### S02-I scope boundary
+
+This is a **design-level compatibility audit**, not a claim that Kubernetes Q-AHBN2 has already been implemented or empirically parity-tested. Code integration, regression tests and empirical cross-platform parity remain owned by S03/S04 and later validation stages. Therefore S02-I can close without a simulation while preserving those later obligations.
+
+### Canonical-AHBN integrity
+
+No canonical AHBN equation, normalization, EWMA parameter, score coefficient, sigmoid, mode threshold, S5 threshold/mapping, eligible-neighbour semantic, or realized-fanout rule is changed by C1.
+
+**Next permitted gate:** rerun **S02-CLOSE — Final Design-Freeze Consistency / Closure Audit**. S03 remains blocked until that re-audit returns PASS.
