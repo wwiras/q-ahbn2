@@ -1,6 +1,6 @@
 # S08 — Formal Exp10-Q: Failure
 
-**Status:** PREPARATION HOLD — FORMAL HARNESS REQUIRED BEFORE HUMAN EXECUTION
+**Status:** PASS / CLOSED — FORMAL EVIDENCE FROZEN AND PROMOTED
 
 ## Objective
 Execute the frozen Exp10-Q Failure matrix from `docs/03_EXPERIMENT_CONTRACT.md` under the frozen statistical/provenance rules.
@@ -275,3 +275,54 @@ Exp10-Q is a complete, valid formal dataset with a scientifically interpretable 
 `S08-CLOSE — Exp10-Q Evidence Freeze / Promotion and Stage Closure`.
 
 This closure gate should preserve the raw formal directory and deterministic analysis artifact, reconcile claim/evidence status, and promote the verified evidence under the existing evidence-management rules before proceeding to S09 Exp11-Q preparation.
+
+
+## S08-CLOSE — Exp10-Q Evidence Freeze / Promotion and Stage Closure — 2026-09-28
+
+**Status:** PASS / CLOSED.
+
+### Gate
+Freeze and deliberately promote the verified Exp10-Q raw formal evidence and deterministic analysis artifact without modifying scientific results, parameters, metrics, or claim boundaries.
+
+### Evidence freeze and promotion
+The following verified artifacts were deliberately promoted from the synchronized Q-AHBN2 working root into the designated Google Drive evidence hierarchy:
+
+`evidence/Exp10-Q/`
+
+Preserved raw formal directory:
+- `q-ahbn-28092026183635-exp10q-formal`
+- Drive folder ID: `1zRbYP629i0tqwGcgLMo1KyaugTJtzWXl`
+- preserved contents: `RUN.md`, `manifest.json`, `exp10q_formal.csv`, `decision_trace.json`
+
+Preserved deterministic analysis directory:
+- `q-ahbn-28092026183635-exp10q-formal-analysis`
+- Drive folder ID: `1tl6SMV_9BfncSdv0Xz8neZIUATAPR240`
+- preserved content: `exp10q_formal_analysis.json`
+
+Promotion hierarchy:
+- `evidence` folder ID: `1TtID10G9q7w77uA7OcSQOQV0KN9kgNaF`
+- `evidence/Exp10-Q` folder ID: `1Y1AsVP9JL8l0i5LFgQfiJrjhAMU1qPAC`
+
+The promotion preserved the original folder IDs and artifact contents. No result was regenerated, filtered, renamed internally, recomputed, excluded, or rerun.
+
+### Readback verification
+Post-promotion Google Drive readback confirmed:
+- both promoted directories are direct children of `evidence/Exp10-Q`;
+- the raw directory still contains exactly the four verified formal artifacts;
+- the analysis directory still contains the deterministic `exp10q_formal_analysis.json`;
+- the raw evidence and analysis artifact remain separately identifiable and traceable.
+
+### Scientific reasoning
+S08-CLOSE is an evidence-governance gate, not a result-selection gate. The formal Exp10-Q dataset had already passed frozen-contract integrity/completeness and statistical/claim-boundary analysis. Deliberate promotion converts the verified synchronized working copies into the authoritative preserved evidence location required by the project contract without changing any scientific observation or interpretation.
+
+The frozen Exp10-Q interpretation remains unchanged: under the tested one-peer failure condition, Q-AHBN2 showed higher delivery and lower propagation delay than frozen AHBN, with higher duplicate and forwarding overhead. No broader superiority, convergence, optimality, churn/heterogeneity, external-baseline, Kubernetes, or composite Adaptation Efficiency claim is introduced.
+
+## Result
+**S08-CLOSE = PASS / CLOSED.**
+
+S08 Exp10-Q is now fully closed: formal execution, integrity/completeness audit, frozen statistical analysis, claim-boundary audit, evidence freeze, deliberate Google Drive promotion, and promotion readback are complete.
+
+## Next permitted task
+`S09-PREP-1 — Exp11-Q Frozen Contract-to-Harness Reconciliation`.
+
+S09 may now enter preparation/audit only. Formal Exp11-Q execution remains blocked until its preparation, regression, and bounded smoke gates pass.
