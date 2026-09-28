@@ -52,6 +52,31 @@ For a leave before message 201, “rejoin after 50 subsequent messages” means 
 ## Result
 **S09-PREP-1 = PASS / CLOSED.**
 
+## OUTPUT-STD-1 — Gitignored Generated-Output Root Standardization — 2026-09-28
+
+**Status:** PASS / CLOSED.
+
+### Gate
+Standardize all Q-AHBN2 generated test, experiment, formal-run, analysis, trace and log artifacts under the repository-local `output/` tree before S09-PREP-3.
+
+### Why
+Large formal traces and logs must remain outside Git history. A single gitignored output root also removes ambiguity between historical root-level `q-ahbn-*`, `outputs/`, and `output/` conventions.
+
+### Frozen operational rule
+- repository-local generated-output root: `output/`;
+- normal evidence-working subroot: `output/evidence/`;
+- formal example: `output/evidence/q-ahbn-<DDMMYYYYHHmmss>-exp11q-formal/`;
+- analysis example: `output/evidence/q-ahbn-<DDMMYYYYHHmmss>-exp11q-formal-analysis/`;
+- no generated experiment directory may be created at repository root;
+- custom `--output-dir` values must remain inside `output/`;
+- `output/` is excluded by `.gitignore`;
+- Google Drive synchronization of `output/` is working storage only; deliberate evidence promotion/readback remains required for authoritative evidence.
+
+This is an operational/provenance change only. No experiment matrix, parameter, metric, result, statistical rule, or claim is changed.
+
+## Result
+**OUTPUT-STD-1 = PASS / CLOSED.**
+
 ## S09-PREP-2 — Implement Exp11-Q Formal Harness + Static Verification — 2026-09-28
 
 **Status:** IMPLEMENTATION COMPLETE / LOCAL EXECUTION VERIFICATION REQUIRED.
@@ -74,6 +99,7 @@ The implementation:
 - preserves queue-to-exhaustion between messages;
 - preserves the frozen Q-AHBN2 learner and direct-attempt reward attribution path;
 - emits the four primary dissemination metrics, frozen Q-AHBN2 learning/adaptation fields, churn target schedule/event provenance, `RUN.md`, `manifest.json`, CSV and Q-decision trace;
+- writes the formal directory by default to `output/evidence/q-ahbn-<timestamp>-exp11q-formal/` and rejects custom output paths outside `output/`;
 - refuses matrix expansion;
 - introduces no new metric, parameter, baseline or scientific claim.
 
