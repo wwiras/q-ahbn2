@@ -88,3 +88,54 @@ The connector environment cannot execute the researcher's local Python/ControlSi
 `S08-PREP-3 — Local Regression + Bounded Exp10-Q Smoke`.
 
 Formal 20-run Exp10-Q execution remains blocked until PREP-3 passes.
+
+
+## S08-PREP-3 — Local Regression + Bounded Exp10-Q Smoke — 2026-09-28
+
+**Status:** PASS / CLOSED.
+
+### Local execution evidence
+Researcher executed PREP-3 from repository commit `b0c5776672ed814334853d930ff83809af5e9c91` with a clean working tree and branch synchronized to `origin/main`.
+
+Regression evidence:
+- `PYTHONPATH=. python -m unittest discover -s tests -v`
+- 23 tests executed;
+- 23 PASS;
+- 0 failures / 0 errors.
+
+Dedicated Exp10-Q contract evidence:
+- `PYTHONPATH=. python -m unittest tests.test_formal_exp10q_contract -v`
+- 3 tests executed;
+- exact frozen matrix guard PASS;
+- deterministic non-source failed-peer guard PASS;
+- matrix-expansion rejection guard PASS.
+
+Bounded deterministic integration smoke:
+- condition: failure only;
+- methods: AHBN and Q-AHBN2;
+- seed: 42 only;
+- expected/observed failed peer: 82;
+- failure boundary: before message 501;
+- both methods completed successfully;
+- primary dissemination fields present and valid;
+- Q-AHBN2 learning/adaptation fields and passive decision trace present;
+- terminal assertion: `S08-PREP-3 bounded smoke: PASS`.
+
+Observed smoke outputs are classified strictly as **pre-formal integration evidence**. They are not part of the formal Exp10-Q dataset and must not be used for inferential or comparative thesis/paper claims.
+
+### Scientific interpretation
+PREP-3 establishes runtime executability of the new Exp10-Q integration while preserving the frozen contract. The result does not authorize any scientific redesign, parameter adjustment, matrix change, or result-based rerun rule.
+
+The smoke observation that AHBN and Q-AHBN2 produced different dissemination outcomes is not interpreted scientifically at this gate; the purpose was only runtime/provenance verification.
+
+## Result
+
+**S08-PREP-3 = PASS / CLOSED.**
+
+The preparation hold is cleared. The frozen formal 20-run Exp10-Q matrix may now be executed using `scripts/run_exp10q_formal.py` without modification.
+
+## Next permitted task
+
+`S08-FORMAL-1 — Execute Frozen 20-Run Exp10-Q Failure Matrix`.
+
+Formal outputs remain **raw evidence pending validity/completeness audit** after execution. No interpretation or thesis/paper claim is permitted until that post-run audit closes.
