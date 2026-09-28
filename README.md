@@ -2,7 +2,7 @@
 
 Q-AHBN2 is the canonical-AHBN-based redesign of the previous Q-AHBN implementation.
 
-Current status: Q-AHBN2 S04 Regression / Parity = PASS / CLOSED. S05 RL Validation = NEXT.
+Current status: Q-AHBN2 S05 RL Validation = PASS / CLOSED. S06 Smoke = NEXT.
 
 Authoritative project controls:
 - `docs/00_QAHBN2_MASTER.md`
