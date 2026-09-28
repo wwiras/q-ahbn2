@@ -285,3 +285,87 @@ The designated Google Drive evidence root is folder ID:
 > **Audit every gate; edit only files whose authoritative state actually changed.**
 
 No test PASS, stage transition, or formal evidence claim may be declared solely from assistant narration, command completion, or automatic Drive synchronization. Artifact verification and the required GitHub readback must occur first.
+
+## 13. S07-D Prospective Scope Amendment — Exp13-Q Reference Benchmark — 2026-09-28
+
+**Status:** PASS / FROZEN.
+
+This amendment was frozen before any formal Exp10-Q / Exp11-Q / Exp12-Q result was inspected. It preserves the existing 80-run primary RO4 matrix unchanged and adds one separate publication-positioning family only.
+
+### 13.1 Evidence-role separation
+
+- Learning Validation: stationary learning-mechanics and bounded parameter-selection evidence only.
+- Exp10-Q / Exp11-Q / Exp12-Q: primary thesis RO4/RQ4 controlled causal evaluation of frozen AHBN versus Q-AHBN2 under failure, churn and heterogeneity.
+- Exp13-Q: bounded external reference benchmark for publication positioning; it does not replace, pool with, or retune Exp10-Q / Exp11-Q / Exp12-Q.
+- K8s-VAL-Q: later bounded deployment validation of frozen AHBN versus frozen Q-AHBN2; it is not a second ControlSim matrix and is not condition-selected from formal ControlSim results.
+
+### 13.2 Exp13-Q frozen comparator set
+
+The only permitted methods are:
+
+```text
+Gossip
+Structured
+DC-SoC
+AHBN
+Q-AHBN2
+```
+
+Gossip and Structured use the established canonical ControlSim strategy semantics. DC-SoC uses the previously validated dissemination-focused comparator lineage from the pinned canonical AHBN repository, including deterministic clustering/core structure and churn-capable lifecycle handling. AHBN is the frozen canonical S5 controller. Q-AHBN2 is the frozen post-AHBN learner.
+
+No DQN, SARSA, legacy Q-AHBN, optimized Gossip variant, additional hybrid method or new comparator is authorized unless a later explicit scientific-defect/change-control gate reopens scope.
+
+### 13.3 Exp13-Q frozen scenario
+
+| Field | Frozen value |
+|---|---|
+| purpose | publication/reference positioning only |
+| scenario | churn = 0.40 |
+| topology | BA(100,m=3) |
+| source | peer 0 |
+| workload | 1,000 sequential messages, queue-to-exhaustion between injections |
+| churn schedule | four leave/rejoin cycles, matching the frozen Exp11-Q high-churn schedule |
+| cycle onsets | before messages 201, 401, 601, 801 |
+| rejoin point | after 50 subsequent messages within each cycle |
+| seeds | 42, 43, 44, 45, 46 |
+| methods | Gossip, Structured, DC-SoC, AHBN, Q-AHBN2 |
+| total runs | 5 methods x 5 seeds = 25 |
+
+The scenario is fixed prospectively because churn=0.40 is already the high predeclared Exp11-Q condition, represents repeated dynamic membership stress established by prior RO2/AHBN evidence, and is compatible in principle with the established comparator lineage. It must not be changed in response to future Q-AHBN2 results.
+
+A dedicated Exp13-Q harness must later pass static/regression/smoke verification before formal execution. Harness preparation may adapt existing validated implementations to the exact frozen schedule but may not change comparator semantics, learning parameters or the scenario.
+
+### 13.4 Formal ControlSim scope after amendment
+
+```text
+Exp10-Q: 20 runs
+Exp11-Q: 30 runs
+Exp12-Q: 30 runs
+Exp13-Q: 25 runs
+-------------------
+Total:  105 formal ControlSim runs
+```
+
+Exp10-Q / Exp11-Q / Exp12-Q remain unchanged and constitute the primary RO4 causal matrix. Exp13-Q is analytically and interpretively separate.
+
+### 13.5 Explicit no-more-no-less exclusions
+
+Not required and not authorized by this amendment:
+
+- five-way Exp10-Q;
+- five-way Exp11-Q across all churn levels;
+- five-way Exp12-Q;
+- additional seeds merely to increase sample size;
+- an additional topology family;
+- combined failure+churn scenarios;
+- legacy Q-AHBN as a formal baseline;
+- DQN, SARSA or another new RL method;
+- further alpha/gamma/epsilon tuning;
+- reward redesign;
+- extra severity sweeps;
+- a composite Adaptation Efficiency metric;
+- full 80-run Kubernetes replication.
+
+The governing principle remains: **scientifically necessary, reproducible, no more and no less.**
+
+**S07-D experiment-contract amendment = PASS / FROZEN.**
