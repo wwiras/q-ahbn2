@@ -204,11 +204,25 @@ Execution order is an operational reproducibility rule, not a scientific carry-o
 
 ## 9. Provenance and output requirements
 
-Simulation directory:
+Local generated-output root:
 
 ```text
-q-ahbn-<DDMMYYYYHHmmss>-<experiment>-formal/
+output/
 ```
+
+All generated experiment, smoke, regression, diagnostic, pilot, formal, and analysis artifacts MUST be written under this gitignored root. The standard formal run path is:
+
+```text
+output/evidence/q-ahbn-<DDMMYYYYHHmmss>-<experiment>-formal/
+```
+
+Analysis derived from a formal run must also remain under `output/`, for example:
+
+```text
+output/evidence/q-ahbn-<DDMMYYYYHHmmss>-<experiment>-formal-analysis/
+```
+
+No generated run directory may be created at repository root. `output/` is execution/evidence working storage only and is excluded from Git by `.gitignore`.
 
 Every preserved experiment directory must include at minimum:
 
