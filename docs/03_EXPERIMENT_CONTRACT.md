@@ -281,15 +281,21 @@ If a paired AHBN/Q-AHBN2 run is invalidated by a shared seed/condition defect, t
 
 S08--S10 formal experiments are the primary controlled-simulation evidence for the Q-AHBN2 research question.
 
-Later Kubernetes work is a deployment-validation layer, not an extension of the ControlSim matrix and not a new parameter-search phase. Kubernetes validation must:
+Later Kubernetes work is a deployment-validation layer, not an extension of the full ControlSim matrix and not a new parameter-search phase. Its prospective scope is now explicitly two-part:
 
-- compare frozen AHBN with frozen Q-AHBN2 only;
-- reuse the closest already established AHBN Kubernetes failure/churn/heterogeneity conditions where implementation-compatible;
-- preserve environment-specific sensing/normalization while maintaining the same logical Q-AHBN2 state/action/reward contract;
-- not retune Q-learning parameters, AHBN, disturbance severity, or metrics based on ControlSim results;
-- be frozen in a separate later gate before execution.
+1. **K8s-VAL-Q deployment validation:** frozen AHBN versus frozen Q-AHBN2 under the minimum pre-existing dynamic condition frozen at K4-Q.
+2. **Exp13-Q-K8s matched reference benchmark:** Gossip, Structured, DC-SoC, AHBN and Q-AHBN2 under the closest implementation-valid Kubernetes counterpart of the already frozen Exp13-Q-Sim churn=0.40 reference scenario.
 
-ControlSim results therefore cannot be used to choose favourable Kubernetes conditions.
+Kubernetes validation must:
+
+- preserve the frozen Q-AHBN2 logical state/action/reward/update contract and canonical AHBN immutability;
+- reuse established AHBN Kubernetes/GKE semantics where implementation-compatible;
+- preserve environment-specific sensing/normalization and execution details rather than forcing artificial numerical identity with ControlSim;
+- match Exp13-Q-Sim scenario semantics, topology intent, source, churn schedule, seeds and principal metrics as closely as technically valid for the RO1 framework;
+- not retune Q-learning parameters, AHBN, comparator semantics, disturbance severity, metrics, or seed set based on ControlSim results;
+- freeze the exact Kubernetes repetition/run structure prospectively at K4-Q before any Exp13-Q-K8s outcome is inspected.
+
+The Exp13-Q-K8s arm is a matched cross-environment reference benchmark, not a claim of literal cross-platform replication unless parity evidence later establishes sufficient experimental equivalence. ControlSim results therefore cannot be used to choose favourable Kubernetes conditions.
 
 ## 12. S07-A freeze decision
 
@@ -326,7 +332,7 @@ This amendment was frozen before any formal Exp10-Q / Exp11-Q / Exp12-Q result w
 - Learning Validation: stationary learning-mechanics and bounded parameter-selection evidence only.
 - Exp10-Q / Exp11-Q / Exp12-Q: primary thesis RO4/RQ4 controlled causal evaluation of frozen AHBN versus Q-AHBN2 under failure, churn and heterogeneity.
 - Exp13-Q: bounded external reference benchmark for publication positioning; it does not replace, pool with, or retune Exp10-Q / Exp11-Q / Exp12-Q.
-- K8s-VAL-Q: later bounded deployment validation of frozen AHBN versus frozen Q-AHBN2; it is not a second ControlSim matrix and is not condition-selected from formal ControlSim results.
+- K8s-VAL-Q: later bounded deployment validation. Its prospective scope contains two distinct roles: (i) frozen AHBN versus frozen Q-AHBN2 deployment validation, and (ii) one matched Exp13-Q-K8s five-method reference-benchmark arm using Gossip, Structured, DC-SoC, AHBN and Q-AHBN2 to support RO1 cross-environment evaluation. It is not a second full ControlSim matrix and is not condition-selected from formal ControlSim results.
 
 ### 13.2 Exp13-Q frozen comparator set
 
@@ -393,8 +399,46 @@ Not required and not authorized by this amendment:
 - reward redesign;
 - extra severity sweeps;
 - a composite Adaptation Efficiency metric;
-- full 80-run Kubernetes replication.
+- full 80-run Kubernetes replication;
+- five-way Kubernetes replication of Exp10-Q, Exp11-Q or Exp12-Q beyond the single matched Exp13-Q-K8s reference arm.
 
 The governing principle remains: **scientifically necessary, reproducible, no more and no less.**
 
 **S07-D experiment-contract amendment = PASS / FROZEN.**
+
+
+## 14. Prospective Kubernetes Scope Amendment — Matched Exp13-Q-K8s Arm — 2026-09-28
+
+**Status:** PASS / FROZEN SCOPE AMENDMENT; K8s EXECUTION NOT RELEASED.
+
+This amendment is prospective and is established before any Exp13-Q-K8s outcome exists. It changes only the future Kubernetes validation scope. It does **not** modify, reopen, rerun, pool with, or reinterpret the already frozen Exp10-Q / Exp11-Q / Exp12-Q matrices or the frozen Exp13-Q-Sim matrix.
+
+### 14.1 RO1 rationale
+
+RO1 provides the cloud-native evaluation framework spanning controlled simulation and Kubernetes deployment. To preserve that framework-level contribution, the same bounded five-method reference family used by Exp13-Q-Sim will also be evaluated through one matched Kubernetes reference-benchmark arm.
+
+### 14.2 Frozen method family for Exp13-Q-K8s
+
+```text
+Gossip
+Structured
+DC-SoC
+AHBN
+Q-AHBN2
+```
+
+No additional method is authorized by this amendment.
+
+### 14.3 Scenario relationship
+
+Exp13-Q-K8s must use the closest implementation-valid Kubernetes counterpart of the already frozen Exp13-Q-Sim scenario: high churn at the predeclared 0.40 target fraction, BA(100,m=3) topology intent, source peer 0, four leave/rejoin cycles, seeds 42--46, and the same principal dissemination metrics where available. Kubernetes-native timing, workload pacing, resource realization and orchestration details may differ only where required by the deployment environment and must be explicitly documented at K4-Q.
+
+### 14.4 No-more-no-less boundary
+
+This amendment authorizes exactly one five-method Kubernetes reference arm. It does not authorize full five-way Kubernetes versions of Exp10-Q, Exp11-Q or Exp12-Q; no extra topology family, additional seed set, new severity sweep, reward redesign, learner retuning, comparator redesign or post-hoc condition selection is permitted.
+
+### 14.5 Release boundary
+
+K0-Q through K3-Q remain prerequisite reconciliation/integration/parity/smoke gates. K4-Q must freeze the exact Kubernetes protocol, including run/repetition structure and any implementation-required deviations from Exp13-Q-Sim semantics, before any Exp13-Q-K8s formal outcome is inspected. K5-Q may execute only the K4-Q frozen matrix. K6-Q must verify and freeze all Kubernetes evidence before interpretation.
+
+**Prospective Kubernetes scope amendment = PASS / FROZEN.**
