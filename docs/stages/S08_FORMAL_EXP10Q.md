@@ -57,7 +57,34 @@ The Exp10-Q harness must:
 
 This is not a scientific-design blocker and does not reopen S07-A/S07-B. It is the minimum executable preparation required to translate the already-frozen protocol into code.
 
-## Next permitted task
-`S08-PREP-2 — Implement Exp10-Q Formal Harness + Static/Unit Verification`.
+## S08-PREP-2 — Implement Exp10-Q Formal Harness + Static Verification — 2026-09-28
 
-No formal experiment is authorized until PREP-2 and the subsequent deterministic smoke/protocol audit pass.
+**Status:** IMPLEMENTATION COMPLETE / EXECUTION VERIFICATION REQUIRED.
+
+Implemented and GitHub-readback verified:
+- `qahbn2/formal_exp10q.py` — frozen Exp10-Q cell executor for canonical AHBN and Q-AHBN2;
+- `scripts/run_exp10q_formal.py` — guarded 20-run formal runner with RUN.md, manifest.json, CSV and decision-trace provenance;
+- `tests/test_formal_exp10q_contract.py` — exact matrix/failure-target guards.
+
+Static reconciliation confirms the implementation preserves:
+- canonical AHBN S5 controller construction;
+- pinned canonical AHBN checkout guard inherited from the validated ControlSim loader;
+- BA(100,m=3), source 0, 1,000 sequential messages;
+- gamma=0.70 and all frozen learning constants;
+- deterministic one-non-source-peer failure after message 500 / before message 501;
+- AHBN versus Q-AHBN2 only;
+- exact seeds 42--46 and 20-cell matrix guard;
+- direct-attempt attribution and passive Q decision provenance;
+- no change to canonical AHBN source.
+
+GitHub writes and mandatory readbacks completed.
+
+### Verification boundary
+The connector environment cannot execute the researcher's local Python/ControlSim checkout. Therefore runtime correctness of the new integration cannot be declared from static inspection alone.
+
+**S08-PREP-2 = NEEDS MANUAL TEST** for the bounded regression/unit execution and deterministic smoke.
+
+## Next permitted task
+`S08-PREP-3 — Local Regression + Bounded Exp10-Q Smoke`.
+
+Formal 20-run Exp10-Q execution remains blocked until PREP-3 passes.
