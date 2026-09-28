@@ -22,7 +22,7 @@ from pathlib import Path
 from statistics import fmean
 from typing import Dict
 
-from qahbn2.controlsim_adapter import ControlSimQAHBN2Adapter
+from qahbn2.controlsim_adapter import ControlSimQAHBN2Adapter, QDecision
 from qahbn2.learning import ACTIONS, QAHBN2Learner
 
 
@@ -119,9 +119,46 @@ def stabilization_point(rewards: list[float]) -> int | str:
     return "NOT_STABILIZED"
 
 
+class _DecisionTrace:
+    """Passive per-decision provenance recorder; never participates in control."""
+
+    def __init__(self, enabled: bool = False) -> None:
+        self.enabled = bool(enabled)
+        self.records: Dict[str, dict] = {}
+
+    def register(self, q: QDecision, realized_targets: list[int]) -> None:
+        if not self.enabled:
+            return
+        self.records[q.decision_id] = {
+            "decision_id": q.decision_id,
+            "peer_id": q.peer_id,
+            "message_id": q.message_id,
+            "state": q.state,
+            "action": q.action,
+            "mode_ahbn": q.mode_ahbn,
+            "k_ahbn": q.k_ahbn,
+            "mode_q": q.mode_q,
+            "k_q": q.k_q,
+            "k_real": len(realized_targets),
+            "NEW": None,
+            "DUPLICATE": None,
+            "FAILED": None,
+        }
+
+    def close(self, decision_id: str, *, new: int, duplicate: int, failed: int) -> None:
+        if not self.enabled:
+            return
+        rec = self.records[decision_id]
+        rec["NEW"] = int(new)
+        rec["DUPLICATE"] = int(duplicate)
+        rec["FAILED"] = int(failed)
+
+
 class _AttemptTracker:
-    def __init__(self, adapter: ControlSimQAHBN2Adapter) -> None:
+    def __init__(self, adapter: ControlSimQAHBN2Adapter,
+                 trace: _DecisionTrace | None = None) -> None:
         self.adapter = adapter
+        self.trace = trace
         self.pending: Dict[str, dict] = {}
         self.by_attempt: Dict[tuple[int, int, str], str] = {}
 
@@ -129,6 +166,8 @@ class _AttemptTracker:
                  targets: list[int]) -> None:
         if not targets:
             self.adapter.close(decision_id, new=0, duplicate=0, failed=0)
+            if self.trace is not None:
+                self.trace.close(decision_id, new=0, duplicate=0, failed=0)
             return
         self.pending[decision_id] = {
             "remaining": len(targets), "NEW": 0, "DUPLICATE": 0, "FAILED": 0
@@ -152,6 +191,11 @@ class _AttemptTracker:
                 decision_id,
                 new=rec["NEW"], duplicate=rec["DUPLICATE"], failed=rec["FAILED"],
             )
+            if self.trace is not None:
+                self.trace.close(
+                    decision_id,
+                    new=rec["NEW"], duplicate=rec["DUPLICATE"], failed=rec["FAILED"],
+                )
             del self.pending[decision_id]
 
     def assert_empty(self) -> None:
@@ -159,7 +203,7 @@ class _AttemptTracker:
             raise RuntimeError("unresolved direct-attempt attribution at queue exhaustion")
 
 
-def run_learning_validation(*, gamma: float, seed: int) -> Dict[str, object]:
+def run_learning_validation(*, gamma: float, seed: int, trace_decisions: bool = False) -> Dict[str, object]:
     (
         AHBNController, AHBNParams, Simulator, ClusterStrategy, GossipStrategy,
         assign_static_clusters, build_nodes_from_graph, get_or_build_topology,
@@ -185,7 +229,8 @@ def run_learning_validation(*, gamma: float, seed: int) -> Dict[str, object]:
         epsilon_min=EPSILON_MIN, epsilon_decay=EPSILON_DECAY, seed=seed,
     )
     adapter = ControlSimQAHBN2Adapter(learner)
-    tracker = _AttemptTracker(adapter)
+    decision_trace = _DecisionTrace(enabled=trace_decisions)
+    tracker = _AttemptTracker(adapter, trace=decision_trace)
 
     gossip = GossipStrategy(fanout=3)
     cluster = ClusterStrategy()
@@ -218,6 +263,7 @@ def run_learning_validation(*, gamma: float, seed: int) -> Dict[str, object]:
                 target for target in dict.fromkeys(targets)
                 if target != node.node_id
             ]
+            decision_trace.register(q, realized)
             tracker.register(q.decision_id, node.node_id, message.message_id, realized)
             return realized
 
@@ -289,4 +335,8 @@ def run_learning_validation(*, gamma: float, seed: int) -> Dict[str, object]:
         "propagation_delay": fmean(delays) if delays else 0.0,
         "duplicates": duplicates,
         "total_forwards": total_forwards,
+        # Passive provenance only. Excluded by default so existing scientific
+        # output schema and all aggregate metrics remain unchanged.
+        **({"decision_trace": list(decision_trace.records.values())}
+           if trace_decisions else {}),
     }
