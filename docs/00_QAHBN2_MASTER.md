@@ -2075,3 +2075,43 @@ C5 does **not** itself close S02. Only a clean mandatory GitHub readback and fin
 S02 = PASS / CLOSED / FROZEN
 S03 = NEXT
 ```
+
+# 25. S07-D Prospective Thesis–Paper Scope Amendment — 2026-09-28
+
+S07-D closed prospectively before inspection of any formal Exp10-Q / Exp11-Q / Exp12-Q result.
+
+The frozen evidence architecture is:
+
+```text
+Learning Validation
+    -> stationary learning-mechanics / bounded parameter evidence
+
+Exp10-Q Failure
+Exp11-Q Churn
+Exp12-Q Heterogeneity
+    -> primary thesis RO4/RQ4 AHBN-versus-Q-AHBN2 causal evaluation
+    -> 80 formal ControlSim runs total
+
+Exp13-Q Reference Benchmark
+    -> publication positioning only
+    -> Gossip / Structured / DC-SoC / AHBN / Q-AHBN2
+    -> churn=0.40, BA(100,m=3), source 0, 1,000 sequential messages
+    -> four Exp11-Q-compatible churn cycles
+    -> seeds 42--46
+    -> 25 formal ControlSim runs
+
+K8s-VAL-Q
+    -> later bounded deployment validation
+```
+
+Total frozen formal ControlSim scope after S07-D is **105 runs**. Exp10-Q / Exp11-Q / Exp12-Q remain scientifically unchanged.
+
+The control-document structure now additionally includes:
+
+```text
+docs/stages/S10A_FORMAL_EXP13Q_REFERENCE_BENCHMARK.md
+```
+
+Exp13-Q must not be used to redesign Q-AHBN2, retune parameters, select a favorable scenario post hoc, or create an omnibus algorithm ranking. Its role is bounded external reference positioning under one prospectively selected high-churn condition.
+
+After S07-D closure, the immediate operational next task remains **S08-PREP-3 — Local Regression + Bounded Exp10-Q Smoke**.
