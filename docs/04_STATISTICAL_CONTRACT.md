@@ -242,3 +242,35 @@ S11 aggregation must consume only the frozen valid datasets plus retained exclus
 This statistical contract was frozen before viewing formal Exp10-Q/Exp11-Q/Exp12-Q outcomes.
 
 Next controlled gate: `S07-C — Final Completeness Re-Audit`.
+
+## 18. S07-D Statistical Amendment — Exp13-Q Reference Benchmark — 2026-09-28
+
+**Status:** PASS / FROZEN before any formal Exp10-Q / Exp11-Q / Exp12-Q result inspection.
+
+Exp13-Q is a separate five-method reference benchmark at one predeclared churn condition. It does not change the paired AHBN-versus-Q-AHBN2 rules for Exp10-Q / Exp11-Q / Exp12-Q.
+
+For each Exp13-Q method and each of the four primary dissemination metrics, report:
+
+- n=5 valid seeded runs;
+- arithmetic mean;
+- sample standard deviation;
+- two-sided 95% Student-t confidence interval for the mean;
+- the five seed-level values in machine-readable form.
+
+Because all five methods use the same frozen seeds and scenario schedule, seed is retained as the common blocking factor for descriptive method contrasts. Q-AHBN2-versus-AHBN remains the scientifically central learned-refinement contrast and may use the existing paired absolute-difference/95%-CI procedure.
+
+For the broader five-method positioning:
+
+- report method-specific estimates and uncertainty;
+- report predeclared pairwise contrasts only where scientifically needed to explain positioning, with Q-AHBN2 versus each established reference as the natural publication contrasts;
+- do not calculate an omnibus winner score or aggregate the four metrics into a ranking;
+- do not perform post-hoc test shopping, data-dependent comparator removal, or significance-driven claim selection;
+- supplementary p-values are not required; if reported for the four Q-AHBN2-versus-reference contrasts on a metric, use the paired seed differences and apply Holm correction within that explicitly reported four-contrast family;
+- do not claim universal superiority, optimality or dominance from one churn condition;
+- interpret trade-offs across delivery, delay, duplicates and forwarding effort separately.
+
+Exp13-Q must be reported as a bounded reference-positioning experiment under churn=0.40, not as the primary RO4 causal evaluation.
+
+The dataset validity, rerun, exclusion, outlier, precision and provenance rules in this contract apply unchanged.
+
+**S07-D statistical amendment = PASS / FROZEN.**
