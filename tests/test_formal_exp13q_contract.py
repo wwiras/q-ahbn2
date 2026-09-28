@@ -1,5 +1,7 @@
+import json
 import unittest
 
+from qahbn2.formal_exp11q import churn_schedule_for_seed as exp11_schedule
 from qahbn2.formal_exp13q import (
     CHURN_LEVEL,
     CYCLE_ONSETS,
@@ -9,6 +11,7 @@ from qahbn2.formal_exp13q import (
     METHODS,
     REJOIN_BEFORE_MESSAGES,
     SEEDS,
+    churn_schedule_for_seed,
     validate_matrix,
 )
 
@@ -34,6 +37,26 @@ class TestFormalExp13QContract(unittest.TestCase):
     def test_frozen_dcsoc_parameters(self):
         self.assertEqual(DCSOC_EPS, 2.0)
         self.assertEqual(DCSOC_MIN_SAMPLES, 3)
+
+    def test_schedule_reuses_exp11_high_churn_exactly(self):
+        for seed in SEEDS:
+            self.assertEqual(
+                churn_schedule_for_seed(seed, CHURN_LEVEL),
+                exp11_schedule(seed, 0.40),
+            )
+            schedule = churn_schedule_for_seed(seed, CHURN_LEVEL)
+            self.assertEqual(len(schedule), 4)
+            self.assertTrue(all(0 not in targets for targets in schedule))
+            self.assertTrue(all(len(targets) == 40 for targets in schedule))
+
+    def test_schedule_is_deterministic_per_seed(self):
+        for seed in SEEDS:
+            first = churn_schedule_for_seed(seed, CHURN_LEVEL)
+            second = churn_schedule_for_seed(seed, CHURN_LEVEL)
+            self.assertEqual(
+                json.dumps(first, sort_keys=True),
+                json.dumps(second, sort_keys=True),
+            )
 
 
 if __name__ == "__main__":
