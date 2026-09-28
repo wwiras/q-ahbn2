@@ -420,7 +420,7 @@ If chat history conflicts with these files, follow the files and report the conf
 Maintain:
 
 ```text
-docs/qahbn2/
+docs/
 │
 ├── 00_QAHBN2_MASTER.md
 ├── 01_CANONICAL_AHBN_CONTRACT.md
@@ -443,13 +443,25 @@ docs/qahbn2/
     ├── S08_FORMAL_EXP10Q.md
     ├── S09_FORMAL_EXP11Q.md
     ├── S10_FORMAL_EXP12Q.md
+    ├── S10A_FORMAL_EXP13Q_REFERENCE_BENCHMARK.md
     ├── S11_AGGREGATION.md
+    ├── K0_Q_K8S_SCOPE_RECONCILIATION.md
+    ├── K1_Q_K8S_DESIGN_CODE_MAPPING.md
+    ├── K2_Q_K8S_INTEGRATION_PARITY.md
+    ├── K3_Q_K8S_SMOKE.md
+    ├── K4_Q_K8S_VALIDATION_FREEZE.md
+    ├── K5_Q_K8S_FORMAL_VALIDATION.md
+    ├── K6_Q_K8S_EVIDENCE_FREEZE.md
     ├── S12_INTERPRETATION.md
+    ├── S12A_CLAIM_RECONCILIATION.md
     ├── S13_MANUSCRIPT.md
+    ├── S13_T_CHAPTER6_MAPPING.md
     └── S14_SUBMISSION_AUDIT.md
 ```
 
-Do not create unnecessary documentation beyond this unless needed.
+This is the frozen downstream stage map after S07-D. Exp13-Q is a separate publication-positioning benchmark and does not alter Exp10-Q/Exp11-Q/Exp12-Q. K0-Q through K6-Q are a separate bounded deployment-validation chain. S12A reconciles thesis/paper claims before manuscript finalization, and S13-T maps verified RO4 evidence into thesis Chapter 6.
+
+Do not create unnecessary documentation beyond this unless a later controlled gate establishes that it is scientifically or operationally required.
 
 ---
 
