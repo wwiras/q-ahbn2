@@ -1,6 +1,6 @@
 # S10A — Formal Exp13-Q: Reference Benchmark
 
-**Status:** S10A-PREP PASS / CLOSED; FROZEN DESIGN; IMPLEMENTATION NOT YET RELEASED
+**Status:** S10A-IMPL PASS / CLOSED; FROZEN DESIGN; VERIFICATION NOT YET RELEASED
 
 ## Objective
 Provide one bounded external reference benchmark for standalone Q-AHBN2 publication positioning without replacing or expanding the primary thesis RO4 causal matrix.
@@ -106,12 +106,41 @@ The frozen Exp13-Q contract maps cleanly onto existing validated components. The
 
 No code was changed and no experiment was executed during S10A-PREP.
 
+## S10A-IMPL — Minimal Five-Method Exp13-Q Harness Implementation
+
+**Mode:** bounded implementation only. No smoke run, no formal run, no performance interpretation, no parameter change.
+
+### Files added
+- `qahbn2/formal_exp13q.py`
+- `tests/test_formal_exp13q_contract.py`
+
+### Implemented boundaries
+- exact frozen method set: Gossip, Structured, DC-SoC, AHBN, Q-AHBN2;
+- exact seeds: 42--46;
+- exact churn level: 0.40;
+- exact Exp11-Q leave/rejoin boundaries reused;
+- exact 25-cell matrix enforced;
+- canonical standalone Gossip uses `fanout=None`;
+- canonical standalone Structured uses unbounded structural `ClusterStrategy()`;
+- canonical DC-SoC uses `DCSOCStrategy` with frozen DBSCAN parameters `eps=2.0`, `min_samples=3`;
+- AHBN and Q-AHBN2 directly reuse the validated Exp11-Q high-churn paths;
+- all comparator methods reuse the same seeded BA topology and deterministic churn schedule;
+- no AHBN/Q-AHBN2 scientific semantics were modified.
+
+### Verification status
+Implementation files were written to GitHub and read back. Runtime regression/smoke execution has **not** been performed in this gate.
+
+### S10A-IMPL result
+**PASS / CLOSED for code implementation only.**
+
+Formal execution remains blocked.
+
 ## Statistical boundary
 Use the Exp13-Q amendment in `docs/04_STATISTICAL_CONTRACT.md`. No omnibus winner score, post-hoc test shopping, or universal-superiority claim.
 
 ## Next permitted task
-`S10A-IMPL — Minimal Five-Method Exp13-Q Harness Implementation`.
+`S10A-VERIFY — Exp13-Q Static Contract / Regression / Bounded Smoke Verification`.
 
-Implementation must remain bounded to the reconciliation above. After implementation, the harness must pass exact frozen-matrix/static contract tests and bounded regression/smoke verification before formal execution is released.
+Verification must confirm the exact frozen matrix, canonical comparator semantics, identical seeded churn schedules, regression safety, and one bounded smoke path before formal execution is released.
 
 **S11 remains blocked until Exp13-Q formal evidence is completed, integrity-verified, and frozen.**
