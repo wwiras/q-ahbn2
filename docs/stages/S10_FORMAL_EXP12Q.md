@@ -1,6 +1,6 @@
 # S10 — Formal Exp12-Q: Heterogeneity
 
-**Status:** S10.4 PASS / CLOSED; S10.5 NEXT; RAW FORMAL EVIDENCE PENDING INTEGRITY AUDIT
+**Status:** S10.5 PASS / CLOSED; S10.6 NEXT; FORMAL EVIDENCE VERIFIED
 
 ## Objective
 Execute the frozen Exp12-Q heterogeneity matrix from `docs/03_EXPERIMENT_CONTRACT.md` under the frozen statistical/provenance rules.
@@ -65,11 +65,34 @@ Preserved artifacts include `RUN.md`, `manifest.json`, `exp12q_formal.csv`, and 
 
 No result interpretation, performance-based rerun, tuning, matrix change, or aggregation was performed in S10.4.
 
-## S10.5 release boundary
+## S10.5 — Formal evidence integrity / completeness audit
 
-S10.5 is the next permitted gate. It must audit raw evidence validity/completeness, including exact 30-cell matrix uniqueness, paired AHBN/Q-AHBN2 resource-assignment identity, required metric-field completeness, finite/structurally valid outputs, Q-only learning evidence, and decision-trace structural completeness. The large trace should be audited locally without copying it into GitHub.
+**Result:** PASS / CLOSED.
 
-S10.6 evidence freeze/promotion remains blocked until S10.5 passes.
+A read-only local programmatic audit was performed over the preserved formal directory, including the approximately 539 MB decision trace. No scientific performance interpretation was performed.
+
+The audit established:
+- all four required artifacts present and readable;
+- manifest/provenance consistent with the frozen Exp12-Q contract;
+- exact **30-cell** matrix with no duplicate, missing, or unauthorized cells;
+- paired AHBN/Q-AHBN2 resource-assignment identity for all **15 profile/seed pairs**;
+- valid 100-peer assignments and exact frozen resource-class counts for all profiles;
+- structurally valid required dissemination fields across all 30 rows;
+- structurally valid Q-learning fields for all 15 Q-AHBN2 rows and empty Q-only fields for AHBN as designed;
+- valid frozen five-action distributions with internal count reconciliation;
+- valid, untruncated decision-trace JSON containing exactly **15 Q-AHBN2 run groups** and no AHBN trace groups;
+- **1,331,081** individual decision records structurally validated, with per-group record counts matching CSV action totals;
+- cross-artifact identity/provenance consistency;
+- exclusions: none;
+- reruns: none.
+
+**Defects found:** none.
+
+The audit outcome establishes evidence integrity/completeness only. It does not constitute scientific interpretation or comparative performance analysis.
+
+## S10.6 release boundary
+
+S10.6 is the next permitted gate. It may freeze/promote the verified Exp12-Q evidence to the designated Google Drive evidence hierarchy and reconcile authoritative S10/results-control documentation. Raw evidence must not be modified during promotion.
 
 ## Boundary
 Exp12-Q remains part of the primary AHBN-versus-Q-AHBN2 RO4/RQ4 causal evaluation. No redesign, parameter change, comparator expansion, extra severity, or result-driven protocol change is authorized here.
