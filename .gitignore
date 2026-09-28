@@ -1,20 +1,11 @@
+# Generated experiment/test/analysis outputs (local + Drive-synced, never Git)
 output/
+
+# Python/cache/OS artifacts
 __pycache__/
 *.pyc
 .DS_Store
 
-# Local Python virtual environment (kept outside Git/GitHub)
+# Local Python virtual environments (kept outside Git/GitHub)
 .venv/
-
-# Generated simulation evidence directories (Drive evidence, not Git)
-q-ahbn-*/
-
-# Local experiment outputs — preserved via Google Drive sync
-outputs/
-q-ahbn-*/
-q-ahbn-gke-*/
-
-# Local experiment outputs — preserved via Google Drive sync
-outputs/
-q-ahbn-*/
-q-ahbn-gke-*/
+venv/
