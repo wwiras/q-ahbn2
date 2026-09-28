@@ -1255,6 +1255,11 @@ Additional execution is permitted only to correct a documented validity problem.
 
 ---
 
+
+## S07 Closure — 2026-09-28
+
+The completeness gate is now **PASS / CLOSED** after prospectively freezing the formal experiment matrix in `docs/03_EXPERIMENT_CONTRACT.md` (S07-A) and the formal statistical contract in `docs/04_STATISTICAL_CONTRACT.md` (S07-B), followed by the read-only S07-C completeness re-audit. Formal ControlSim execution is released beginning with S08 Exp10-Q Failure. Canonical AHBN and the frozen Q-AHBN2 learning contract remain unchanged.
+
 # 24. Formal Experiment Rule
 
 Formal experiments execute only the frozen contract.
