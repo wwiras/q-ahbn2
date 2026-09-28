@@ -460,7 +460,7 @@ docs/
     └── S14_SUBMISSION_AUDIT.md
 ```
 
-This is the frozen downstream stage map after S07-D. Exp13-Q is a separate publication-positioning benchmark and does not alter Exp10-Q/Exp11-Q/Exp12-Q. K0-Q through K6-Q are a separate bounded deployment-validation chain. S12A reconciles thesis/paper claims before manuscript finalization, and S13-T maps verified RO4 evidence into thesis Chapter 6.
+This is the frozen downstream stage map after S07-D. Exp13-Q-Sim is a separate publication-positioning benchmark and does not alter Exp10-Q/Exp11-Q/Exp12-Q. K0-Q through K6-Q remain the bounded Kubernetes deployment-validation chain, but their prospective scope now includes a matched Exp13-Q-K8s five-method reference-benchmark arm so that the RO1 cloud-native evaluation framework can support the same bounded comparator family in both ControlSim and Kubernetes. This amendment does not reopen Exp10-Q/Exp11-Q/Exp12-Q or the frozen Exp13-Q-Sim matrix. S12A reconciles thesis/paper claims before manuscript finalization, and S13-T maps verified RO4 evidence into thesis Chapter 6.
 
 Do not create unnecessary documentation beyond this unless a later controlled gate establishes that it is scientifically or operationally required.
 
