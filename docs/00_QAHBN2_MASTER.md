@@ -524,7 +524,9 @@ The local working repository is used to:
 - generate temporary/working outputs;
 - inspect artifacts before preservation.
 
-The current local repository may reside inside a Google Drive Desktop synchronized path. Therefore Drive may automatically synchronize repository files, `.git/`, ignored `output/` directories, and other working files.
+The current local repository may reside inside a Google Drive Desktop synchronized path. Therefore Drive may automatically synchronize repository files, `.git/`, the ignored `output/` tree, and other working files.
+
+**Strict generated-output standard:** every experiment, smoke, regression, diagnostic, pilot, formal run, analysis artifact, trace, log, manifest, figure, and generated table must be created under repository-local `output/`. The normal evidence-working path is `output/evidence/<timestamped-run-directory>/`. Generated artifacts must not be created at repository root or committed to Git.
 
 Automatic Drive synchronization does **not** make those synchronized working files authoritative experimental evidence.
 
