@@ -90,14 +90,15 @@ def _load_canonical():
     from ahbn.simulator import Simulator
     from ahbn.strategies.cluster import ClusterStrategy
     from ahbn.strategies.gossip import GossipStrategy
-    from ahbn.topology import (
-        assign_static_clusters,
-        build_nodes_from_graph,
-        get_or_build_topology,
-    )
+    import ahbn.topology as ahbn_topology
+
+    ahbn_topology.TOPOLOGY_CACHE_DIR = Path("topology")
+
     return (
         AHBNController, AHBNParams, Simulator, ClusterStrategy, GossipStrategy,
-        assign_static_clusters, build_nodes_from_graph, get_or_build_topology,
+        ahbn_topology.assign_static_clusters,
+        ahbn_topology.build_nodes_from_graph,
+        ahbn_topology.get_or_build_topology,
     )
 
 

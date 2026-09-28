@@ -42,6 +42,16 @@ class TestFormalExp11QContract(unittest.TestCase):
                     self.assertEqual(len(set(cycle_targets)), expected_count)
                     self.assertNotIn(0, cycle_targets)
 
+    def test_canonical_topology_cache_dir_redirected_to_root_topology(self):
+        from pathlib import Path
+        try:
+            from qahbn2.learning_validation import _load_canonical
+            _load_canonical()
+        except (RuntimeError, ImportError):
+            self.skipTest("canonical AHBN checkout not available in current environment")
+        import ahbn.topology as ahbn_topology
+        self.assertEqual(ahbn_topology.TOPOLOGY_CACHE_DIR, Path("topology"))
+
 
 if __name__ == "__main__":
     unittest.main()

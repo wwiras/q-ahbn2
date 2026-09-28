@@ -151,9 +151,70 @@ The implementation:
 GitHub/static inspection cannot execute the researcher’s local pinned ControlSim checkout. Runtime behavior, canonical import compatibility, tracker closure across churn transitions, topology repair, and the bounded churn smoke must therefore be verified locally before formal execution is released.
 
 ## Result
-**S09-PREP-2 = NEEDS MANUAL TEST.**
+**S09-PREP-2 = PASS / CLOSED.**
+
+## S09-PREP-3 — Local Regression + Bounded Exp11-Q Churn Smoke — 2026-09-28
+
+**Status:** PASS / CLOSED.
+
+### Commands executed
+- Full local regression suite:
+  `PATH=/Users/wwiras/Documents/src/AHBNProj/venv0.6/bin:$PATH PYTHONPATH=. python -m unittest discover -s tests -v`
+- Dedicated Exp11-Q contract tests:
+  `PATH=/Users/wwiras/Documents/src/AHBNProj/venv0.6/bin:$PATH PYTHONPATH=. python -m unittest tests.test_formal_exp11q_contract -v`
+- Bounded Exp11-Q churn smoke:
+  `PATH=/Users/wwiras/Documents/src/AHBNProj/venv0.6/bin:$PATH PYTHONPATH=. python -c "<bounded paired smoke execution>"`
+
+### Regression result
+- Full test suite: 27 tests executed, 27 PASS, 0 failures, 0 errors.
+- Dedicated Exp11-Q contract suite: 4 tests executed, 4 PASS, 0 failures, 0 errors.
+  - `test_exact_frozen_matrix`: PASS
+  - `test_matrix_expansion_is_rejected`: PASS
+  - `test_schedule_is_deterministic_paired_and_excludes_source`: PASS
+  - `test_canonical_topology_cache_dir_redirected_to_root_topology`: PASS
+
+### Bounded smoke configuration
+- Scenario: BA(100, m=3), source 0, 1,000 sequential queue-to-exhaustion messages.
+- Methods: paired AHBN and Q-AHBN2.
+- Seed: 42.
+- Churn level: 0.20 (20 non-source targets per cycle).
+- Cycles: 4 leave/rejoin cycles.
+  - Leave onsets: before messages 201, 401, 601, 801.
+  - Rejoin onsets: before messages 251, 451, 651, 851 (after 50 subsequent messages).
+- Churn targets: deterministic seeded non-source node IDs shared identically between paired AHBN and Q-AHBN2.
+- Q-AHBN2 learning contract: frozen 81-state / 5-action space, alpha_Q=0.25, gamma=0.70, epsilon=0.30->0.03 (decay=0.995).
+
+### Smoke output directory
+- Directory: `output/evidence/q-ahbn-28092026202033-exp11q-smoke/`
+- Artifacts generated:
+  - `RUN.md` (smoke provenance, parameters, and explicit non-evaluative classification)
+  - `manifest.json` (machine-readable run metadata, git commits, configuration, status)
+  - `exp11q_smoke.csv` (diagnostic results, churn target counts, churn schedule, churn events)
+  - `decision_trace.json` (passive Q-AHBN2 decision trace with 82,021 decision records)
+
+### Runtime verification findings
+1. Canonical imports / runtime compatibility: successfully loaded canonical AHBN v0.63 (`936a79480bc1252c79b6ee01f65c88c740af2844`) controllers, simulators, and topology generators without modifying canonical AHBN source.
+2. Defect fix and contract enforcement: canonical `ahbn.topology` originally defaulted `TOPOLOGY_CACHE_DIR` to `Path("outputs/topologies")`, which violated `OUTPUT-STD-2`. A minimal integration compatibility fix was applied in `qahbn2/learning_validation.py` (`_load_canonical`) setting `ahbn_topology.TOPOLOGY_CACHE_DIR = Path("topology")`, accompanied by regression test `test_canonical_topology_cache_dir_redirected_to_root_topology`. Verified that root-level `outputs/` is not created.
+3. Deterministic churn schedule: 20 targets generated per cycle from the 99 non-source candidates; identical schedules assigned to paired AHBN and Q-AHBN2 runs; node 0 (source) was never targeted.
+4. Churn leave events: 4 leave events executed exactly at message boundaries 201, 401, 601, 801; target nodes marked inactive; canonical topology and cluster overlay repairs triggered successfully.
+5. Inactive peer dissemination: messages 201–250, 401–450, 601–650, 801–850 were disseminated while target peers were unavailable.
+6. Churn rejoin events: 4 rejoin events executed exactly at message boundaries 251, 451, 651, 851; target nodes restored active status; canonical topology and cluster overlay repairs triggered successfully.
+7. Post-rejoin dissemination: dissemination continued normally after each rejoin through queue exhaustion.
+8. Q-AHBN2 forwarding and outcome attribution: direct-attempt outcomes (NEW, DUPLICATE) were resolved cleanly without runtime exceptions.
+9. Tracker and reward closure: `tracker.assert_empty()` was verified at every sequential message boundary (no unresolved pending attempts); terminal decisions were cleanly resolved at run termination; cumulative reward and Q-updates (81,291 updates) completed as expected.
+10. Artifact audit: all output artifacts reside strictly under `output/evidence/`; no root-level `evidence/`, `outputs/`, or generated `q-ahbn-*` directories were created.
+
+### Diagnostic values (non-formal evidence)
+- AHBN (seed 42, churn 0.20): delivery ratio = 0.745500, propagation delay = 12.855097, duplicates = 122,217, total forwards = 195,767.
+- Q-AHBN2 (seed 42, churn 0.20): delivery ratio = 0.820210, propagation delay = 9.403223, duplicates = 139,223, total forwards = 220,244, mean reward = -0.298910, Q-updates = 81,291, state-action coverage = 0.079012.
+
+### Explicit scientific boundary and limitations
+The bounded churn smoke values above are purely diagnostic pre-formal integration evidence to verify executable harness mechanics, event timing, and tracker closure. They are **not** formal experimental evidence and must **not** be used for comparative, inferential, or thesis/paper performance claims.
+
+### Result
+**S09-PREP-3 = PASS / CLOSED.**
 
 ## Next controlled gate
-`S09-PREP-3 — Local Regression + Bounded Exp11-Q Churn Smoke`.
+`S09-PREP-4 — Exp11-Q Formal Release and Freeze Audit`.
 
-Formal 30-run Exp11-Q execution remains blocked until PREP-3 passes.
+The 30-run formal Exp11-Q execution remains blocked until the release/freeze audit passes.
