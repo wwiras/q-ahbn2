@@ -1,6 +1,6 @@
 # S10 — Formal Exp12-Q: Heterogeneity
 
-**Status:** S10.3 PASS / CLOSED; S10.4 NEXT; FORMAL EXECUTION RELEASED
+**Status:** S10.4 PASS / CLOSED; S10.5 NEXT; RAW FORMAL EVIDENCE PENDING INTEGRITY AUDIT
 
 ## Objective
 Execute the frozen Exp12-Q heterogeneity matrix from `docs/03_EXPERIMENT_CONTRACT.md` under the frozen statistical/provenance rules.
@@ -38,27 +38,38 @@ Local execution at Q-AHBN2 commit `c185b6ee4225e8eda348a76d4da30cacea4f3244` pro
 - focused Exp12-Q frozen-contract suite: **5/5 PASS**;
 - complete project regression suite: **32/32 PASS**.
 
-The focused suite verified:
-- exact 30-run matrix;
-- exact frozen resource-class parameters and profile fractions;
-- deterministic resource assignment for the same profile/seed;
-- expected class counts for balanced, moderate_heterogeneity, and weak_heavy;
-- rejection of unauthorized profile/method/seed expansion.
+The focused suite verified the exact matrix/resource contract, deterministic resource assignment, expected profile class counts, and rejection of unauthorized expansion. The complete regression suite confirmed that the existing Q-AHBN2 learning/reward/transition/provenance path and prior formal-contract integrations remained intact.
 
-The complete regression suite additionally confirmed that the existing Q-AHBN2 learning, transition bookkeeping, reward/update path, provenance trace, Exp10-Q contract, Exp11-Q contract, and canonical topology integration remained intact.
+## S10.4 — Frozen 30-run formal execution
 
-No scientific parameter, implementation contract, or frozen protocol was changed during S10.3. No formal Exp12-Q result was generated or interpreted.
+**Result:** PASS / CLOSED for execution completeness; raw evidence proceeds to S10.5 integrity audit.
 
-## S10.4 release boundary
+Formal directory:
+`output/evidence/q-ahbn-28092026215008-exp12q-formal`
 
-S10.4 is the next permitted gate and the frozen 30-run formal Exp12-Q matrix is released for execution.
+Read-only post-execution verification established:
+- manifest status: `completed`;
+- expected/completed runs: **30/30**;
+- CSV data rows: **30**;
+- Q-AHBN2 producing commit: `a47ca0171d8af74a4b24f64a18b5d9edb5a58270`;
+- canonical AHBN commit: `936a79480bc1252c79b6ee01f65c88c740af2844`;
+- topology/workload: BA(100,m=3), source 0, 1,000 sequential queue-to-exhaustion messages/run;
+- profiles: balanced, moderate_heterogeneity, weak_heavy;
+- methods: AHBN, Q-AHBN2;
+- seeds: 42--46;
+- failure/churn disabled;
+- exclusions: none;
+- reruns: none.
 
-During formal execution:
-- no tuning or parameter modification;
-- no selective rerun based on observed performance;
-- no comparator/profile/seed expansion;
-- no interpretation or aggregation before S10.5 validity/integrity audit;
-- any interruption must first be classified as a runtime/validity issue.
+Preserved artifacts include `RUN.md`, `manifest.json`, `exp12q_formal.csv`, and `decision_trace.json`. The decision trace is approximately 539 MB and therefore remains a local/Drive-synced artifact for bounded local integrity checking rather than remote ingestion.
+
+No result interpretation, performance-based rerun, tuning, matrix change, or aggregation was performed in S10.4.
+
+## S10.5 release boundary
+
+S10.5 is the next permitted gate. It must audit raw evidence validity/completeness, including exact 30-cell matrix uniqueness, paired AHBN/Q-AHBN2 resource-assignment identity, required metric-field completeness, finite/structurally valid outputs, Q-only learning evidence, and decision-trace structural completeness. The large trace should be audited locally without copying it into GitHub.
+
+S10.6 evidence freeze/promotion remains blocked until S10.5 passes.
 
 ## Boundary
 Exp12-Q remains part of the primary AHBN-versus-Q-AHBN2 RO4/RQ4 causal evaluation. No redesign, parameter change, comparator expansion, extra severity, or result-driven protocol change is authorized here.
