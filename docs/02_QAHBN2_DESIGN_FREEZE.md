@@ -4054,7 +4054,7 @@ A design change is permitted only if S02-CLOSE discovers a genuine scientific in
 6. verify no unresolved S02 scientific decision remains hidden behind historical/deferred wording;
 7. issue an explicit PASS/FAIL closure decision and, on PASS, mark S02 closed and S03 as the next stage.
 
-**Current status:** `S02-CLOSE = NEXT / NOT YET EXECUTED`.
+**Historical registration status (SUPERSEDED):** `S02-CLOSE = NEXT / NOT YET EXECUTED`. This records the gate state at registration and is not the current S02 status.
 
 No simulation or redesign is authorized by registering this gate.
 
@@ -4111,7 +4111,7 @@ Earlier `DEFER`, pending-selection, or in-progress language is historical only w
 
 ## S02-CLOSE-C2 — Residual Stale-Status Supersession — REGISTERED 2026-09-23
 
-**Status:** **REGISTERED / NEXT.**
+**Historical completion status (SUPERSEDED):** **PASS / COMPLETE.** The original C2 registration is preserved below as provenance and no longer represents the current gate or next action.
 
 This is a documentation-consistency correction only. It is authorized solely to make already-superseded historical/current-looking statements unambiguous at their local occurrence while retaining the historical record.
 
