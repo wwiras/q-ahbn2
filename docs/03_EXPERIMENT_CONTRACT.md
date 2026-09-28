@@ -224,6 +224,21 @@ output/evidence/q-ahbn-<DDMMYYYYHHmmss>-<experiment>-formal-analysis/
 
 No generated run directory may be created at repository root. `output/` is execution/evidence working storage only and is excluded from Git by `.gitignore`.
 
+The repository layout is strict:
+
+```text
+q-ahbn2/
+├── docs/
+├── output/          # ALL generated logs/evidence/results/analysis; gitignored
+│   └── evidence/
+├── topology/        # topology data/cache only; root-level exception
+├── qahbn2/
+├── scripts/
+└── tests/
+```
+
+Root-level `evidence/`, `outputs/`, and `q-ahbn-*/` generated directories are prohibited for new work. Historical local artifacts in those locations must be relocated under `output/`; topology material formerly under `outputs/topologies/` must be relocated to root-level `topology/`.
+
 Every preserved experiment directory must include at minimum:
 
 ```text
