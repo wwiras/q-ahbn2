@@ -139,3 +139,76 @@ The preparation hold is cleared. The frozen formal 20-run Exp10-Q matrix may now
 `S08-FORMAL-1 — Execute Frozen 20-Run Exp10-Q Failure Matrix`.
 
 Formal outputs remain **raw evidence pending validity/completeness audit** after execution. No interpretation or thesis/paper claim is permitted until that post-run audit closes.
+
+
+## S08-FORMAL-1 — Execute Frozen 20-Run Exp10-Q Failure Matrix — 2026-09-28
+
+**Status:** EXECUTED / RAW FORMAL EVIDENCE CREATED.
+
+Researcher executed the unchanged guarded formal runner from Q-AHBN2 commit `5b4bdaa800fc0afdf238df3b1c7ecf4b65b7db42`:
+
+`PYTHONPATH=. python scripts/run_exp10q_formal.py`
+
+Generated formal evidence directory:
+`q-ahbn-28092026183635-exp10q-formal`
+
+No result-based rerun, exclusion, parameter change, or matrix change was reported.
+
+## S08-FORMAL-2 — Exp10-Q Formal Evidence Integrity / Completeness Audit — 2026-09-28
+
+**Status:** PASS / CLOSED.
+
+### Provenance and artifact audit
+Required artifacts are present:
+- `RUN.md`;
+- `manifest.json`;
+- `exp10q_formal.csv`;
+- `decision_trace.json`.
+
+Manifest reconciliation:
+- environment = ControlSim;
+- experiment = Exp10-Q Failure;
+- event = formal;
+- timestamp = 28092026183635;
+- Q-AHBN2 commit = `5b4bdaa800fc0afdf238df3b1c7ecf4b65b7db42`;
+- canonical AHBN commit = `936a79480bc1252c79b6ee01f65c88c740af2844`;
+- expected/completed runs = 20/20;
+- gamma = 0.70;
+- exclusions = none;
+- reruns = none.
+
+### Frozen-matrix integrity
+CSV audit confirms:
+- rows = 20;
+- unique cells = 20;
+- duplicate cells = 0;
+- conditions exactly `control, failure`;
+- methods exactly `ahbn, qahbn2`;
+- seeds exactly 42--46.
+
+Failure-condition pairing is preserved for both methods:
+- seed 42 -> failed peer 82;
+- seed 43 -> failed peer 5;
+- seed 44 -> failed peer 53;
+- seed 45 -> failed peer 35;
+- seed 46 -> failed peer 10.
+
+All failure cells record failure before message 501. Control cells correctly contain no failed peer and no failure boundary.
+
+### Decision-trace integrity
+Q-AHBN2 decision trace contains exactly 10 groups: one for each Q-AHBN2 condition/seed cell (2 conditions x 5 seeds). All groups contain non-empty decision records.
+
+### Scientific boundary
+This gate establishes structural completeness, pairing, provenance, and frozen-protocol compliance only. It does not evaluate whether AHBN or Q-AHBN2 performed better and does not authorize selective reruns. Numerical scientific interpretation remains a separate controlled gate under the frozen statistical contract.
+
+## Result
+
+**S08-FORMAL-2 = PASS / CLOSED.**
+
+The Exp10-Q formal dataset is structurally complete and eligible for frozen-contract analysis. The raw evidence directory must be preserved unchanged.
+
+## Next permitted task
+
+`S08-FORMAL-3 — Exp10-Q Frozen Statistical Analysis + Claim-Boundary Audit`.
+
+Analysis must use only the predeclared metrics, seed pairing, uncertainty rules, and interpretation boundaries in `docs/04_STATISTICAL_CONTRACT.md`. No parameter tuning, result-based rerun, metric invention, or post-hoc test shopping is permitted.
