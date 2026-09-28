@@ -56,17 +56,37 @@ This is not a failure of Q-AHBN2. It is an incomplete pre-registration / formal-
 Minimum corrective sequence:
 
 ```text
-S07-A — Formal Experiment Matrix Freeze
+S07-A — Formal Experiment Matrix Freeze [PASS / FROZEN]
         ↓
-S07-B — Formal Statistical Contract Freeze
+S07-B — Formal Statistical Contract Freeze [NEXT]
         ↓
 S07-C — Final Completeness Re-Audit
         ↓
 if clean: S07 PASS → S08 Formal Exp10-Q
 ```
 
-### S07-A scope
-Freeze the minimum scientifically sufficient Exp10-Q / Exp11-Q / Exp12-Q ControlSim protocols and identify the later Kubernetes validation boundary. Reuse RO2/AHBN precedent where scientifically compatible. Do not add conditions merely to expand coverage.
+### S07-A — Formal Experiment Matrix Freeze — 2026-09-28
+
+**Status:** PASS / FROZEN.
+
+The formal ControlSim matrix is now frozen in `docs/03_EXPERIMENT_CONTRACT.md`.
+
+Frozen scope:
+- principal comparison: AHBN vs Q-AHBN2 only;
+- common formal harness: BA(100,m=3), source 0, 1,000 sequential messages, seeds 42--46, base_delay=1.0, jitter=0.2, four static clusters;
+- Exp10-Q Failure: control + one transient-to-end peer failure level, 20 runs;
+- Exp11-Q Churn: 0.00 / 0.20 / 0.40 repeated leave-rejoin fractions, 30 runs;
+- Exp12-Q Heterogeneity: balanced / moderate / weak-heavy established resource profiles, 30 runs;
+- total formal ControlSim workload: 80 runs;
+- no new composite Adaptation Efficiency metric; adaptation evidence uses already frozen reward/Q/intervention/dissemination observables;
+- Kubernetes remains a later deployment-validation layer and may not be condition-selected from ControlSim results.
+
+No formal run was executed or inspected during this freeze.
+
+**S07-A = PASS / FROZEN.**
+
+## S07-B scope
+Freeze formal aggregation, uncertainty, comparison, exclusion/rerun interpretation, effect reporting, and multiplicity/claim boundaries before viewing formal results.
 
 ### S07-B scope
 Freeze the formal aggregation, uncertainty, comparison, exclusions, rerun rules, and reporting contract before viewing formal results. Reuse the project's established 95% CI / paired-seed principles where appropriate, but only after explicit reconciliation to the final matrices.
