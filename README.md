@@ -2,12 +2,14 @@
 
 Q-AHBN2 is the canonical-AHBN-based redesign of the previous Q-AHBN implementation.
 
-Current status: Q-AHBN2 S02 = PASS / CLOSED / FROZEN. S03 Development = NEXT.
+Current status: Q-AHBN2 S03 Development = PASS / CLOSED. S04 Regression / Parity = NEXT.
 
 Authoritative project controls:
 - `docs/00_QAHBN2_MASTER.md`
 - `docs/00_SOURCE_AUTHORITY_REGISTER.md`
 - `docs/01_CANONICAL_AHBN_CONTRACT.md`
 - `docs/02_QAHBN2_DESIGN_FREEZE.md`
+- `docs/stages/S03_DEVELOPMENT.md`
+- `docs/stages/S04_REGRESSION_PARITY.md`
 
 Canonical AHBN remains frozen and read-only.
