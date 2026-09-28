@@ -2,7 +2,7 @@
 
 Q-AHBN2 is the canonical-AHBN-based redesign of the previous Q-AHBN implementation.
 
-Current status: Q-AHBN2 S07 Completeness Gate = HOLD. S07-A Formal Experiment Matrix Freeze = PASS / FROZEN. Next: S07-B Formal Statistical Contract Freeze.
+Current status: Q-AHBN2 S07 Completeness Gate = HOLD. S07-A and S07-B = PASS / FROZEN. Next: S07-C Final Completeness Re-Audit.
 
 Authoritative project controls:
 - `docs/00_QAHBN2_MASTER.md`
