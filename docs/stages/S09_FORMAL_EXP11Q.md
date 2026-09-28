@@ -79,7 +79,7 @@ This is an operational/provenance change only. No experiment matrix, parameter, 
 
 ## OUTPUT-STD-2 — Root Layout Correction and Enforcement — 2026-09-28
 
-**Status:** PASS / CLOSED for repository controls; LOCAL HISTORICAL-ARTIFACT RELOCATION REQUIRED.
+**Status:** PASS / CLOSED.
 
 ### Gate
 Supersede OUTPUT-STD-1 where necessary so that every generated log/evidence/result/analysis directory is under `output/`, with `topology/` as the sole separate root-level data directory.
@@ -113,7 +113,13 @@ This is filesystem/provenance governance only. Historical artifact contents, Exp
 ## Result
 **OUTPUT-STD-2 = PASS / CLOSED for authoritative repository controls.**
 
-The remaining local relocation is mechanical and must be completed before S09-PREP-3 so the researcher workspace matches the frozen layout.
+### Local readback closure
+Researcher local readback on 2026-09-28 confirmed:
+- root directories include `output/`, `output/evidence/`, and root-level `topology/`;
+- no root-level `evidence/`, `outputs/`, or generated `q-ahbn-*/` directories remain within the inspected depth;
+- `git status --short` returned empty, confirming a clean Git working tree after relocation.
+
+Therefore the physical local workspace now matches the frozen OUTPUT-STD-2 layout.
 
 ## S09-PREP-2 — Implement Exp11-Q Formal Harness + Static Verification — 2026-09-28
 
