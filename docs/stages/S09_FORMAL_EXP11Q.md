@@ -77,6 +77,44 @@ This is an operational/provenance change only. No experiment matrix, parameter, 
 ## Result
 **OUTPUT-STD-1 = PASS / CLOSED.**
 
+## OUTPUT-STD-2 — Root Layout Correction and Enforcement — 2026-09-28
+
+**Status:** PASS / CLOSED for repository controls; LOCAL HISTORICAL-ARTIFACT RELOCATION REQUIRED.
+
+### Gate
+Supersede OUTPUT-STD-1 where necessary so that every generated log/evidence/result/analysis directory is under `output/`, with `topology/` as the sole separate root-level data directory.
+
+### Why
+Local Explorer inspection showed historical generated material still present at repository root: `evidence/Exp10-Q`, root-level `q-ahbn-*` gamma-sensitivity directories, and `outputs/topologies`. The prior standard therefore did not fully express the intended physical repository layout.
+
+### Corrected standard
+```text
+q-ahbn2/
+├── docs/
+├── output/
+│   └── evidence/    # all generated logs/evidence/results/analysis
+├── topology/        # topology data/cache only
+├── qahbn2/
+├── scripts/
+└── tests/
+```
+
+Prohibited for new work:
+- root-level `evidence/`;
+- root-level `outputs/`;
+- root-level generated `q-ahbn-*/`;
+- logs/evidence under `topology/`.
+
+The historical AR-1.4.2 gamma-sensitivity runner is also corrected to default to `output/evidence/` and reject custom paths outside `output/`. A tracked `topology/README.md` establishes the root topology directory without treating topology data as experiment evidence.
+
+### Scientific boundary
+This is filesystem/provenance governance only. Historical artifact contents, Exp10-Q evidence identity, scientific results, matrices, parameters, statistics, and claims are unchanged. Moving a local directory changes its location, not its scientific content.
+
+## Result
+**OUTPUT-STD-2 = PASS / CLOSED for authoritative repository controls.**
+
+The remaining local relocation is mechanical and must be completed before S09-PREP-3 so the researcher workspace matches the frozen layout.
+
 ## S09-PREP-2 — Implement Exp11-Q Formal Harness + Static Verification — 2026-09-28
 
 **Status:** IMPLEMENTATION COMPLETE / LOCAL EXECUTION VERIFICATION REQUIRED.
