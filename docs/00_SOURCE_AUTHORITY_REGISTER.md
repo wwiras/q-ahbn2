@@ -36,6 +36,37 @@ This document records the conclusions of the completed read-only reconciliation 
 | 6 | Historical Q-AHBN manuscript draft | [Q_AHBN_FirstDraft.pdf](https://drive.google.com/file/d/1NahEY5sZPdwhpg2uduBxIxqyS3ikMGqj/view?usp=drive_link) | Historical design narrative and experiment context only; non-authoritative where it conflicts with levels 1–4. |
 | 7 | Q-AHBN2 Master Research, Development, Experiment and Publication Contract v1.0 | `docs/00_QAHBN2_MASTER.md` | Authoritative Q-AHBN2 operating/workflow contract: project governance, stage/freeze sequence, evidence handling, experiment/publication workflow, and new-session bootstrap. It does not override Levels 1–2 scientific AHBN authority or independently define the future Q-AHBN2 RL specification. |
 
+### 2.0A Operational Code and Evidence Authority — Project-Wide Standard
+
+For all Q-AHBN2 development, verification, testing, Learning Validation, simulation, Kubernetes validation, analysis, and formal experimentation, the following operational authority applies.
+
+1. **GitHub `wwiras/q-ahbn2` is the authoritative current source for Q-AHBN2 code and scientific/control state.** This includes source code, configuration, contracts, stage status, frozen decisions, test definitions, and reproducibility material. Work must begin by fetching and reconciling the latest authoritative GitHub state rather than relying on conversational memory.
+
+2. **The designated local synchronized execution workspace is:**
+
+   `/Users/wwiras/Library/CloudStorage/GoogleDrive-samsuddin.samsuddin@monash.edu/My Drive/PhDResearch/myResearch/NewAlgorithm-AHBN/AHBNcode/q-ahbn2`
+
+   The researcher executes tests from this workspace unless a later controlled gate explicitly authorizes another execution environment. Code/development changes are governed by GitHub; the local synchronized copy is the human execution workspace, not an independent code authority.
+
+3. **The designated Google Drive Q-AHBN2 evidence root is folder ID:**
+
+   `1a6_WrsZL2iXbFVeMemdujYxvzEqcBFC5`
+
+   This is the authoritative read/write evidence area for deliberately preserved test, validation, simulation, Kubernetes, analysis, and formal-experiment artifacts after the applicable validity/completeness checks and evidence-promotion step.
+
+4. **Automatic Google Drive synchronization does not confer evidence authority.** The Drive root may contain the synchronized repository, `.git/`, working `output/` or `outputs/` directories, virtual environments, and other execution material. Such synchronized working material is not authoritative experimental evidence merely because it exists in Drive. Generated output becomes authoritative evidence only after the applicable completeness/validity checks, deliberate preservation/classification in the designated evidence hierarchy, and readback verification.
+
+5. **Execution responsibility is separated.** ChatGPT prepares and verifies code/configuration, the controlled test contract, expected outputs, and the exact execution command from the latest authoritative GitHub state. The researcher performs the test execution. ChatGPT verifies the produced artifacts before any scientific PASS/FAIL decision or GitHub stage transition is recorded.
+
+6. **Every controlled gate is GitHub-first and readback-verified.** Before every controlled test or development gate, fetch and reconcile the latest GitHub state. After every GitHub write, re-fetch the affected files and verify the resulting repository state before declaring the new status authoritative.
+
+7. **Conversation is not authority.** ChatGPT conversation, recollection, or narration is an operational interface only. If conversation conflicts with GitHub control state or verified preserved evidence, the repository/artifact state controls and the discrepancy must be reported.
+
+The governing operational rule is:
+
+> **GitHub controls the code and scientific state; the designated Google Drive evidence area preserves verified test evidence.**
+
+
 ### 2.1 Canonical AHBN reference boundary
 
 The canonical implementation reference is **not** the 1 Sep 2026 v0.63 commit alone. The normative boundary is the v0.63 baseline plus the later canonical S5 and parity corrections through:
