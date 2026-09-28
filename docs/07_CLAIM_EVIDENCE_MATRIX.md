@@ -24,6 +24,8 @@ This matrix must be expanded only when corresponding evidence gates pass.
 | Q-AHBN2 outperforms established external references | Exp13-Q formal evidence not yet executed | NOT YET CLAIMABLE |
 | one Exp13-Q result proves universal superiority or optimality | not supported by bounded single-scenario benchmark | PROHIBITED CLAIM |
 | K8s-VAL-Q supports deployment validation | later frozen Kubernetes validation evidence | NOT YET CLAIMABLE |
+| Exp13-Q-K8s provides a matched five-method cloud-native reference benchmark corresponding to Exp13-Q-Sim | prospective Kubernetes scope amendment; no K8s Exp13 outcomes yet | FROZEN DESIGN / NOT YET CLAIMABLE |
+| Exp13-Q-Sim and Exp13-Q-K8s constitute literal cross-platform replication | requires later parity/equivalence evidence; not established by scope matching alone | NOT YET CLAIMABLE |
 
 
 ## S08 Exp10-Q claim update — 2026-09-28
