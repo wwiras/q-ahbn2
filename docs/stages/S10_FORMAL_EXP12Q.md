@@ -1,6 +1,6 @@
 # S10 — Formal Exp12-Q: Heterogeneity
 
-**Status:** S10.5 PASS / CLOSED; S10.6 NEXT; FORMAL EVIDENCE VERIFIED
+**Status:** S10 PASS / CLOSED; EXP12-Q FORMAL EVIDENCE VERIFIED / PROMOTED / FROZEN
 
 ## Objective
 Execute the frozen Exp12-Q heterogeneity matrix from `docs/03_EXPERIMENT_CONTRACT.md` under the frozen statistical/provenance rules.
@@ -90,9 +90,24 @@ The audit established:
 
 The audit outcome establishes evidence integrity/completeness only. It does not constitute scientific interpretation or comparative performance analysis.
 
-## S10.6 release boundary
+## S10.6 — Evidence freeze / promotion and stage closure
 
-S10.6 is the next permitted gate. It may freeze/promote the verified Exp12-Q evidence to the designated Google Drive evidence hierarchy and reconcile authoritative S10/results-control documentation. Raw evidence must not be modified during promotion.
+**Result:** PASS / CLOSED.
+
+The S10.5-verified formal evidence was deliberately promoted in the designated Google Drive-synced evidence hierarchy without rewriting raw evidence.
+
+Promoted hierarchy:
+`output/evidence/Exp12-Q/q-ahbn-28092026215008-exp12q-formal/`
+
+Promotion verification:
+- dedicated `Exp12-Q` evidence container created under `output/evidence/`;
+- existing verified formal folder moved into that container;
+- the same Google Drive formal-folder ID was preserved, confirming organizational promotion rather than copy/recreation;
+- promoted folder verified by Drive readback;
+- no raw formal artifact modified;
+- no rerun, exclusion, tuning, aggregation, or scientific interpretation performed.
+
+S10.1 through S10.6 are complete. Exp12-Q formal evidence is frozen for later statistical analysis/interpretation under the governing statistical contract.
 
 ## Boundary
 Exp12-Q remains part of the primary AHBN-versus-Q-AHBN2 RO4/RQ4 causal evaluation. No redesign, parameter change, comparator expansion, extra severity, or result-driven protocol change is authorized here.
