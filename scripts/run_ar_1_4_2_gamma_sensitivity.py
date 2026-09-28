@@ -53,14 +53,27 @@ def validate_matrix(gammas: Iterable[float], seeds: Iterable[int]) -> None:
 
 def main() -> None:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--output-dir", type=Path, default=None)
+    parser.add_argument(
+        "--output-dir",
+        type=Path,
+        default=None,
+        help="Optional run directory. Must remain under the gitignored output/ tree.",
+    )
     args = parser.parse_args()
 
     validate_matrix(GAMMAS, SEEDS)
     timestamp = datetime.now().strftime("%d%m%Y%H%M%S")
-    output_dir = args.output_dir or Path(
-        f"q-ahbn-{timestamp}-ar142-gamma-sensitivity-rl-validation"
+    output_root = Path("output")
+    output_dir = args.output_dir or (
+        output_root / "evidence"
+        / f"q-ahbn-{timestamp}-ar142-gamma-sensitivity-rl-validation"
     )
+    try:
+        output_dir.resolve().relative_to(output_root.resolve())
+    except ValueError as exc:
+        raise ValueError(
+            "AR-1.4.2 output directory must be under output/"
+        ) from exc
     if output_dir.exists():
         raise FileExistsError(f"refusing to overwrite existing run directory: {output_dir}")
     output_dir.mkdir(parents=True)
