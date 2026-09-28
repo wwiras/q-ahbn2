@@ -212,3 +212,66 @@ The Exp10-Q formal dataset is structurally complete and eligible for frozen-cont
 `S08-FORMAL-3 — Exp10-Q Frozen Statistical Analysis + Claim-Boundary Audit`.
 
 Analysis must use only the predeclared metrics, seed pairing, uncertainty rules, and interpretation boundaries in `docs/04_STATISTICAL_CONTRACT.md`. No parameter tuning, result-based rerun, metric invention, or post-hoc test shopping is permitted.
+
+
+## S08-FORMAL-3 — Exp10-Q Frozen Statistical Analysis + Claim-Boundary Audit — 2026-09-28
+
+**Status:** PASS / CLOSED.
+
+### Analysis provenance
+The preserved 20-row formal CSV from `q-ahbn-28092026183635-exp10q-formal` was analyzed under the prospectively frozen `docs/04_STATISTICAL_CONTRACT.md`. Control and failure were kept separate; seed was the pairing factor; n=5 per method/condition; method means used sample SD and two-sided 95% Student-t CIs; paired effects used Q-AHBN2 minus AHBN with df=4. No p-value search, composite score, rerun, exclusion, tuning, or new metric was introduced.
+
+Machine-readable local analysis artifact:
+`q-ahbn-28092026183635-exp10q-formal-analysis/exp10q_formal_analysis.json`.
+
+### Principal failure-condition result
+Under one deterministic non-source peer failure before message 501:
+- delivery ratio: AHBN mean 0.733514; Q-AHBN2 mean 0.862580; paired mean difference +0.129066 = +12.907 percentage points; 95% CI [+0.072732,+0.185400]; all five seed differences positive;
+- propagation delay: AHBN mean 15.873730; Q-AHBN2 mean 10.041353; paired mean difference -5.832377; 95% CI [-7.476635,-4.188118]; all five seed differences negative;
+- duplicates: AHBN mean 110284.2; Q-AHBN2 mean 139082.2; paired mean difference +28798.0; 95% CI [+17548.1,+40047.9]; all five seed differences positive;
+- total forwards: AHBN mean 182635.6; Q-AHBN2 mean 224340.2; paired mean difference +41704.6; 95% CI [+24914.1,+58495.1]; all five seed differences positive.
+
+Thus the frozen failure evidence supports a condition-specific trade-off: Q-AHBN2 increased delivery and reduced propagation delay relative to AHBN, while using more duplicate transmissions and forwarding effort. The four predeclared outcomes do not support an omnibus winner/superiority statement.
+
+### Contemporaneous control result
+The zero-failure control shows the same directional trade-off:
+- delivery paired mean difference +0.133472 (+13.347 percentage points), 95% CI [+0.063137,+0.203807];
+- delay paired mean difference -5.977232, 95% CI [-7.978592,-3.975872];
+- duplicates paired mean difference +29983.2, 95% CI [+16016.5,+43949.9];
+- total forwards paired mean difference +43330.4, 95% CI [+22462.1,+64198.7].
+
+This control is contextual harness evidence and is not substituted for the principal dynamic failure cell.
+
+### Learning/adaptation evidence
+For Q-AHBN2 under failure:
+- mean reward = -0.262131, 95% CI [-0.276598,-0.247665];
+- cumulative reward = -22595.233, 95% CI [-24666.904,-20523.562];
+- Q updates mean = 86122.0, 95% CI [82121.964,90122.036];
+- state-action coverage mean = 0.077037, 95% CI [0.074472,0.079602];
+- intervention count mean = 69245.6; KEEP count mean = 17012.4.
+
+Aggregated failure-condition action proportions were KEEP 0.197227, FANOUT_DOWN 0.199583, FANOUT_UP 0.192921, SET_GOSSIP 0.389511, SET_STRUCTURED 0.020759. These are mechanistic descriptors only. Negative reward does not by itself invalidate the dissemination effects, and the bounded evidence does not establish Q-learning convergence, policy optimality, or a composite Adaptation Efficiency result.
+
+### Claim boundary
+Exp10-Q now supports only the following condition-specific statement: under the frozen ControlSim one-peer failure condition and five paired seeds, Q-AHBN2 showed higher delivery and lower propagation delay than frozen AHBN, accompanied by higher duplicate and forwarding overhead, with the reported paired 95% CIs.
+
+Not supported by Exp10-Q alone:
+- universal or overall superiority of Q-AHBN2;
+- lower communication overhead;
+- Q-learning convergence or policy optimality;
+- robustness under churn or heterogeneity;
+- superiority to Gossip, Structured, DC-SoC, or legacy Q-AHBN;
+- Kubernetes/deployment benefit;
+- a composite Adaptation Efficiency claim.
+
+## Result
+
+**S08-FORMAL-3 = PASS / CLOSED.**
+
+Exp10-Q is a complete, valid formal dataset with a scientifically interpretable delivery/latency versus communication-overhead trade-off. No corrective rerun or design change is justified by the observed performance.
+
+## Next controlled gate
+
+`S08-CLOSE — Exp10-Q Evidence Freeze / Promotion and Stage Closure`.
+
+This closure gate should preserve the raw formal directory and deterministic analysis artifact, reconcile claim/evidence status, and promote the verified evidence under the existing evidence-management rules before proceeding to S09 Exp11-Q preparation.
