@@ -14,3 +14,13 @@
 | Kubernetes realism benefit | formal Kubernetes evidence not yet completed | NOT YET CLAIMABLE |
 
 This matrix must be expanded only when corresponding evidence gates pass.
+
+## S07-D prospective claim boundaries — 2026-09-28
+
+| Claim boundary | Evidence | Current status |
+|---|---|---|
+| Exp10-Q / Exp11-Q / Exp12-Q are the primary RO4/RQ4 causal evaluation | frozen S07-A contract + S07-D role audit | FROZEN |
+| Exp13-Q provides bounded external reference positioning at churn=0.40 | prospective S07-D contract amendment; 25 runs not yet executed | FROZEN DESIGN / NOT YET CLAIMABLE |
+| Q-AHBN2 outperforms established external references | Exp13-Q formal evidence not yet executed | NOT YET CLAIMABLE |
+| one Exp13-Q result proves universal superiority or optimality | not supported by bounded single-scenario benchmark | PROHIBITED CLAIM |
+| K8s-VAL-Q supports deployment validation | later frozen Kubernetes validation evidence | NOT YET CLAIMABLE |
