@@ -1,6 +1,6 @@
 # S10A — Formal Exp13-Q: Reference Benchmark
 
-**Status:** S10A-IMPL PASS / CLOSED; FROZEN DESIGN; VERIFICATION NOT YET RELEASED
+**Status:** S10A-VERIFY STATIC PASS / LOCAL REGRESSION+SMOKE PENDING; FORMAL BLOCKED
 
 ## Objective
 Provide one bounded external reference benchmark for standalone Q-AHBN2 publication positioning without replacing or expanding the primary thesis RO4 causal matrix.
@@ -134,6 +134,56 @@ Implementation files were written to GitHub and read back. Runtime regression/sm
 **PASS / CLOSED for code implementation only.**
 
 Formal execution remains blocked.
+
+## S10A-VERIFY — Exp13-Q Static Contract / Regression / Bounded Smoke Verification
+
+### Objective
+Verify the exact frozen Exp13-Q matrix, canonical comparator semantics, common seeded topology/churn schedule, project regression safety, and one bounded smoke path before formal execution is released.
+
+### Reconciliation and static verification
+Following `docs/00_QAHBN2_MASTER.md`:
+1. fetched GitHub authority and current S10A stage;
+2. reconciled current gate against Master and experiment contract;
+3. inspected the designated Google Drive project root and confirmed the synchronized workspace structure exists;
+4. rechecked pinned canonical comparator implementations;
+5. strengthened the Exp13-Q contract test with exact Exp11 high-churn schedule parity/determinism checks;
+6. performed GitHub post-write readback.
+
+Static findings:
+- frozen matrix remains exactly 25 cells;
+- churn remains exactly 0.40;
+- seeds remain 42--46;
+- leave/rejoin boundaries remain 201/251, 401/451, 601/651, 801/851;
+- the deterministic churn schedule is imported directly from Exp11-Q;
+- source peer 0 is excluded from churn targets;
+- expected churn target count is 40 of 99 non-source peers for each cycle;
+- Gossip standalone semantics match pinned canonical `GossipStrategy(fanout=None)`;
+- Structured standalone semantics match pinned canonical `ClusterStrategy()`;
+- DC-SoC uses pinned canonical `DCSOCStrategy` with `eps=2.0`, `min_samples=3`;
+- AHBN and Q-AHBN2 remain direct reuse of the validated Exp11-Q high-churn paths.
+
+### Runtime verification boundary
+Per Master §5.3 and §9.5, executable regression/smoke tests are researcher-run from the designated local synchronized workspace. No runtime PASS may be declared until the local command output is returned and verified.
+
+### Required local commands
+Run from:
+
+`/Users/wwiras/Library/CloudStorage/GoogleDrive-samsuddin.samsuddin@monash.edu/My Drive/PhDResearch/myResearch/NewAlgorithm-AHBN/AHBNcode/q-ahbn2`
+
+```bash
+git pull
+git status
+git rev-parse HEAD
+PYTHONPATH=. python -m unittest tests.test_formal_exp13q_contract -v
+PYTHONPATH=. python -m unittest discover -s tests -v
+```
+
+After those pass, the bounded smoke command will be released separately so the smoke remains intentionally small and non-formal.
+
+### Current S10A-VERIFY result
+**STATIC PASS / LOCAL REGRESSION PENDING.**
+
+No formal run is authorized. No statistical interpretation is authorized. No evidence promotion is required until executable verification produces a valid timestamped output artifact.
 
 ## Statistical boundary
 Use the Exp13-Q amendment in `docs/04_STATISTICAL_CONTRACT.md`. No omnibus winner score, post-hoc test shopping, or universal-superiority claim.
