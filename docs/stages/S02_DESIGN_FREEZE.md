@@ -124,6 +124,42 @@ For (alpha_Q), (epsilon_0), (epsilon_{\min}), and (lambda_\epsilon), the frozen 
 
 For (gamma), a stronger but still bounded claim is supported: (gamma=0.70) was selected from the specified bounded sensitivity analysis under the frozen Learning Validation protocol. This does not establish global optimality, convergence, or universal superiority.
 
+
+### Why gamma received bounded sensitivity analysis while the other learning parameters remained fixed
+
+The methodological distinction is between **learning mechanics** and the **temporal weighting of consequences**.
+
+The retained `alpha_Q` and epsilon-schedule parameters primarily govern how the tabular learner updates estimates and explores the frozen action space: `alpha_Q` controls the fraction of the current TD correction incorporated at an update, while `epsilon_0`, `epsilon_min`, and `epsilon_decay` define the exploration schedule. Their numerical consequences can be characterized directly, held reproducibly, and bounded by explicit non-optimality claims.
+
+The discount factor `gamma` has a different role in the Q-learning target:
+
+```text
+TD target = immediate reward + gamma * estimated value of the next state
+```
+
+Thus, `gamma` directly controls the relative weight assigned to the estimated value of the same peer's next Q-AHBN2 decision state compared with the immediately attributable forwarding reward. A lower value discounts that successor-state estimate more strongly; a higher value gives it greater influence. In Q-AHBN2's dynamic P2P setting, the usefulness of that additional temporal weighting is an empirical question because the locally observed network condition can change under latency, churn, overload, failures, and heterogeneous processing conditions.
+
+For that reason, `gamma` was explicitly reopened over the bounded candidate set `{0.70, 0.80, 0.90}` and evaluated across seeds 42--46. This sensitivity analysis asks a narrow architectural-learning question: **within the frozen same-peer next-decision transition contract, how much successor-state value should influence learning under the investigated Learning Validation workload?** The resulting selection of `gamma=0.70` is therefore empirically supported within that tested setting.
+
+This interpretation deliberately stops short of claiming that `gamma` predicts whole-network broadcast ripple effects, that a high `gamma` necessarily becomes invalid under churn, or that `gamma=0.70` is universally best for dynamic P2P networks. Q-AHBN2 uses a local same-peer successor-state transition and directly attributable local reward; the bounded sensitivity evidence supports only the tested configuration.
+
+#### Why the remaining parameters were not jointly optimized
+
+The research contribution is the bounded Q-learning meta-controller above frozen canonical AHBN, not comprehensive RL hyperparameter optimization. Once the retained learning-mechanics parameters have defined behaviour, a defensible rationale, reproducible values, and explicit limitations, holding them fixed provides a stable experimental configuration for evaluating that architecture.
+
+A joint sensitivity study over every retained learning parameter would answer a materially different question: which combination of learning settings performs best within a chosen search space? Such a study would increase the tuning search substantially and would make interpretation increasingly about optimizer configuration rather than the frozen Q-AHBN2 state/action/reward architecture. It is therefore outside the S02 contribution unless a validity defect later demonstrates that a retained setting is scientifically unusable.
+
+Fixing these parameters also prevents post-hoc performance tuning: formal results must be interpreted under the frozen configuration rather than improving or degrading the learning settings after observing outcomes. This supports reproducibility and isolates the evaluation from an additional source of experimental variation, but it does **not** prove that observed performance is caused solely by the architecture.
+
+#### Thesis/examination formulation
+
+A defensible concise formulation is:
+
+> We fixed the learning-rate and exploration-schedule parameters to establish a stable and reproducible Q-AHBN2 learning configuration, while explicitly making no optimality claim for their numerical values. We treated the discount factor separately because it controls the relative contribution of successor-state value in the temporal-difference target. A bounded sensitivity analysis over `gamma={0.70,0.80,0.90}` was therefore used to select the temporal weighting for the investigated Learning Validation setting. This keeps the study focused on the Q-AHBN2 networking architecture rather than converting it into a general hyperparameter-optimization study.
+
+This is a deliberate scoping decision, not evidence that the fixed parameters are mathematically optimal. Its scientific strength comes from transparency, reproducibility, bounded claims, and consistency with the stated research objective.
+
+
 ### Hyperparameter-sensitivity boundary
 
 No additional (alpha_Q) sensitivity experiment is required solely to strengthen the appearance of the thesis or to manufacture an optimization claim. Extending sensitivity analysis to (alpha_Q) would naturally raise the same tuning question for (epsilon_0), (epsilon_{\min}), and (lambda_\epsilon), shifting the work toward comprehensive hyperparameter optimization. That is not the scientific contribution of Q-AHBN2.
