@@ -2032,7 +2032,9 @@ No canonical AHBN equation, normalization, EWMA parameter, score coefficient, si
 
 ## S02-CLOSE-C2 — Residual Stale-Status Supersession — REGISTERED 2026-09-23
 
-**Status:** **REGISTERED / NEXT.**
+**Historical completion status:** **PASS / COMPLETE — SUPERSEDED BY C3/C4/C5 CLOSURE PROGRESSION.**
+
+> **Historical record:** The C2 registration text below is preserved for provenance. It no longer represents the current S02 gate or next action.
 
 **Purpose:** perform the minimum residual documentation correction required by the S02-CLOSE re-audit. C2 must locally mark or replace stale current-looking statements so repository searches no longer expose an apparently active `gamma=0.90`, unresolved S02-H, pending S02-I, or blocked S02-J when those items have already been superseded by later frozen authority.
 
@@ -2047,3 +2049,24 @@ No canonical AHBN equation, normalization, EWMA parameter, score coefficient, si
 6. rerun the same static S02-CLOSE repository audit after C2.
 
 **Closure rule:** C2 itself does not close S02. Only a clean subsequent S02-CLOSE static re-audit may authorize `S02 = PASS / CLOSED / FROZEN` and `S03 = NEXT`.
+
+---
+
+## S02-CLOSE-C5 — Master C2 Status Supersession — 2026-09-28
+
+**Status:** **PASS / COMPLETE — FINAL STATIC S02-CLOSE RE-AUDIT NEXT.**
+
+**Scope:** administrative Master-status reconciliation only. No simulation, test execution, parameter tuning, redesign, scientific decision, implementation change, Google Drive evidence work, deletion of historical evidence, or canonical-AHBN modification was authorized or performed.
+
+### Correction completed
+
+The preserved S02-CLOSE-C2 registration block is now explicitly labelled historical and completed. Its original purpose, checks, closure rule, and provenance remain intact, but it can no longer be interpreted as the current gate or next action.
+
+### Boundary
+
+C5 does **not** itself close S02. Only a clean mandatory GitHub readback and final static S02-CLOSE re-audit may authorize:
+
+```text
+S02 = PASS / CLOSED / FROZEN
+S03 = NEXT
+```
