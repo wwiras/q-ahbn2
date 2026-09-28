@@ -581,6 +581,94 @@ If a synchronized working copy and a deliberately preserved evidence copy both e
 
 ---
 
+## 9.5 GitHub-First Controlled Gate Workflow — Project-Wide Standard
+
+From S02-CLOSE onward, every controlled gate and every test type uses the following workflow:
+
+```text
+FETCH GITHUB
+    ↓
+RECONCILE CURRENT AUTHORITY / VERIFY CURRENT GATE
+    ↓
+PREPARE CODE / CONFIGURATION / TEST CONTRACT
+    ↓
+EXECUTE OR AUDIT ONLY THE AUTHORIZED SCOPE
+    ↓
+DECIDE: PASS / HOLD / FAIL
+    ↓
+SYNC ONLY FILES WHOSE AUTHORITATIVE STATE CHANGED
+    ↓
+VERIFY OUTPUT / EVIDENCE WHERE APPLICABLE
+    ↓
+POST-WRITE GITHUB READBACK
+    ↓
+DECLARE CURRENT STATUS + NEXT CONTROLLED GATE
+```
+
+For executable tests, the researcher performs the run from the designated local synchronized workspace. Generated output is written to the prescribed timestamped run directory and is promoted to authoritative Google Drive evidence only after the applicable validity/completeness checks and deliberate preservation/readback.
+
+The synchronization rule is:
+
+> **Audit every gate; edit only files whose authoritative state actually changed.**
+
+Accordingly:
+
+- the detailed stage/audit record is updated for every completed controlled gate;
+- the Master, status, experiment, statistical, results, claim/evidence, source-authority, code, or other files are updated only when the gate changes the authoritative state represented by that file;
+- a valid no-change audit must not create artificial edits;
+- historical evidence is preserved and locally marked historical/superseded where necessary rather than silently rewritten;
+- a successful write operation is not sufficient to declare a transition complete.
+
+### 9.5.1 No-status-declaration-before-readback rule
+
+No PASS/CLOSED/FROZEN/NEXT status created by a repository write is authoritative until the affected files have been re-fetched from GitHub and reconciled against the intended state.
+
+The required sequence is:
+
+```text
+edit
+  ↓
+commit
+  ↓
+re-fetch
+  ↓
+reconcile
+  ↓
+declare status
+```
+
+If readback exposes a contradiction, stale status, incomplete write, or unexpected change, the gate remains HOLD until reconciled.
+
+### 9.5.2 Standard test record grammar
+
+The following grammar is the project-wide standard for unit, deterministic, smoke, regression, parity, Learning Validation, diagnostic, pilot, ControlSim formal, and Kubernetes formal tests. Fields that genuinely do not apply may be recorded as `N/A`; applicable fields must not be silently omitted.
+
+```text
+TEST / GATE:
+OBJECTIVE:
+AUTHORITATIVE GITHUB COMMIT:
+AUTHORITATIVE CONTRACT:
+EXECUTION ENVIRONMENT:
+RUN DIRECTORY:
+EVENT TYPE:
+PARAMETERS:
+SEEDS / REPETITIONS:
+EXPECTED OUTPUTS:
+USER EXECUTION COMMAND:
+EVIDENCE LOCATION:
+COMPLETENESS CHECK:
+VALIDITY CHECK:
+RESULT:
+SCIENTIFIC INTERPRETATION:
+GITHUB STATUS UPDATE:
+NEXT CONTROLLED GATE:
+```
+
+**Execution responsibility:** ChatGPT prepares and verifies the code, configuration, test contract, expected outputs, and exact run command from the latest authoritative GitHub state. The researcher executes the test from the designated local Google Drive workspace. Generated outputs are written to the prescribed timestamped output directory and deliberately preserved in the designated Google Drive evidence area after the applicable checks. ChatGPT then verifies the returned artifacts before any scientific PASS/FAIL decision or GitHub status transition is recorded.
+
+This workflow does not transfer scientific decision authority from the researcher and does not authorize a test merely because the grammar exists.
+
+
 # 10. Artifact Verification Principle
 
 Assistant narration is not evidence.
