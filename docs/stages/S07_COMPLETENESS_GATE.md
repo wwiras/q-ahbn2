@@ -58,7 +58,7 @@ Minimum corrective sequence:
 ```text
 S07-A — Formal Experiment Matrix Freeze [PASS / FROZEN]
         ↓
-S07-B — Formal Statistical Contract Freeze [NEXT]
+S07-B — Formal Statistical Contract Freeze [PASS / FROZEN]
         ↓
 S07-C — Final Completeness Re-Audit
         ↓
@@ -85,11 +85,29 @@ No formal run was executed or inspected during this freeze.
 
 **S07-A = PASS / FROZEN.**
 
-## S07-B scope
-Freeze formal aggregation, uncertainty, comparison, exclusion/rerun interpretation, effect reporting, and multiplicity/claim boundaries before viewing formal results.
+## S07-B — Formal Statistical Contract Freeze — 2026-09-28
 
-### S07-B scope
-Freeze the formal aggregation, uncertainty, comparison, exclusions, rerun rules, and reporting contract before viewing formal results. Reuse the project's established 95% CI / paired-seed principles where appropriate, but only after explicit reconciliation to the final matrices.
+**Status:** PASS / FROZEN.
+
+The formal statistical contract is now frozen in `docs/04_STATISTICAL_CONTRACT.md`.
+
+Key frozen rules:
+- five-seed paired AHBN versus Q-AHBN2 comparisons by identical seed/condition;
+- method/condition means with Student-t 95% CI;
+- primary effect = paired absolute difference with Student-t 95% CI;
+- four primary dissemination outcomes: delivery_ratio, propagation_delay, duplicates, total_forwards;
+- no omnibus winner metric and no significance-based PASS criterion;
+- no pseudo-replication from messages/decisions;
+- no outlier removal without an independent validity defect;
+- no imputation or replacement seeds;
+- supplementary p-values, if later reported, are secondary and subject to predeclared multiplicity boundaries;
+- learning/adaptation traces are mechanistic evidence, not a new composite endpoint.
+
+No formal result was inspected while freezing these rules.
+
+**S07-B = PASS / FROZEN.**
+
+Next: `S07-C — Final Completeness Re-Audit`.
 
 ### S07-C scope
 Read-only completeness re-audit. No simulation.
