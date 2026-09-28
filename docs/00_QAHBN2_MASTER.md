@@ -432,6 +432,7 @@ docs/
 ├── 07_CLAIM_EVIDENCE_MATRIX.md
 │
 └── stages/
+    ├── DOC_SYNC_2_STAGE_MAP_RECONCILIATION.md
     ├── S00_SOURCE_AUDIT.md
     ├── S01_RECONCILIATION.md
     ├── S02_DESIGN_FREEZE.md
