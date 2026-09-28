@@ -1,6 +1,6 @@
 # S07 — Completeness Gate
 
-**Status:** HOLD — FORMAL RELEASE BLOCKED
+**Status:** PASS / CLOSED — FORMAL EXECUTION RELEASED
 
 Entry requirement satisfied: S06 Smoke is PASS / CLOSED.
 
@@ -31,9 +31,9 @@ No unresolved learner-design or ControlSim-development defect was identified.
 
 ## S07.2 — Formal Protocol Readiness Audit — 2026-09-28
 
-**Status:** HOLD / BLOCKER IDENTIFIED.
+**Historical status:** HOLD / BLOCKER IDENTIFIED at initial audit; **SUPERSEDED by S07-A and S07-B PASS/FROZEN**.
 
-Two mandatory pre-formal authorities remain explicitly unfrozen:
+At the initial audit, two mandatory pre-formal authorities remained explicitly unfrozen:
 
 1. `docs/03_EXPERIMENT_CONTRACT.md`
    - status: `CONTROL SKELETON — FORMAL MATRICES NOT YET FROZEN`;
@@ -51,7 +51,7 @@ This is not a failure of Q-AHBN2. It is an incomplete pre-registration / formal-
 
 ## S07 Scientific Decision — 2026-09-28
 
-**Result:** HOLD — DO NOT RELEASE FORMAL EXPERIMENTS YET.
+**Historical result:** HOLD pending S07-A/S07-B; **SUPERSEDED by the S07-C closure below.**
 
 Minimum corrective sequence:
 
@@ -112,4 +112,36 @@ Next: `S07-C — Final Completeness Re-Audit`.
 ### S07-C scope
 Read-only completeness re-audit. No simulation.
 
-No formal Exp10-Q/Exp11-Q/Exp12-Q execution is authorized while this HOLD remains.
+## S07-C — Final Completeness Re-Audit — 2026-09-28
+
+**Status:** PASS / COMPLETE.
+
+Read-only reconciliation confirmed:
+
+- S02 design = PASS / CLOSED / FROZEN;
+- S03 development = PASS / CLOSED;
+- S04 regression/logical parity = PASS / CLOSED;
+- S05 RL Validation = PASS / CLOSED;
+- S06 Smoke = PASS / CLOSED;
+- S07-A formal experiment matrix = PASS / FROZEN;
+- S07-B formal statistical contract = PASS / FROZEN;
+- canonical AHBN remains immutable;
+- formal ControlSim scope, metrics, provenance, exclusions/reruns, pairing, uncertainty and interpretation rules are prospectively frozen;
+- no unresolved scientific/design decision remains before formal Exp10-Q;
+- no formal Exp10-Q/Exp11-Q/Exp12-Q result was used to alter the frozen contracts.
+
+The only residual issue found during S07-C was stale historical HOLD wording in this stage file. It was documentation-only and was corrected without changing experiment design, statistics, Q-AHBN2 or canonical AHBN.
+
+**S07-C = PASS / COMPLETE.**
+
+## S07 Closure
+
+**S07 = PASS / CLOSED.**
+
+Formal execution is now released under the frozen contracts.
+
+Next controlled stage:
+
+`S08 — Formal Exp10-Q (Failure)`.
+
+S08 must execute only the frozen Exp10-Q matrix. No matrix, metric, parameter, comparator or statistical-rule change is authorized by this release.
