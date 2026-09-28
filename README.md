@@ -2,7 +2,7 @@
 
 Q-AHBN2 is the canonical-AHBN-based redesign of the previous Q-AHBN implementation.
 
-Current status: Q-AHBN2 S02 scientific design is complete and reconciled. Formal S02 closure is awaiting the final static design-freeze closure re-audit; S03 is not yet released.
+Current status: Q-AHBN2 S02 = PASS / CLOSED / FROZEN. S03 Development = NEXT.
 
 Authoritative project controls:
 - `docs/00_QAHBN2_MASTER.md`
