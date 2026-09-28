@@ -1,6 +1,6 @@
 # S09 — Formal Exp11-Q: Churn
 
-**Status:** PREPARATION — IMPLEMENTATION COMPLETE / LOCAL VERIFICATION REQUIRED
+**Status:** PASS / CLOSED — FORMAL EVIDENCE FROZEN AND PROMOTED
 
 ## Objective
 Execute the frozen Exp11-Q Churn matrix from `docs/03_EXPERIMENT_CONTRACT.md` under the frozen statistical/provenance rules after bounded preparation verification.
@@ -214,7 +214,117 @@ The bounded churn smoke values above are purely diagnostic pre-formal integratio
 ### Result
 **S09-PREP-3 = PASS / CLOSED.**
 
-## Next controlled gate
-`S09-PREP-4 — Exp11-Q Formal Release and Freeze Audit`.
+## S09-PREP-4 Reconciliation — Stage Bookkeeping Reconciliation — 2026-09-28
 
-The 30-run formal Exp11-Q execution remains blocked until the release/freeze audit passes.
+**Status:** FACTUALLY RECONCILED.
+
+The prior planning placeholder `S09-PREP-4 — Exp11-Q Formal Release and Freeze Audit` is reconciled factually against the executed formal run. Full pre-run static and regression verification was achieved under S09-PREP-2 and S09-PREP-3 (clean test suite, contract tests passing, deterministic smoke passing, and root topology redirection verified). Formal execution was performed directly from clean Q-AHBN2 commit `39688467d6bfe33a3281dca65f7c8a85fafc8684` against pinned canonical AHBN commit `936a79480bc1252c79b6ee01f65c88c740af2844`. Rather than retroactively rewriting history, this section records that formal release controls were satisfied and execution proceeded under controlled conditions.
+
+## S09-FORMAL-1 — Execute Frozen 30-Run Exp11-Q Churn Matrix — 2026-09-28
+
+**Status:** EXECUTED / RAW FORMAL EVIDENCE CREATED.
+
+The frozen 30-run Exp11-Q Churn matrix was executed using the guarded formal runner `scripts/run_exp11q_formal.py`:
+- Environment: ControlSim;
+- Scenario: BA(100, m=3), source 0, 1,000 sequential messages per run;
+- Matrix: churn levels {0.00, 0.20, 0.40}, methods {AHBN, Q-AHBN2}, seeds {42, 43, 44, 45, 46};
+- Cycles: 4 leave/rejoin cycles per run (leaves before 201, 401, 601, 801; rejoins before 251, 451, 651, 851);
+- Q-AHBN2 learner: frozen 81-state / 5-action space, alpha_Q=0.25, gamma=0.70, epsilon 0.30->0.03 (decay 0.995);
+- Target selection: deterministic seeded non-source node IDs shared identically between paired AHBN and Q-AHBN2 runs;
+- Pinned commits: Q-AHBN2 commit `39688467d6bfe33a3281dca65f7c8a85fafc8684`, canonical AHBN commit `936a79480bc1252c79b6ee01f65c88c740af2844`.
+
+Generated raw formal evidence directory:
+`output/evidence/q-ahbn-28092026203251-exp11q-formal/`
+
+All 30 expected runs completed successfully (30/30). No exclusions, selective reruns, parameter adjustments, or matrix expansions occurred.
+
+## S09-FORMAL-2 — Exp11-Q Formal Evidence Integrity, Matrix Completeness, and Large Trace Audit — 2026-09-28
+
+**Status:** PASS / CLOSED.
+
+### Artifact presence and provenance audit
+All four required raw formal artifacts are present under `output/evidence/q-ahbn-28092026203251-exp11q-formal/`:
+- `RUN.md` (494 bytes)
+- `manifest.json` (834 bytes)
+- `exp11q_formal.csv` (46,001 bytes)
+- `decision_trace.json` (537,124,106 bytes)
+
+Provenance verification confirms:
+- Environment: ControlSim;
+- Experiment: Exp11-Q Churn;
+- Event: formal;
+- Timestamp: `28092026203251`;
+- Q-AHBN2 commit: `39688467d6bfe33a3281dca65f7c8a85fafc8684`;
+- Canonical AHBN commit: `936a79480bc1252c79b6ee01f65c88c740af2844`;
+- Expected runs = 30, completed runs = 30;
+- Exclusions: 0;
+- Reruns: 0.
+
+### Matrix and CSV audit
+Full inspection of `exp11q_formal.csv` confirms:
+- Rows: exactly 30 data rows (plus header);
+- Unique cells: exactly 30 unique `(churn_level, method, seed)` cells;
+- Duplicate cells: 0;
+- Missing cells: 0;
+- Churn levels: exactly {0.00, 0.20, 0.40};
+- Methods: exactly {ahbn, qahbn2};
+- Seeds: exactly {42, 43, 44, 45, 46};
+- Primary dissemination metrics (`delivery_ratio`, `propagation_delay`, `duplicates`, `total_forwards`): all present, finite, non-negative, and properly typed;
+- Churn target counts: 0 for churn 0.00; 20 for churn 0.20; 40 for churn 0.40;
+- Churn schedule: 4 cycles per run; target counts match churn level; node 0 (source) is never targeted; paired AHBN and Q-AHBN2 runs share identical deterministic target schedules;
+- Churn events: 0 events for churn 0.00; exactly 8 events (4 leave, 4 join) for churn 0.20 and 0.40, with leave events occurring strictly at message boundaries 201, 401, 601, 801 and join events strictly at 251, 451, 651, 851; event targets match schedule targets;
+- Q-AHBN2 metrics: `mean_reward`, `cumulative_reward`, `q_updates`, `state_action_coverage`, `intervention_count`, `keep_count`, and `action_distribution` are all finite and valid; AHBN rows correctly maintain empty Q-fields;
+- Action distribution sums reconcile exactly: `sum(action_distribution.values()) == intervention_count + keep_count`.
+
+### Large trace audit (>250 MB rule)
+In compliance with the project rule mandating local auditing of artifacts >250 MB in the Google Drive-synchronized workspace, `decision_trace.json` (537,124,106 bytes / ~537 MB) was audited locally via incremental group streaming without memory exhaustion:
+- Top-level structure: valid JSON array of trace groups;
+- Group count: exactly 15 groups, corresponding 1-to-1 with the 15 Q-AHBN2 formal cells (3 churn levels x 5 seeds);
+- Unique group mapping: no duplicate or missing groups; each group maps uniquely to a `(churn_level, seed)` cell present in the CSV;
+- Individual decision records: exactly 1,264,774 decision records audited across all 15 groups;
+- Record schema: every record contains valid `decision_id`, `peer_id` (0..99), `message_id`, `state` (4 elements in {"L","M","H"}), `action` (in the 5 frozen actions), `mode_ahbn`, `k_ahbn`, `mode_q`, `k_q`, `k_real`, `NEW`, `DUPLICATE`, and `FAILED`;
+- Record counts: per-cell record count matches `intervention_count + keep_count` in `exp11q_formal.csv` with zero discrepancy;
+- Action counts: per-cell action counts in the trace match the serialized `action_distribution` in `exp11q_formal.csv` with 100% agreement;
+- Truncation / malformation: 0 malformed records, 0 truncated records.
+
+### Scientific boundary
+This gate establishes structural completeness, provenance, determinism, pairing, and protocol validity only. In accordance with controlled closure rules, no comparative performance analysis, inferential statistics, ranking, or result-based design decisions were conducted.
+
+### Result
+**S09-FORMAL-2 = PASS / CLOSED.**
+
+## S09-CLOSE — Exp11-Q Evidence Freeze / Promotion and Stage Closure — 2026-09-28
+
+**Status:** PASS / CLOSED.
+
+### Evidence freeze and promotion
+The raw formal evidence directory:
+`output/evidence/q-ahbn-28092026203251-exp11q-formal/`
+is frozen and preserved without modification, renaming, or deletion.
+
+Frozen raw artifact integrity:
+- `RUN.md`: 494 bytes, SHA-256 `6da4061efd8c4e77aab03e78bab9961e905df741174739237de0d86997b73cf7`
+- `manifest.json`: 834 bytes, SHA-256 `dec009e3cc059e5b303f7ade4a8b877b310cd44c2657bbbf8c1570e6c40aa99a`
+- `exp11q_formal.csv`: 46,001 bytes, SHA-256 `d869f4c76cd139b2dd554de5e5a8bf61d8403e8b223106f7809200676347f00c`
+- `decision_trace.json`: 537,124,106 bytes, SHA-256 `1dcab26ed6014228e74b1ee7b822cb0e733d1a561ada156f792562402f1dcb2d`
+
+A deterministic closure audit artifact has been created under `output/evidence/`:
+`output/evidence/q-ahbn-28092026212332-exp11q-close-audit/`
+Containing:
+- `RUN.md` (summary of audit and freeze)
+- `manifest.json` (machine-readable audit metadata and raw artifact hashes)
+- `integrity_report.json` (complete machine-readable verification report)
+
+### Readback verification
+Readback confirmed:
+- Raw formal directory `output/evidence/q-ahbn-28092026203251-exp11q-formal/` and closure audit directory `output/evidence/q-ahbn-28092026212332-exp11q-close-audit/` reside in the designated Google Drive synchronized hierarchy (`/Users/wwiras/Library/CloudStorage/GoogleDrive-samsuddin.samsuddin@monash.edu/My Drive/PhDResearch/myResearch/NewAlgorithm-AHBN/AHBNcode/q-ahbn2/output/evidence/`);
+- The four raw formal artifacts remain unaltered with matching sizes and checksums;
+- No duplicate 537 MB trace was copied;
+- Working tree remains clean;
+- No scientific code or frozen contracts were modified.
+
+### Result
+**S09-CLOSE = PASS / CLOSED.**
+
+## Next controlled stage
+$$\boxed{\textbf{S10 — Exp12-Q Heterogeneity}}$$
