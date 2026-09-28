@@ -78,7 +78,7 @@ S03 remains blocked until that re-audit returns PASS.
 
 ## S02-CLOSE-C2 — Residual Stale-Status Supersession
 
-**Status:** **REGISTERED / NEXT.**
+**Historical completion status (SUPERSEDED):** **PASS / COMPLETE.** The original C2 registration is preserved below as provenance and no longer represents the current gate or next action.
 
 Minimum corrective scope only: locally supersede residual current-looking stale status text while preserving historical evidence. Target conditions are apparently active historical `gamma=0.90`, unresolved S02-H, pending S02-I, and blocked S02-J wording.
 
