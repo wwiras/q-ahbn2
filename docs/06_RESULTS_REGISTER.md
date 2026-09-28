@@ -40,4 +40,14 @@
 - Evidence integrity: PASS / CLOSED (S09-CLOSE)
 - Scope limitation: formal evidence completed and frozen under deliberate closure audit; comparative scientific conclusions, statistical aggregation, and inferential claims are deferred beyond this gate.
 
-Formal Exp12-Q results: **PENDING** (under S10).
+### Exp12-Q — Heterogeneity
+- Environment: ControlSim Formal Heterogeneity
+- Topology: BA(100, m=3), source 0, 1,000 sequential messages
+- Resource profiles: balanced, moderate_heterogeneity, weak_heavy
+- Seeds: {42, 43, 44, 45, 46}
+- Methods: AHBN, Q-AHBN2
+- Runs: 30/30 completed (0 exclusions, 0 reruns)
+- Frozen formal directory: `output/evidence/Exp12-Q/q-ahbn-28092026215008-exp12q-formal/`
+- Evidence integrity: PASS / CLOSED (S10.5)
+- Evidence promotion/freeze: PASS / CLOSED (S10.6)
+- Scope limitation: formal evidence completed, integrity-verified, promoted and frozen; comparative scientific conclusions and statistical interpretation remain governed by the frozen statistical contract and are not claimed by S10 closure.
