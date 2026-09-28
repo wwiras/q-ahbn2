@@ -145,3 +145,28 @@ Next controlled stage:
 `S08 — Formal Exp10-Q (Failure)`.
 
 S08 must execute only the frozen Exp10-Q matrix. No matrix, metric, parameter, comparator or statistical-rule change is authorized by this release.
+
+## S07-D — Thesis–Paper Evidence Sufficiency and Prospective Scope Amendment Audit — 2026-09-28
+
+**Mode:** prospective read-only audit followed by control-document amendment only. No formal experiment was executed and no formal Exp10-Q / Exp11-Q / Exp12-Q result was inspected.
+
+### S07-D.1 — RQ4/RO4/RC4 Evidence Mapping
+**PASS.** Learning Validation remains stationary learning-mechanics evidence; Exp10-Q / Exp11-Q / Exp12-Q remain the primary thesis RO4/RQ4 AHBN-versus-Q-AHBN2 causal evidence; Exp13-Q is a separate external publication-positioning benchmark; K8s-VAL-Q remains bounded deployment validation.
+
+### S07-D.2 — Publication Comparator Sufficiency Audit
+**PASS.** The minimum defensible Exp13-Q comparator set is exactly Gossip, Structured, DC-SoC, AHBN and Q-AHBN2. Their provenance is established by the pinned canonical AHBN/RO2 lineage and the current Q-AHBN2 implementation boundary. No new RL family or additional comparator is scientifically necessary.
+
+### S07-D.3 — Exp13-Q Scenario Selection Audit
+**PASS / FROZEN.** The prospective scenario is churn=0.40 on BA(100,m=3), source 0, 1,000 sequential messages, four leave/rejoin cycles matching Exp11-Q, seeds 42--46, five methods, 25 runs. This selection is frozen before formal Q-AHBN2 outcomes and may not be changed based on later performance.
+
+### S07-D.4 — Minimality Audit
+**PASS.** No five-way expansion of Exp10-Q/11-Q/12-Q, no extra seeds/topologies/combined dynamics, no legacy Q-AHBN/DQN/SARSA, no further learning-parameter tuning, no reward redesign, no extra severity sweep, no composite Adaptation Efficiency metric, and no full Kubernetes replication are authorized.
+
+### S07-D.5 — Formal Contract Amendment Freeze
+**PASS / FROZEN.** Experiment/statistical controls, reviewer safeguards, claim boundaries and stage structure are amended prospectively. Exp10-Q/11-Q/12-Q are unchanged. Formal ControlSim scope is now 105 runs: 80 primary RO4 runs + 25 Exp13-Q reference-benchmark runs.
+
+No Exp13-Q formal execution is authorized until its dedicated harness has later passed bounded preparation/regression/smoke verification.
+
+**S07-D = PASS / CLOSED / FROZEN.**
+
+Next permitted task returns to **S08-PREP-3 — Local Regression + Bounded Exp10-Q Smoke**. Exp13-Q execution occurs only at its dedicated later stage and must not interrupt or alter Exp10-Q / Exp11-Q / Exp12-Q.
