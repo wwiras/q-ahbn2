@@ -1,6 +1,6 @@
 # Q-AHBN2 Results Register
 
-**Status:** ACTIVE — K2-Q PASS / K3-Q NEXT
+**Status:** ACTIVE — K3-Q PREP PASS / MANUAL GKE SMOKE NEXT
 **Created:** 2026-09-23 under DOC-SYNC-1
 
 ## Registered bounded evidence
@@ -100,5 +100,6 @@
 - K1-Q Kubernetes design/code mapping: PASS / CLOSED.
 - K2-Q GKE integration/parity verification: **PASS / CLOSED (2026-09-29)**.
 - K2-Q local verification: focused deterministic suite **9/9 PASS**; full repository regression **78/78 PASS**; synchronized `main` clean.
-- Per the frozen Master stage map, the next controlled gate is **K3-Q — Bounded GKE Smoke**.
+- K3-Q-PREP deployable runtime assembly: **PASS (2026-09-29)**; inherited `ahbn2_gke` runtime/Helm assets assembled under `q-ahbn2/gke/` with additive Q-AHBN2-only runtime wrapper.
+- Current gate: **K3-Q — Bounded GKE Smoke**; manual Docker image build/push and real GKE smoke are required before closure.
 - S12 interpretation remains blocked until the Kubernetes chain K0-Q through K6-Q is completed and its evidence frozen.
