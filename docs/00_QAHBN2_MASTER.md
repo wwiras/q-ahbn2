@@ -2132,3 +2132,9 @@ docs/stages/S10A_FORMAL_EXP13Q_REFERENCE_BENCHMARK.md
 Exp13-Q must not be used to redesign Q-AHBN2, retune parameters, select a favorable scenario post hoc, or create an omnibus algorithm ranking. Its role is bounded external reference positioning under one prospectively selected high-churn condition.
 
 After S07-D closure, the immediate operational next task remains **S08-PREP-3 — Local Regression + Bounded Exp10-Q Smoke**.
+
+
+## Current-stage reconciliation — 2026-09-29
+S12A — Thesis–Paper Claim Reconciliation is **PASS / CLOSED**. The final claim authorization contract is frozen in `docs/stages/S12A_CLAIM_RECONCILIATION.md` and `docs/07_CLAIM_EVIDENCE_MATRIX.md`.
+
+The next permitted paper gate is **S13 — Q-AHBN2 Manuscript**. S13 must draft only within the S12A claim boundaries and must not reopen experimental design, parameters, algorithms, metrics, evidence, or statistical procedures. The separate thesis evidence-mapping gate remains **S13-T — Chapter 6 Mapping** according to the frozen downstream stage map.
