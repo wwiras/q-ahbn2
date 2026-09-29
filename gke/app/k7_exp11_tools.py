@@ -357,7 +357,8 @@ def validate_run(run_dir: Path) -> dict:
     if algorithm=="dcsoc" and not maintenance: raise ValueError("DC-SoC maintenance missing")
     if algorithm!="dcsoc" and maintenance: raise ValueError("maintenance leaked")
     traces=[r for r in rows if r.get("event")=="ahbn_controller_trace"]; decisions=[r for r in rows if r.get("event")=="k5_final_actuator_decision"]
-    if (algorithm=="ahbn") != bool(traces and decisions): raise ValueError("AHBN trace isolation failed")
+    adaptive = algorithm in {"ahbn","qahbn2"}
+    if adaptive != bool(traces and decisions): raise ValueError("AHBN trace isolation failed")
     injected=[r for r in rows if r.get("event")=="message_injected"]
     received=[r for r in rows if r.get("event")=="received_new"]; dup=[r for r in rows if r.get("event")=="received_duplicate"]; fwd=[r for r in rows if r.get("event")=="forward"]
     churn_state=[{"event":"churn_rejoined","target_peer":r["target_peer"],"ts":r["ts"]} for r in joins]+[{"event":"churn_down","target_peer":r["peer_id"],"ts":r["ts"]} for r in downs]
@@ -375,7 +376,7 @@ def validate_run(run_dir: Path) -> dict:
     attempts=[r for r in rows if r.get("event")=="k7_forward_attempt"]
     if not attempts: raise ValueError(f"{algorithm} forwarding attempt trace missing")
     if algorithm=="structured" and not any("structured_cluster_head_id" in r for r in attempts): raise ValueError("Structured path trace missing")
-    if algorithm=="ahbn":
+    if adaptive:
         required_ahbn={"raw_d","raw_l","raw_u","raw_c","d_hat","l_hat","u_hat","c_hat","score","mode","fanout"}
         if not traces or any(not required_ahbn<=set(r) for r in traces): raise ValueError("AHBN causal trace incomplete")
         if not any(r.get("event")=="ahbn_forwarding_decision" and "selected_peers" in r for r in rows): raise ValueError("AHBN selected-target trace missing")
