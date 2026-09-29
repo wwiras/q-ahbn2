@@ -208,3 +208,16 @@ This verifies the prospective matrix/source reconciliation without consuming clu
 $$\boxed{\textbf{K5-Q-FORMAL-PREFLIGHT-S1 = PASS}}$$
 
 Remaining hold: build a fresh immutable formal image from the reconciled formal runtime/controller HEAD and pass the expanded image/controller import preflight before run 1/25.
+
+## K5-Q-FORMAL-PREFLIGHT-D1 — Expanded import-preflight newline correction — 2026-09-29
+
+The rebuilt v2 formal image completed build/push and registry platform verification as `linux/amd64`, with digest:
+`sha256:d8ac06197962a6e42cb9e564a9c115c08b9f018df231f61cdbfbb8796422991e`.
+
+The subsequent container import preflight did not execute its imports because the host wrapper contained the literal characters `\\n` between `import qahbn2_runtime` and `import controller`, producing a Python `SyntaxError` before runtime import evaluation.
+
+Classification: preflight-wrapper defect only. The registry image exists and its architecture verification passed; no formal GKE coordinate was executed and no scientific outcome was inspected.
+
+Correction: replace the escaped literal with a genuine newline and add a regression guard preventing recurrence.
+
+$$\boxed{\textbf{K5-Q-FORMAL-PREFLIGHT-D1 = PASS; S2 remains HOLD pending corrected container import preflight}}$$
