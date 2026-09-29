@@ -1,6 +1,6 @@
 # Q-AHBN2 Results Register
 
-**Status:** ACTIVE — K5-Q-PREP PASS; K5-Q-PREEXEC NEXT
+**Status:** ACTIVE — K5-Q-PREEXEC PASS; K5-Q-FORMAL RELEASED
 **Created:** 2026-09-23 under DOC-SYNC-1
 
 ## Registered bounded evidence
@@ -117,3 +117,13 @@
 - First formal-image wrapper attempt: **INVALID / no build started** due solely to missing repository root on Python module search path.
 - K5-Q-PREEXEC-D1 correction: **PASS**; build wrapper now injects repository root into `PYTHONPATH`.
 - Current gate remains **K5-Q-PREEXEC — corrected immutable formal-image build/preflight**.
+
+## K5-Q-PREEXEC closure — 2026-09-29
+- **PASS / CLOSED**.
+- Formal image: `wwiras/q-ahbn2:k5q-formal-20260929`.
+- Platform: `linux/amd64` verified.
+- Digest: `sha256:dc6c6ceeec0220e51b03f76313a3cfa6448be9647c00e0a68a8a6abccbf33f52`.
+- Real-container import preflight: PASS.
+- Git/control release HEAD: `a6cea140604a268fc0c781c8dcc2130eb1923efa`.
+- Digest identity with K3 reflects unchanged container runtime content; K5 provenance must record image digest and Git/control SHA separately.
+- Current gate: **K5-Q-FORMAL — exact frozen 25-coordinate GKE execution**.
