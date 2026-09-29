@@ -35,6 +35,13 @@ class TestK5QPrep(unittest.TestCase):
         self.assertIn('k7_controller.py controller.py',docker)
         self.assertTrue((root/'gke/helm/ahbn/templates/job-controller.yaml').exists())
 
+    def test_preflight_controller_import_is_real_line(self):
+        from pathlib import Path
+        root=Path(__file__).resolve().parents[1]
+        preflight=(root/'gke/scripts/preflight_k3_q_image.sh').read_text()
+        self.assertIn('import qahbn2_runtime\\nimport controller', preflight)
+        self.assertNotIn('import qahbn2_runtime\\\\nimport controller', preflight)
+
     def test_rejects_unfrozen_coordinate(self):
         with self.assertRaises(ValueError): validate_coordinate(47,'ahbn')
         with self.assertRaises(ValueError): validate_coordinate(42,'legacy_qahbn')
