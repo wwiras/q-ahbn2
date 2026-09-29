@@ -169,3 +169,9 @@
 - Host-runner Helm paths and newline regression guards: PASS.
 - Formal run count at release: **0/25**.
 - Current gate: **K5-Q-FORMAL — exact frozen 25-coordinate GKE execution**.
+
+## K5-Q-FORMAL-D4 — 2026-09-29
+- First formal invocation stopped pre-coordinate on sole untracked generated file `gke/helm/ahbn/topology.json`; tracked diff was empty.
+- Generated Helm topology is now explicitly ignored.
+- Clean-tree provenance check moved before evidence creation/mutation and regression-guarded.
+- Runtime/science/image unchanged; formal count remains **0/25**.
