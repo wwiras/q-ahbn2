@@ -95,3 +95,14 @@ Corrective action: `gke/scripts/verify_k3_q_image.sh` now parses the raw registr
 **Scientific classification:** operational verification correction only; no scientific configuration changed.
 
 $$\boxed{\textbf{K3-Q-D2 = PASS; K3-Q remains HOLD pending unchanged smoke rerun}}$$
+
+
+## K3-Q-D3 — Image Configuration Verification — 2026-09-29
+
+The D2 raw-manifest parser could not determine architecture because the pushed tag resolves to a single-platform Docker v2 manifest whose top-level representation does not expose an architecture field. This is a verifier limitation, not evidence of an invalid image.
+
+The verifier now performs a platform-constrained registry pull (`docker pull --platform linux/amd64`) and then inspects the materialized image configuration (`.Os/.Architecture`). A PASS therefore demonstrates that the registry tag can actually be resolved as the platform required by the GKE runtime.
+
+No image rebuild, algorithm change, topology change, or experiment change is authorized by this diagnostic.
+
+$$\boxed{\textbf{K3-Q-D3 verifier correction applied; K3-Q remains HOLD pending image verification and unchanged smoke}}$$
