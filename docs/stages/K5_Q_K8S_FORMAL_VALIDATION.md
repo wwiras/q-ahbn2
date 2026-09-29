@@ -1,6 +1,6 @@
 # K5-Q — K8s-VAL-Q / Exp13-Q-K8s Formal Execution
 
-**Status:** K5-Q-PREEXEC PASS / FORMAL GKE EXECUTION RELEASED
+**Status:** K5-Q-FORMAL-PREP ASSEMBLED / FORMAL EXECUTION HOLD — REBUILD + LOCAL PREFLIGHT REQUIRED
 
 ## Objective
 Execute only the Kubernetes deployment-validation and matched reference-benchmark matrix frozen at K4-Q.
@@ -150,3 +150,35 @@ $$\boxed{\textbf{K5-Q-PREEXEC = PASS / CLOSED}}$$
 **K5-Q-FORMAL — execute exactly the frozen 25-coordinate GKE matrix.**
 
 No additional method, seed, condition, repetition, metric or tuning is authorized. Working output remains under `output/evidence/` and is not authoritative Drive evidence until K6-Q.
+
+## K5-Q-FORMAL-PREP — Locked formal runner reconciliation — 2026-09-29
+
+Before formal run 1/25, inspection of the pinned `ahbn2_gke` K7 authority found that the K3 smoke assembly was intentionally narrower than the K5 five-method churn requirement. K5 therefore required additional inherited deployment assets before execution:
+- K7 absolute-grid churn controller/orchestration;
+- K7 target-selection/config/topology contract tooling;
+- Helm controller Job;
+- controller-side DC-SoC maintenance tracing;
+- final-S5 routing for standalone AHBN;
+- forwarding-attempt tracing required by inherited K7 validation;
+- explicit Q-AHBN2 decision/outcome/reward evidence validation.
+
+These assets were imported from pinned `wwiras/ahbn2_gke@cc7ce17ca489ed4a0eaf8c7bb2ebfa0c9780b689` and adapted only for repository layout plus the fifth `qahbn2` treatment. No new churn mechanism was designed.
+
+### Prospective K4 source correction
+The inherited K7 target set is `(0,5,10,15)`, so the earlier K4 statement `source=0` was internally inconsistent. At 0/25 formal runs, K4-Q-A1 prospectively replaced it with the inherited deterministic common non-structural source-selection rule. This prevents source/target collision and preserves the validated K7 design.
+
+### Locked runner
+`gke/scripts/run_k5_q_formal.sh` is now the only prepared formal matrix runner. It:
+- locks methods to Gossip, Structured, DC-SoC, AHBN, Q-AHBN2;
+- locks seeds to 42--46;
+- prospectively generates/validates target selection, configs and matched topologies;
+- executes the inherited validated churn controller for each coordinate;
+- validates each run before advancing;
+- creates `matrix_manifest.json` only after 25 validated coordinates;
+- runs the K5 artifact completeness validator;
+- writes only under repository-local `output/evidence/`.
+
+### Release hold
+The previously built K5 image predates these required formal-controller/runtime additions. Therefore its successful preflight remains valid historical pre-execution evidence but it is **not the final K5 formal image**. A new immutable formal image must be built from the reconciled formal-runner/runtime HEAD and must pass the expanded container preflight (including controller import) before run 1/25.
+
+$$\boxed{\textbf{K5-Q-FORMAL-PREP = PASS; K5-Q-FORMAL = HOLD pending rebuilt image + local static/preflight verification}}$$
