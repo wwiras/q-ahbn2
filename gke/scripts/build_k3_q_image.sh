@@ -18,9 +18,5 @@ docker buildx build   --platform "${PLATFORM}"   -f gke/app/Dockerfile.qahbn2   
 
 echo "Inspecting pushed manifest:"
 docker buildx imagetools inspect "${IMAGE}"
-
-if ! docker buildx imagetools inspect "${IMAGE}" | grep -q "linux/amd64"; then
-  fail "pushed image does not advertise linux/amd64"
-fi
-
-echo "K3-Q IMAGE BUILD/PUSH PASS: linux/amd64 present"
+IMAGE="${IMAGE}" EXPECTED_ARCH=amd64 bash gke/scripts/verify_k3_q_image.sh
+echo "K3-Q IMAGE BUILD/PUSH PASS: linux/amd64 verified"
