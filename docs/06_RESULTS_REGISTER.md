@@ -1,6 +1,6 @@
 # Q-AHBN2 Results Register
 
-**Status:** ACTIVE — S11 COMPLETE / K0-Q NEXT
+**Status:** ACTIVE — K2-Q PASS / K3-Q NEXT
 **Created:** 2026-09-23 under DOC-SYNC-1
 
 ## Registered bounded evidence
@@ -96,5 +96,9 @@
 - **S11 complete; Kubernetes chain next.**
 - S11-A primary RO4 aggregation: PASS / CLOSED.
 - S11-B Exp13-Q external benchmark aggregation: PASS / CLOSED.
-- Per the frozen Master stage map, the next controlled gate is **K0-Q — Kubernetes Scope Reconciliation**.
+- K0-Q Kubernetes scope reconciliation: PASS / CLOSED.
+- K1-Q Kubernetes design/code mapping: PASS / CLOSED.
+- K2-Q GKE integration/parity verification: **PASS / CLOSED (2026-09-29)**.
+- K2-Q local verification: focused deterministic suite **9/9 PASS**; full repository regression **78/78 PASS**; synchronized `main` clean.
+- Per the frozen Master stage map, the next controlled gate is **K3-Q — Bounded GKE Smoke**.
 - S12 interpretation remains blocked until the Kubernetes chain K0-Q through K6-Q is completed and its evidence frozen.
