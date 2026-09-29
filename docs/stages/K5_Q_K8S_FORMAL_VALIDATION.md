@@ -393,3 +393,22 @@ Validator rule refined:
 No runtime, image, parameters, topology, workload, or raw evidence changed.
 
 $$\boxed{\textbf{K5-Q-FORMAL-D7 = validator-only compatibility correction; resume remains from same preserved evidence root}}$$
+
+### K5-Q-FORMAL-D8 — Seed-batched execution mode
+
+Researcher requested the ability to execute the frozen 25-coordinate formal matrix one seed at a time.
+
+Source audit of `gke/scripts/run_k5_q_formal.sh` confirmed the previous runner always iterated all five seeds and had no seed selector.
+
+A fail-closed orchestration-only selector `FORMAL_SEED` was added. It:
+- accepts only frozen seeds 42–46;
+- limits only the execution loop to the selected seed;
+- preserves the frozen five-method order for that seed;
+- leaves full five-seed config/target/topology contract generation intact;
+- does not alter the frozen 25-coordinate matrix, methods, seeds, workload, image, digest, validation rules, or scientific protocol;
+- exits after the selected seed batch passes, without falsely creating the final 25/25 matrix manifest or declaring full formal completion;
+- retains the existing full-run path, which alone performs final matrix manifest construction and 25/25 artifact validation.
+
+Seed batching is therefore an operational batching convenience, not an experiment redesign. Selective stopping based on observed performance remains prohibited; all seeds 42–46 and all five methods remain mandatory before K5-Q closure.
+
+$$\boxed{\textbf{K5-Q-FORMAL-D8 = orchestration-only seed batching; scientific matrix unchanged}}$$
