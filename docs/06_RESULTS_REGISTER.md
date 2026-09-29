@@ -136,3 +136,11 @@
 - Locked formal runner: `gke/scripts/run_k5_q_formal.sh`; exact 5 methods x 5 seeds; per-run validation and final matrix manifest.
 - Previous formal image is superseded for K5 execution because formal controller/runtime packaging changed before run 1/25.
 - Current gate: **K5-Q-FORMAL-PREFLIGHT — local regression + rebuilt immutable formal image/preflight**.
+
+## K5-Q-FORMAL-PREFLIGHT-S1 — 2026-09-29
+- **PASS**; 0/25 formal GKE runs executed.
+- Local K5 regression: 5/5 PASS.
+- Preparation audit: exact 25-coordinate contract PASS.
+- No-GKE full matrix generation/contract validation: PASS.
+- Per-seed common sources: 42->1, 43->1, 44->1, 45->2, 46->1; no collision with frozen churn targets `(0,5,10,15)`.
+- Remaining gate: rebuilt immutable v2 formal image + expanded container/controller preflight.
