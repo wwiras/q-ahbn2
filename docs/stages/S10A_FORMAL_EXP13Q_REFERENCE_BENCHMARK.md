@@ -1,6 +1,6 @@
 # S10A — Formal Exp13-Q: Reference Benchmark
 
-**Status:** S10A-FORMAL EXECUTED; RAW EVIDENCE CREATED; INTEGRITY AUDIT NEXT
+**Status:** S10A-INTEGRITY PASS / CLOSED; EVIDENCE FREEZE / PROMOTION NEXT
 
 ## Objective
 Provide one bounded external reference benchmark for standalone Q-AHBN2 publication positioning without replacing or expanding the primary thesis RO4 causal matrix.
@@ -348,7 +348,7 @@ No test failure, regression, frozen-matrix violation, provenance-guard failure, 
 
 The guarded formal runner and provenance controls are verified. The exact 25-run Exp13-Q formal matrix is now operationally released for researcher execution under the frozen contract.
 
-No formal result has yet been generated or interpreted at this gate.
+No formal result was generated or interpreted during S10A-RELEASE; formal execution occurred subsequently under S10A-FORMAL.
 
 ### S10A-FORMAL — Frozen 25-Run Exp13-Q Reference Benchmark Execution
 
@@ -382,6 +382,40 @@ Execution rules:
 - no interpretation or aggregation during execution;
 - any interruption or anomaly must be classified first as a runtime/validity issue;
 - generated output remains raw formal evidence pending integrity/completeness audit.
+
+## S10A-INTEGRITY — Exp13-Q Formal Evidence Integrity / Completeness / Provenance Audit
+
+**Result:** PASS / CLOSED.
+
+A deterministic read-only local audit was performed over the preserved Exp13-Q formal directory, including the approximately 166 MB decision trace. No scientific performance interpretation, aggregation, ranking, tuning, redesign, exclusion, or rerun was performed.
+
+The audit established:
+- all four required artifacts present, non-empty and readable: `RUN.md`, `manifest.json`, `exp13q_formal.csv`, and `decision_trace.json`;
+- manifest/provenance matches the frozen Exp13-Q contract, producing Q-AHBN2 commit `2b11b4e95ef98c86458e02c494d6b6ea232a6d7a` and pinned canonical AHBN commit `936a79480bc1252c79b6ee01f65c88c740af2844`;
+- exact 25-cell matrix: five frozen methods x seeds 42--46, with no duplicate, missing, or unauthorized cells;
+- primary metric fields structurally valid across all 25 rows;
+- exact churn=0.40 common-scenario provenance, 40 non-source churn targets per cycle, four frozen leave/rejoin cycles, and same-seed schedule identity across all five methods;
+- frozen DC-SoC parameters `eps=2.0`, `min_samples=3`;
+- Q-AHBN2 CSV learning/action evidence internally reconciled;
+- decision-trace JSON contains exactly five Q-AHBN2 seed groups;
+- exactly **410,852** Q-AHBN2 decision records structurally validated;
+- per-seed trace record counts equal `intervention_count + keep_count`;
+- per-seed trace action counts match the serialized CSV `action_distribution` exactly;
+- no malformed or duplicate decision records detected;
+- exclusions: 0;
+- reruns: 0.
+
+### Audit-assumption correction
+An initial diagnostic assertion rejected `cluster` as the structured-mode implementation label and assumed `k_q >= 2`. Repository readback confirmed those audit assumptions were incorrect: the frozen ControlSim path accepts `cluster`/structured semantics, and the frozen design explicitly permits `k_AHBN=2 + FANOUT_DOWN -> k_Q=1`. The audit was corrected to the frozen design and rerun deterministically. This was an audit-script assumption mismatch, not an experimental defect, and did not justify rerunning any formal cell.
+
+The final corrected audit terminated with `EXP13Q_INTEGRITY_PASS`.
+
+The audit outcome establishes evidence integrity/completeness only. It does not constitute scientific interpretation or comparative performance analysis.
+
+### Next controlled gate
+Following the Master workflow and the established S10.6 evidence-preservation pattern, the next controlled action is a bounded **Exp13-Q evidence freeze / promotion and S10A stage-closure gate**. The verified raw formal directory must be deliberately preserved in the designated Google Drive evidence hierarchy without rewriting raw artifacts.
+
+**S11 remains blocked until this evidence freeze/promotion is verified and S10A is fully closed.**
 
 ## Statistical boundary
 Use the Exp13-Q amendment in `docs/04_STATISTICAL_CONTRACT.md`. No omnibus winner score, post-hoc test shopping, or universal-superiority claim.
