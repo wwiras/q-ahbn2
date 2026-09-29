@@ -441,8 +441,6 @@ S10A formal execution, integrity verification, evidence promotion/freeze, and st
 Use the Exp13-Q amendment in `docs/04_STATISTICAL_CONTRACT.md`. No omnibus winner score, post-hoc test shopping, or universal-superiority claim.
 
 ## Next permitted task
-`S10A-INTEGRITY — Exp13-Q Formal Evidence Integrity / Completeness / Provenance Audit`.
+`S11 — ControlSim Aggregation`, beginning from the controlled aggregation contract in `docs/stages/S11_AGGREGATION.md`.
 
-Audit the generated raw directory before any interpretation, aggregation, evidence promotion, or S11 transition.
-
-**S11 remains blocked until Exp13-Q formal evidence is completed, integrity-verified, and frozen.**
+S11 must keep Exp10-Q / Exp11-Q / Exp12-Q as the primary RO4 causal family and aggregate Exp13-Q separately as bounded five-method reference-positioning evidence. No new experiment, tuning, exclusion, omnibus winner score, global ranking, or post-hoc test shopping is authorized by S10A closure.
