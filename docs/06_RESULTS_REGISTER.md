@@ -110,3 +110,10 @@
 - K5-Q-PREP harness/artifact preparation: **PASS (2026-09-29)**. Added executable 25-coordinate contract, fail-closed pre-execution audit, immutable AMD64 formal-image build/preflight, formal artifact completeness validator, and regression guards. No formal GKE coordinate executed and no formal outcome inspected.
 - Current gate: **K5-Q-PREEXEC — Human local regression + immutable formal-image build/preflight**; formal GKE execution remains blocked until this passes.
 - S12 interpretation remains blocked until the Kubernetes chain K0-Q through K6-Q is completed and its evidence frozen.
+
+## K5-Q-PREEXEC diagnostic — 2026-09-29
+- Local K5-Q preparation tests: **4/4 PASS**.
+- Standalone 25-coordinate preparation audit: **PASS**.
+- First formal-image wrapper attempt: **INVALID / no build started** due solely to missing repository root on Python module search path.
+- K5-Q-PREEXEC-D1 correction: **PASS**; build wrapper now injects repository root into `PYTHONPATH`.
+- Current gate remains **K5-Q-PREEXEC — corrected immutable formal-image build/preflight**.
