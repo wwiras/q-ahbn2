@@ -1,6 +1,6 @@
 # S10A — Formal Exp13-Q: Reference Benchmark
 
-**Status:** S10A-VERIFY STATIC + REGRESSION PASS; BOUNDED SMOKE NEXT; FORMAL BLOCKED
+**Status:** S10A-VERIFY STATIC + REGRESSION PASS; SMOKE IMPLEMENTED / LOCAL EXECUTION PENDING; FORMAL BLOCKED
 
 ## Objective
 Provide one bounded external reference benchmark for standalone Q-AHBN2 publication positioning without replacing or expanding the primary thesis RO4 causal matrix.
@@ -197,6 +197,40 @@ The earlier interrupted run is classified as an operational interruption during 
 **STATIC + REGRESSION PASS.**
 
 No formal run is authorized yet. The remaining verification requirement is one bounded, non-formal five-method Exp13-Q smoke execution. No statistical interpretation is authorized.
+
+### S10A-VERIFY-SMOKE-IMPL — Minimal Non-Formal Five-Method Smoke Path
+
+**Mode:** bounded smoke implementation only; local execution remains researcher-run.
+
+Implementation:
+- added `scripts/run_exp13q_smoke.py`;
+- added `tests/test_exp13q_smoke_contract.py`;
+- smoke seed is exactly 42;
+- all five frozen methods are exercised;
+- workload is bounded to messages 1--260 only;
+- this crosses exactly the first frozen leave/rejoin pair: leave before 201 and rejoin before 251;
+- the next formal churn onset at 401 is not reached;
+- the smoke calls the real Exp13-Q method paths and canonical comparator implementations;
+- the 1,000-message formal path/defaults are not modified;
+- Q-AHBN2 decision tracing is disabled only for smoke artifact size; learning/runtime behavior is otherwise the real path;
+- each method must report the exact first leave/rejoin cycle and 40 churn targets or the smoke fails;
+- output is written under `output/evidence/q-ahbn-<timestamp>-exp13q-smoke/`;
+- the artifact explicitly records `formal_performance_evidence: false`.
+
+**Result:** implementation complete; executable smoke PASS is not yet claimed.
+
+### Required local smoke command
+After pulling the latest GitHub state, run from the repository root:
+
+```bash
+git pull
+git status
+git rev-parse HEAD
+PYTHONPATH=. python -m unittest tests.test_exp13q_smoke_contract -v
+PYTHONPATH=. python scripts/run_exp13q_smoke.py
+```
+
+Return the complete terminal output and generated smoke directory path for verification. Formal Exp13-Q remains blocked until that evidence is checked.
 
 ## Statistical boundary
 Use the Exp13-Q amendment in `docs/04_STATISTICAL_CONTRACT.md`. No omnibus winner score, post-hoc test shopping, or universal-superiority claim.
