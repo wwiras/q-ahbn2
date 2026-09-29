@@ -231,7 +231,7 @@ Exp13-Q remains a separate bounded five-method external reference analysis at ch
 
 ## S11-B-PREP — Minimal Deterministic Exp13-Q Aggregation Script + Unit Tests — 2026-09-29
 
-**Status:** IMPLEMENTED / HOLD — local test execution required before closure.
+**Status:** PASS / CLOSED.
 
 ### Gate
 Implement only the deterministic aggregation logic and unit tests required for the frozen Exp13-Q five-method reference benchmark. No formal aggregation execution or scientific interpretation is authorized in PREP.
@@ -248,22 +248,19 @@ Implement only the deterministic aggregation logic and unit tests required for t
 - Formal release pipeline is deliberately absent during PREP.
 
 ### Verification state
-GitHub readback confirms both new files are present on `main`. Test execution remains a required researcher/local verification step because this connector session does not execute the repository working tree.
+Researcher-local execution against synchronized `main` completed successfully:
+- Dedicated command: `PYTHONPATH=. python3 -m unittest tests/test_aggregate_s11b_exp13q.py -v`
+- Dedicated result: **12/12 PASS; 0 failures; 0 errors**.
+- Full regression command: `PYTHONPATH=. python3 -m unittest discover -s tests -v`
+- Full regression result: **68/68 PASS; 0 failures; 0 errors**.
+- PREP boundary remained intact: no formal Exp13-Q aggregation was released during verification.
 
-Run:
-```bash
-PYTHONPATH=. python3 -m unittest tests/test_aggregate_s11b_exp13q.py -v
-```
+### Result
+$\\boxed{\\textbf{S11-B-PREP = PASS / CLOSED}}$
 
-Then run regression:
-```bash
-PYTHONPATH=. python3 -m unittest discover -s tests -v
-```
-
-PREP must remain HOLD until both commands complete with zero failures/errors. No formal Exp13-Q aggregation may be released before that verification.
-
-### Current result
-$$\\boxed{\\textbf{S11-B-PREP = HOLD — implementation complete; test execution pending}}$$
+The deterministic Exp13-Q aggregation implementation and tests are verified and ready for the bounded formal aggregation gate. No scientific interpretation has been performed.
 
 ### Next permitted action
-$$\\boxed{\\textbf{S11-B-PREP-VERIFY — Execute committed unit tests and full regression suite}}$$
+$\\boxed{\\textbf{S11-B-1 — Exp13-Q Deterministic Five-Method External Benchmark Aggregation}}$
+
+S11-B-1 may execute only the frozen 25-run Exp13-Q dataset at churn=0.40 under the verified statistical contract. It must preserve S11-A/S11-B separation and must not introduce ranking, omnibus scoring, post-hoc comparator selection, or scientific interpretation.
