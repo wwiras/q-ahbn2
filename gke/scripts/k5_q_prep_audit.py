@@ -12,6 +12,11 @@ required=[
     ROOT/'gke/app/dcsoc_maintenance.py',
     ROOT/'gke/app/k5_final_actuator_policy.py',
     ROOT/'gke/helm/ahbn/Chart.yaml',
+    ROOT/'gke/scripts/run_k5_q_formal.sh',
+    ROOT/'gke/helm/ahbn/templates/job-controller.yaml',
+    ROOT/'gke/app/controller_shared.py',
+    ROOT/'gke/app/k7_controller.py',
+    ROOT/'gke/app/k7_exp11_tools.py',
     ROOT/'docs/stages/K4_Q_K8S_VALIDATION_FREEZE.md',
 ]
 missing=[str(p.relative_to(ROOT)) for p in required if not p.exists()]
