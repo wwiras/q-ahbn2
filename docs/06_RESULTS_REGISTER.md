@@ -189,3 +189,10 @@
 - No same-coordinate rerun required.
 - Formal progress: **5/25 validated; 20/25 remaining**.
 - Resume mode added: same evidence root, same frozen image/digest, validate-before-skip, execute missing coordinates only.
+
+## K5-Q-FORMAL-D6 — 2026-09-29
+- Resume reached seed43/Q-AHBN2 after seed43 Gossip/Structured/DC-SoC/AHBN validated.
+- Seed43/Q-AHBN2 diagnostic: AHBN controller=1331; standalone S5 events=0; Q decisions=1065; outcomes=756; reward closures=480; forwarding attempts=733.
+- Source audit confirms Q-AHBN2 computes frozen S5 directly and embeds AHBN/S5 proposal in Q decision; standalone S5 event belongs to standalone AHBN path only.
+- Validator corrected to the frozen evidence shape; runtime/image/science unchanged.
+- HOLD pending in-place seed43/Q-AHBN2 revalidation.
