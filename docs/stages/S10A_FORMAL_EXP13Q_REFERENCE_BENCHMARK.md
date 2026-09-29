@@ -1,6 +1,6 @@
 # S10A — Formal Exp13-Q: Reference Benchmark
 
-**Status:** S10A-VERIFY PASS / CLOSED; S10A-RELEASE IMPLEMENTED / LOCAL CHECKS PENDING; FORMAL BLOCKED
+**Status:** S10A-VERIFY PASS / CLOSED; S10A-RELEASE PASS / CLOSED; FORMAL EXECUTION RELEASED
 
 ## Objective
 Provide one bounded external reference benchmark for standalone Q-AHBN2 publication positioning without replacing or expanding the primary thesis RO4 causal matrix.
@@ -326,32 +326,53 @@ The guarded runner:
 
 Release-contract tests statically guard the pinned canonical commit, exact 25-cell matrix, frozen methods/seeds/churn, 1,000-message workload, output-directory guard, exclusions/reruns fields, and use of the frozen Exp13-Q cell executor only.
 
+### Local release-check evidence
+
+Researcher executed the released checks from the synchronized local workspace at GitHub HEAD:
+
+`f1d66329544230bea67757a61dd9eec71448f070`
+
+Repository preconditions:
+- branch `main` synchronized with `origin/main`;
+- working tree clean.
+
+Release-specific checks:
+- `tests.test_exp13q_formal_release`: **3/3 PASS**;
+- combined Exp13 contract/smoke checks: **7/7 PASS**;
+- complete project regression suite: **42/42 PASS**.
+
+No test failure, regression, frozen-matrix violation, provenance-guard failure, output-path violation, or unauthorized executor path was observed.
+
 ### Current result
-**IMPLEMENTATION COMPLETE / LOCAL RELEASE CHECKS PENDING.**
+**S10A-RELEASE = PASS / CLOSED.**
 
-No formal run is authorized until the researcher returns the local release-check output and the result is verified.
+The guarded formal runner and provenance controls are verified. The exact 25-run Exp13-Q formal matrix is now operationally released for researcher execution under the frozen contract.
 
-### Required local release checks
-Run from the designated repository root:
+No formal result has yet been generated or interpreted at this gate.
+
+### Formal execution release
+
+Formal execution is now authorized only through the guarded runner:
 
 ```bash
-git pull
-git status
-git rev-parse HEAD
-
-PYTHONPATH=. python -m unittest tests.test_exp13q_formal_release -v
-PYTHONPATH=. python -m unittest tests.test_formal_exp13q_contract tests.test_exp13q_smoke_contract -v
-PYTHONPATH=. python -m unittest discover -s tests -v
+PYTHONPATH=. python scripts/run_exp13q_formal.py
 ```
 
-Do **not** run `scripts/run_exp13q_formal.py` yet.
+Execution rules:
+- no tuning or parameter modification;
+- no comparator modification;
+- no seed/topology/scenario change;
+- no selective rerun based on performance;
+- no interpretation or aggregation during execution;
+- any interruption or anomaly must be classified first as a runtime/validity issue;
+- generated output remains raw formal evidence pending integrity/completeness audit.
 
 ## Statistical boundary
 Use the Exp13-Q amendment in `docs/04_STATISTICAL_CONTRACT.md`. No omnibus winner score, post-hoc test shopping, or universal-superiority claim.
 
 ## Next permitted task
-`S10A-RELEASE — local release checks and final provenance-readiness audit`.
+`S10A-FORMAL — Execute Frozen 25-Run Exp13-Q Reference Benchmark Matrix`.
 
-Formal Exp13-Q remains blocked until those checks pass and are verified. Do not execute the 25-run formal matrix yet.
+Only the guarded formal runner is authorized. After completion, raw evidence must proceed to integrity/completeness audit before interpretation or aggregation.
 
 **S11 remains blocked until Exp13-Q formal evidence is completed, integrity-verified, and frozen.**
