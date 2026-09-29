@@ -182,3 +182,10 @@
 - Q-AHBN2-specific learning-evidence checks remain unchanged.
 - Raw stopped evidence preserved; no performance-triggered rerun or full-campaign restart authorized.
 - Execution HOLD pending local regression and in-place seed42/Q-AHBN2 artifact revalidation.
+
+## K5-Q-FORMAL-D5 closure — 2026-09-29
+- Corrected validator regression: **9/9 PASS**.
+- Preserved seed42/Q-AHBN2 coordinate revalidated in place: **K7 RESULT VALIDATION PASS**.
+- No same-coordinate rerun required.
+- Formal progress: **5/25 validated; 20/25 remaining**.
+- Resume mode added: same evidence root, same frozen image/digest, validate-before-skip, execute missing coordinates only.
