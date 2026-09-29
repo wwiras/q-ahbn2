@@ -78,3 +78,15 @@
 - Google Drive preservation: folder `q-ahbn-29092026111238-s11a-aggregation-formal`, ID `1XMWn5FWKwJV78YeTGakJb1bVJ6XKfrLH`; four expected artifacts confirmed by readback.
 - Evidence freeze/closure: **PASS / CLOSED (S11-A-1)**.
 - Claim boundary: aggregation/provenance closure only; comparative scientific interpretation remains deferred. S11-B must analyze Exp13-Q separately as bounded external reference evidence.
+
+
+## S11-B — Exp13-Q External Benchmark Aggregation
+- Status: **S11-B-1 PASS / CLOSED** (2026-09-29).
+- Scope: bounded Exp13-Q external reference benchmark only; 25/25 frozen runs at churn=0.40 across Gossip, Structured, DC-SoC, AHBN and Q-AHBN2.
+- Formal aggregation evidence: `output/evidence/q-ahbn-29092026121201-s11b-aggregation-formal/`.
+- Source CSV SHA-256: `5b9f09c8403e7e287d631986fb76727542264eca5f07227b57d3e19b868c4708`.
+- Aggregation JSON SHA-256: `37ba7c1d77c93af21d3c2581d3f95b6752858afd5f461d1231850d625d6ec223`.
+- Summary CSV SHA-256: `e48c0d2a4479a05ed5826fe83c627dceef71f2629f316e303924d7adb16d0aa3`.
+- Google Drive frozen evidence folder ID: `1frfPsofGtbvpRFCxFMjGi_EZUuv8tNxx`.
+- Statistical boundary: descriptive summaries plus predeclared same-seed Q-AHBN2-minus-reference contrasts; no p-values, omnibus score, ranking, winner claim, or interpretation.
+- Exp13-Q remains separate from the primary S11-A RO4 aggregation.
