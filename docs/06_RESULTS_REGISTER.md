@@ -92,8 +92,8 @@
 - Exp13-Q remains separate from the primary S11-A RO4 aggregation.
 
 
-## Current controlled stage
-- **S11 complete; Kubernetes chain next.**
+## Historical controlled-stage snapshot — S11 closure / Kubernetes chain entry
+- **Historical status at this point:** S11 complete; Kubernetes chain next.
 - S11-A primary RO4 aggregation: PASS / CLOSED.
 - S11-B Exp13-Q external benchmark aggregation: PASS / CLOSED.
 - K0-Q Kubernetes scope reconciliation: PASS / CLOSED.
