@@ -1,6 +1,6 @@
 # Q-AHBN2 Results Register
 
-**Status:** ACTIVE — K5-Q-FORMAL-PREFLIGHT PASS; 25-RUN EXECUTION RELEASED
+**Status:** ACTIVE — K5-Q-FORMAL PASS / CLOSED; K6-Q EVIDENCE FREEZE NEXT
 **Created:** 2026-09-23 under DOC-SYNC-1
 
 ## Registered bounded evidence
@@ -221,3 +221,16 @@
 - Frozen matrix remains 25 coordinates; no method/seed/workload/image/metric change.
 - Seed-batch mode does not emit final 25/25 manifest/completion.
 - Full K5 closure still requires all 25 validated coordinates.
+
+
+### K5-Q-FORMAL closure — 2026-09-29
+- Status: **PASS / CLOSED**.
+- Formal evidence root: `output/evidence/q-ahbn-gke-29092026155435-k5q-formal/`.
+- Frozen matrix: **25/25 validated coordinates** = 5 methods x seeds 42--46.
+- Final full-cycle reconciliation used `RESUME=1` with no `FORMAL_SEED`; all 25 existing coordinates were revalidated and skipped, with **0 experiment reruns during final reconciliation**.
+- Final matrix result: `status=PASS`, `runs=25`, `coordinates=complete`; runner returned `K5-Q FORMAL 25/25 PASS`.
+- Frozen image: `wwiras/q-ahbn2:k5q-formal-v2-20260929`.
+- Pinned digest: `sha256:d8ac06197962a6e42cb9e564a9c115c08b9f018df231f61cdbfbb8796422991e`.
+- Claim boundary: execution/integrity closure only; no comparative interpretation, ranking, performance-triggered rerun, or evidence promotion at K5.
+- **Next gate: K6-Q — Kubernetes Evidence Freeze.**
+- S12 interpretation remains blocked until K6-Q completes.
