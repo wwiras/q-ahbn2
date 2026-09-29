@@ -251,3 +251,29 @@ Root cause: the regression assertion used an escaped `\\n` expectation rather th
 Classification: test-only defect. No runtime/image/controller/formal protocol change; v2 digest remains frozen; 0/25 formal GKE runs.
 
 $$\boxed{\textbf{K5-Q-FORMAL-PREFLIGHT-D3 = PASS; final regression rerun required}}$$
+
+## K5-Q-FORMAL-PREFLIGHT closure — 2026-09-29
+
+Final researcher-executed local verification after all D1--D3 corrections:
+- `tests.test_k5_q_prep`: **7/7 PASS**;
+- K5 preparation audit: **PASS**;
+- exact methods: Gossip, Structured, DC-SoC, AHBN, Q-AHBN2;
+- exact seeds: 42--46;
+- exact unique formal coordinates: **25**;
+- exact scenario: N=20, BA(m=2), 240 messages, 0.4 s planned interval, churn offsets +1/+26/+51/+76 s;
+- inherited per-seed common-source policy confirmed;
+- v2 image: `wwiras/q-ahbn2:k5q-formal-v2-20260929`;
+- platform: `linux/amd64`;
+- pinned digest: `sha256:d8ac06197962a6e42cb9e564a9c115c08b9f018df231f61cdbfbb8796422991e`;
+- real-container Q-AHBN2 runtime and formal-controller imports: PASS;
+- formal host runner and Helm paths regression-guarded;
+- formal runs executed before closure: **0/25**.
+
+All known pre-execution implementation, provenance and orchestration gates are therefore satisfied.
+
+$$\boxed{\textbf{K5-Q-FORMAL-PREFLIGHT = PASS / CLOSED}}$$
+
+## Released action
+**K5-Q-FORMAL — execute exactly the frozen 25-coordinate GKE matrix using the pinned v2 image digest.**
+
+No scientific interpretation, selective stopping, seed substitution, performance-triggered rerun, or Drive promotion is authorized during K5-Q execution.
