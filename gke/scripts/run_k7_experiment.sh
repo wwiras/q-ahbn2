@@ -22,6 +22,6 @@ kubectl -n "${NAMESPACE}" get pods -l app=ahbn-peer -o json >"${OUTDIR}/pods.jso
 "${PYTHON}" -c 'import json,sys; p=json.load(open(sys.argv[1])); image=sys.argv[2]; digest=sys.argv[3]; items=p.get("items",[]); assert len(items)==20, f"expected 20 pods, got {len(items)}"; assert all(x["spec"]["containers"][0]["image"]==image for x in items), "pod image reference mismatch"; ids=[x["status"]["containerStatuses"][0]["imageID"] for x in items]; assert all(digest in value for value in ids), f"pod image digest mismatch: {sorted(set(ids))}"' "${OUTDIR}/pods.json" "${IMAGE}" "${EXPECTED_IMAGE_DIGEST}"
 sleep 5
 kubectl -n "${NAMESPACE}" logs -f -l app=ahbn-peer --all-containers=true --max-log-requests=20 --tail=-1 >"${OUTDIR}/peer_stream.jsonl" 2>"${OUTDIR}/peer_stream.err" & LOG_FOLLOW_PID=$!
-helm upgrade "${RELEASE}" "${ROOT_DIR}/helm/ahbn" --namespace "${NAMESPACE}" --reuse-values --set controller.enabled=true
+helm upgrade "${RELEASE}" "${ROOT_DIR}/gke/helm/ahbn" --namespace "${NAMESPACE}" --reuse-values --set controller.enabled=true
 kubectl -n "${NAMESPACE}" wait --for=condition=complete job/ahbn-controller --timeout=900s
 collect; trap - EXIT
