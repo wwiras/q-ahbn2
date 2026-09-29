@@ -184,3 +184,27 @@ The inherited K7 target set is `(0,5,10,15)`, so the earlier K4 statement `sourc
 The previously built K5 image predates these required formal-controller/runtime additions. Therefore its successful preflight remains valid historical pre-execution evidence but it is **not the final K5 formal image**. A new immutable formal image must be built from the reconciled formal-runner/runtime HEAD and must pass the expanded container preflight (including controller import) before run 1/25.
 
 $$\boxed{\textbf{K5-Q-FORMAL-PREP = PASS; K5-Q-FORMAL = HOLD pending rebuilt image + local static/preflight verification}}$$
+
+## K5-Q-FORMAL-PREFLIGHT-S1 — Static 25-coordinate contract verification — 2026-09-29
+
+Researcher-executed local verification after pulling the reconciled formal-runner commits:
+- `tests.test_k5_q_prep`: **5/5 PASS**;
+- K5 preparation audit: **PASS** with exactly 25 coordinates;
+- no-GKE formal static preflight: **PASS**;
+- all five methods generated and matched for each seed before any formal GKE execution;
+- frozen targets for every seed: `(0,5,10,15)`;
+- deterministic common non-structural source mapping:
+  - seed 42 -> peer 1;
+  - seed 43 -> peer 1;
+  - seed 44 -> peer 1;
+  - seed 45 -> peer 2;
+  - seed 46 -> peer 1;
+- each seed uses one identical source across Gossip, Structured, DC-SoC, AHBN and Q-AHBN2;
+- no source collides with a frozen churn target;
+- five distinct prospective target-selection hashes were recorded, one per seed.
+
+This verifies the prospective matrix/source reconciliation without consuming cluster time and without inspecting any performance outcome.
+
+$$\boxed{\textbf{K5-Q-FORMAL-PREFLIGHT-S1 = PASS}}$$
+
+Remaining hold: build a fresh immutable formal image from the reconciled formal runtime/controller HEAD and pass the expanded image/controller import preflight before run 1/25.
