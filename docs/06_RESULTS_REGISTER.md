@@ -144,3 +144,10 @@
 - No-GKE full matrix generation/contract validation: PASS.
 - Per-seed common sources: 42->1, 43->1, 44->1, 45->2, 46->1; no collision with frozen churn targets `(0,5,10,15)`.
 - Remaining gate: rebuilt immutable v2 formal image + expanded container/controller preflight.
+
+## K5-Q-FORMAL-PREFLIGHT-D1 — 2026-09-29
+- v2 image build/push and `linux/amd64` registry verification: PASS.
+- v2 digest: `sha256:d8ac06197962a6e42cb9e564a9c115c08b9f018df231f61cdbfbb8796422991e`.
+- Expanded import preflight: INVALID before imports due literal `\\n` wrapper syntax defect.
+- Wrapper corrected and regression guard added; 0/25 formal runs executed.
+- Current gate remains K5-Q-FORMAL-PREFLIGHT-S2 pending corrected container import preflight.
