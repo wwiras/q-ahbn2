@@ -14,6 +14,10 @@ COPY gke/app/dcsoc_maintenance.py dcsoc_maintenance.py
 COPY gke/app/gen_topology.py gen_topology.py
 COPY gke/app/k5_final_actuator_policy.py k5_final_actuator_policy.py
 COPY gke/app/qahbn2_runtime.py qahbn2_runtime.py
+COPY gke/app/controller_shared.py controller_shared.py
+COPY gke/app/k7_exp11_tools.py k7_exp11_tools.py
+COPY gke/app/k7_controller.py controller.py
+COPY gke/app/k7_rpc_trace.py k7_rpc_trace.py
 COPY qahbn2 qahbn2
 
 ENV PYTHONUNBUFFERED=1
