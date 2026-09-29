@@ -66,6 +66,15 @@ class TestK5QPrep(unittest.TestCase):
         self.assertIn('if adaptive != bool(traces and decisions)', validator)
         self.assertIn('if adaptive:', validator)
 
+    def test_formal_resume_preserves_validated_runs(self):
+        from pathlib import Path
+        root=Path(__file__).resolve().parents[1]
+        runner=(root/'gke/scripts/run_k5_q_formal.sh').read_text()
+        self.assertIn('RESUME="${RESUME:-0}"', runner)
+        self.assertIn('resume image digest mismatch', runner)
+        self.assertIn('K5-Q FORMAL RESUME VALIDATE', runner)
+        self.assertIn('K5-Q FORMAL RESUME SKIP', runner)
+
     def test_rejects_unfrozen_coordinate(self):
         with self.assertRaises(ValueError): validate_coordinate(47,'ahbn')
         with self.assertRaises(ValueError): validate_coordinate(42,'legacy_qahbn')
