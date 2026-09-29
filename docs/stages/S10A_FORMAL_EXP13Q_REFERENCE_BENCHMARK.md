@@ -1,6 +1,6 @@
 # S10A — Formal Exp13-Q: Reference Benchmark
 
-**Status:** S10A-VERIFY PASS / CLOSED; S10A-RELEASE PASS / CLOSED; FORMAL EXECUTION RELEASED
+**Status:** S10A-FORMAL EXECUTED; RAW EVIDENCE CREATED; INTEGRITY AUDIT NEXT
 
 ## Objective
 Provide one bounded external reference benchmark for standalone Q-AHBN2 publication positioning without replacing or expanding the primary thesis RO4 causal matrix.
@@ -350,9 +350,25 @@ The guarded formal runner and provenance controls are verified. The exact 25-run
 
 No formal result has yet been generated or interpreted at this gate.
 
-### Formal execution release
+### S10A-FORMAL — Frozen 25-Run Exp13-Q Reference Benchmark Execution
 
-Formal execution is now authorized only through the guarded runner:
+Researcher executed the guarded formal runner from a clean synchronized workspace at GitHub HEAD:
+
+`2b11b4e95ef98c86458e02c494d6b6ea232a6d7a`
+
+Generated raw formal evidence directory:
+
+`output/evidence/q-ahbn-29092026081836-exp13q-formal`
+
+The runner completed without a terminal runtime error and returned the formal evidence directory path.
+
+**Current classification:** raw formal evidence created; integrity/completeness not yet verified.
+
+No performance interpretation, aggregation, ranking, selective rerun, parameter change, comparator change, seed change, topology change, or scientific conclusion is authorized from this execution alone.
+
+### Formal execution command
+
+The authorized guarded runner was:
 
 ```bash
 PYTHONPATH=. python scripts/run_exp13q_formal.py
@@ -371,8 +387,8 @@ Execution rules:
 Use the Exp13-Q amendment in `docs/04_STATISTICAL_CONTRACT.md`. No omnibus winner score, post-hoc test shopping, or universal-superiority claim.
 
 ## Next permitted task
-`S10A-FORMAL — Execute Frozen 25-Run Exp13-Q Reference Benchmark Matrix`.
+`S10A-INTEGRITY — Exp13-Q Formal Evidence Integrity / Completeness / Provenance Audit`.
 
-Only the guarded formal runner is authorized. After completion, raw evidence must proceed to integrity/completeness audit before interpretation or aggregation.
+Audit the generated raw directory before any interpretation, aggregation, evidence promotion, or S11 transition.
 
 **S11 remains blocked until Exp13-Q formal evidence is completed, integrity-verified, and frozen.**
