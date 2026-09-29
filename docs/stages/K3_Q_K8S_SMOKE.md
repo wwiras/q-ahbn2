@@ -1,6 +1,6 @@
 # K3-Q — Bounded GKE Smoke
 
-**Status:** PREP COMPLETE / MANUAL DOCKER+GKE SMOKE REQUIRED
+**Status:** PASS / CLOSED — 2026-09-29
 
 ## Objective
 Run one bounded deterministic deployment smoke after K2-Q passes, verifying AHBN proposal, Q intervention, forwarding, outcome attribution, reward closure, transition handling, trace output, and deployment behavior.
@@ -124,3 +124,29 @@ Corrective actions:
 - `gke/scripts/preflight_k3_q_image.sh` now performs an AMD64 local container import preflight for `peer`, `gen_topology`, `dcsoc_maintenance`, and `qahbn2_runtime` before another GKE smoke.
 
 $$\boxed{\textbf{K3-Q-D4 = PASS; K3-Q remains HOLD pending rebuilt-image local preflight + unchanged GKE smoke}}$$
+
+
+## K3-Q-CLOSE — Valid Bounded GKE Smoke — 2026-09-29
+
+The corrected immutable image `wwiras/q-ahbn2:k3q-smoke-amd64-d4-20260929` was built/pushed for `linux/amd64` and verified at registry digest `sha256:dc6c6ceeec0220e51b03f76313a3cfa6448be9647c00e0a68a8a6abccbf33f52`. The local real-container import preflight passed before deployment.
+
+The unchanged bounded GKE smoke then deployed four peers successfully. All four pods reached Ready. The generated evidence directory is:
+
+`output/evidence/q-ahbn-gke-29092026140017-k3q-smoke/`
+
+The deterministic smoke summary reported:
+- status: PASS;
+- Q-AHBN2 decision events: 15;
+- attributed attempt events: 17;
+- reward-closure events: 11;
+- observed outcomes: NEW and DUPLICATE.
+
+The smoke runner completed namespace cleanup and emitted `K3-Q SMOKE PASS`.
+
+### Closure decision
+The K3 operational objective is satisfied: deployable Q-AHBN2 executes end-to-end on the established GKE runtime with decision, forwarding-outcome and reward-closure evidence. This is deployment/integration evidence only; it is not a comparative-performance or superiority claim. FAILED need not be artificially induced because K3's frozen no-failure smoke does not require all reward outcome classes to occur.
+
+$$\boxed{\textbf{K3-Q = PASS / CLOSED}}$$
+
+## Next permitted action
+`K4-Q — K8s-VAL-Q / Exp13-Q-K8s Protocol Freeze`. Protocol work only; no formal K5-Q outcome may be inspected until K4-Q is prospectively frozen.
