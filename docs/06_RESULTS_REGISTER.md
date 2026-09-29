@@ -1,6 +1,6 @@
 # Q-AHBN2 Results Register
 
-**Status:** ACTIVE — FORMAL EVIDENCE FROZEN / S11 AGGREGATION IN PROGRESS
+**Status:** ACTIVE — S11-A PRIMARY AGGREGATION FROZEN / S11-B NEXT
 **Created:** 2026-09-23 under DOC-SYNC-1
 
 ## Registered bounded evidence
@@ -66,3 +66,15 @@
 - Integrity accounting: 25/25 unique formal cells; 5 Q-AHBN2 trace groups; 410,852 structurally validated decision records; 0 exclusions; 0 reruns
 - Evidence freeze/promotion: **PASS / CLOSED (S10A-FREEZE)**
 - Scope limitation: formal evidence completed, integrity-verified, promoted and frozen; comparative scientific conclusions, aggregation and interpretation remain governed by the frozen statistical contract and are not claimed by S10A closure.
+
+### S11-A — Primary RO4 deterministic aggregation
+- Scope: Exp10-Q Failure + Exp11-Q Churn + Exp12-Q Heterogeneity only; Exp13-Q excluded and reserved for S11-B.
+- Aggregation evidence: `output/evidence/q-ahbn-29092026111238-s11a-aggregation-formal/`
+- Producing aggregation commit: `59ef254099fb3edb617f323dd864324c320d9a85`
+- Runs ingested: 80/80; same-seed AHBN/Q-AHBN2 paired comparisons: 40/40.
+- Output hashes: aggregation JSON `bec818623c97ae2d9918617694694e90448a2727d703ce72a8923557c48ac337`; summary CSV `9b2d21a103c9cd115acc56a003eb8bab60a49db92bc82af3a8da004d03b33833`.
+- Input provenance: Drive raw-byte readback = current local frozen CSV = S11-A manifest for Exp10-Q `c51392ce83435bb15691d60b42cfb5c91971687f05b51c1bd21a2f69444edcf7`, Exp11-Q `d869f4c76cd139b2dd554de5e5a8bf61d8403e8b223106f7809200676347f00c`, Exp12-Q `dd5504109cae59b1494dc409308585906676f69c79e0c41d3845856e6762bc66`.
+- PREP hash discrepancy: earlier PREP-recorded hashes differ and are retained as a provenance-record discrepancy; authoritative Drive/local/manifest evidence is mutually identical and no formal evidence was rewritten.
+- Google Drive preservation: folder `q-ahbn-29092026111238-s11a-aggregation-formal`, ID `1XMWn5FWKwJV78YeTGakJb1bVJ6XKfrLH`; four expected artifacts confirmed by readback.
+- Evidence freeze/closure: **PASS / CLOSED (S11-A-1)**.
+- Claim boundary: aggregation/provenance closure only; comparative scientific interpretation remains deferred. S11-B must analyze Exp13-Q separately as bounded external reference evidence.
