@@ -10,8 +10,16 @@ RELEASE="${RELEASE:-qahbn2}"
 STAMP="$(date +%d%m%Y%H%M%S)"
 RESULT_ROOT="${RESULT_ROOT:-${ROOT_DIR}/output/evidence/q-ahbn-gke-${STAMP}-k5q-formal}"
 RESUME="${RESUME:-0}"
+FORMAL_SEED="${FORMAL_SEED:-}"
 METHODS=(gossip structured dcsoc ahbn qahbn2)
 SEEDS=(42 43 44 45 46)
+RUN_SEEDS=("${SEEDS[@]}")
+if [ -n "${FORMAL_SEED}" ]; then
+  case " ${SEEDS[*]} " in
+    *" ${FORMAL_SEED} "*) RUN_SEEDS=("${FORMAL_SEED}") ;;
+    *) fail "FORMAL_SEED must be one of: ${SEEDS[*]}" ;;
+  esac
+fi
 fail(){ echo "ERROR: $*" >&2; exit 1; }
 [ -n "${IMAGE}" ] || fail "IMAGE is required"
 [[ "${EXPECTED_IMAGE_DIGEST}" =~ ^sha256:[[:xdigit:]]{64}$ ]] || fail "EXPECTED_IMAGE_DIGEST must be an exact sha256 digest"
@@ -64,7 +72,7 @@ cp gke/helm/ahbn/topology.json "${TOPOLOGY_BACKUP}"
 restore(){ cp "${TOPOLOGY_BACKUP}" gke/helm/ahbn/topology.json; }
 trap restore EXIT
 
-for seed in "${SEEDS[@]}"; do
+for seed in "${RUN_SEEDS[@]}"; do
   for method in "${METHODS[@]}"; do
     run="${RESULT_ROOT}/runs/seed${seed}/${method}"
     cfg="${RESULT_ROOT}/configs/${method}_seed${seed}.yaml"
@@ -81,6 +89,12 @@ for seed in "${SEEDS[@]}"; do
     PYTHONPATH="gke/app" "${PYTHON}" gke/app/k7_exp11_tools.py run --run-dir "${run}"
   done
 done
+
+if [ -n "${FORMAL_SEED}" ]; then
+  echo "K5-Q FORMAL SEED BATCH PASS seed=${FORMAL_SEED}"
+  echo "Evidence: ${RESULT_ROOT}"
+  exit 0
+fi
 
 PYTHONPATH="${ROOT_DIR}" "${PYTHON}" - "${RESULT_ROOT}" "${IMAGE}" "${EXPECTED_IMAGE_DIGEST}" <<'PY'
 import json,sys
