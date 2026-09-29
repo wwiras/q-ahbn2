@@ -1,6 +1,6 @@
 # K5-Q — K8s-VAL-Q / Exp13-Q-K8s Formal Execution
 
-**Status:** K5-Q-FORMAL-PREP ASSEMBLED / FORMAL EXECUTION HOLD — REBUILD + LOCAL PREFLIGHT REQUIRED
+**Status:** K5-Q-FORMAL-PREFLIGHT PASS / FORMAL 25-RUN EXECUTION RELEASED
 
 ## Objective
 Execute only the Kubernetes deployment-validation and matched reference-benchmark matrix frozen at K4-Q.
@@ -221,3 +221,23 @@ Classification: preflight-wrapper defect only. The registry image exists and its
 Correction: replace the escaped literal with a genuine newline and add a regression guard preventing recurrence.
 
 $$\boxed{\textbf{K5-Q-FORMAL-PREFLIGHT-D1 = PASS; S2 remains HOLD pending corrected container import preflight}}$$
+
+## K5-Q-FORMAL-PREFLIGHT-S2 — Rebuilt immutable image/runtime/controller verification — 2026-09-29
+
+Researcher-executed corrected preflight passed against the rebuilt formal image:
+- image: `wwiras/q-ahbn2:k5q-formal-v2-20260929`;
+- registry platform: `linux/amd64` PASS;
+- immutable repo digest: `sha256:d8ac06197962a6e42cb9e564a9c115c08b9f018df231f61cdbfbb8796422991e`;
+- Q-AHBN2 runtime import: PASS;
+- inherited formal controller import: PASS;
+- container import preflight: PASS;
+- image preflight: PASS.
+
+The D1 wrapper syntax defect is therefore closed. No formal GKE coordinate has yet executed.
+
+Final runner readback confirms fail-closed checks for exact image digest, expected GKE context, clean working tree, exact five methods x five seeds, prospective topology/target validation, per-coordinate inherited K7 validation, and final 25-coordinate `matrix_manifest.json` validation.
+
+$$\boxed{\textbf{K5-Q-FORMAL-PREFLIGHT = PASS / CLOSED}}$$
+
+### Released action
+`K5-Q-FORMAL — execute exactly the locked 25-coordinate GKE matrix using the v2 image/digest above.`
