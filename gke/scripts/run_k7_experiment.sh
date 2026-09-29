@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 set -Eeuo pipefail
-CONFIG="$1"; ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"; OUTDIR="${OUTDIR:?}"; NAMESPACE="${NAMESPACE:?}"; RELEASE="${RELEASE:-ahbn}"; IMAGE="${IMAGE:?}"; EXPECTED_IMAGE_DIGEST="${EXPECTED_IMAGE_DIGEST:?}"; PYTHON="${PYTHON:?}"
+CONFIG="$1"; ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"; OUTDIR="${OUTDIR:?}"; NAMESPACE="${NAMESPACE:?}"; RELEASE="${RELEASE:-ahbn}"; IMAGE="${IMAGE:?}"; EXPECTED_IMAGE_DIGEST="${EXPECTED_IMAGE_DIGEST:?}"; PYTHON="${PYTHON:?}"
 mkdir -p "${OUTDIR}"; LOG_FOLLOW_PID=""
 collect(){
   if [ -n "${LOG_FOLLOW_PID}" ]; then kill "${LOG_FOLLOW_PID}" 2>/dev/null || true; wait "${LOG_FOLLOW_PID}" 2>/dev/null || true; LOG_FOLLOW_PID=""; fi
@@ -11,11 +11,11 @@ collect(){
   { [ -s "${OUTDIR}/peer_stream.jsonl" ] && cat "${OUTDIR}/peer_stream.jsonl"; cat "${OUTDIR}/final_snapshot.jsonl" 2>/dev/null || true; cat "${OUTDIR}/controller.log" 2>/dev/null || true; } >"${OUTDIR}/logs.jsonl"
 }
 trap collect EXIT
-"${PYTHON}" "${ROOT_DIR}/app/k7_gen_topology.py" --config "${ROOT_DIR}/${CONFIG}" --out "${OUTDIR}/topology.json"
-cp "${OUTDIR}/topology.json" "${ROOT_DIR}/helm/ahbn/topology.json"; cp "${ROOT_DIR}/${CONFIG}" "${OUTDIR}/generated_config.yaml"
+"${PYTHON}" "${ROOT_DIR}/gke/app/k7_gen_topology.py" --config "${ROOT_DIR}/${CONFIG}" --out "${OUTDIR}/topology.json"
+cp "${OUTDIR}/topology.json" "${ROOT_DIR}/gke/helm/ahbn/topology.json"; cp "${ROOT_DIR}/${CONFIG}" "${OUTDIR}/generated_config.yaml"
 NUM_NODES="$("${PYTHON}" -c 'import json,sys; print(json.load(open(sys.argv[1]))["num_nodes"])' "${OUTDIR}/topology.json")"
 helm uninstall "${RELEASE}" -n "${NAMESPACE}" >/dev/null 2>&1 || true
-helm install "${RELEASE}" "${ROOT_DIR}/helm/ahbn" --namespace "${NAMESPACE}" --create-namespace --set namespace="${NAMESPACE}" --set image="${IMAGE}" --set numNodes="${NUM_NODES}" --set podManagementPolicy=Parallel --set controller.enabled=false
+helm install "${RELEASE}" "${ROOT_DIR}/gke/helm/ahbn" --namespace "${NAMESPACE}" --create-namespace --set namespace="${NAMESPACE}" --set image="${IMAGE}" --set numNodes="${NUM_NODES}" --set podManagementPolicy=Parallel --set controller.enabled=false
 kubectl -n "${NAMESPACE}" rollout status statefulset/peer --timeout=600s
 kubectl -n "${NAMESPACE}" wait --for=condition=ready pod -l app=ahbn-peer --timeout=600s
 kubectl -n "${NAMESPACE}" get pods -l app=ahbn-peer -o json >"${OUTDIR}/pods.json"
