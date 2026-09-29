@@ -1,6 +1,6 @@
 # S11 — ControlSim Aggregation
 
-**Status:** ACTIVE — S11-RECON-1 PASS / S11-A-PREP RELEASED
+**Status:** ACTIVE — S11-A-PREP PASS / S11-A-1 RELEASED
 
 ## Objective
 Aggregate only completed, integrity-verified formal ControlSim evidence according to `docs/04_STATISTICAL_CONTRACT.md`.
@@ -115,4 +115,73 @@ All authoritative inputs reconciled; schemas known; pairing verified; S11-A/S11-
 
 ## Next permitted action
 $$\boxed{\textbf{S11-A-PREP — Implement Deterministic S11-A Aggregation Script + Unit Test}}$$
+
+## S11-A-PREP — Implement Deterministic S11-A Aggregation Script + Unit Test — 2026-09-29
+
+**Status:** PASS / CLOSED.
+
+### Gate
+Implement and verify the minimal deterministic analysis script and test suite for S11-A primary RO4 aggregation conforming strictly to `docs/04_STATISTICAL_CONTRACT.md`.
+
+### 1. Created files
+- Implementation script: `scripts/aggregate_s11a_formal.py`
+- Test suite: `tests/test_aggregate_s11a.py`
+
+### 2. Implementation summary
+- **Scope restriction:** S11-A includes only Exp10-Q (Failure), Exp11-Q (Churn), and Exp12-Q (Heterogeneity). Exp13-Q is explicitly excluded and reserved for S11-B.
+- **Statistical contract compliance:**
+  - Per-cell descriptive metrics ($n=5$): arithmetic mean, sample standard deviation ($s$, `ddof=1`), and two-sided 95% Student-t confidence interval ($df=4$, $t_{0.975,4} = 2.7764451051977987$).
+  - Paired comparison: $\Delta_i = QAHBN2_i - AHBN_i$ paired strictly by same seed ($s \in \{42, 43, 44, 45, 46\}$); reports seed differences in seed order, mean paired difference, sample SD of differences, 95% Student-t CI, and relative change percent.
+  - Delivery ratio additionally computes absolute percentage-point difference ($\text{mean}(\Delta) \times 100$).
+  - Primary outcomes: `delivery_ratio`, `propagation_delay`, `duplicates`, `total_forwards`.
+  - Q-AHBN2 learning/adaptation summaries: `mean_reward`, `cumulative_reward`, `q_updates`, `state_action_coverage`, `intervention_count`, `keep_count`, and aggregated action distributions with per-seed retention.
+- **Data integrity guards:**
+  - Verifies matrix completeness and uniqueness (20 runs for Exp10-Q, 30 runs for Exp11-Q, 30 runs for Exp12-Q; exactly 80 runs and 40 paired comparisons across S11-A).
+  - Verifies all primary metrics are finite and within logical domains (`delivery_ratio` $\in [0, 1]$, `propagation_delay` $> 0$, `duplicates` $\ge 0$, `total_forwards` $\ge 0$).
+  - Verifies read-only file ingestion with zero mutation of source CSV files.
+
+### 3. Verification and test results
+Command:
+```bash
+PYTHONPATH=. python3 -m unittest tests/test_aggregate_s11a.py -v
+```
+All 14 unit tests executed and passed (14/14 PASS, 0 failures, 0 errors):
+1. `test_exp10q_regression_parity_cell_summaries`: 100% numerical reproduction of Exp10-Q cell summaries against frozen oracle `exp10q_formal_analysis.json` within IEEE double precision ($< 10^{-12}$).
+2. `test_exp10q_regression_parity_paired_effects`: 100% numerical reproduction of Exp10-Q paired effects against frozen oracle within $< 10^{-12}$.
+3. `test_exp10q_regression_parity_learning`: 100% numerical reproduction of Exp10-Q learning summaries and action distribution against frozen oracle within $< 10^{-12}$.
+4. `test_expected_primary_metrics`: verified exact primary metrics and rejection of missing, non-finite, or out-of-bounds metric values.
+5. `test_exact_same_seed_ahbn_qahbn2_pairing`: verified pairing invariant across arbitrary row permutations.
+6. `test_duplicate_pair_detection`: verified rejection of duplicate cells.
+7. `test_missing_pair_detection`: verified rejection of incomplete matrices.
+8. `test_deterministic_seed_ordering`: verified deterministic seed ordering ($42, 43, 44, 45, 46$).
+9. `test_sample_sd_rather_than_population_sd`: verified sample SD ($ddof=1$) is strictly used over population SD.
+10. `test_correct_student_t_ci_computation`: verified Student-t multiplier $t_{0.975,4} = 2.7764451051977987$ and rejection of normal $z=1.96$.
+11. `test_no_mutation_of_source_csv_files`: verified SHA-256 invariance of source CSV files before and after aggregation.
+12. `test_exp13q_excluded_from_s11a_scope`: verified Exp13-Q is strictly excluded from S11-A configuration.
+13. `test_summary_csv_schema_and_generation`: verified summary table schema and column generation.
+14. `test_prep_boundary_no_formal_aggregation_released`: verified formal release directory `output/evidence/s11-aggregation/s11a-primary-ro4` does not exist during PREP.
+
+Full test suite execution:
+```bash
+PYTHONPATH=. python3 -m unittest discover -s tests -v
+```
+56 tests executed: 53 passed, 3 skipped (canonical AHBN checkout not present in environment), 0 failures, 0 errors.
+
+### 4. PREP boundary confirmation
+- No raw evidence modified (CSV and metadata SHA-256 unchanged).
+- No experiment parameter changed.
+- No AHBN or Q-AHBN2 algorithmic code changed.
+- No formal S11-A aggregation executed or released during this PREP gate.
+- Scientific performance of Exp11-Q and Exp12-Q was not evaluated or interpreted.
+
+## Result
+$$\boxed{\textbf{S11-A-PREP = PASS / CLOSED}}$$
+
+Minimal deterministic S11-A aggregation script and comprehensive unit test suite implemented, verified against frozen regression oracle, and confirmed compliant with the statistical contract.
+
+## Next permitted action
+$$\boxed{\textbf{S11-A-1 — Primary RO4 Deterministic Descriptive + Paired Aggregation}}$$
+
+Execute `scripts/aggregate_s11a_formal.py` over frozen Exp10-Q, Exp11-Q, and Exp12-Q formal datasets to generate `s11a_primary_ro4_aggregation.json` and `s11a_primary_ro4_summary.csv` under `output/evidence/s11-aggregation/s11a-primary-ro4/`.
+
 
