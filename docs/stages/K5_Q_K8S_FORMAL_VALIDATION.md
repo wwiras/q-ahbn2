@@ -1,6 +1,6 @@
 # K5-Q — K8s-VAL-Q / Exp13-Q-K8s Formal Execution
 
-**Status:** K5-Q-PREP PASS / MANUAL FORMAL GKE EXECUTION NOT YET STARTED
+**Status:** K5-Q-PREEXEC PASS / FORMAL GKE EXECUTION RELEASED
 
 ## Objective
 Execute only the Kubernetes deployment-validation and matched reference-benchmark matrix frozen at K4-Q.
@@ -128,3 +128,25 @@ Scientific classification:
 - no frozen K4-Q method/seed/topology/workload/churn/metric/learner rule changed.
 
 $$\boxed{\textbf{K5-Q-PREEXEC-D1 = PASS; K5-Q-PREEXEC remains HOLD pending corrected image build/preflight}}$$
+
+## K5-Q-PREEXEC closure — 2026-09-29
+
+Researcher-executed pre-execution evidence:
+- K5-Q preparation regression: 4/4 PASS;
+- exact 25-coordinate preparation audit: PASS;
+- immutable formal tag: `wwiras/q-ahbn2:k5q-formal-20260929`;
+- registry/runtime platform: `linux/amd64` PASS;
+- registry digest: `sha256:dc6c6ceeec0220e51b03f76313a3cfa6448be9647c00e0a68a8a6abccbf33f52`;
+- real-container runtime import preflight: PASS;
+- formal-image wrapper completion: `K5-Q FORMAL IMAGE PREP PASS`.
+
+The digest equals the earlier K3 smoke-image digest because no containerized runtime content changed between those builds. This is acceptable content identity, not evidence that the later K5 control/harness commits are embedded in the image. Formal evidence must therefore record both the immutable image digest and the exact Git/control HEAD used to launch the K5 matrix.
+
+Current Git/control release HEAD at closure: `a6cea140604a268fc0c781c8dcc2130eb1923efa`.
+
+$$\boxed{\textbf{K5-Q-PREEXEC = PASS / CLOSED}}$$
+
+## Released next action
+**K5-Q-FORMAL — execute exactly the frozen 25-coordinate GKE matrix.**
+
+No additional method, seed, condition, repetition, metric or tuning is authorized. Working output remains under `output/evidence/` and is not authoritative Drive evidence until K6-Q.
