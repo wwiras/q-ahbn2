@@ -1,6 +1,6 @@
 # S10A — Formal Exp13-Q: Reference Benchmark
 
-**Status:** S10A-INTEGRITY PASS / CLOSED; EVIDENCE FREEZE / PROMOTION NEXT
+**Status:** PASS / CLOSED — EXP13-Q FORMAL EVIDENCE INTEGRITY-VERIFIED, PROMOTED AND FROZEN
 
 ## Objective
 Provide one bounded external reference benchmark for standalone Q-AHBN2 publication positioning without replacing or expanding the primary thesis RO4 causal matrix.
@@ -415,7 +415,27 @@ The audit outcome establishes evidence integrity/completeness only. It does not 
 ### Next controlled gate
 Following the Master workflow and the established S10.6 evidence-preservation pattern, the next controlled action is a bounded **Exp13-Q evidence freeze / promotion and S10A stage-closure gate**. The verified raw formal directory must be deliberately preserved in the designated Google Drive evidence hierarchy without rewriting raw artifacts.
 
-**S11 remains blocked until this evidence freeze/promotion is verified and S10A is fully closed.**
+## S10A-FREEZE — Exp13-Q Evidence Promotion / Freeze and Stage Closure
+
+**Result:** PASS / CLOSED.
+
+The S10A-INTEGRITY-verified formal evidence was deliberately promoted in the designated Google Drive-synced evidence hierarchy without rewriting or recreating the raw evidence.
+
+Promoted hierarchy:
+`output/evidence/Exp13-Q/q-ahbn-29092026081836-exp13q-formal/`
+
+Promotion verification:
+- dedicated `Exp13-Q` evidence container created under `output/evidence/`;
+- verified formal folder moved into that container;
+- formal-folder Google Drive ID remained `1m9Hzn26wsD4pRY_woDuMQgTQkgD2i-CK` before and after promotion, establishing organizational movement rather than copy/recreation;
+- new `Exp13-Q` container ID is `1ykIyeGBeRBqlyl__u13CDXC9orOqNz5c`;
+- Drive readback confirms the formal folder is the sole item in the dedicated `Exp13-Q` container at closure;
+- no raw formal artifact was rewritten;
+- no formal rerun, exclusion, tuning, aggregation, ranking, or scientific interpretation was performed.
+
+S10A formal execution, integrity verification, evidence promotion/freeze, and stage closure are complete.
+
+**S11 is now eligible for controlled release under `docs/stages/S11_AGGREGATION.md` and `docs/04_STATISTICAL_CONTRACT.md`; this closure does not itself perform or authorize interpretation beyond that next controlled gate.**
 
 ## Statistical boundary
 Use the Exp13-Q amendment in `docs/04_STATISTICAL_CONTRACT.md`. No omnibus winner score, post-hoc test shopping, or universal-superiority claim.
