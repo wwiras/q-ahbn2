@@ -11,6 +11,7 @@ STAMP="$(date +%d%m%Y%H%M%S)"
 RESULT_ROOT="${RESULT_ROOT:-${ROOT_DIR}/output/evidence/q-ahbn-gke-${STAMP}-k5q-formal}"
 RESUME="${RESUME:-0}"
 FORMAL_SEED="${FORMAL_SEED:-}"
+fail(){ echo "ERROR: $*" >&2; exit 1; }
 METHODS=(gossip structured dcsoc ahbn qahbn2)
 SEEDS=(42 43 44 45 46)
 RUN_SEEDS=("${SEEDS[@]}")
@@ -20,7 +21,6 @@ if [ -n "${FORMAL_SEED}" ]; then
     *) fail "FORMAL_SEED must be one of: ${SEEDS[*]}" ;;
   esac
 fi
-fail(){ echo "ERROR: $*" >&2; exit 1; }
 [ -n "${IMAGE}" ] || fail "IMAGE is required"
 [[ "${EXPECTED_IMAGE_DIGEST}" =~ ^sha256:[[:xdigit:]]{64}$ ]] || fail "EXPECTED_IMAGE_DIGEST must be an exact sha256 digest"
 for x in kubectl helm shasum; do command -v "${x}" >/dev/null || fail "missing command: ${x}"; done
