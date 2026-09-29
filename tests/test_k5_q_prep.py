@@ -67,6 +67,13 @@ class TestK5QPrep(unittest.TestCase):
         self.assertIn('if (algorithm=="ahbn") != bool(decisions)', validator)
         self.assertIn('if adaptive:', validator)
 
+    def test_standalone_ahbn_target_trace_not_required_for_qahbn2(self):
+        from pathlib import Path
+        root=Path(__file__).resolve().parents[1]
+        validator=(root/'gke/app/k7_exp11_tools.py').read_text()
+        marker='if algorithm=="ahbn":\n        if not any(r.get("event")=="ahbn_forwarding_decision"'
+        self.assertIn(marker, validator)
+
     def test_qahbn2_s5_proposal_is_embedded_in_q_decision(self):
         from pathlib import Path
         root=Path(__file__).resolve().parents[1]
