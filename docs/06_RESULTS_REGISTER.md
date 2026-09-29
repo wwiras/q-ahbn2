@@ -1,6 +1,6 @@
 # Q-AHBN2 Results Register
 
-**Status:** ACTIVE — K3-Q PASS / CLOSED; K4-Q PROTOCOL FREEZE NEXT
+**Status:** ACTIVE — K4-Q PASS / FROZEN; K5-Q-PREP NEXT
 **Created:** 2026-09-23 under DOC-SYNC-1
 
 ## Registered bounded evidence
@@ -106,5 +106,6 @@
 - K3-Q-D2/D3 verifier corrections: **PASS**; registry architecture verification was hardened to a platform-constrained pull plus image-config inspection.
 - K3-Q-D4 packaging correction: **PASS**; missing inherited `gen_topology.py` dependency added to the image and guarded by a local real-container import preflight.
 - K3-Q bounded GKE smoke: **PASS / CLOSED (2026-09-29)**; image `wwiras/q-ahbn2:k3q-smoke-amd64-d4-20260929`, digest `sha256:dc6c6ceeec0220e51b03f76313a3cfa6448be9647c00e0a68a8a6abccbf33f52`; 4/4 pods Ready; 15 Q decisions, 17 attributed attempts, 11 reward closures; evidence `output/evidence/q-ahbn-gke-29092026140017-k3q-smoke/`.
-- Current gate: **K4-Q — K8s-VAL-Q / Exp13-Q-K8s Protocol Freeze**; prospective protocol freeze only, before K5-Q formal outcome inspection.
+- K4-Q Kubernetes protocol freeze: **PASS / FROZEN (2026-09-29)**. One shared 25-run matrix (5 methods x seeds 42--46) is frozen; the 10 AHBN/Q-AHBN2 cells simultaneously serve K8s-VAL-Q, avoiding duplicate execution. Kubernetes-native matched scenario: N=20, BA(m=2), source 0, 240 messages at 0.4 s, four absolute leave/rejoin events at +1/+26/+51/+76 s using the validated inherited churn lineage. This is a matched cross-environment benchmark, not literal Exp13-Q-Sim replication.
+- Current gate: **K5-Q-PREP — Formal Kubernetes Harness/Artifact Preparation and Pre-Execution Audit**; implementation/preflight only before real formal GKE execution.
 - S12 interpretation remains blocked until the Kubernetes chain K0-Q through K6-Q is completed and its evidence frozen.
