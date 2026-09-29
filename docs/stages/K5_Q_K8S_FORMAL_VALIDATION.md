@@ -168,6 +168,8 @@ These assets were imported from pinned `wwiras/ahbn2_gke@cc7ce17ca489ed4a0eaf8c7
 The inherited K7 target set is `(0,5,10,15)`, so the earlier K4 statement `source=0` was internally inconsistent. At 0/25 formal runs, K4-Q-A1 prospectively replaced it with the inherited deterministic common non-structural source-selection rule. This prevents source/target collision and preserves the validated K7 design.
 
 ### Locked runner
+`gke/scripts/k5_q_formal_static_preflight.py` prospectively generates all 25 configs/topologies without GKE, validates the inherited five-method matched-topology contract, and proves the per-seed source is common across methods and does not collide with `(0,5,10,15)`.
+
 `gke/scripts/run_k5_q_formal.sh` is now the only prepared formal matrix runner. It:
 - locks methods to Gossip, Structured, DC-SoC, AHBN, Q-AHBN2;
 - locks seeds to 42--46;
