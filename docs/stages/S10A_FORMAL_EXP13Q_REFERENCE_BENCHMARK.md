@@ -1,6 +1,6 @@
 # S10A — Formal Exp13-Q: Reference Benchmark
 
-**Status:** S10A-VERIFY PASS / CLOSED; NEXT GATE RECONCILIATION REQUIRED; FORMAL BLOCKED
+**Status:** S10A-VERIFY PASS / CLOSED; S10A-RELEASE NEXT; FORMAL BLOCKED
 
 ## Objective
 Provide one bounded external reference benchmark for standalone Q-AHBN2 publication positioning without replacing or expanding the primary thesis RO4 causal matrix.
@@ -268,12 +268,44 @@ PYTHONPATH=. python scripts/run_exp13q_smoke.py
 
 Return the complete terminal output and generated smoke directory path for verification. Formal Exp13-Q remains blocked until that evidence is checked.
 
+
+## NEXT GATE RECONCILIATION — 2026-09-29
+
+### Authority reconciled
+Reconciled against:
+- `docs/00_QAHBN2_MASTER.md`;
+- `docs/03_EXPERIMENT_CONTRACT.md`;
+- `docs/04_STATISTICAL_CONTRACT.md`;
+- prior formal-stage execution patterns in S09 and S10;
+- current S10A implementation/verification state.
+
+### Finding
+No new scientific design, comparator, parameter, seed, scenario, metric, or statistical gate is required. The Exp13-Q scientific contract is already prospectively frozen by S07-D, and S10A static/regression/smoke verification is PASS / CLOSED.
+
+However, formal execution must not begin yet because the project-wide GitHub-first workflow requires the formal execution path and provenance/output guard to be fixed and audited before researcher execution. Unlike Exp11-Q and Exp12-Q, the current repository has no dedicated guarded `scripts/run_exp13q_formal.py` formal runner recorded in S10A.
+
+### Next controlled gate
+`S10A-RELEASE — Exp13-Q Formal Runner / Provenance Readiness and Release Audit`.
+
+This is an implementation/readiness gate only. It must:
+- add or verify the minimum guarded Exp13-Q formal runner;
+- enforce the exact 25-cell matrix;
+- preserve the frozen five methods, seeds 42--46, churn=0.40 and 1,000-message workload;
+- write only under `output/evidence/`;
+- record Q-AHBN2 commit and pinned canonical AHBN commit;
+- record expected/completed runs, exclusions and reruns;
+- preserve required primary metrics and Q-AHBN2 trace/provenance;
+- make no scientific parameter or comparator change;
+- perform GitHub readback and local release checks before authorizing formal execution.
+
+Formal execution remains blocked until S10A-RELEASE passes.
+
 ## Statistical boundary
 Use the Exp13-Q amendment in `docs/04_STATISTICAL_CONTRACT.md`. No omnibus winner score, post-hoc test shopping, or universal-superiority claim.
 
 ## Next permitted task
-`NEXT GATE RECONCILIATION — determine the next controlled S10A gate from the frozen master/stage sequence before authorizing Exp13-Q formal execution.`
+`S10A-RELEASE — Exp13-Q Formal Runner / Provenance Readiness and Release Audit`.
 
-Formal Exp13-Q remains blocked until that reconciliation is completed. No formal execution is authorized by S10A-VERIFY closure alone.
+Formal Exp13-Q remains blocked until S10A-RELEASE passes. No formal execution is authorized by S10A-VERIFY closure alone.
 
 **S11 remains blocked until Exp13-Q formal evidence is completed, integrity-verified, and frozen.**
