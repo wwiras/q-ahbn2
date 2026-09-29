@@ -1,6 +1,6 @@
 # Q-AHBN2 Results Register
 
-**Status:** ACTIVE — K5-Q-PREEXEC PASS; K5-Q-FORMAL RELEASED
+**Status:** ACTIVE — K5-Q-FORMAL-PREP PASS; REBUILD/PREFLIGHT HOLD BEFORE 1/25
 **Created:** 2026-09-23 under DOC-SYNC-1
 
 ## Registered bounded evidence
@@ -127,3 +127,12 @@
 - Git/control release HEAD: `a6cea140604a268fc0c781c8dcc2130eb1923efa`.
 - Digest identity with K3 reflects unchanged container runtime content; K5 provenance must record image digest and Git/control SHA separately.
 - Current gate: **K5-Q-FORMAL — exact frozen 25-coordinate GKE execution**.
+
+## K5-Q-FORMAL-PREP — 2026-09-29
+- **PASS / assembled prospectively; 0/25 formal runs executed.**
+- Imported pinned K7 churn/controller/target-selection/Helm Job assets required by the broader formal matrix.
+- Standalone AHBN formal path explicitly uses final S5; Q-AHBN2 remains the frozen post-AHBN refinement.
+- K4-Q-A1 prospective correction: fixed source=0 replaced by inherited deterministic common non-structural source per seed because peer 0 is a frozen churn target.
+- Locked formal runner: `gke/scripts/run_k5_q_formal.sh`; exact 5 methods x 5 seeds; per-run validation and final matrix manifest.
+- Previous formal image is superseded for K5 execution because formal controller/runtime packaging changed before run 1/25.
+- Current gate: **K5-Q-FORMAL-PREFLIGHT — local regression + rebuilt immutable formal image/preflight**.
