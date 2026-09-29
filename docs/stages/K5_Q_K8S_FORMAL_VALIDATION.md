@@ -312,3 +312,29 @@ No forwarding logic, controller logic, reward, learning parameter, topology, wor
 The stopped evidence directory must be preserved. The completed seed42/Q-AHBN2 artifacts may be revalidated in place only if complete; otherwise any rerun must follow the frozen same-coordinate operational-rerun rule. No full-campaign restart is authorized.
 
 $$\boxed{\textbf{K5-Q-FORMAL-D5 = validator defect identified/corrected; execution HOLD pending local tests and stopped-run artifact revalidation}}$$
+
+## K5-Q-FORMAL-D5 closure — 2026-09-29
+
+Researcher reran the corrected validator on the preserved completed coordinate:
+`runs/seed42/qahbn2` → **K7 RESULT VALIDATION PASS**.
+
+This confirms the seed42/Q-AHBN2 raw artifacts were complete and scientifically admissible as originally collected. No rerun of that coordinate is justified.
+
+Formal progress at D5 closure:
+- seed42/Gossip: validated;
+- seed42/Structured: validated;
+- seed42/DC-SoC: validated;
+- seed42/AHBN: validated;
+- seed42/Q-AHBN2: validated in place after validator reconciliation;
+- completed/validated coordinates: **5/25**;
+- remaining coordinates: **20/25**.
+
+A fail-closed resume mode was added to `run_k5_q_formal.sh`. In resume mode it:
+- requires an existing evidence root;
+- requires the same frozen image tag/digest;
+- validates existing coordinates before skipping them;
+- preserves existing coordinate artifacts;
+- records a separate resume Git SHA/time;
+- executes only missing coordinates.
+
+$$\boxed{\textbf{K5-Q-FORMAL-D5 = PASS / CLOSED; resume remaining 20 coordinates}}$$
