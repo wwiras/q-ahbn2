@@ -151,3 +151,9 @@
 - Expanded import preflight: INVALID before imports due literal `\\n` wrapper syntax defect.
 - Wrapper corrected and regression guard added; 0/25 formal runs executed.
 - Current gate remains K5-Q-FORMAL-PREFLIGHT-S2 pending corrected container import preflight.
+
+## K5-Q-FORMAL-PREFLIGHT-D3 — 2026-09-29
+- Final local regression: 6/7 PASS; sole failure was an inverted newline regression assertion.
+- Production preflight content was already correct and had previously passed real-container imports.
+- Test corrected to require a genuine newline and reject literal `\\n`.
+- Test-only correction; v2 image/digest unchanged; 0/25 formal runs.
