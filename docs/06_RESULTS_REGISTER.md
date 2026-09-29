@@ -1,6 +1,6 @@
 # Q-AHBN2 Results Register
 
-**Status:** ACTIVE — S12 PASS / CLOSED; S12A CLAIM RECONCILIATION NEXT
+**Status:** ACTIVE — S12A PASS / CLOSED; S13 MANUSCRIPT NEXT
 **Created:** 2026-09-23 under DOC-SYNC-1
 
 ## Registered bounded evidence
@@ -262,3 +262,17 @@
 - Kubernetes low total_forwards is not evidence of generic lightweight behavior: mean F_attempt is 2345.4 for Q-AHBN2 versus 1448.0 for AHBN.
 - No convergence, policy-optimality, universal superiority, cross-environment pooling or literal-replication claim is supported.
 - **Next gate: S12A — Thesis–Paper Claim Reconciliation.**
+
+
+### S12A — Thesis–Paper Claim Reconciliation — 2026-09-29
+- Status: **PASS / CLOSED**.
+- Claim authorization is now frozen in `docs/stages/S12A_CLAIM_RECONCILIATION.md` and `docs/07_CLAIM_EVIDENCE_MATRIX.md`.
+- Architectural contribution authorized: Q-AHBN2 is a bounded post-AHBN Q-learning meta-controller; canonical AHBN remains immutable.
+- Primary RO4/RQ4 claim authorized: across all eight predeclared ControlSim conditions, Q-AHBN2 has higher mean delivery and lower mean propagation delay than AHBN, with an explicit duplicate/forwarding overhead trade-off and condition-dependent magnitude.
+- Learning evidence authorizes active outcome-driven refinement claims only; convergence and policy optimality remain prohibited.
+- Exp13-Q remains bounded external positioning at churn=0.40 and cannot support an omnibus ranking/winner or universal-superiority claim.
+- Kubernetes authorizes operational realization/deployment credibility only; it does not independently establish a consistent performance advantage over AHBN.
+- ControlSim and Kubernetes remain complementary, non-pooled evidence families and must not be described as literal replication.
+- Generic low-overhead/lightweight performance claims remain unsupported.
+- Mandatory limitations: n=5 per formal condition/cell, Student-t 95% CI interpretation bounded to the frozen design, condition-specific effects, no convergence/optimality experiment, no cross-environment equivalence/pooling.
+- **Next gate: S13 — Q-AHBN2 Manuscript.**
