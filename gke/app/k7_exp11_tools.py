@@ -1,0 +1,418 @@
+"""K7 Exp11 configuration, topology contract, and run validation helpers."""
+from __future__ import annotations
+import argparse, hashlib, json, math
+from pathlib import Path
+import yaml
+import networkx as nx
+from gen_topology import assign_clusters, assign_dcsoc_clusters, build_graph
+
+ALGORITHMS = ("gossip", "structured", "dcsoc", "ahbn", "qahbn2")
+STRATEGIES = {"gossip":"gossip", "structured":"cluster", "dcsoc":"dcsoc", "ahbn":"ahbn", "qahbn2":"qahbn2"}
+SEEDS = (42,43,44,45,46)
+CONTRACT_VERSION = "k7-exp11-v2"
+TARGET_SELECTION_VERSION = "k7-targets-v1"
+FORMAL_MESSAGE_COUNT = 240
+MESSAGE_INTERVAL_S = 0.4
+GRID_ABS_TOL_S = 1e-6
+PLANNED_LEAVE_OFFSETS_S = (1.0, 26.0, 51.0, 76.0)
+FROZEN_TARGETS = (0, 5, 10, 15)
+FEASIBILITY_LEAVE_OFFSETS_S = (1.0, 26.0, 51.0, 76.0)
+FEASIBILITY_MESSAGE_COUNT = 240
+FROZEN_HASHES={
+ "app/peer.py":"64c529f9c32f732c8d4f2c5959c75c0bbed20252328b81b018eb35c6cef10b5a",
+ "app/dcsoc_maintenance.py":"b0055d1f3d0246e03ed9a29ae1ee8d6ea5d601da07914d24e153b348ca6d0e04",
+ "app/ahbn_controller.py":"dee8cb8e81494bc1448793076803a330602d613e9654ac7fa572d8203f6cc7c8",
+ "app/k5_final_actuator_policy.py":"8c7a0658cd226d0349e3ed3c64c943887196fdee57d9ef06874fd8525b683cff",
+ "app/k5_final_actuator_runtime.py":"1d95271079064b6c159fcb9d7b553c03cc8b6cb42893f1b8e92bf8f4b6e95a25",
+ "app/k6_controller.py":"e9f60e6b796977dad43fbee7319b0bc901b95f962d5c5337a355c39a68f29289",
+ "app/k6_final_actuator_policy.py":"b39078e45774bb0535fce267dccad43b17e64721726ecb8c340b85eb30d33bf6",
+ "app/k6_final_actuator_runtime.py":"9a81f6d14aa80ebd1250c2b85d9e3635625c24cf35194e39da1965cbc227d5d9",
+ "app/k6_exp10_tools.py":"c136284615f35df9853904a462b2a5523f1f6a424cb07316f1a576852aa6c85e"}
+
+def _canonical_hash(payload: dict) -> str:
+    return hashlib.sha256(json.dumps(payload,sort_keys=True,separators=(",",":"),ensure_ascii=True).encode()).hexdigest()
+
+def topology_audit(base: dict, seed: int) -> dict:
+    """Protocol-neutral audit using only the common BA graph."""
+    n=int(base["numNodes"]); tc=base["topology"]
+    graph=build_graph(n,tc["type"],float(tc.get("edgeProb",.2)),int(tc["baM"]),seed)
+    ranked=sorted(graph,key=lambda peer:(-graph.degree(peer),peer))
+    high_end=max(1,math.ceil(n*.15)); medium_end=max(high_end+1,math.ceil(n*.40))
+    centrality=nx.betweenness_centrality(graph); articulation=set(nx.articulation_points(graph))
+    rows=[]
+    for rank,peer in enumerate(ranked,1):
+        structural_class="HIGH" if rank<=high_end else "MEDIUM" if rank<=medium_end else "LOW_PERIPHERAL"
+        rows.append({"peer_id":peer,"degree":graph.degree(peer),"degree_rank":rank,
+                     "structural_class":structural_class,"articulation":peer in articulation,
+                     "betweenness":round(float(centrality[peer]),12),"selected":peer in FROZEN_TARGETS})
+    payload={"topology_type":tc["type"],"N":n,"BA_m":int(tc["baM"]),"seed":seed,
+             "target_selection_method":"fixed peer IDs preregistered after seed42 protocol-neutral degree-rank audit; rank 1-15% HIGH, >15-40% MEDIUM, remainder LOW_PERIPHERAL; ties degree then peer_id",
+             "target_candidates":list(FROZEN_TARGETS),"frozen_targets":list(FROZEN_TARGETS),
+             "degree_by_target":{str(r["peer_id"]):r["degree"] for r in rows if r["selected"]},
+             "degree_rank_by_target":{str(r["peer_id"]):r["degree_rank"] for r in rows if r["selected"]},
+             "structural_class_by_target":{str(r["peer_id"]):r["structural_class"] for r in rows if r["selected"]},
+             "articulation_by_target":{str(r["peer_id"]):r["articulation"] for r in rows if r["selected"]},
+             "ranking":rows,"selection_version":TARGET_SELECTION_VERSION,
+             "protocol_neutral":True,"selection_inputs":["common_ba_topology","peer_id","degree"]}
+    payload["selection_hash"]=_canonical_hash(payload)
+    return payload
+
+def write_target_selection(base_path: Path, out: Path, seed: int) -> dict:
+    artifact=topology_audit(yaml.safe_load(base_path.read_text()),seed)
+    out.parent.mkdir(parents=True,exist_ok=True); out.write_text(json.dumps(artifact,indent=2)+"\n")
+    return artifact
+
+def absolute_grid(epoch: float, count: int, interval: float=MESSAGE_INTERVAL_S) -> list[float]:
+    return [float(epoch)+i*float(interval) for i in range(int(count))]
+
+def simulate_blocking_absolute_schedule(epoch: float, durations: list[float], interval: float=MESSAGE_INTERVAL_S) -> list[dict]:
+    """Pure timing model used to prove blocking calls cannot move planned times."""
+    available=float(epoch); rows=[]
+    for planned,duration in zip(absolute_grid(epoch,len(durations),interval),durations):
+        started=max(planned,available); ended=started+float(duration); available=ended
+        rows.append({"planned":planned,"started":started,"ended":ended,"lateness":started-planned})
+    return rows
+
+def absolute_churn_grid(epoch: float) -> list[float]:
+    return [float(epoch)+offset for offset in PLANNED_LEAVE_OFFSETS_S]
+
+def validate_planned_message_grid(records: list[dict], experiment_epoch: float,
+                                  expected_count: int=FORMAL_MESSAGE_COUNT) -> dict:
+    """Validate each planned point, avoiding cancellation in Unix-float gaps.
+
+    One microsecond covers a few binary64 ULPs at current Unix epochs while
+    remaining 10,000 times smaller than the explicitly rejected 0.01-s drift.
+    """
+    if len(records)!=expected_count:
+        raise ValueError(f"planned message count invalid: expected={expected_count} observed={len(records)}")
+    numeric=[]
+    for row in records:
+        raw=str(row.get("msg_id",row.get("message_id","")))
+        if not raw.startswith("m") or not raw[1:].isdigit(): raise ValueError(f"invalid msg_id: {raw!r}")
+        numeric.append((int(raw[1:]),row))
+    numeric.sort(key=lambda item:item[0]); ids=[item[0] for item in numeric]
+    if ids!=list(range(1,expected_count+1)): raise ValueError("planned msg_ids are duplicate, missing, or out of sequence")
+    planned=[float(row["planned_injection_ts"]) for _,row in numeric]
+    errors=[]
+    for index,value in enumerate(planned):
+        expected=float(experiment_epoch)+index*MESSAGE_INTERVAL_S; error=value-expected; errors.append(error)
+        if not math.isclose(value,expected,rel_tol=0.0,abs_tol=GRID_ABS_TOL_S):
+            raise ValueError(f"planned message grid drift at m{index+1}: observed={value:.9f} expected={expected:.9f} error_s={error:.9f}")
+    if any(b<a for a,b in zip(planned,planned[1:])): raise ValueError("planned timestamps are not monotonic")
+    gaps=[b-a for a,b in zip(planned,planned[1:])]
+    return {"max_abs_planned_error_s":max(map(abs,errors),default=0.0),
+            "min_gap_s":min(gaps,default=None),"max_gap_s":max(gaps,default=None),
+            "max_abs_gap_error_s":max((abs(g-MESSAGE_INTERVAL_S) for g in gaps),default=0.0)}
+
+def validate_target_selection(artifact: dict, *, seed: int|None=None) -> None:
+    saved=artifact.get("selection_hash"); unhashed={k:v for k,v in artifact.items() if k!="selection_hash"}
+    checks={"version":artifact.get("selection_version")==TARGET_SELECTION_VERSION,
+            "hash":saved==_canonical_hash(unhashed),"protocol_neutral":artifact.get("protocol_neutral") is True,
+            "inputs":artifact.get("selection_inputs")==["common_ba_topology","peer_id","degree"],
+            "targets":tuple(artifact.get("frozen_targets",()))==FROZEN_TARGETS,
+            "classes":set(artifact.get("structural_class_by_target",()))==set(map(str,FROZEN_TARGETS)),
+            "seed":seed is None or artifact.get("seed")==seed}
+    bad=[name for name,ok in checks.items() if not ok]
+    if bad: raise ValueError(f"target-selection artifact invalid: {bad}")
+
+def planned_wait_seconds(experiment_start: float, planned_offset: float,
+                         current_time: float, previous_cycle_complete: bool) -> float:
+    """Return time until a frozen event, or fail rather than shift its time."""
+    if not previous_cycle_complete:
+        raise RuntimeError("preceding churn cycle unresolved at planned leave time")
+    remaining = float(experiment_start) + float(planned_offset) - float(current_time)
+    if remaining < 0:
+        raise RuntimeError("planned churn deadline missed; run is invalid")
+    return remaining
+
+def choose_exp10_target(topo):
+    """Compatibility symbol required by the shared controller; unused by K7."""
+    event=topo["k7_exp11"]["planned_churn_schedule"][0]
+    return {"peer_id":event["target_peer"],"role":event["target_role"],"cluster_id":topo["nodes"][str(event["target_peer"])].get("cluster_id"),"degree":len(topo["nodes"][str(event["target_peer"])]["neighbors"])}
+
+def design(base: dict, seed: int) -> tuple[int,list[int]]:
+    n=int(base["numNodes"]); nc=int(base["numClusters"]); tc=base["topology"]
+    graph=build_graph(n,tc["type"],float(tc.get("edgeProb",.2)),int(tc["baM"]),seed)
+    sh,_,_=assign_clusters(n,nc); dc=base.get("dcsoc",{})
+    dh,_,_,_,_=assign_dcsoc_clusters(graph,float(dc.get("eps",2)),int(dc.get("min_samples",3)))
+    source_candidates=sorted(set(graph)-set(sh)-set(dh))
+    if not source_candidates: raise RuntimeError("no common non-structural source")
+    source=source_candidates[0]
+    targets=list(FROZEN_TARGETS)
+    if source in targets: raise RuntimeError("frozen target set collides with common source")
+    return source,targets
+
+def write_config(base_path: Path,out: Path,algorithm: str,seed: int,
+                 feasibility_dcsoc: bool = False) -> None:
+    if algorithm not in ALGORITHMS or seed not in SEEDS: raise ValueError("invalid K7 coordinate")
+    if feasibility_dcsoc and (algorithm != "dcsoc" or seed != 42):
+        raise ValueError("feasibility gate is DC-SoC seed42 only")
+    cfg=yaml.safe_load(base_path.read_text()); source,targets=design(cfg,seed)
+    cfg["experiment"]=f"k7_exp11_{algorithm}_seed{seed}"; cfg["strategy"]=STRATEGIES[algorithm]
+    cfg["topology"]["seed"]=seed; cfg["messageSource"]=source; cfg["k5_h2"]["seed"]=seed
+    selection=topology_audit(cfg,seed); validate_target_selection(selection,seed=seed)
+    cfg["k7_exp11"].update({"algorithm":algorithm,"seed":seed,"source_peer":source,"target_peers":targets,
+        "contract_version":CONTRACT_VERSION,"target_selection_version":TARGET_SELECTION_VERSION,
+        "target_selection_hash":selection["selection_hash"],"target_selection_policy":"fixed_ids_across_seeds",
+        "plannedLeaveOffsetsSec":list(PLANNED_LEAVE_OFFSETS_S),"schedule_semantics":"absolute_common_epoch",
+        "message_schedule_semantics":"absolute_common_epoch"})
+    cfg["workload"]={"messageCount":FORMAL_MESSAGE_COUNT,"messageInterval":MESSAGE_INTERVAL_S}
+    if feasibility_dcsoc:
+        cfg["experiment"]="k7_dcsoc_feas25_seed42"
+        cfg["workload"]["messageCount"]=FEASIBILITY_MESSAGE_COUNT
+        cfg["k7_exp11"].update({"feasibility_gate":"dcsoc_25s_seed42","scientific_use":"FEASIBILITY-ONLY / NOT EXP11 RESULT","plannedLeaveOffsetsSec":list(FEASIBILITY_LEAVE_OFFSETS_S)})
+    cfg["dcsoc"]={"eps":2.0,"min_samples":3,"preserve_message_source":True,"dynamic_maintenance":algorithm=="dcsoc"}
+    out.parent.mkdir(parents=True,exist_ok=True); out.write_text(yaml.safe_dump(cfg,sort_keys=False))
+
+def enrich_topology(path: Path, config_path: Path) -> None:
+    topo=json.loads(path.read_text()); cfg=yaml.safe_load(config_path.read_text()); meta=cfg["k7_exp11"]
+    targets=[int(x) for x in meta["target_peers"]]
+    events=[]
+    offsets=tuple(float(x) for x in meta["plannedLeaveOffsetsSec"])
+    expected_offsets=FEASIBILITY_LEAVE_OFFSETS_S if meta.get("feasibility_gate") else PLANNED_LEAVE_OFFSETS_S
+    if offsets != expected_offsets:
+        raise ValueError("K7 planned leave offsets differ from frozen schedule")
+    for i,(target,offset) in enumerate(zip(targets,offsets),1):
+        node=topo["nodes"][str(target)]
+        audit=topology_audit(cfg,int(meta["seed"])); common=next(r for r in audit["ranking"] if r["peer_id"]==target)
+        role=(node.get("dcsoc_role","leaf") if meta["algorithm"]=="dcsoc" else "cluster_head" if meta["algorithm"]=="structured" and node["is_cluster_head"] else "peer")
+        events.append({"event_index":i,"target_peer":target,"target_role":role,
+            "target_degree":common["degree"],"target_degree_rank":common["degree_rank"],
+            "common_structural_class":common["structural_class"],"target_articulation":common["articulation"],
+            "target_betweenness":common["betweenness"],"planned_leave_offset_s":offset,
+            "recovery_action":"statefulset_recreate_and_ready_alive"})
+    topo["k7_exp11"]={**meta,"planned_churn_schedule":events,"num_events":4,"schedule_semantics":"absolute_common_epoch","message_schedule_semantics":"absolute_common_epoch","maintenance_interval":"after_each_completed_cycle" if meta["algorithm"]=="dcsoc" else None}
+    path.write_text(json.dumps(topo,indent=2)+"\n")
+
+def validate_feasibility_topology(path: Path) -> None:
+    t=json.loads(path.read_text()); m=t.get("k7_exp11",{}); schedule=m.get("planned_churn_schedule",[])
+    targets=[int(e["target_peer"]) for e in schedule]
+    checks={"identity":t.get("experiment")=="k7_dcsoc_feas25_seed42","coordinate":t.get("strategy")=="dcsoc" and m.get("algorithm")=="dcsoc" and m.get("seed")==42,"workload":t.get("workload")=={"message_count":FEASIBILITY_MESSAGE_COUNT,"message_interval":.4},"schedule":tuple(float(e["planned_leave_offset_s"]) for e in schedule)==FEASIBILITY_LEAVE_OFFSETS_S,"targets":targets==[0,5,10,15] and len(set(targets))==4,"source_safe":int(t["message_source"]) not in targets,"label":m.get("scientific_use")=="FEASIBILITY-ONLY / NOT EXP11 RESULT"}
+    bad=[name for name,ok in checks.items() if not ok]
+    if bad: raise ValueError(f"{path}: feasibility contract failed: {bad}")
+
+def validate_topologies(paths: list[Path], expected=ALGORITHMS) -> None:
+    seen=[]; reference=None; physical=None
+    for path in paths:
+        t=json.loads(path.read_text()); m=t.get("k7_exp11",{}); a=m.get("algorithm"); seen.append(a)
+        schedule=m.get("planned_churn_schedule",[]); targets=[e.get("target_peer") for e in schedule]; offsets=tuple(e.get("planned_leave_offset_s") for e in schedule)
+        checks={"identity":t.get("experiment")==f"k7_exp11_{a}_seed{m.get('seed')}","strategy":t.get("strategy")==STRATEGIES.get(a),"version":m.get("contract_version")==CONTRACT_VERSION,"selection_version":m.get("target_selection_version")==TARGET_SELECTION_VERSION,"scale":(t.get("num_nodes"),t.get("topology_type"),t.get("ba_m"))==(20,"ba",2),"workload":t.get("workload")=={"message_count":FORMAL_MESSAGE_COUNT,"message_interval":MESSAGE_INTERVAL_S},"timing":t.get("settle_time")==18 and t["failure"]=={"mode":"churn","trigger_time":1.0,"overload_delay_ms":200,"num_events":4,"interval_sec":1.2,"target_type":"mixed"},"schedule":len(schedule)==4 and tuple(targets)==FROZEN_TARGETS and offsets==PLANNED_LEAVE_OFFSETS_S and m.get("schedule_semantics")=="absolute_common_epoch" and m.get("message_schedule_semantics")=="absolute_common_epoch","common_classes":all(e.get("common_structural_class") for e in schedule),"source_safe":t.get("message_source") not in targets,"S5":t.get("k5_h2",{}).get("actuator_treatment")=="S5","isolation":bool(t["dcsoc"]["dynamic_maintenance"])==(a=="dcsoc")}
+        bad=[k for k,v in checks.items() if not v]
+        if bad: raise ValueError(f"{path}: K7 contract failed: {bad}")
+        match=(t["message_source"],targets,offsets,t["workload"],t["failure"],t["settle_time"])
+        graph={k:v["neighbors"] for k,v in t["nodes"].items()}
+        if reference is not None and match!=reference: raise ValueError("matched K7 inputs differ")
+        if physical is not None and graph!=physical: raise ValueError("matched physical topology differs")
+        reference,physical=match,graph
+    if tuple(seen)!=tuple(expected): raise ValueError(f"treatment order mismatch: {seen}")
+
+def load_jsonl(path: Path) -> list[dict]:
+    rows=[]; seen=set(); decoder=json.JSONDecoder()
+    for no,line in enumerate(path.read_text().splitlines(),1):
+        pending=line.strip()
+        if not pending.startswith("{"): continue
+        try:
+            while pending:
+                row,end=decoder.raw_decode(pending)
+                identity=json.dumps(row,sort_keys=True,separators=(",",":"))
+                if identity not in seen: rows.append(row); seen.add(identity)
+                pending=pending[end:].lstrip()
+        except json.JSONDecodeError as e: raise ValueError(f"{path}:{no}: invalid JSON") from e
+    return rows
+
+def _elapsed(row: dict, workload_origin: float) -> float:
+    """Use an explicit common domain when supplied; preserve raw timestamps."""
+    if "workload_elapsed_s" in row:
+        return float(row["workload_elapsed_s"])
+    return float(row["ts"]) - workload_origin
+
+def validate_churn_timeline(topo: dict, rows: list[dict]) -> dict:
+    """Independently validate workload pacing and all frozen churn cycles."""
+    meta=topo["k7_exp11"]; schedule=meta.get("planned_churn_schedule",[])
+    expected_offsets=PLANNED_LEAVE_OFFSETS_S
+    observed_offsets=tuple(float(e.get("planned_leave_offset_s",-1)) for e in schedule)
+    if len(schedule)!=4 or observed_offsets!=expected_offsets:
+        raise ValueError(f"planned churn schedule invalid: expected={expected_offsets} observed={observed_offsets}")
+    injected=[r for r in rows if r.get("event")=="message_injected"]
+    if len(injected)!=FORMAL_MESSAGE_COUNT:
+        raise ValueError(f"injected_count invalid: expected={FORMAL_MESSAGE_COUNT} observed={len(injected)}")
+    message_ids=[r.get("message_id") for r in injected]
+    if len(set(message_ids))!=FORMAL_MESSAGE_COUNT:
+        raise ValueError(f"unique injected messages invalid: expected={FORMAL_MESSAGE_COUNT} observed={len(set(message_ids))}")
+    injected=sorted(injected,key=lambda r:float(r.get("workload_elapsed_s",r["ts"])))
+    epoch_rows=[r for r in rows if r.get("event")=="k7_experiment_epoch"]
+    origin=float(epoch_rows[0]["experiment_epoch"]) if len(epoch_rows)==1 else float(injected[0]["ts"])
+    injection_elapsed=[_elapsed(r,origin) for r in injected]
+    # Actual peer timestamps include varying StartRun latency and are retained as
+    # diagnostics. Scientific pacing is enforced against the controller's
+    # pointwise absolute planned grid in validate_planned_message_grid().
+    leaves=[r for r in rows if r.get("event")=="churn_leave_scheduled"]
+    downs=[r for r in rows if r.get("event")=="pod_unavailability_observed"]
+    joins=[r for r in rows if r.get("event")=="churn_rejoined"]
+    if (len(leaves),len(downs),len(joins))!=(4,4,4):
+        raise ValueError(f"churn event counts invalid: leaves={len(leaves)} unavailable={len(downs)} rejoined={len(joins)}")
+    leaves.sort(key=lambda r:int(r["event_index"])); downs.sort(key=lambda r:int(r["event_index"])); joins.sort(key=lambda r:int(r["event_index"]))
+    planned_epochs=[float(r["planned_leave_time"]) for r in leaves]
+    planned_gaps=tuple(round(t-planned_epochs[0],6) for t in planned_epochs)
+    expected_gaps=tuple(t-expected_offsets[0] for t in expected_offsets)
+    if planned_gaps!=expected_gaps:
+        raise ValueError(f"dynamic rescheduling detected: expected gaps={expected_gaps} observed={planned_gaps}")
+    dispatch_elapsed=[]; delete_elapsed=[]; down_elapsed=[]; timing_errors=[]
+    for index,(planned,leave,down,join) in enumerate(zip(schedule,leaves,downs,joins),1):
+        if any(int(r["event_index"])!=index for r in (leave,down,join)):
+            raise ValueError(f"churn event ordering invalid at event {index}")
+        target=int(planned["target_peer"])
+        if target==int(topo["message_source"]): raise ValueError(f"source churned at event {index}")
+        if any(int(r["target_peer"])!=target for r in (leave,down,join)):
+            raise ValueError(f"churn target mismatch at event {index}")
+        required=("planned_leave_time","actual_delete_time","unavailable_time","recovery_ready_time","grpc_alive_time","replacement_pod_uid")
+        missing=[name for name in required if name not in join]
+        if missing: raise ValueError(f"event {index} timing/recovery telemetry missing: {missing}")
+        if join["replacement_pod_uid"]==down.get("original_pod_uid"):
+            raise ValueError(f"event {index} replacement UID did not change")
+        times=[float(join[n]) for n in required[:5]]
+        if not (times[0]<=times[1]<times[2]<=times[3]<=times[4]):
+            raise ValueError(f"event {index} timing ordering invalid: {times}")
+        dispatch=float(leave.get("actual_churn_start_ts",leave["ts"]))-origin
+        delete=float(join.get("actual_delete_workload_elapsed_s",times[1]-origin)); down=float(join["unavailable_time"])-origin
+        dispatch_elapsed.append(dispatch); delete_elapsed.append(delete); down_elapsed.append(down)
+        offset=float(planned["planned_leave_offset_s"])
+        if dispatch < offset or dispatch-offset>0.5:
+            timing_errors.append(f"event {index} churn dispatch timing outside tolerance: planned={offset:.2f}s actual={dispatch:.2f}s")
+    if dispatch_elapsed[-1]>=injection_elapsed[-1]:
+        raise ValueError(f"last churn workload_elapsed={dispatch_elapsed[-1]:.2f} s, last injection workload_elapsed={injection_elapsed[-1]:.2f} s")
+    if timing_errors: raise ValueError(timing_errors[0])
+    return {"injected_count":FORMAL_MESSAGE_COUNT,"experiment_epoch":origin,"first_injected_ts":float(injected[0]["ts"]),"last_injected_ts":float(injected[-1]["ts"]),"workload_duration_s":injection_elapsed[-1],"churn_dispatch_elapsed_s":dispatch_elapsed,"delete_api_completion_elapsed_s":delete_elapsed,"down_observed_elapsed_s":down_elapsed,"delete_elapsed_s":delete_elapsed}
+
+def preflight(topologies: list[Path], artifacts: list[Path], *, image: str, output: Path) -> None:
+    if not image: raise ValueError("image supplied is mandatory")
+    if output.exists(): raise ValueError("new output directory required")
+    resolved=output.resolve()
+    if resolved in (Path("/").resolve(),Path.home().resolve()): raise ValueError("unsafe output directory")
+    validate_topologies(topologies)
+    if len(artifacts)!=len(topologies): raise ValueError("one target artifact per topology required")
+    for topo_path,artifact_path in zip(topologies,artifacts):
+        topo=json.loads(topo_path.read_text()); artifact=json.loads(artifact_path.read_text())
+        validate_target_selection(artifact,seed=int(topo["k7_exp11"]["seed"]))
+        if topo["k7_exp11"]["target_selection_hash"]!=artifact["selection_hash"]: raise ValueError("target selection hash mismatch")
+    root=Path(__file__).resolve().parents[1]
+    bad_hash=[name for name,digest in FROZEN_HASHES.items() if hashlib.sha256((root/name).read_bytes()).hexdigest()!=digest]
+    if bad_hash: raise ValueError(f"frozen hashes changed: {bad_hash}")
+    controller=(root/"app/k7_controller.py").read_text(); trace=(root/"app/k7_rpc_trace.py").read_text()
+    if not all(token in controller for token in ("absolute_message_schedule","_experiment_epoch","k7_dcsoc_maintenance_rpc","planned_churn_ts")): raise ValueError("K7 absolute scheduler/formal trace disabled")
+    if "x-k7-request-id" not in trace: raise ValueError("formal request-ID tracing disabled")
+    print("K7 PREFLIGHT PASS")
+
+def active_at(peer: int, ts: float, events: list[dict]) -> bool:
+    active=True
+    for e in sorted(events,key=lambda x:float(x["ts"])):
+        if float(e["ts"])>ts: break
+        if int(e["target_peer"])==peer: active=e["event"]=="churn_rejoined"
+    return active
+
+def indexed_churn_events(rows: list[dict], event_name: str) -> list[dict]:
+    """Return exactly one event for each K7 index, independent of completion order."""
+    selected=[row for row in rows if row.get("event")==event_name]
+    by_index={}
+    for row in selected:
+        try: index=int(row["event_index"])
+        except (KeyError,TypeError,ValueError) as error: raise ValueError(f"{event_name} has invalid event_index") from error
+        if index not in range(1,5): raise ValueError(f"{event_name} event_index out of range: {index}")
+        if index in by_index: raise ValueError(f"duplicate {event_name} for event_index {index}")
+        by_index[index]=row
+    missing=[index for index in range(1,5) if index not in by_index]
+    if missing: raise ValueError(f"missing {event_name} for event_index {missing}")
+    return [by_index[index] for index in range(1,5)]
+
+def validate_churn_event_triplets(topo: dict, rows: list[dict]) -> tuple[list[dict],list[dict],list[dict]]:
+    leaves=indexed_churn_events(rows,"churn_leave_scheduled"); downs=indexed_churn_events(rows,"pod_unavailability_observed"); joins=indexed_churn_events(rows,"churn_rejoined")
+    schedule=topo["k7_exp11"]["planned_churn_schedule"]
+    for i,(leave,down,join) in enumerate(zip(leaves,downs,joins),1):
+        target=int(schedule[i-1]["target_peer"])
+        if any(int(row["event_index"])!=i or int(row["target_peer"])!=target for row in (leave,down,join)): raise ValueError(f"churn event {i} target/index mismatch")
+        if not(float(leave["ts"])<float(down["ts"])<=float(join["recovery_ready_time"])<=float(join["grpc_alive_time"])<=float(join["ts"])): raise ValueError(f"churn event {i} causal ordering invalid")
+    return leaves,downs,joins
+
+def validate_run(run_dir: Path) -> dict:
+    missing=[n for n in ("topology.json","logs.jsonl","controller.log","pods.json") if not (run_dir/n).is_file()]
+    if missing: raise ValueError(f"missing mandatory artifacts: {missing}")
+    topo=json.loads((run_dir/"topology.json").read_text()); rows=load_jsonl(run_dir/"logs.jsonl"); meta=topo["k7_exp11"]; algorithm=meta["algorithm"]
+    epochs=[r for r in rows if r.get("event")=="k7_experiment_epoch"]
+    if len(epochs)!=1: raise ValueError(f"shared experiment epoch invalid: observed={len(epochs)}")
+    experiment_epoch=float(epochs[0]["experiment_epoch"])
+    injections=sorted((r for r in rows if r.get("event")=="k7_message_injection"),key=lambda r:int(str(r.get("msg_id","m0"))[1:]))
+    if len(injections)!=FORMAL_MESSAGE_COUNT: raise ValueError("K7 injection trace count invalid")
+    required_injection={"msg_id","planned_injection_ts","actual_injection_start_ts","actual_injection_end_ts","start_run_elapsed_ms","injection_lateness_ms","injection_status"}
+    if any(not required_injection<=set(r) for r in injections): raise ValueError("K7 injection trace fields missing")
+    if any(r["injection_status"]!="ACK" for r in injections): raise ValueError("message injection did not complete")
+    grid_diagnostics=validate_planned_message_grid(injections,experiment_epoch)
+    timeline=validate_churn_timeline(topo,rows)
+    leaves,downs,joins=validate_churn_event_triplets(topo,rows)
+    for i,(leave,down,join) in enumerate(zip(leaves,downs,joins),1):
+        if int(join["target_peer"])==int(topo["message_source"]): raise ValueError("source churned")
+        required=("planned_leave_time","actual_delete_time","unavailable_time","recovery_ready_time","grpc_alive_time")
+        if any(name not in join for name in required): raise ValueError("incomplete K7 timing telemetry")
+        if not (float(join["planned_leave_time"]) <= float(join["actual_delete_time"]) < float(join["unavailable_time"]) <= float(join["recovery_ready_time"]) <= float(join["grpc_alive_time"])): raise ValueError("K7 timing telemetry ordering invalid")
+    maintenance=[r for r in rows if r.get("event")=="dcsoc_maintenance"]
+    if algorithm=="dcsoc" and not maintenance: raise ValueError("DC-SoC maintenance missing")
+    if algorithm!="dcsoc" and maintenance: raise ValueError("maintenance leaked")
+    traces=[r for r in rows if r.get("event")=="ahbn_controller_trace"]; decisions=[r for r in rows if r.get("event")=="k5_final_actuator_decision"]
+    if (algorithm=="ahbn") != bool(traces and decisions): raise ValueError("AHBN trace isolation failed")
+    injected=[r for r in rows if r.get("event")=="message_injected"]
+    received=[r for r in rows if r.get("event")=="received_new"]; dup=[r for r in rows if r.get("event")=="received_duplicate"]; fwd=[r for r in rows if r.get("event")=="forward"]
+    churn_state=[{"event":"churn_rejoined","target_peer":r["target_peer"],"ts":r["ts"]} for r in joins]+[{"event":"churn_down","target_peer":r["peer_id"],"ts":r["ts"]} for r in downs]
+    opportunities=[]
+    for inj in injected:
+        ts=float(inj["ts"]); active={p for p in range(topo["num_nodes"]) if active_at(p,ts,churn_state)}; got={int(r["peer_id"]) for r in received if r.get("message_id")==inj["message_id"]}
+        relevant=[float(r["ts"]) for r in received if r.get("message_id")==inj["message_id"] and int(r["peer_id"]) in active]
+        opportunities.append({"message_id":inj["message_id"],"injected_ts":ts,"active_peers":sorted(active),"expected_count":len(active),"delivered_count":len(active&got),"delivery_ratio":len(active&got)/len(active),"first_eligible_reception_ts":min(relevant) if relevant else None,"last_eligible_reception_ts":max(relevant) if relevant else None,"mean_eligible_reception_ts":sum(relevant)/len(relevant) if relevant else None,"full_delivery":active<=got,"completion_ts":max(relevant) if active<=got and relevant else None})
+    recoveries=[]
+    for join in joins:
+        candidates=[o for o in opportunities if o["injected_ts"]>=float(join["ts"]) and o["full_delivery"]]
+        first=candidates[0] if candidates else None
+        recoveries.append({"event_index":join["event_index"],"recovered":first is not None,"recovery_time_s":first["completion_ts"]-float(join["ts"]) if first else None,"recovery_message_id":first["message_id"] if first else None,"censored":first is None,"censored_at_s":topo["settle_time"] if first is None else None})
+    expected=sum(o["expected_count"] for o in opportunities); delivered=sum(o["delivered_count"] for o in opportunities)
+    attempts=[r for r in rows if r.get("event")=="k7_forward_attempt"]
+    if not attempts: raise ValueError(f"{algorithm} forwarding attempt trace missing")
+    if algorithm=="structured" and not any("structured_cluster_head_id" in r for r in attempts): raise ValueError("Structured path trace missing")
+    if algorithm=="ahbn":
+        required_ahbn={"raw_d","raw_l","raw_u","raw_c","d_hat","l_hat","u_hat","c_hat","score","mode","fanout"}
+        if not traces or any(not required_ahbn<=set(r) for r in traces): raise ValueError("AHBN causal trace incomplete")
+        if not any(r.get("event")=="ahbn_forwarding_decision" and "selected_peers" in r for r in rows): raise ValueError("AHBN selected-target trace missing")
+    if algorithm=="dcsoc":
+        client_rpc=[r for r in rows if r.get("event")=="k7_dcsoc_maintenance_rpc"]
+        server_rpc=[r for r in rows if str(r.get("event","")).startswith("k7_dcsoc_rpc_")]
+        if not client_rpc or not server_rpc: raise ValueError("formal DC-SoC RPC trace missing")
+        if any(not r.get("request_id") for r in client_rpc+server_rpc): raise ValueError("DC-SoC request ID missing")
+        if not any("structural_generation" in r and "structure_digest_before" in r for r in server_rpc): raise ValueError("DC-SoC structural generation missing")
+    recovery_metrics=[{"event_id":j["event_index"],"target_peer":j["target_peer"],"T_infra":float(j["grpc_alive_time"])-float(j["unavailable_time"]),"T_ready":float(j["recovery_ready_time"])-float(j["unavailable_time"])} for j in joins]
+    result={"run_id":topo["run_id"],"algorithm":algorithm,"seed":meta["seed"],"delivery_ratio":delivered/expected,"propagation_delay":None,"duplicates":len(dup),"F_success":len(fwd),"F_attempt":len(attempts),"total_forwards":len(fwd),"churn_events":4,"recovered_events":sum(r["recovered"] for r in recoveries),"recovery_events":recoveries,"recovery_metrics":recovery_metrics,"core_replacement_count":max((int(r.get("core_replacement_count",0)) for r in maintenance),default=0),"rejoin_assignment_count":max((int(r.get("rejoin_assignment_count",0)) for r in maintenance),default=0),"recluster_count":max((int(r.get("recluster_count",0)) for r in maintenance),default=0),"T_maintenance":sum(float(r.get("maintenance_duration",0)) for r in maintenance),"maintenance_duration":sum(float(r.get("maintenance_duration",0)) for r in maintenance)}
+    delays=[]
+    for inj in injected:
+        arrivals=[float(r["ts"]) for r in received if r.get("message_id")==inj["message_id"]]
+        if arrivals: delays.append(max(arrivals)-float(inj["ts"]))
+    result["propagation_delay"]=sum(delays)/len(delays) if delays else None
+    manifest={"contract_version":CONTRACT_VERSION,"experiment_epoch":experiment_epoch,"seed":meta["seed"],"algorithm":algorithm,"target_selection_version":meta["target_selection_version"],"target_selection_hash":meta["target_selection_hash"],"frozen_targets":list(FROZEN_TARGETS),"message_count":FORMAL_MESSAGE_COUNT,"message_interval":MESSAGE_INTERVAL_S,"planned_grid_tolerance_s":GRID_ABS_TOL_S,"planned_grid_diagnostics":grid_diagnostics,"churn_offsets":list(PLANNED_LEAVE_OFFSETS_S),"contract_hash":_canonical_hash({"topology":"ba","N":20,"BA_m":2,"targets":list(FROZEN_TARGETS),"messages":FORMAL_MESSAGE_COUNT,"interval":MESSAGE_INTERVAL_S,"offsets":list(PLANNED_LEAVE_OFFSETS_S)})}
+    (run_dir/"run_manifest.json").write_text(json.dumps(manifest,indent=2)+"\n")
+    (run_dir/"metrics.json").write_text(json.dumps(result,indent=2)+"\n"); (run_dir/"churn_events.json").write_text(json.dumps({"planned":meta["planned_churn_schedule"],"observed":{"leaves":leaves,"unavailable":downs,"rejoined":joins},"recovery":recoveries,"delivery_opportunities":opportunities},indent=2)+"\n")
+    return result
+
+def main():
+    p=argparse.ArgumentParser(); s=p.add_subparsers(dest="cmd",required=True)
+    c=s.add_parser("config"); c.add_argument("--base",type=Path,required=True); c.add_argument("--out",type=Path,required=True); c.add_argument("--algorithm",choices=ALGORITHMS,required=True); c.add_argument("--seed",type=int,required=True); c.add_argument("--feasibility-dcsoc",action="store_true")
+    e=s.add_parser("enrich"); e.add_argument("--topology",type=Path,required=True); e.add_argument("--config",type=Path,required=True)
+    v=s.add_parser("contract"); v.add_argument("paths",nargs="+",type=Path)
+    r=s.add_parser("run"); r.add_argument("--run-dir",type=Path,required=True)
+    f=s.add_parser("feasibility-contract"); f.add_argument("path",type=Path)
+    t=s.add_parser("target-selection"); t.add_argument("--base",type=Path,required=True); t.add_argument("--out",type=Path,required=True); t.add_argument("--seed",type=int,required=True)
+    q=s.add_parser("preflight"); q.add_argument("--topology",type=Path,action="append",required=True); q.add_argument("--target-artifact",type=Path,action="append",required=True); q.add_argument("--image",required=True); q.add_argument("--output",type=Path,required=True)
+    a=p.parse_args()
+    if a.cmd=="config": write_config(a.base,a.out,a.algorithm,a.seed,a.feasibility_dcsoc)
+    elif a.cmd=="enrich": enrich_topology(a.topology,a.config)
+    elif a.cmd=="contract": validate_topologies(a.paths)
+    elif a.cmd=="feasibility-contract": validate_feasibility_topology(a.path)
+    elif a.cmd=="target-selection": print(json.dumps(write_target_selection(a.base,a.out,a.seed),sort_keys=True))
+    elif a.cmd=="preflight": preflight(a.topology,a.target_artifact,image=a.image,output=a.output)
+    else:
+        result=validate_run(a.run_dir); print(json.dumps(result,sort_keys=True)); print("K7 RESULT VALIDATION PASS")
+if __name__=="__main__": main()
