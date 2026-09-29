@@ -1,6 +1,6 @@
 # Q-AHBN2 Results Register
 
-**Status:** ACTIVE — K6-Q PASS / CLOSED; S12 INTERPRETATION NEXT
+**Status:** ACTIVE — S12 PASS / CLOSED; S12A CLAIM RECONCILIATION NEXT
 **Created:** 2026-09-23 under DOC-SYNC-1
 
 ## Registered bounded evidence
@@ -250,3 +250,15 @@
 - Evidence roles remain separate: K8s-VAL-Q AHBN-vs-Q-AHBN2 deployment validation and Exp13-Q-K8s matched five-method cloud-native reference benchmark.
 - Claim boundary: integrity/provenance/freeze only; no comparative interpretation or cross-environment pooling.
 - **Next gate: S12 — Interpretation.**
+
+
+### S12 — Scientific Interpretation — 2026-09-29
+- Status: **PASS / CLOSED**.
+- Primary RO4/RQ4 evidence: 80 ControlSim runs / 40 paired AHBN-Q-AHBN2 comparisons.
+- Across all eight frozen ControlSim conditions, Q-AHBN2 has higher mean delivery and lower mean propagation delay than AHBN; all paired 95% CIs for these two outcomes exclude zero.
+- Trade-off: duplicate and forwarding means are higher for Q-AHBN2 in all eight conditions; high-churn overhead differences are more uncertain.
+- Exp13-Q remains bounded external positioning; it does not support universal dominance over Gossip, Structured or DC-SoC.
+- Kubernetes: operational realization supported, but all four Q-AHBN2-vs-AHBN paired 95% CIs cross zero and seed-level directions vary.
+- Kubernetes low total_forwards is not evidence of generic lightweight behavior: mean F_attempt is 2345.4 for Q-AHBN2 versus 1448.0 for AHBN.
+- No convergence, policy-optimality, universal superiority, cross-environment pooling or literal-replication claim is supported.
+- **Next gate: S12A — Thesis–Paper Claim Reconciliation.**
