@@ -29,11 +29,11 @@ def realize_inherited_targets(
 ) -> RealizedQDecision:
     """Realize the Q-refined request using inherited GKE selection semantics."""
     if q.mode_q == "structured":
-        eligible = tuple(dict.fromkeys(int(x) for x in gossip_eligible))
         # The caller supplies the inherited structured selector; this helper
-        # neither reconstructs nor changes cluster semantics.
+        # neither reconstructs nor changes cluster semantics. Its returned
+        # targets are therefore the authoritative realized structural set.
         targets = tuple(int(x) for x in structured_selector(sender_id, q.k_q))
-        return RealizedQDecision(q=q, eligible_targets=eligible, realized_targets=targets)
+        return RealizedQDecision(q=q, eligible_targets=targets, realized_targets=targets)
 
     if q.mode_q != "gossip":
         raise ValueError(f"unsupported refined mode: {q.mode_q}")
