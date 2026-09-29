@@ -1,6 +1,6 @@
 # S10A — Formal Exp13-Q: Reference Benchmark
 
-**Status:** S10A-VERIFY STATIC PASS / LOCAL REGRESSION+SMOKE PENDING; FORMAL BLOCKED
+**Status:** S10A-VERIFY STATIC + REGRESSION PASS; BOUNDED SMOKE NEXT; FORMAL BLOCKED
 
 ## Objective
 Provide one bounded external reference benchmark for standalone Q-AHBN2 publication positioning without replacing or expanding the primary thesis RO4 causal matrix.
@@ -180,17 +180,30 @@ PYTHONPATH=. python -m unittest discover -s tests -v
 
 After those pass, the bounded smoke command will be released separately so the smoke remains intentionally small and non-formal.
 
-### Current S10A-VERIFY result
-**STATIC PASS / LOCAL REGRESSION PENDING.**
+### Regression verification
+Researcher executed the full project regression suite from the designated local synchronized workspace after confirming canonical dependency loading. Result:
 
-No formal run is authorized. No statistical interpretation is authorized. No evidence promotion is required until executable verification produces a valid timestamped output artifact.
+```text
+Ran 37 tests in 2.523s
+
+OK
+```
+
+This includes the complete existing project suite plus the Exp13-Q contract checks. No regression failure, assertion failure, scientific-contract violation, or canonical-AHBN breakage was observed.
+
+The earlier interrupted run is classified as an operational interruption during dependency import, not as a failed test. A bounded canonical-load diagnostic subsequently completed successfully with `CANONICAL_LOAD_PASS`.
+
+### Current S10A-VERIFY result
+**STATIC + REGRESSION PASS.**
+
+No formal run is authorized yet. The remaining verification requirement is one bounded, non-formal five-method Exp13-Q smoke execution. No statistical interpretation is authorized.
 
 ## Statistical boundary
 Use the Exp13-Q amendment in `docs/04_STATISTICAL_CONTRACT.md`. No omnibus winner score, post-hoc test shopping, or universal-superiority claim.
 
 ## Next permitted task
-`S10A-VERIFY — Exp13-Q Static Contract / Regression / Bounded Smoke Verification`.
+`S10A-VERIFY-SMOKE — Bounded Five-Method Exp13-Q Smoke`.
 
-Verification must confirm the exact frozen matrix, canonical comparator semantics, identical seeded churn schedules, regression safety, and one bounded smoke path before formal execution is released.
+The smoke must remain non-formal and intentionally small. It is limited to runtime integration verification of the five frozen methods, common scenario/churn handling, and canonical comparator execution. No tuning, redesign, formal aggregation, or scientific interpretation is permitted.
 
 **S11 remains blocked until Exp13-Q formal evidence is completed, integrity-verified, and frozen.**
