@@ -42,6 +42,13 @@ class TestK5QPrep(unittest.TestCase):
         self.assertIn('import qahbn2_runtime\\nimport controller', preflight)
         self.assertNotIn('import qahbn2_runtime\\\\nimport controller', preflight)
 
+    def test_formal_helper_uses_repo_helm_path(self):
+        from pathlib import Path
+        root=Path(__file__).resolve().parents[1]
+        helper=(root/'gke/scripts/run_k7_experiment.sh').read_text()
+        self.assertGreaterEqual(helper.count('${ROOT_DIR}/gke/helm/ahbn'), 2)
+        self.assertNotIn('${ROOT_DIR}/helm/ahbn', helper)
+
     def test_rejects_unfrozen_coordinate(self):
         with self.assertRaises(ValueError): validate_coordinate(47,'ahbn')
         with self.assertRaises(ValueError): validate_coordinate(42,'legacy_qahbn')
