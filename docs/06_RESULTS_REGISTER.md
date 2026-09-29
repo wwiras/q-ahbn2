@@ -101,5 +101,7 @@
 - K2-Q GKE integration/parity verification: **PASS / CLOSED (2026-09-29)**.
 - K2-Q local verification: focused deterministic suite **9/9 PASS**; full repository regression **78/78 PASS**; synchronized `main` clean.
 - K3-Q-PREP deployable runtime assembly: **PASS (2026-09-29)**; inherited `ahbn2_gke` runtime/Helm assets assembled under `q-ahbn2/gke/` with additive Q-AHBN2-only runtime wrapper.
-- Current gate: **K3-Q — Bounded GKE Smoke**; manual Docker image build/push and real GKE smoke are required before closure.
+- K3-Q first deployment attempt: **STARTUP INVALID / diagnostic only** — container failed before Python execution with `exec /usr/local/bin/python: exec format error`; classified as image-architecture/build-provenance defect, not algorithm evidence.
+- K3-Q-D1 architecture diagnostic/correction: **PASS (2026-09-29)**; build now explicitly targets `linux/amd64` and smoke preflights/records pushed image manifest.
+- Current gate: **K3-Q — Bounded GKE Smoke**; corrected AMD64 image build/push and unchanged real GKE smoke rerun are required before closure.
 - S12 interpretation remains blocked until the Kubernetes chain K0-Q through K6-Q is completed and its evidence frozen.
