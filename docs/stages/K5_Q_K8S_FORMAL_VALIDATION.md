@@ -380,3 +380,16 @@ Formal progress at closure:
 - remaining coordinates: **15/25**.
 
 $$\boxed{\textbf{K5-Q-FORMAL-D6A = PASS / CLOSED; resume from seed44/Gossip}}$$
+
+### K5-Q-FORMAL-D7 — Resume compatibility for redundant standalone S5 events
+
+Resume validation stopped on preserved seed42/Q-AHBN2 because that earlier coordinate contains `k5_final_actuator_decision` events, while seed43/Q-AHBN2 does not. Source reconciliation shows the authoritative Q-AHBN2 S5 proposal is embedded in `qahbn2_decision`; standalone S5 events are therefore redundant when present, not required and not invalid.
+
+Validator rule refined:
+- standalone AHBN must contain standalone S5 events;
+- non-adaptive baselines must not contain standalone S5 events;
+- Q-AHBN2 may contain or omit standalone S5 events, provided its embedded AHBN/S5 proposal fields and Q evidence are present.
+
+No runtime, image, parameters, topology, workload, or raw evidence changed.
+
+$$\boxed{\textbf{K5-Q-FORMAL-D7 = validator-only compatibility correction; resume remains from same preserved evidence root}}$$
