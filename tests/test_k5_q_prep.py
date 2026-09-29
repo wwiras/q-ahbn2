@@ -63,8 +63,19 @@ class TestK5QPrep(unittest.TestCase):
         root=Path(__file__).resolve().parents[1]
         validator=(root/'gke/app/k7_exp11_tools.py').read_text()
         self.assertIn('adaptive = algorithm in {"ahbn","qahbn2"}', validator)
-        self.assertIn('if adaptive != bool(traces and decisions)', validator)
+        self.assertIn('if adaptive != bool(traces)', validator)
+        self.assertIn('if (algorithm=="ahbn") != bool(decisions)', validator)
         self.assertIn('if adaptive:', validator)
+
+    def test_qahbn2_s5_proposal_is_embedded_in_q_decision(self):
+        from pathlib import Path
+        root=Path(__file__).resolve().parents[1]
+        runtime=(root/'gke/app/qahbn2_runtime.py').read_text()
+        self.assertIn('k_ahbn = requested_fanout("S5", score)', runtime)
+        self.assertIn('mode_ahbn=q.mode_ahbn', runtime)
+        self.assertIn('k_ahbn=q.k_ahbn', runtime)
+        self.assertIn('ahbn_score=self.ahbn_state.score', runtime)
+        self.assertIn('ahbn_weight=self.ahbn_state.weight', runtime)
 
     def test_formal_resume_preserves_validated_runs(self):
         from pathlib import Path
