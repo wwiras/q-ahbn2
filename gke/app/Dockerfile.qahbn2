@@ -1,0 +1,20 @@
+FROM python:3.11-slim
+WORKDIR /app
+
+COPY gke/app/requirements.txt requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
+
+COPY gke/app/peer.proto peer.proto
+RUN python -m grpc_tools.protoc -I. --python_out=. --grpc_python_out=. peer.proto
+
+COPY gke/app/peer.py peer.py
+COPY gke/app/ahbn_controller.py ahbn_controller.py
+COPY gke/app/observations.py observations.py
+COPY gke/app/dcsoc_maintenance.py dcsoc_maintenance.py
+COPY gke/app/k5_final_actuator_policy.py k5_final_actuator_policy.py
+COPY gke/app/qahbn2_runtime.py qahbn2_runtime.py
+COPY qahbn2 qahbn2
+
+ENV PYTHONUNBUFFERED=1
+EXPOSE 50051
+CMD ["python","qahbn2_runtime.py"]
