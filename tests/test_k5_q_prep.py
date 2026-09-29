@@ -105,46 +105,10 @@ class TestK5QPrep(unittest.TestCase):
         from pathlib import Path
         root=Path(__file__).resolve().parents[1]
         runner=(root/'gke/scripts/run_k5_q_formal.sh').read_text()
-        self.assertIn('FORMAL_SEED="${FORMAL_SEED:-}"'.replace('\\
-        with self.assertRaises(ValueError): validate_coordinate(47,'ahbn')
-        with self.assertRaises(ValueError): validate_coordinate(42,'legacy_qahbn')
-
-if __name__=='__main__':
-    unittest.main()
-,'
-        with self.assertRaises(ValueError): validate_coordinate(47,'ahbn')
-        with self.assertRaises(ValueError): validate_coordinate(42,'legacy_qahbn')
-
-if __name__=='__main__':
-    unittest.main()
-), runner)
-        self.assertIn('RUN_SEEDS=("${SEEDS[@]}")'.replace('\\
-        with self.assertRaises(ValueError): validate_coordinate(47,'ahbn')
-        with self.assertRaises(ValueError): validate_coordinate(42,'legacy_qahbn')
-
-if __name__=='__main__':
-    unittest.main()
-,'
-        with self.assertRaises(ValueError): validate_coordinate(47,'ahbn')
-        with self.assertRaises(ValueError): validate_coordinate(42,'legacy_qahbn')
-
-if __name__=='__main__':
-    unittest.main()
-), runner)
+        self.assertIn('FORMAL_SEED="${FORMAL_SEED:-}"', runner)
+        self.assertIn('RUN_SEEDS=("${SEEDS[@]}")', runner)
         self.assertIn('FORMAL_SEED must be one of:', runner)
-        self.assertIn('for seed in "${RUN_SEEDS[@]}"'.replace('\\
-        with self.assertRaises(ValueError): validate_coordinate(47,'ahbn')
-        with self.assertRaises(ValueError): validate_coordinate(42,'legacy_qahbn')
-
-if __name__=='__main__':
-    unittest.main()
-,'
-        with self.assertRaises(ValueError): validate_coordinate(47,'ahbn')
-        with self.assertRaises(ValueError): validate_coordinate(42,'legacy_qahbn')
-
-if __name__=='__main__':
-    unittest.main()
-), runner)
+        self.assertIn('for seed in "${RUN_SEEDS[@]}"', runner)
         self.assertIn('K5-Q FORMAL SEED BATCH PASS', runner)
         self.assertIn('K5-Q FORMAL 25/25 PASS', runner)
         self.assertIn('SEEDS=(42 43 44 45 46)', runner)
