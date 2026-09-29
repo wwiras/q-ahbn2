@@ -64,8 +64,16 @@ class TestK5QPrep(unittest.TestCase):
         validator=(root/'gke/app/k7_exp11_tools.py').read_text()
         self.assertIn('adaptive = algorithm in {"ahbn","qahbn2"}', validator)
         self.assertIn('if adaptive != bool(traces)', validator)
-        self.assertIn('if (algorithm=="ahbn") != bool(decisions)', validator)
+        self.assertIn('if algorithm=="ahbn" and not decisions', validator)
+        self.assertIn('if algorithm not in {"ahbn","qahbn2"} and decisions', validator)
         self.assertIn('if adaptive:', validator)
+
+    def test_qahbn2_allows_redundant_standalone_s5_trace(self):
+        from pathlib import Path
+        root=Path(__file__).resolve().parents[1]
+        validator=(root/'gke/app/k7_exp11_tools.py').read_text()
+        self.assertNotIn('(algorithm=="ahbn") != bool(decisions)', validator)
+        self.assertIn('algorithm not in {"ahbn","qahbn2"} and decisions', validator)
 
     def test_standalone_ahbn_target_trace_not_required_for_qahbn2(self):
         from pathlib import Path
