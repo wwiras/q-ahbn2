@@ -1,6 +1,6 @@
 # Q-AHBN2 Results Register
 
-**Status:** ACTIVE — K5-Q-FORMAL PASS / CLOSED; K6-Q EVIDENCE FREEZE NEXT
+**Status:** ACTIVE — K6-Q PASS / CLOSED; S12 INTERPRETATION NEXT
 **Created:** 2026-09-23 under DOC-SYNC-1
 
 ## Registered bounded evidence
@@ -234,3 +234,19 @@
 - Claim boundary: execution/integrity closure only; no comparative interpretation, ranking, performance-triggered rerun, or evidence promotion at K5.
 - **Next gate: K6-Q — Kubernetes Evidence Freeze.**
 - S12 interpretation remains blocked until K6-Q completes.
+
+
+### K6-Q — Kubernetes Evidence Integrity / Freeze — 2026-09-29
+- Status: **PASS / CLOSED**.
+- K5 prerequisite: 25/25 formal coordinates validated; final reconciliation revalidated/skipped all 25 and returned `K5-Q FORMAL 25/25 PASS`.
+- Frozen evidence family: `K8s-VAL-Q_Exp13-Q-K8s`, Drive folder ID `1dq5s83YC9-BH2PTj-VaeP_c1VirfxcFJ`.
+- Frozen formal folder: `q-ahbn-gke-29092026155435-k5q-formal`, stable Drive folder ID `15iFp5E2NCKnewFFObLp3xvVQK3IsXjeP`.
+- Drive hierarchy readback: exactly seeds 42--46; each contains exactly Gossip, Structured, DC-SoC, AHBN and Q-AHBN2.
+- Matrix manifest: 25 unique coordinates; 25/25 `VALIDATED`; SHA-256 `d1fbc037ef9da5c253ad0b2d3851a555bdd9165f30d499011d65653aee88d7bf`.
+- Producing Git SHA: `7ad474c3a249fde58223f2abd5d54918b4bcbb9f`.
+- Frozen image/digest: `wwiras/q-ahbn2:k5q-formal-v2-20260929` / `sha256:d8ac06197962a6e42cb9e564a9c115c08b9f018df231f61cdbfbb8796422991e`.
+- Frozen protocol readback: N=20 BA(m=2); 240 messages at 0.4 s; churn +1/+26/+51/+76 s; targets (0,5,10,15); source mapping 42->1, 43->1, 44->1, 45->2, 46->1.
+- Promotion semantics: verified existing formal folder moved into dedicated evidence family; no raw experimental artifact rewritten.
+- Evidence roles remain separate: K8s-VAL-Q AHBN-vs-Q-AHBN2 deployment validation and Exp13-Q-K8s matched five-method cloud-native reference benchmark.
+- Claim boundary: integrity/provenance/freeze only; no comparative interpretation or cross-environment pooling.
+- **Next gate: S12 — Interpretation.**
