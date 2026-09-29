@@ -51,3 +51,16 @@
 - Evidence integrity: PASS / CLOSED (S10.5)
 - Evidence promotion/freeze: PASS / CLOSED (S10.6)
 - Scope limitation: formal evidence completed, integrity-verified, promoted and frozen; comparative scientific conclusions and statistical interpretation remain governed by the frozen statistical contract and are not claimed by S10 closure.
+
+
+### Exp13-Q — Reference Benchmark
+- Environment: ControlSim Formal Reference Benchmark
+- Topology: BA(100, m=3), source 0, 1,000 sequential messages
+- Scenario: churn = 0.40 with four leave/rejoin cycles
+- Seeds: {42, 43, 44, 45, 46}
+- Methods: Gossip, Structured, DC-SoC, AHBN, Q-AHBN2
+- Expected runs: 25
+- Raw formal directory: `output/evidence/q-ahbn-29092026081836-exp13q-formal/`
+- Producing Q-AHBN2 commit: `2b11b4e95ef98c86458e02c494d6b6ea232a6d7a`
+- Current evidence state: RAW FORMAL EVIDENCE CREATED; INTEGRITY/COMPLETENESS AUDIT PENDING
+- Interpretation boundary: no comparative scientific conclusions, ranking, aggregation, or publication claim until S10A integrity verification and evidence freeze complete.
