@@ -32,7 +32,7 @@ Thus:
 - Kubernetes peers: **N=20**.
 - topology family: **Barabasi-Albert**.
 - BA attachment parameter: **m=2**.
-- source peer: **0**.
+- source peer: **deterministic inherited K7 common non-structural source selected per seed**; it is excluded from both Structured CHs and DC-SoC COREs and from the frozen churn targets.
 - seed controls topology/randomized scenario realization: **42--46**.
 - each method at a given seed uses the same generated topology and churn-target schedule.
 
@@ -158,7 +158,7 @@ All generated evidence remains under repository-local `output/evidence/` until K
 | infrastructure recovery | abstract simulator lifecycle | Kubernetes delete/replacement/Ready/gRPC lifecycle |
 | method family | five methods | same five methods |
 | seeds | 42--46 | 42--46 |
-| source | 0 | 0 |
+| source | 0 | deterministic inherited K7 common non-structural source per seed |
 | principal metrics | delivery, delay, duplicates, forwards | same four |
 
 Therefore Exp13-Q-K8s is a **matched cross-environment reference benchmark**, not a literal replication or numerical-equivalence test.
@@ -172,3 +172,15 @@ $$\boxed{\textbf{K4-Q = PASS / FROZEN}}$$
 **K5-Q-PREP — Formal Kubernetes Harness/Artifact Preparation and Pre-Execution Audit.**
 
 K5-Q-PREP may implement only this frozen protocol and run local/static/preflight validation. It may not inspect formal performance outcomes. Real GKE formal execution remains a human/manual step after the preparation audit passes.
+
+## K4-Q-A1 — Prospective source/orchestration reconciliation — 2026-09-29
+
+Before any K5 formal coordinate was executed, formal-runner preparation exposed a contradiction in the initial K4 text: fixed Kubernetes `source=0` conflicts with the inherited validated K7 frozen churn target set `(0,5,10,15)`, where peer 0 is the first leave/rejoin target.
+
+The pinned K7 authority already resolves this by deterministically selecting, for each seed, a common source that is neither a Structured cluster head nor a DC-SoC CORE and does not collide with the frozen churn targets. K4-Q is therefore prospectively amended to use that inherited source-selection rule. The target set, seeds, topology family/scale, workload, churn offsets and all algorithm semantics remain unchanged.
+
+This correction occurred at 0/25 formal runs and before any formal outcome inspection. It prevents a source/churn-role confound and restores exact compatibility with the validated Kubernetes churn harness.
+
+Formal-runner preparation also confirms that K5 must package the inherited K7 controller Job/orchestration assets and must route standalone AHBN through the final S5 actuator. K3 did not require those broader formal-comparison assets.
+
+$$\boxed{\textbf{K4-Q-A1 = PASS / PROSPECTIVE AMENDMENT; no formal outcome existed}}$$
