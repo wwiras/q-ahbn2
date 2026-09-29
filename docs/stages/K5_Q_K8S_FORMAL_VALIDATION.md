@@ -1,6 +1,6 @@
 # K5-Q — K8s-VAL-Q / Exp13-Q-K8s Formal Execution
 
-**Status:** K5-Q-FORMAL-PREFLIGHT PASS / FORMAL 25-RUN EXECUTION RELEASED
+**Status:** K5-Q-FORMAL PASS / CLOSED — 25/25 VALIDATED
 
 ## Objective
 Execute only the Kubernetes deployment-validation and matched reference-benchmark matrix frozen at K4-Q.
@@ -412,3 +412,28 @@ A fail-closed orchestration-only selector `FORMAL_SEED` was added. It:
 Seed batching is therefore an operational batching convenience, not an experiment redesign. Selective stopping based on observed performance remains prohibited; all seeds 42–46 and all five methods remain mandatory before K5-Q closure.
 
 $$\boxed{\textbf{K5-Q-FORMAL-D8 = orchestration-only seed batching; scientific matrix unchanged}}$$
+
+
+## K5-Q-FORMAL closure — 2026-09-29
+
+Researcher-executed final full-matrix reconciliation used the existing formal evidence root with `RESUME=1`, the frozen v2 image `wwiras/q-ahbn2:k5q-formal-v2-20260929`, and pinned digest `sha256:d8ac06197962a6e42cb9e564a9c115c08b9f018df231f61cdbfbb8796422991e`, with no `FORMAL_SEED` selector.
+
+The full runner:
+- revalidated every existing coordinate for seeds 42--46 and all five frozen methods;
+- skipped all 25 coordinates after successful validation, so no formal experiment was rerun;
+- confirmed exactly 25 runs and a complete coordinate matrix;
+- completed final matrix-manifest/artifact reconciliation;
+- returned `status=PASS`, `runs=25`, `coordinates=complete`;
+- returned `K5-Q FORMAL 25/25 PASS`.
+
+Formal evidence root:
+`output/evidence/q-ahbn-gke-29092026155435-k5q-formal/`
+
+No performance interpretation, selective rerun, seed substitution, method change, or evidence promotion was performed during closure.
+
+$$\boxed{\textbf{K5-Q-FORMAL = PASS / CLOSED; 25/25 validated}}$$
+
+## Next permitted action
+**K6-Q — Kubernetes Evidence Freeze.**
+
+K6-Q is evidence-integrity/promotion work only. Scientific interpretation remains blocked until K6-Q is completed and the frozen evidence is read back.
