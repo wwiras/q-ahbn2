@@ -277,3 +277,19 @@ $$\boxed{\textbf{K5-Q-FORMAL-PREFLIGHT = PASS / CLOSED}}$$
 **K5-Q-FORMAL — execute exactly the frozen 25-coordinate GKE matrix using the pinned v2 image digest.**
 
 No scientific interpretation, selective stopping, seed substitution, performance-triggered rerun, or Drive promotion is authorized during K5-Q execution.
+
+## K5-Q-FORMAL-D4 — Generated Helm topology provenance guard — 2026-09-29
+
+The first released formal invocation stopped before coordinate execution because the clean-tree guard found one untracked file: `gke/helm/ahbn/topology.json`. `git diff` and `git diff --stat` were empty; no tracked file was modified.
+
+This path is an inherited generated deployment artifact: the formal helper replaces it with each coordinate topology and restores its prior contents after execution. It is not source authority or formal evidence and must not make repository provenance dirty.
+
+Prospective correction at 0/25 runs:
+- explicitly ignore `gke/helm/ahbn/topology.json`;
+- move the runner clean-tree check before evidence-directory creation or other formal-run mutation;
+- capture the clean pre-run Git SHA and status for the evidence package;
+- regression-guard both properties.
+
+No scientific protocol, runtime image, topology-generation rule, coordinate, outcome, or frozen image digest changed.
+
+$$\boxed{\textbf{K5-Q-FORMAL-D4 = PASS / administrative provenance correction; 0/25 runs}}$$
