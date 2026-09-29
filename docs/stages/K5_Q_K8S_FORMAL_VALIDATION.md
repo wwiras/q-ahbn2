@@ -366,3 +366,17 @@ Source audit confirms `ahbn_forwarding_decision` is emitted only by the standalo
 Validator correction therefore scopes `ahbn_forwarding_decision` to `algorithm == "ahbn"`; Q-AHBN2 continues to require `realized_targets` plus decision/outcome/reward evidence. No runtime or scientific behavior changed.
 
 $$\boxed{\textbf{D6A = validator-only correction; HOLD pending same preserved-coordinate revalidation}}$$
+
+### K5-Q-FORMAL-D6A closure — 2026-09-29
+
+Researcher reran the preserved seed43/Q-AHBN2 coordinate through the corrected method-specific validator and obtained **K7 RESULT VALIDATION PASS**.
+
+Therefore seed43/Q-AHBN2 is scientifically admissible as originally collected; no rerun is justified.
+
+Formal progress at closure:
+- seed42: 5/5 validated;
+- seed43: 5/5 validated;
+- total validated coordinates: **10/25**;
+- remaining coordinates: **15/25**.
+
+$$\boxed{\textbf{K5-Q-FORMAL-D6A = PASS / CLOSED; resume from seed44/Gossip}}$$
