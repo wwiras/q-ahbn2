@@ -4,7 +4,7 @@ METHODS=("gossip","structured","dcsoc","ahbn","qahbn2")
 SEEDS=(42,43,44,45,46)
 NUM_NODES=20
 BA_M=2
-SOURCE=0
+SOURCE_POLICY="inherited_k7_common_non_structural_per_seed"
 MESSAGE_COUNT=240
 MESSAGE_INTERVAL_S=0.4
 CHURN_OFFSETS_S=(1.0,26.0,51.0,76.0)
@@ -25,7 +25,7 @@ def frozen_summary()->dict:
         "unique_runs":len(METHODS)*len(SEEDS),
         "num_nodes":NUM_NODES,
         "ba_m":BA_M,
-        "source":SOURCE,
+        "source_policy":SOURCE_POLICY,
         "message_count":MESSAGE_COUNT,
         "message_interval_s":MESSAGE_INTERVAL_S,
         "churn_offsets_s":list(CHURN_OFFSETS_S),
