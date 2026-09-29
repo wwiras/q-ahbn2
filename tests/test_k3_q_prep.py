@@ -18,6 +18,12 @@ class TestK3QPrep(unittest.TestCase):
     def test_runtime_compiles(self):
         ast.parse((ROOT/"gke/app/qahbn2_runtime.py").read_text())
 
+    def test_dockerfile_includes_inherited_runtime_imports(self):
+        dockerfile=(ROOT/"gke/app/Dockerfile.qahbn2").read_text()
+        self.assertIn("COPY gke/app/gen_topology.py gen_topology.py", dockerfile)
+        maintenance=(ROOT/"gke/app/dcsoc_maintenance.py").read_text()
+        self.assertIn("from gen_topology import", maintenance)
+
     def test_inherited_files_are_pinned_copies(self):
         expected={
             "peer.py":"2433404c55d0df5e1e341f6e6ffcb22660db1d74",
