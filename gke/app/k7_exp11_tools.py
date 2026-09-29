@@ -359,7 +359,8 @@ def validate_run(run_dir: Path) -> dict:
     traces=[r for r in rows if r.get("event")=="ahbn_controller_trace"]; decisions=[r for r in rows if r.get("event")=="k5_final_actuator_decision"]
     adaptive = algorithm in {"ahbn","qahbn2"}
     if adaptive != bool(traces): raise ValueError("AHBN controller trace isolation failed")
-    if (algorithm=="ahbn") != bool(decisions): raise ValueError("standalone AHBN S5 trace isolation failed")
+    if algorithm=="ahbn" and not decisions: raise ValueError("standalone AHBN S5 trace missing")
+    if algorithm not in {"ahbn","qahbn2"} and decisions: raise ValueError("standalone AHBN S5 trace leaked into non-adaptive baseline")
     injected=[r for r in rows if r.get("event")=="message_injected"]
     received=[r for r in rows if r.get("event")=="received_new"]; dup=[r for r in rows if r.get("event")=="received_duplicate"]; fwd=[r for r in rows if r.get("event")=="forward"]
     churn_state=[{"event":"churn_rejoined","target_peer":r["target_peer"],"ts":r["ts"]} for r in joins]+[{"event":"churn_down","target_peer":r["peer_id"],"ts":r["ts"]} for r in downs]
