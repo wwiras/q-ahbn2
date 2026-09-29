@@ -2,6 +2,7 @@ import unittest
 
 from qahbn2.kubernetes_adapter import KubernetesQAHBN2Adapter, AttemptLedger
 from qahbn2.learning import QAHBN2Learner
+from qahbn2.kubernetes_integration import realize_inherited_targets, register_realized_targets
 
 
 class TestKubernetesQAHBN2Adapter(unittest.TestCase):
@@ -104,6 +105,36 @@ class TestKubernetesQAHBN2Adapter(unittest.TestCase):
         with self.assertRaises(ValueError): l.record(9,"NEW")
         with self.assertRaises(ValueError): AttemptLedger((2,)).record(2,"OTHER")
 
+    def test_inherited_gossip_realization_and_registration(self):
+        learner=QAHBN2Learner(seed=1,epsilon=0.0,epsilon_min=0.0)
+        s=("L","L","L","L"); learner.q_table[s]["KEEP"]=1
+        a=KubernetesQAHBN2Adapter(learner)
+        q=a.decide(peer_id=1,message_id="g",d_hat=0,l_hat=0,u_hat=0,c_hat=0,
+                   mode_ahbn="gossip",k_ahbn=3)
+        realized=realize_inherited_targets(
+            q=q,sender_id=9,gossip_eligible=[2,3,4,5],
+            structured_selector=lambda sender,budget: (),
+            rng_sample=lambda population,k: population[:k],
+        )
+        self.assertEqual(realized.eligible_targets,(2,3,4,5))
+        self.assertEqual(realized.realized_targets,(2,3,4))
+        register_realized_targets(a,realized)
+        self.assertEqual(a.ledger(q.decision_id).expected_targets,(2,3,4))
+
+    def test_structured_delegates_to_inherited_selector(self):
+        learner=QAHBN2Learner(seed=1,epsilon=0.0,epsilon_min=0.0)
+        s=("L","L","L","L"); learner.q_table[s]["SET_STRUCTURED"]=1
+        a=KubernetesQAHBN2Adapter(learner)
+        q=a.decide(peer_id=1,message_id="s",d_hat=0,l_hat=0,u_hat=0,c_hat=0,
+                   mode_ahbn="gossip",k_ahbn=4)
+        calls=[]
+        realized=realize_inherited_targets(
+            q=q,sender_id=7,gossip_eligible=[2,3],
+            structured_selector=lambda sender,budget: calls.append((sender,budget)) or (8,9),
+            rng_sample=lambda population,k: (),
+        )
+        self.assertEqual(calls,[(7,4)])
+        self.assertEqual(realized.realized_targets,(8,9))
 
 if __name__=="__main__":
     unittest.main()
