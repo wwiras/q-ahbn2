@@ -9,6 +9,7 @@ NAMESPACE="${NAMESPACE:-qahbn2-k5-formal}"
 RELEASE="${RELEASE:-qahbn2}"
 STAMP="$(date +%d%m%Y%H%M%S)"
 RESULT_ROOT="${RESULT_ROOT:-${ROOT_DIR}/output/evidence/q-ahbn-gke-${STAMP}-k5q-formal}"
+RESUME="${RESUME:-0}"
 METHODS=(gossip structured dcsoc ahbn qahbn2)
 SEEDS=(42 43 44 45 46)
 fail(){ echo "ERROR: $*" >&2; exit 1; }
@@ -16,7 +17,11 @@ fail(){ echo "ERROR: $*" >&2; exit 1; }
 [[ "${EXPECTED_IMAGE_DIGEST}" =~ ^sha256:[[:xdigit:]]{64}$ ]] || fail "EXPECTED_IMAGE_DIGEST must be an exact sha256 digest"
 for x in kubectl helm shasum; do command -v "${x}" >/dev/null || fail "missing command: ${x}"; done
 [ "$(kubectl config current-context)" = "${EXPECTED_CONTEXT}" ] || fail "unexpected kubectl context"
-[ ! -e "${RESULT_ROOT}" ] || fail "new output directory required: ${RESULT_ROOT}"
+if [ "${RESUME}" = "1" ]; then
+  [ -d "${RESULT_ROOT}" ] || fail "resume RESULT_ROOT must already exist: ${RESULT_ROOT}"
+else
+  [ ! -e "${RESULT_ROOT}" ] || fail "new output directory required: ${RESULT_ROOT}"
+fi
 PRE_STATUS="$(git status --porcelain)"
 [ -z "${PRE_STATUS}" ] || { printf '%s\n' "${PRE_STATUS}" >&2; fail "working tree must be clean before formal evidence creation"; }
 FORMAL_GIT_SHA="$(git rev-parse HEAD)"
@@ -25,11 +30,18 @@ IMAGE="${IMAGE}" EXPECTED_PLATFORM=linux/amd64 bash gke/scripts/verify_k3_q_imag
 
 mkdir -p "${RESULT_ROOT}"/{configs,generated,runs,target-selection,raw}
 exec > >(tee -a "${RESULT_ROOT}/terminal.log") 2>&1
-printf '%s\n' "${FORMAL_GIT_SHA}" >"${RESULT_ROOT}/git_commit.txt"
-printf '%s\n' "${PRE_STATUS}" >"${RESULT_ROOT}/git_status.txt"
-printf '%s\n' "${IMAGE}" >"${RESULT_ROOT}/image.txt"
-printf '%s\n' "${EXPECTED_IMAGE_DIGEST}" >"${RESULT_ROOT}/expected_image_digest.txt"
-date -u +%FT%TZ >"${RESULT_ROOT}/started_utc.txt"
+if [ "${RESUME}" = "1" ]; then
+  [ "$(cat "${RESULT_ROOT}/image.txt")" = "${IMAGE}" ] || fail "resume image mismatch"
+  [ "$(cat "${RESULT_ROOT}/expected_image_digest.txt")" = "${EXPECTED_IMAGE_DIGEST}" ] || fail "resume image digest mismatch"
+  printf '%s\n' "${FORMAL_GIT_SHA}" >"${RESULT_ROOT}/resume_git_commit.txt"
+  date -u +%FT%TZ >"${RESULT_ROOT}/resumed_utc.txt"
+else
+  printf '%s\n' "${FORMAL_GIT_SHA}" >"${RESULT_ROOT}/git_commit.txt"
+  printf '%s\n' "${PRE_STATUS}" >"${RESULT_ROOT}/git_status.txt"
+  printf '%s\n' "${IMAGE}" >"${RESULT_ROOT}/image.txt"
+  printf '%s\n' "${EXPECTED_IMAGE_DIGEST}" >"${RESULT_ROOT}/expected_image_digest.txt"
+  date -u +%FT%TZ >"${RESULT_ROOT}/started_utc.txt"
+fi
 cp docs/stages/K4_Q_K8S_VALIDATION_FREEZE.md "${RESULT_ROOT}/K4_Q_K8S_VALIDATION_FREEZE.md"
 cp gke/app/k5_q_formal_contract.py "${RESULT_ROOT}/k5_q_formal_contract.py"
 
@@ -57,6 +69,12 @@ for seed in "${SEEDS[@]}"; do
     run="${RESULT_ROOT}/runs/seed${seed}/${method}"
     cfg="${RESULT_ROOT}/configs/${method}_seed${seed}.yaml"
     rel="${cfg#${ROOT_DIR}/}"
+    if [ "${RESUME}" = "1" ] && [ -f "${run}/metrics.json" ] && [ -f "${run}/run_manifest.json" ]; then
+      echo "K5-Q FORMAL RESUME VALIDATE seed=${seed} method=${method}"
+      PYTHONPATH="gke/app" "${PYTHON}" gke/app/k7_exp11_tools.py run --run-dir "${run}" >/dev/null
+      echo "K5-Q FORMAL RESUME SKIP seed=${seed} method=${method}"
+      continue
+    fi
     echo "K5-Q FORMAL RUN seed=${seed} method=${method}"
     OUTDIR="${run}" NAMESPACE="${NAMESPACE}" RELEASE="${RELEASE}" IMAGE="${IMAGE}" EXPECTED_IMAGE_DIGEST="${EXPECTED_IMAGE_DIGEST}" PYTHON="${PYTHON}" bash gke/scripts/run_k7_experiment.sh "${rel}"
     cp "${RESULT_ROOT}/generated/${method}_seed${seed}.json" "${run}/topology_role_mapping.json"
