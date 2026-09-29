@@ -1,6 +1,6 @@
 # Q-AHBN2 Results Register
 
-**Status:** ACTIVE — K5-Q-FORMAL-PREP PASS; REBUILD/PREFLIGHT HOLD BEFORE 1/25
+**Status:** ACTIVE — K5-Q-FORMAL-PREFLIGHT PASS; 25-RUN EXECUTION RELEASED
 **Created:** 2026-09-23 under DOC-SYNC-1
 
 ## Registered bounded evidence
@@ -157,3 +157,15 @@
 - Production preflight content was already correct and had previously passed real-container imports.
 - Test corrected to require a genuine newline and reject literal `\\n`.
 - Test-only correction; v2 image/digest unchanged; 0/25 formal runs.
+
+## K5-Q-FORMAL-PREFLIGHT closure — 2026-09-29
+- **PASS / CLOSED**.
+- Final local K5 regression: **7/7 PASS**.
+- Preparation audit: **PASS**, exact 25-coordinate matrix.
+- Formal image: `wwiras/q-ahbn2:k5q-formal-v2-20260929`.
+- Platform: `linux/amd64`.
+- Pinned digest: `sha256:d8ac06197962a6e42cb9e564a9c115c08b9f018df231f61cdbfbb8796422991e`.
+- Real-container runtime/controller import preflight: PASS.
+- Host-runner Helm paths and newline regression guards: PASS.
+- Formal run count at release: **0/25**.
+- Current gate: **K5-Q-FORMAL — exact frozen 25-coordinate GKE execution**.
