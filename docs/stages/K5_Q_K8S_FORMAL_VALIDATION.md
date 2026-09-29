@@ -241,3 +241,13 @@ $$\boxed{\textbf{K5-Q-FORMAL-PREFLIGHT = PASS / CLOSED}}$$
 
 ### Released action
 `K5-Q-FORMAL — execute exactly the locked 25-coordinate GKE matrix using the v2 image/digest above.`
+
+## K5-Q-FORMAL-PREFLIGHT-D3 — Newline regression-test assertion correction — 2026-09-29
+
+The final local regression reported 6/7 PASS with only `test_preflight_controller_import_is_real_line` failing. The traceback showed the production preflight file already contained genuine separate lines `import qahbn2_runtime` and `import controller`; therefore the runtime correction itself remained valid.
+
+Root cause: the regression assertion used an escaped `\\n` expectation rather than a genuine newline expectation, so it tested for the defect instead of the correction. The test was repaired to require a genuine newline and reject the literal backslash-n form.
+
+Classification: test-only defect. No runtime/image/controller/formal protocol change; v2 digest remains frozen; 0/25 formal GKE runs.
+
+$$\boxed{\textbf{K5-Q-FORMAL-PREFLIGHT-D3 = PASS; final regression rerun required}}$$
