@@ -208,3 +208,9 @@
 - No rerun required.
 - Formal progress: **10/25 validated; 15/25 remaining**.
 - Next released coordinate sequence begins at seed44/Gossip.
+
+### K5-Q-FORMAL-D7 — 2026-09-29
+- Resume guard stopped on seed42/Q-AHBN2 because preserved evidence includes redundant standalone S5 events.
+- Q-AHBN2 authoritative S5 evidence is embedded in `qahbn2_decision`; standalone S5 events are optional redundancy.
+- Validator updated: AHBN requires them; non-adaptive baselines forbid them; Q-AHBN2 permits presence/absence.
+- No scientific/runtime change; same evidence root retained.
