@@ -1,6 +1,6 @@
 # Q-AHBN2 Results Register
 
-**Status:** ACTIVE — S11-A PRIMARY AGGREGATION FROZEN / S11-B NEXT
+**Status:** ACTIVE — S11 COMPLETE / K0-Q NEXT
 **Created:** 2026-09-23 under DOC-SYNC-1
 
 ## Registered bounded evidence
@@ -90,3 +90,11 @@
 - Google Drive frozen evidence folder ID: `1frfPsofGtbvpRFCxFMjGi_EZUuv8tNxx`.
 - Statistical boundary: descriptive summaries plus predeclared same-seed Q-AHBN2-minus-reference contrasts; no p-values, omnibus score, ranking, winner claim, or interpretation.
 - Exp13-Q remains separate from the primary S11-A RO4 aggregation.
+
+
+## Current controlled stage
+- **S11 complete; Kubernetes chain next.**
+- S11-A primary RO4 aggregation: PASS / CLOSED.
+- S11-B Exp13-Q external benchmark aggregation: PASS / CLOSED.
+- Per the frozen Master stage map, the next controlled gate is **K0-Q — Kubernetes Scope Reconciliation**.
+- S12 interpretation remains blocked until the Kubernetes chain K0-Q through K6-Q is completed and its evidence frozen.
