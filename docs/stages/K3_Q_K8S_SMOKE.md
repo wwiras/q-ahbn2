@@ -50,3 +50,35 @@ $$\boxed{\textbf{K3-Q-PREP = PASS; K3-Q = HOLD — MANUAL DOCKER/GKE SMOKE REQUI
 
 ## Next permitted action
 Build the Q-AHBN2 image from the current `q-ahbn2` commit, push it to the registry used by the GKE cluster, then execute only `gke/scripts/run_k3_q_smoke.sh`. Return the terminal output and generated smoke directory for verification.
+
+
+## K3-Q-D1 — Container Architecture Diagnostic — 2026-09-29
+
+### Observed deployment failure
+The first real GKE attempt did not reach Q-AHBN2 execution. Pods `peer-0` and `peer-1` entered restart/crash behavior with:
+
+`exec /usr/local/bin/python: exec format error`
+
+The failure occurred at container process startup, before the Python runtime could execute the Q-AHBN2 wrapper.
+
+### Diagnosis
+The K3 preparation instructions used a plain local `docker build` without an explicit target platform. On an Apple-silicon development host this can produce/push a Linux ARM64 image, whereas the established GKE e2-medium deployment lineage is x86-64/AMD64. The observed kernel-level `exec format error` is consistent with that architecture mismatch.
+
+### Scientific classification
+**Operational infrastructure/build-provenance defect; not scientific algorithm evidence.**
+
+Therefore:
+- no Q-AHBN2 result was produced;
+- no K3 scientific criterion failed;
+- no learner/controller/comparator/topology/parameter change is justified;
+- the failed startup is retained as diagnostic provenance;
+- rerunning the same bounded smoke after correcting image architecture is valid and does not constitute outcome-driven experimental rerunning.
+
+### Corrective action
+Added `gke/scripts/build_k3_q_image.sh` to build and push explicitly for `linux/amd64`, then inspect the pushed manifest. The K3 smoke runner now also refuses deployment unless the supplied image advertises `linux/amd64` and records the image manifest in its evidence directory.
+
+## Current result after D1
+$$\boxed{\textbf{K3-Q-D1 = PASS; K3-Q = HOLD — CORRECTED AMD64 SMOKE RERUN REQUIRED}}$$
+
+## Next permitted action
+Use the corrected build script to push a fresh immutable smoke tag, then rerun the unchanged bounded K3-Q smoke. No scientific configuration change is permitted.
