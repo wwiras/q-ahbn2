@@ -1,6 +1,6 @@
 # S11 — ControlSim Aggregation
 
-**Status:** ACTIVE — S11-A-PREP PASS / S11-A-1 RELEASED
+**Status:** ACTIVE — S11-A-1 PASS / CLOSED; S11-B NEXT
 
 ## Objective
 Aggregate only completed, integrity-verified formal ControlSim evidence according to `docs/04_STATISTICAL_CONTRACT.md`.
@@ -185,3 +185,45 @@ $$\boxed{\textbf{S11-A-1 — Primary RO4 Deterministic Descriptive + Paired Aggr
 Execute `scripts/aggregate_s11a_formal.py` over frozen Exp10-Q, Exp11-Q, and Exp12-Q formal datasets to generate `s11a_primary_ro4_aggregation.json` and `s11a_primary_ro4_summary.csv` under `output/evidence/s11-aggregation/s11a-primary-ro4/`.
 
 
+
+## S11-A-1 — Primary RO4 Deterministic Descriptive + Paired Aggregation — 2026-09-29
+
+**Status:** PASS / CLOSED.
+
+### Gate
+Execute the frozen deterministic S11-A aggregator over Exp10-Q, Exp11-Q and Exp12-Q only, then freeze and reconcile the resulting aggregation evidence without scientific interpretation.
+
+### Execution and artifact freeze
+- Executed script: `scripts/aggregate_s11a_formal.py` from Git commit `59ef254099fb3edb617f323dd864324c320d9a85`.
+- Actual immutable execution directory: `output/evidence/q-ahbn-29092026111238-s11a-aggregation-formal/`.
+- The earlier planned path `output/evidence/s11-aggregation/s11a-primary-ro4/` was not used; the successful timestamped execution directory is authoritative and was not moved or regenerated merely to match the planned pathname.
+- Artifacts: `RUN.md`, `manifest.json`, `s11a_primary_ro4_aggregation.json`, `s11a_primary_ro4_summary.csv`.
+- Runs ingested: 80/80 (Exp10-Q 20 + Exp11-Q 30 + Exp12-Q 30).
+- Same-seed AHBN/Q-AHBN2 paired comparisons: 40/40.
+- Exp13-Q excluded from S11-A as required.
+- Output SHA-256: aggregation JSON `bec818623c97ae2d9918617694694e90448a2727d703ce72a8923557c48ac337`; summary CSV `9b2d21a103c9cd115acc56a003eb8bab60a49db92bc82af3a8da004d03b33833`.
+
+### Input provenance reconciliation
+Direct local SHA-256 readback, S11-A manifest records, and raw-byte Google Drive readback agree exactly:
+- Exp10-Q: `c51392ce83435bb15691d60b42cfb5c91971687f05b51c1bd21a2f69444edcf7`
+- Exp11-Q: `d869f4c76cd139b2dd554de5e5a8bf61d8403e8b223106f7809200676347f00c`
+- Exp12-Q: `dd5504109cae59b1494dc409308585906676f69c79e0c41d3845856e6762bc66`
+
+The different hashes recorded during S11-A-PREP (`fc2bba...`, `e0970a...`, `1f465d...`) are retained as an audit-trail provenance-record discrepancy. They are not evidence of formal-input mutation: the authoritative promoted Drive CSV bytes, current local frozen CSV bytes, and S11-A manifest hashes match exactly. No raw formal evidence was rewritten to reconcile this record.
+
+### Google Drive preservation
+- Promoted evidence folder: `q-ahbn-29092026111238-s11a-aggregation-formal`
+- Drive folder ID: `1XMWn5FWKwJV78YeTGakJb1bVJ6XKfrLH`
+- Readback confirmed all four expected artifacts are present in the designated `output/evidence` hierarchy.
+- No duplicate freeze copy was created and no artifact was moved or regenerated.
+
+### Scientific boundary
+This gate establishes deterministic aggregation completion, provenance integrity and evidence preservation only. It does not interpret comparative performance, change any metric or parameter, exclude any valid run, or merge Exp13-Q into the primary S11-A result family.
+
+## Result
+$$\boxed{\textbf{S11-A-1 = PASS / CLOSED}}$$
+
+## Next permitted action
+$$\boxed{\textbf{S11-B — Exp13-Q External Benchmark Aggregation}}$$
+
+Exp13-Q remains a separate bounded five-method external reference analysis at churn=0.40 and must not be merged into S11-A.
