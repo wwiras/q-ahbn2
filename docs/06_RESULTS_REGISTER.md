@@ -201,3 +201,10 @@
 - In-place seed43/Q-AHBN2 validation next exposed inherited standalone-AHBN target-trace assertion.
 - `ahbn_forwarding_decision` is standalone AHBN evidence; Q-AHBN2 target evidence is `qahbn2_decision.realized_targets`.
 - Validator scoped accordingly; runtime/image/science unchanged; preserved coordinate remains HOLD for revalidation.
+
+### K5-Q-FORMAL-D6A closure — 2026-09-29
+- Corrected regression suite: **12/12 PASS**.
+- Preserved seed43/Q-AHBN2 coordinate: **K7 RESULT VALIDATION PASS**.
+- No rerun required.
+- Formal progress: **10/25 validated; 15/25 remaining**.
+- Next released coordinate sequence begins at seed44/Gossip.
