@@ -9,6 +9,7 @@ from __future__ import annotations
 import threading
 
 import peer
+import k7_rpc_trace
 from k5_final_actuator_policy import requested_fanout
 from qahbn2.kubernetes_adapter import KubernetesQAHBN2Adapter
 from qahbn2.kubernetes_integration import realize_inherited_targets, register_realized_targets
@@ -55,6 +56,28 @@ def _adaptive_update(self):
 
 
 def _targets(self, sender_id: int, message_id: str | None = None):
+    if self.strategy == "ahbn":
+        self.adaptive_update()
+        score = self.ahbn_state.score
+        budget = requested_fanout("S5", score)
+        if self.mode == "cluster":
+            eligible = self.diagnostic_cluster_eligible_peers(sender_id)
+            targets = self.cluster_targets(sender_id, fanout=budget)
+        else:
+            eligible = [n for n in self.neighbors if n not in (sender_id, self.peer_id) and n not in self.unavailable_neighbors]
+            k = min(budget, len(eligible))
+            targets = self.rng.sample(eligible, k) if k > 0 else []
+            targets = list(dict.fromkeys(targets))
+        canonical_fanout = self.fanout
+        self.fanout = budget
+        peer.log_event(event="k5_final_actuator_decision", run_id=self.run_id,
+            experiment=self.experiment, peer_id=self.peer_id, treatment="S5",
+            message_id=message_id, sender=self.peer_id, incoming_sender=sender_id,
+            score=score, weight=self.ahbn_state.weight, mode=self.mode,
+            eligible_neighbor_count=len(set(eligible)), canonical_fanout=canonical_fanout,
+            requested_fanout=budget, actual_fanout=len(targets))
+        self.log_ahbn_forwarding_decision(sender_id, message_id, eligible, targets)
+        return targets
     if self.strategy != "qahbn2":
         return _ORIGINAL_TARGETS(self, sender_id, message_id)
 
@@ -183,6 +206,7 @@ peer.PeerState.__init__ = _init
 peer.PeerState.adaptive_update = _adaptive_update
 peer.PeerState.target_peers = _targets
 peer.PeerState.forward_to_peer = _forward
+k7_rpc_trace.install(peer)
 
 if __name__ == "__main__":
     peer.serve()
