@@ -62,5 +62,7 @@
 - Expected runs: 25
 - Raw formal directory: `output/evidence/q-ahbn-29092026081836-exp13q-formal/`
 - Producing Q-AHBN2 commit: `2b11b4e95ef98c86458e02c494d6b6ea232a6d7a`
-- Current evidence state: RAW FORMAL EVIDENCE CREATED; INTEGRITY/COMPLETENESS AUDIT PENDING
-- Interpretation boundary: no comparative scientific conclusions, ranking, aggregation, or publication claim until S10A integrity verification and evidence freeze complete.
+- Evidence integrity/completeness: **PASS / CLOSED (S10A-INTEGRITY)**
+- Integrity accounting: 25/25 unique formal cells; 5 Q-AHBN2 trace groups; 410,852 structurally validated decision records; 0 exclusions; 0 reruns
+- Evidence freeze/promotion: PENDING
+- Interpretation boundary: no comparative scientific conclusions, ranking, aggregation, or publication claim until the verified Exp13-Q evidence is deliberately frozen/promoted and S10A closes.
