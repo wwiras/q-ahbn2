@@ -13,9 +13,9 @@ NUM_PEERS=4
 fail(){ echo "ERROR: $*" >&2; exit 1; }
 [ -n "${IMAGE}" ] || fail "IMAGE is required"
 for x in kubectl helm docker shasum; do command -v "${x}" >/dev/null || fail "missing command: ${x}"; done
-IMAGE_INSPECT="$(docker buildx imagetools inspect "${IMAGE}" 2>/dev/null || true)"
+IMAGE="${IMAGE}" EXPECTED_ARCH=amd64 bash "${ROOT_DIR}/gke/scripts/verify_k3_q_image.sh"
+IMAGE_INSPECT="$(docker buildx imagetools inspect "${IMAGE}")"
 echo "${IMAGE_INSPECT}" > /tmp/qahbn2-k3-image-inspect.txt
-printf "%s\n" "${IMAGE_INSPECT}" | grep -q "linux/amd64" || fail "IMAGE does not advertise linux/amd64; rebuild with gke/scripts/build_k3_q_image.sh"
 mkdir -p "${OUTDIR}"
 
 collect_artifacts(){
