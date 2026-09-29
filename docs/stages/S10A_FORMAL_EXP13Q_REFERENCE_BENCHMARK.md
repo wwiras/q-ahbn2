@@ -1,6 +1,6 @@
 # S10A — Formal Exp13-Q: Reference Benchmark
 
-**Status:** S10A-VERIFY PASS / CLOSED; S10A-RELEASE NEXT; FORMAL BLOCKED
+**Status:** S10A-VERIFY PASS / CLOSED; S10A-RELEASE IMPLEMENTED / LOCAL CHECKS PENDING; FORMAL BLOCKED
 
 ## Objective
 Provide one bounded external reference benchmark for standalone Q-AHBN2 publication positioning without replacing or expanding the primary thesis RO4 causal matrix.
@@ -300,12 +300,58 @@ This is an implementation/readiness gate only. It must:
 
 Formal execution remains blocked until S10A-RELEASE passes.
 
+
+## S10A-RELEASE — Exp13-Q Formal Runner / Provenance Readiness and Release Audit
+
+**Mode:** operational/provenance release only. No formal execution, no statistical interpretation, no scientific redesign.
+
+### Implementation completed
+Added:
+- `scripts/run_exp13q_formal.py`;
+- `tests/test_exp13q_formal_release.py`.
+
+The guarded runner:
+- validates the exact frozen 25-cell matrix before execution;
+- uses only `run_exp13q_cell(...)` from the frozen Exp13-Q harness;
+- preserves methods Gossip, Structured, DC-SoC, AHBN and Q-AHBN2;
+- preserves seeds 42--46, churn=0.40 and the 1,000-message formal workload;
+- writes only beneath `output/`, defaulting to `output/evidence/q-ahbn-<timestamp>-exp13q-formal/`;
+- refuses to overwrite an existing run directory;
+- records the producing Q-AHBN2 Git commit and pinned canonical AHBN commit;
+- records exact methods, seeds, topology/workload, churn boundaries, expected/completed run counts, exclusions and reruns;
+- writes `exp13q_formal.csv`, `decision_trace.json`, `manifest.json`, and `RUN.md`;
+- enforces same-seed churn-schedule identity across all five methods;
+- preserves Q-AHBN2 decision trace/provenance;
+- makes no scientific parameter, comparator, topology, learning, reward or statistical change.
+
+Release-contract tests statically guard the pinned canonical commit, exact 25-cell matrix, frozen methods/seeds/churn, 1,000-message workload, output-directory guard, exclusions/reruns fields, and use of the frozen Exp13-Q cell executor only.
+
+### Current result
+**IMPLEMENTATION COMPLETE / LOCAL RELEASE CHECKS PENDING.**
+
+No formal run is authorized until the researcher returns the local release-check output and the result is verified.
+
+### Required local release checks
+Run from the designated repository root:
+
+```bash
+git pull
+git status
+git rev-parse HEAD
+
+PYTHONPATH=. python -m unittest tests.test_exp13q_formal_release -v
+PYTHONPATH=. python -m unittest tests.test_formal_exp13q_contract tests.test_exp13q_smoke_contract -v
+PYTHONPATH=. python -m unittest discover -s tests -v
+```
+
+Do **not** run `scripts/run_exp13q_formal.py` yet.
+
 ## Statistical boundary
 Use the Exp13-Q amendment in `docs/04_STATISTICAL_CONTRACT.md`. No omnibus winner score, post-hoc test shopping, or universal-superiority claim.
 
 ## Next permitted task
-`S10A-RELEASE — Exp13-Q Formal Runner / Provenance Readiness and Release Audit`.
+`S10A-RELEASE — local release checks and final provenance-readiness audit`.
 
-Formal Exp13-Q remains blocked until S10A-RELEASE passes. No formal execution is authorized by S10A-VERIFY closure alone.
+Formal Exp13-Q remains blocked until those checks pass and are verified. Do not execute the 25-run formal matrix yet.
 
 **S11 remains blocked until Exp13-Q formal evidence is completed, integrity-verified, and frozen.**
