@@ -39,8 +39,8 @@ class TestK5QPrep(unittest.TestCase):
         from pathlib import Path
         root=Path(__file__).resolve().parents[1]
         preflight=(root/'gke/scripts/preflight_k3_q_image.sh').read_text()
-        self.assertIn('import qahbn2_runtime\\nimport controller', preflight)
-        self.assertNotIn('import qahbn2_runtime\\\\nimport controller', preflight)
+        self.assertIn('import qahbn2_runtime\nimport controller', preflight)
+        self.assertNotIn(r'import qahbn2_runtime\nimport controller', preflight)
 
     def test_formal_helper_uses_repo_helm_path(self):
         from pathlib import Path
