@@ -1,6 +1,6 @@
 # Q-AHBN2 Results Register
 
-**Status:** ACTIVE — K3-Q PREP PASS / MANUAL GKE SMOKE NEXT
+**Status:** ACTIVE — K3-Q PASS / CLOSED; K4-Q PROTOCOL FREEZE NEXT
 **Created:** 2026-09-23 under DOC-SYNC-1
 
 ## Registered bounded evidence
@@ -103,5 +103,8 @@
 - K3-Q-PREP deployable runtime assembly: **PASS (2026-09-29)**; inherited `ahbn2_gke` runtime/Helm assets assembled under `q-ahbn2/gke/` with additive Q-AHBN2-only runtime wrapper.
 - K3-Q first deployment attempt: **STARTUP INVALID / diagnostic only** — container failed before Python execution with `exec /usr/local/bin/python: exec format error`; classified as image-architecture/build-provenance defect, not algorithm evidence.
 - K3-Q-D1 architecture diagnostic/correction: **PASS (2026-09-29)**; build now explicitly targets `linux/amd64` and smoke preflights/records pushed image manifest.
-- Current gate: **K3-Q — Bounded GKE Smoke**; corrected AMD64 image build/push and unchanged real GKE smoke rerun are required before closure.
+- K3-Q-D2/D3 verifier corrections: **PASS**; registry architecture verification was hardened to a platform-constrained pull plus image-config inspection.
+- K3-Q-D4 packaging correction: **PASS**; missing inherited `gen_topology.py` dependency added to the image and guarded by a local real-container import preflight.
+- K3-Q bounded GKE smoke: **PASS / CLOSED (2026-09-29)**; image `wwiras/q-ahbn2:k3q-smoke-amd64-d4-20260929`, digest `sha256:dc6c6ceeec0220e51b03f76313a3cfa6448be9647c00e0a68a8a6abccbf33f52`; 4/4 pods Ready; 15 Q decisions, 17 attributed attempts, 11 reward closures; evidence `output/evidence/q-ahbn-gke-29092026140017-k3q-smoke/`.
+- Current gate: **K4-Q — K8s-VAL-Q / Exp13-Q-K8s Protocol Freeze**; prospective protocol freeze only, before K5-Q formal outcome inspection.
 - S12 interpretation remains blocked until the Kubernetes chain K0-Q through K6-Q is completed and its evidence frozen.
