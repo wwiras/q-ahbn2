@@ -293,3 +293,22 @@ Prospective correction at 0/25 runs:
 No scientific protocol, runtime image, topology-generation rule, coordinate, outcome, or frozen image digest changed.
 
 $$\boxed{\textbf{K5-Q-FORMAL-D4 = PASS / administrative provenance correction; 0/25 runs}}$$
+
+## K5-Q-FORMAL-D5 — Q-AHBN2 adaptive-trace validator reconciliation — 2026-09-29
+
+The formal campaign progressed through seed 42 Gossip, Structured, DC-SoC and AHBN validation, then completed the seed42/Q-AHBN2 controller job but stopped in post-run validation at inherited line 360 with `ValueError: AHBN trace isolation failed`.
+
+Code audit established a validator-contract inconsistency: the inherited isolation predicate admitted `ahbn_controller_trace` + `k5_final_actuator_decision` only when `algorithm == "ahbn"`, while the frozen Q-AHBN2 architecture explicitly executes canonical AHBN/S5 first and records `mode_ahbn`/`k_ahbn` before Q refinement. Therefore canonical AHBN/S5 traces are required evidence for both adaptive methods, not leakage in Q-AHBN2.
+
+Minimal prospective validator correction:
+- define adaptive methods as `{ahbn, qahbn2}`;
+- require AHBN/S5 traces for both adaptive methods;
+- continue forbidding them for Gossip, Structured and DC-SoC;
+- apply the existing AHBN causal-field and selected-target checks to both adaptive methods;
+- retain all existing Q-AHBN2-specific decision/outcome/reward checks unchanged.
+
+No forwarding logic, controller logic, reward, learning parameter, topology, workload, image, method outcome or collected raw evidence was modified.
+
+The stopped evidence directory must be preserved. The completed seed42/Q-AHBN2 artifacts may be revalidated in place only if complete; otherwise any rerun must follow the frozen same-coordinate operational-rerun rule. No full-campaign restart is authorized.
+
+$$\boxed{\textbf{K5-Q-FORMAL-D5 = validator defect identified/corrected; execution HOLD pending local tests and stopped-run artifact revalidation}}$$
