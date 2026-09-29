@@ -9,3 +9,6 @@ __pycache__/
 # Local Python virtual environments (kept outside Git/GitHub)
 .venv/
 venv/
+
+# Generated GKE Helm runtime topology (regenerated per formal coordinate)
+gke/helm/ahbn/topology.json
