@@ -11,6 +11,7 @@ COPY gke/app/peer.py peer.py
 COPY gke/app/ahbn_controller.py ahbn_controller.py
 COPY gke/app/observations.py observations.py
 COPY gke/app/dcsoc_maintenance.py dcsoc_maintenance.py
+COPY gke/app/gen_topology.py gen_topology.py
 COPY gke/app/k5_final_actuator_policy.py k5_final_actuator_policy.py
 COPY gke/app/qahbn2_runtime.py qahbn2_runtime.py
 COPY qahbn2 qahbn2
