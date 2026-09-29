@@ -196,3 +196,8 @@
 - Source audit confirms Q-AHBN2 computes frozen S5 directly and embeds AHBN/S5 proposal in Q decision; standalone S5 event belongs to standalone AHBN path only.
 - Validator corrected to the frozen evidence shape; runtime/image/science unchanged.
 - HOLD pending in-place seed43/Q-AHBN2 revalidation.
+
+### K5-Q-FORMAL-D6A — 2026-09-29
+- In-place seed43/Q-AHBN2 validation next exposed inherited standalone-AHBN target-trace assertion.
+- `ahbn_forwarding_decision` is standalone AHBN evidence; Q-AHBN2 target evidence is `qahbn2_decision.realized_targets`.
+- Validator scoped accordingly; runtime/image/science unchanged; preserved coordinate remains HOLD for revalidation.
