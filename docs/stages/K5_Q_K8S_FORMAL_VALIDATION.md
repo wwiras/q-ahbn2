@@ -110,3 +110,21 @@ Exp10-Q, Exp11-Q, Exp12-Q and Exp13-Q-Sim remain unchanged.
 **K5-Q-PREEXEC — Human local regression + formal-image build/preflight.**
 
 No formal GKE scientific coordinate is authorized until K5-Q-PREEXEC passes.
+
+## K5-Q-PREEXEC-D1 — Formal-image build audit import-path correction — 2026-09-29
+
+The local K5 preparation tests passed 4/4 and the standalone preparation audit passed with the exact 25-coordinate frozen contract. The subsequent formal-image build wrapper failed before Docker execution with:
+
+`ModuleNotFoundError: No module named 'gke'`.
+
+Root cause: `build_k5_q_formal_image.sh` invoked `python3 gke/scripts/k5_q_prep_audit.py` without placing the repository root on `PYTHONPATH`. This is an operational wrapper defect only; the same audit had already passed when invoked with `PYTHONPATH=.`.
+
+Corrective action: the build wrapper now prepends the repository root to `PYTHONPATH` when invoking the preparation audit.
+
+Scientific classification:
+- no formal GKE coordinate executed;
+- no Docker build started before the failure;
+- no performance outcome inspected;
+- no frozen K4-Q method/seed/topology/workload/churn/metric/learner rule changed.
+
+$$\boxed{\textbf{K5-Q-PREEXEC-D1 = PASS; K5-Q-PREEXEC remains HOLD pending corrected image build/preflight}}$$
