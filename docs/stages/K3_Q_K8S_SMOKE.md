@@ -82,3 +82,16 @@ $$\boxed{\textbf{K3-Q-D1 = PASS; K3-Q = HOLD — CORRECTED AMD64 SMOKE RERUN REQ
 
 ## Next permitted action
 Use the corrected build script to push a fresh immutable smoke tag, then rerun the unchanged bounded K3-Q smoke. No scientific configuration change is permitted.
+
+
+## K3-Q-D2 — Registry Manifest Verification Correction — 2026-09-29
+
+The corrected AMD64 build was pushed successfully as `wwiras/q-ahbn2:k3q-smoke-amd64-20260929`, digest `sha256:51f3473c1fdf9bbe8cfe7e0981be2cb5b4b2235c1114abd74dc1dfe847ba74b2`. Docker reported a single `application/vnd.docker.distribution.manifest.v2+json` manifest.
+
+The prior K3 preflight incorrectly required the human-readable `docker buildx imagetools inspect` output to contain the literal string `linux/amd64`. A single-platform Docker v2 manifest need not print that string, so this was a verifier false negative.
+
+Corrective action: `gke/scripts/verify_k3_q_image.sh` now parses the raw registry manifest and verifies architecture semantically. Both the build and smoke scripts use this verifier.
+
+**Scientific classification:** operational verification correction only; no scientific configuration changed.
+
+$$\boxed{\textbf{K3-Q-D2 = PASS; K3-Q remains HOLD pending unchanged smoke rerun}}$$
