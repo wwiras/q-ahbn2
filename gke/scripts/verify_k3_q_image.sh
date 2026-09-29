@@ -1,30 +1,25 @@
 #!/usr/bin/env bash
 set -euo pipefail
 IMAGE="${IMAGE:-}"
-EXPECTED_ARCH="${EXPECTED_ARCH:-amd64}"
+EXPECTED_PLATFORM="${EXPECTED_PLATFORM:-linux/amd64}"
+
 fail(){ echo "ERROR: $*" >&2; exit 1; }
 [ -n "${IMAGE}" ] || fail "IMAGE is required"
 command -v docker >/dev/null || fail "docker is required"
 
-RAW="$(docker buildx imagetools inspect --raw "${IMAGE}" 2>/dev/null)" || fail "cannot inspect pushed image: ${IMAGE}"
+echo "Verifying registry image by platform-specific pull:"
+echo "  image:    ${IMAGE}"
+echo "  platform: ${EXPECTED_PLATFORM}"
 
-ARCH="$(printf '%s' "${RAW}" | python3 -c '
-import json,sys
-x=json.load(sys.stdin)
-if "architecture" in x:
-    print(x["architecture"])
-elif "manifests" in x:
-    vals=[m.get("platform",{}).get("architecture") for m in x["manifests"]]
-    vals=[v for v in vals if v and v != "unknown"]
-    print(",".join(sorted(set(vals))))
-else:
-    print("")
-')"
+# A successful platform-constrained pull is the authoritative practical check
+# needed by K3: Docker must be able to resolve and materialize this tag for
+# linux/amd64. This avoids relying on human-readable manifest formatting.
+docker pull --platform "${EXPECTED_PLATFORM}" "${IMAGE}" >/dev/null   || fail "registry image cannot be pulled for ${EXPECTED_PLATFORM}"
 
-[ -n "${ARCH}" ] || fail "image architecture could not be determined"
-case ",${ARCH}," in
-  *,"${EXPECTED_ARCH},"*) ;;
-  *) fail "image architecture is ${ARCH}; expected ${EXPECTED_ARCH}" ;;
-esac
+ACTUAL="$(docker image inspect "${IMAGE}" --format '{{.Os}}/{{.Architecture}}' 2>/dev/null || true)"
+[ -n "${ACTUAL}" ] || fail "pulled image configuration could not be inspected"
+[ "${ACTUAL}" = "${EXPECTED_PLATFORM}" ]   || fail "pulled image configuration is ${ACTUAL}; expected ${EXPECTED_PLATFORM}"
 
-echo "K3-Q IMAGE VERIFY PASS: ${IMAGE} includes linux/${EXPECTED_ARCH}"
+DIGEST="$(docker image inspect "${IMAGE}" --format '{{join .RepoDigests "\n"}}' 2>/dev/null || true)"
+echo "K3-Q IMAGE VERIFY PASS: ${IMAGE} = ${ACTUAL}"
+[ -n "${DIGEST}" ] && echo "Repo digest: ${DIGEST}"
