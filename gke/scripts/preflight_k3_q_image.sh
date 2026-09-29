@@ -10,7 +10,7 @@ docker run --rm --platform linux/amd64 --entrypoint python "${IMAGE}" -c '
 import peer
 import gen_topology
 import dcsoc_maintenance
-import qahbn2_runtime
+import qahbn2_runtime\nimport controller
 print("K3-Q CONTAINER IMPORT PREFLIGHT PASS")
 ' || fail "container import preflight failed"
 
