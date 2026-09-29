@@ -338,3 +338,21 @@ A fail-closed resume mode was added to `run_k5_q_formal.sh`. In resume mode it:
 - executes only missing coordinates.
 
 $$\boxed{\textbf{K5-Q-FORMAL-D5 = PASS / CLOSED; resume remaining 20 coordinates}}$$
+
+## K5-Q-FORMAL-D6 — Q-AHBN2 S5 evidence-shape reconciliation — 2026-09-29
+
+During resumed execution, seed43 Gossip/Structured/DC-SoC/AHBN validated, then seed43/Q-AHBN2 completed its controller job but post-run validation again stopped on AHBN trace isolation.
+
+Read-only artifact diagnostic for seed43/Q-AHBN2 showed: 1,331 `ahbn_controller_trace`; 0 `k5_final_actuator_decision`; 1,065 `qahbn2_decision`; 756 `qahbn2_attempt_outcome`; 480 `qahbn2_reward_closed`; 733 `k7_forward_attempt`. All 20 peers were represented in AHBN and Q-AHBN2 decision traces.
+
+Runtime source reconciliation established that the Q-AHBN2 branch computes the frozen S5 base proposal directly as `k_ahbn = requested_fanout("S5", score)` and embeds `mode_ahbn`, `k_ahbn`, `ahbn_score`, and `ahbn_weight` in `qahbn2_decision`. The standalone `k5_final_actuator_decision` event is emitted only by the standalone AHBN comparator branch.
+
+Accordingly the validator contract is corrected without runtime change:
+- both adaptive methods require canonical `ahbn_controller_trace`;
+- standalone AHBN additionally requires standalone `k5_final_actuator_decision`;
+- Q-AHBN2 instead requires its embedded AHBN/S5 proposal fields plus existing decision/outcome/reward evidence;
+- non-adaptive baselines remain isolated from AHBN controller traces.
+
+No algorithm, image, parameter, topology, workload, raw outcome, or runtime execution path changed. The preserved seed43/Q-AHBN2 coordinate must be revalidated in place before any rerun/resume decision.
+
+$$\boxed{\textbf{K5-Q-FORMAL-D6 = validator/evidence-shape correction; execution HOLD pending in-place revalidation}}$$
