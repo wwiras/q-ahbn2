@@ -1,0 +1,24 @@
+experiment: k3_q_smoke
+strategy: qahbn2
+numNodes: 4
+numClusters: 2
+messageSource: 0
+settleTime: 2.0
+
+topology:
+  type: ba
+  baM: 2
+  seed: 42
+
+workload:
+  messageCount: 4
+  messageInterval: 0.2
+
+failure:
+  mode: none
+  numEvents: 0
+  overloadDelayMs: 0
+
+bottleneck:
+  enabled: false
+  delayMs: 0
