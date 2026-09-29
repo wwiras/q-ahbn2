@@ -356,3 +356,13 @@ Accordingly the validator contract is corrected without runtime change:
 No algorithm, image, parameter, topology, workload, raw outcome, or runtime execution path changed. The preserved seed43/Q-AHBN2 coordinate must be revalidated in place before any rerun/resume decision.
 
 $$\boxed{\textbf{K5-Q-FORMAL-D6 = validator/evidence-shape correction; execution HOLD pending in-place revalidation}}$$
+
+### K5-Q-FORMAL-D6A — Method-specific forwarding-target evidence correction
+
+After the D6 S5-shape correction, in-place seed43/Q-AHBN2 validation advanced to the next inherited standalone-AHBN assertion: `AHBN selected-target trace missing`.
+
+Source audit confirms `ahbn_forwarding_decision` is emitted only by the standalone AHBN branch. Q-AHBN2 records target realization through `qahbn2_decision.realized_targets` after its frozen AHBN/S5 proposal and Q refinement.
+
+Validator correction therefore scopes `ahbn_forwarding_decision` to `algorithm == "ahbn"`; Q-AHBN2 continues to require `realized_targets` plus decision/outcome/reward evidence. No runtime or scientific behavior changed.
+
+$$\boxed{\textbf{D6A = validator-only correction; HOLD pending same preserved-coordinate revalidation}}$$
