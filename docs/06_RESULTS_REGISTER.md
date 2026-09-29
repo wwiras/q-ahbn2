@@ -1,6 +1,6 @@
 # Q-AHBN2 Results Register
 
-**Status:** ACTIVE — FORMAL EVIDENCE IN PROGRESS
+**Status:** ACTIVE — FORMAL EVIDENCE FROZEN / S11 AGGREGATION IN PROGRESS
 **Created:** 2026-09-23 under DOC-SYNC-1
 
 ## Registered bounded evidence
