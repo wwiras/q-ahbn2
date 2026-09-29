@@ -1,6 +1,6 @@
 import unittest
 from gke.app.k5_q_formal_contract import (
-    METHODS,SEEDS,NUM_NODES,BA_M,SOURCE,MESSAGE_COUNT,MESSAGE_INTERVAL_S,
+    METHODS,SEEDS,NUM_NODES,BA_M,SOURCE_POLICY,MESSAGE_COUNT,MESSAGE_INTERVAL_S,
     CHURN_OFFSETS_S,coordinates,frozen_summary,validate_coordinate,
 )
 
@@ -12,7 +12,7 @@ class TestK5QPrep(unittest.TestCase):
         self.assertEqual(len(set(coordinates())),25)
 
     def test_exact_environment(self):
-        self.assertEqual((NUM_NODES,BA_M,SOURCE),(20,2,0))
+        self.assertEqual((NUM_NODES,BA_M),(20,2))\n        self.assertEqual(SOURCE_POLICY,'inherited_k7_common_non_structural_per_seed')
         self.assertEqual(MESSAGE_COUNT,240)
         self.assertEqual(MESSAGE_INTERVAL_S,0.4)
         self.assertEqual(CHURN_OFFSETS_S,(1.0,26.0,51.0,76.0))
@@ -21,6 +21,18 @@ class TestK5QPrep(unittest.TestCase):
         s=frozen_summary()
         self.assertEqual(s['unique_runs'],25)
         self.assertEqual(s['evidence_roles']['k8s_val_q'],['ahbn','qahbn2'])
+
+    def test_formal_runner_locked(self):
+        from pathlib import Path
+        root=Path(__file__).resolve().parents[1]
+        runner=(root/'gke/scripts/run_k5_q_formal.sh').read_text()
+        self.assertIn('METHODS=(gossip structured dcsoc ahbn qahbn2)',runner)
+        self.assertIn('SEEDS=(42 43 44 45 46)',runner)
+        self.assertIn('validate_k5_q_artifacts.py',runner)
+        docker=(root/'gke/app/Dockerfile.qahbn2').read_text()
+        self.assertIn('k7_exp11_tools.py',docker)
+        self.assertIn('k7_controller.py controller.py',docker)
+        self.assertTrue((root/'gke/helm/ahbn/templates/job-controller.yaml').exists())
 
     def test_rejects_unfrozen_coordinate(self):
         with self.assertRaises(ValueError): validate_coordinate(47,'ahbn')
