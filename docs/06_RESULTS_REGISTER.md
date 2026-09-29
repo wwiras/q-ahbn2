@@ -175,3 +175,10 @@
 - Generated Helm topology is now explicitly ignored.
 - Clean-tree provenance check moved before evidence creation/mutation and regression-guarded.
 - Runtime/science/image unchanged; formal count remains **0/25**.
+
+## K5-Q-FORMAL-D5 — 2026-09-29
+- Formal campaign stopped after seed42/Q-AHBN2 controller completion in post-run validation: inherited validator rejected expected canonical AHBN/S5 traces in Q-AHBN2.
+- Validator reconciled with frozen architecture: AHBN and Q-AHBN2 are both adaptive trace-bearing methods; standalone baselines remain trace-isolated.
+- Q-AHBN2-specific learning-evidence checks remain unchanged.
+- Raw stopped evidence preserved; no performance-triggered rerun or full-campaign restart authorized.
+- Execution HOLD pending local regression and in-place seed42/Q-AHBN2 artifact revalidation.
