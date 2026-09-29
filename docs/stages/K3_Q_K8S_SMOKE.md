@@ -106,3 +106,21 @@ The verifier now performs a platform-constrained registry pull (`docker pull --p
 No image rebuild, algorithm change, topology change, or experiment change is authorized by this diagnostic.
 
 $$\boxed{\textbf{K3-Q-D3 verifier correction applied; K3-Q remains HOLD pending image verification and unchanged smoke}}$$
+
+
+## K3-Q-D4 — Missing Inherited Runtime Dependency — 2026-09-29
+
+The corrected AMD64 container reached Python on GKE, proving the architecture/startup defect was resolved. Python then failed during inherited runtime import:
+
+`dcsoc_maintenance.py -> from gen_topology import ... -> ModuleNotFoundError: No module named 'gen_topology'`.
+
+Root cause: `gke/app/gen_topology.py` had been inherited into the repository but was omitted from `Dockerfile.qahbn2`. Because `peer.py` imports `DCSOCMaintenance` at module load, this dependency is required even when the active K3 strategy is Q-AHBN2.
+
+**Scientific classification:** packaging/assembly defect before Q-AHBN2 execution; no algorithmic evidence produced and no scientific design change justified.
+
+Corrective actions:
+- Dockerfile now copies the unchanged inherited `gen_topology.py`;
+- K3 preparation test guards this dependency;
+- `gke/scripts/preflight_k3_q_image.sh` now performs an AMD64 local container import preflight for `peer`, `gen_topology`, `dcsoc_maintenance`, and `qahbn2_runtime` before another GKE smoke.
+
+$$\boxed{\textbf{K3-Q-D4 = PASS; K3-Q remains HOLD pending rebuilt-image local preflight + unchanged GKE smoke}}$$
