@@ -1,6 +1,6 @@
 # S10A — Formal Exp13-Q: Reference Benchmark
 
-**Status:** S10A-VERIFY STATIC + REGRESSION PASS; SMOKE IMPLEMENTED / LOCAL EXECUTION PENDING; FORMAL BLOCKED
+**Status:** S10A-VERIFY PASS / CLOSED; NEXT GATE RECONCILIATION REQUIRED; FORMAL BLOCKED
 
 ## Objective
 Provide one bounded external reference benchmark for standalone Q-AHBN2 publication positioning without replacing or expanding the primary thesis RO4 causal matrix.
@@ -217,7 +217,43 @@ Implementation:
 - output is written under `output/evidence/q-ahbn-<timestamp>-exp13q-smoke/`;
 - the artifact explicitly records `formal_performance_evidence: false`.
 
-**Result:** implementation complete; executable smoke PASS is not yet claimed.
+**Result:** implementation complete.
+
+### S10A-VERIFY-SMOKE — Researcher Runtime Evidence
+
+Researcher executed the released bounded smoke from the synchronized local workspace at GitHub HEAD:
+
+`da2b9e641638b750388afd45ac8e7faa14061cbd`
+
+Preconditions:
+- branch `main` synchronized with `origin/main`;
+- working tree clean;
+- smoke contract tests: 2/2 PASS.
+
+Generated non-formal smoke directory:
+
+`output/evidence/q-ahbn-29092026080825-exp13q-smoke`
+
+Observed runtime integration results:
+- Gossip: PASS; leave=201, rejoin=251, churn targets=40;
+- Structured: PASS; leave=201, rejoin=251, churn targets=40;
+- DC-SoC: PASS; leave=201, rejoin=251, churn targets=40;
+- AHBN: PASS; leave=201, rejoin=251, churn targets=40;
+- Q-AHBN2: PASS; leave=201, rejoin=251, churn targets=40;
+- terminal marker: `EXP13Q_BOUNDED_SMOKE_PASS`.
+
+This is non-formal integration evidence only. No performance comparison, statistical inference, tuning, redesign, or formal result interpretation is permitted from this smoke artifact.
+
+### S10A-VERIFY result
+
+**PASS / CLOSED.**
+
+S10A-VERIFY has now satisfied:
+- static contract verification;
+- full project regression verification;
+- bounded five-method runtime smoke verification.
+
+No scientific parameter, comparator, topology, seed, learning rule, AHBN behavior, or formal workload was changed during verification.
 
 ### Required local smoke command
 After pulling the latest GitHub state, run from the repository root:
@@ -236,8 +272,8 @@ Return the complete terminal output and generated smoke directory path for verif
 Use the Exp13-Q amendment in `docs/04_STATISTICAL_CONTRACT.md`. No omnibus winner score, post-hoc test shopping, or universal-superiority claim.
 
 ## Next permitted task
-`S10A-VERIFY-SMOKE — Bounded Five-Method Exp13-Q Smoke`.
+`NEXT GATE RECONCILIATION — determine the next controlled S10A gate from the frozen master/stage sequence before authorizing Exp13-Q formal execution.`
 
-The smoke must remain non-formal and intentionally small. It is limited to runtime integration verification of the five frozen methods, common scenario/churn handling, and canonical comparator execution. No tuning, redesign, formal aggregation, or scientific interpretation is permitted.
+Formal Exp13-Q remains blocked until that reconciliation is completed. No formal execution is authorized by S10A-VERIFY closure alone.
 
 **S11 remains blocked until Exp13-Q formal evidence is completed, integrity-verified, and frozen.**
