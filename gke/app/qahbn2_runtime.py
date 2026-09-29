@@ -140,6 +140,16 @@ def _targets(self, sender_id: int, message_id: str | None = None):
 
 
 def _forward(self, dst_peer, envelope):
+    peer.log_event(
+        event="k7_forward_attempt", run_id=self.run_id, experiment=self.experiment,
+        msg_id=envelope.message_id, message_id=envelope.message_id,
+        sender=self.peer_id, destination_peer=dst_peer, strategy=self.strategy,
+        mode=self.mode, fanout=self.fanout,
+        sender_role=getattr(self, "dcsoc_role", None) if self.strategy == "dcsoc" else None,
+        structured_is_cluster_head=bool(getattr(self, "is_cluster_head", False)) if self.strategy == "cluster" else None,
+        structured_cluster_head_id=getattr(self, "cluster_head_id", None) if self.strategy == "cluster" else None,
+        structured_gateway_neighbors=list(getattr(self, "gateway_neighbors", [])) if self.strategy == "cluster" else None,
+    )
     if self.strategy != "qahbn2":
         return _ORIGINAL_FORWARD(self, dst_peer, envelope)
     decision_id = self.qahbn2_decisions.get(str(envelope.message_id))
