@@ -227,3 +227,43 @@ $$\boxed{\textbf{S11-A-1 = PASS / CLOSED}}$$
 $$\boxed{\textbf{S11-B — Exp13-Q External Benchmark Aggregation}}$$
 
 Exp13-Q remains a separate bounded five-method external reference analysis at churn=0.40 and must not be merged into S11-A.
+
+
+## S11-B-PREP — Minimal Deterministic Exp13-Q Aggregation Script + Unit Tests — 2026-09-29
+
+**Status:** IMPLEMENTED / HOLD — local test execution required before closure.
+
+### Gate
+Implement only the deterministic aggregation logic and unit tests required for the frozen Exp13-Q five-method reference benchmark. No formal aggregation execution or scientific interpretation is authorized in PREP.
+
+### Implementation
+- Script: `scripts/aggregate_s11b_exp13q.py`
+- Tests: `tests/test_aggregate_s11b_exp13q.py`
+- Frozen matrix enforced: churn=0.40; methods `{gossip, structured, dcsoc, ahbn, qahbn2}`; seeds `{42,43,44,45,46}`; 25/25 cells.
+- Primary metrics only: `delivery_ratio`, `propagation_delay`, `duplicates`, `total_forwards`.
+- Per-method summaries: n=5, arithmetic mean, sample SD, two-sided 95% Student-t CI (df=4), ordered seed values.
+- Same-seed Q-AHBN2-minus-reference contrasts are structurally defined for AHBN, Gossip, Structured and DC-SoC. No p-values are calculated by default.
+- Explicit guards prohibit incomplete/duplicate cells, unexpected methods/seeds/churn, invalid metric domains, and source mutation.
+- No omnibus score, cross-metric ranking, winner statistic, or S11-A input is present.
+- Formal release pipeline is deliberately absent during PREP.
+
+### Verification state
+GitHub readback confirms both new files are present on `main`. Test execution remains a required researcher/local verification step because this connector session does not execute the repository working tree.
+
+Run:
+```bash
+PYTHONPATH=. python3 -m unittest tests/test_aggregate_s11b_exp13q.py -v
+```
+
+Then run regression:
+```bash
+PYTHONPATH=. python3 -m unittest discover -s tests -v
+```
+
+PREP must remain HOLD until both commands complete with zero failures/errors. No formal Exp13-Q aggregation may be released before that verification.
+
+### Current result
+$$\\boxed{\\textbf{S11-B-PREP = HOLD — implementation complete; test execution pending}}$$
+
+### Next permitted action
+$$\\boxed{\\textbf{S11-B-PREP-VERIFY — Execute committed unit tests and full regression suite}}$$
