@@ -12,7 +12,8 @@ class TestK5QPrep(unittest.TestCase):
         self.assertEqual(len(set(coordinates())),25)
 
     def test_exact_environment(self):
-        self.assertEqual((NUM_NODES,BA_M),(20,2))\n        self.assertEqual(SOURCE_POLICY,'inherited_k7_common_non_structural_per_seed')
+        self.assertEqual((NUM_NODES,BA_M),(20,2))
+        self.assertEqual(SOURCE_POLICY,'inherited_k7_common_non_structural_per_seed')
         self.assertEqual(MESSAGE_COUNT,240)
         self.assertEqual(MESSAGE_INTERVAL_S,0.4)
         self.assertEqual(CHURN_OFFSETS_S,(1.0,26.0,51.0,76.0))
