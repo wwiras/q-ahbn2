@@ -379,6 +379,15 @@ def validate_run(run_dir: Path) -> dict:
         required_ahbn={"raw_d","raw_l","raw_u","raw_c","d_hat","l_hat","u_hat","c_hat","score","mode","fanout"}
         if not traces or any(not required_ahbn<=set(r) for r in traces): raise ValueError("AHBN causal trace incomplete")
         if not any(r.get("event")=="ahbn_forwarding_decision" and "selected_peers" in r for r in rows): raise ValueError("AHBN selected-target trace missing")
+    if algorithm=="qahbn2":
+        decisions=[r for r in rows if r.get("event")=="qahbn2_decision"]
+        outcomes=[r for r in rows if r.get("event")=="qahbn2_attempt_outcome"]
+        rewards=[r for r in rows if r.get("event")=="qahbn2_reward_closed"]
+        if not decisions or not outcomes or not rewards:
+            raise ValueError("Q-AHBN2 learning trace missing")
+        required_q={"decision_id","state","action","mode_ahbn","k_ahbn","mode_q","k_q","realized_targets"}
+        if any(not required_q<=set(r) for r in decisions):
+            raise ValueError("Q-AHBN2 decision trace incomplete")
     if algorithm=="dcsoc":
         client_rpc=[r for r in rows if r.get("event")=="k7_dcsoc_maintenance_rpc"]
         server_rpc=[r for r in rows if str(r.get("event","")).startswith("k7_dcsoc_rpc_")]
