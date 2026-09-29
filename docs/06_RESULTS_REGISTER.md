@@ -214,3 +214,10 @@
 - Q-AHBN2 authoritative S5 evidence is embedded in `qahbn2_decision`; standalone S5 events are optional redundancy.
 - Validator updated: AHBN requires them; non-adaptive baselines forbid them; Q-AHBN2 permits presence/absence.
 - No scientific/runtime change; same evidence root retained.
+
+### K5-Q-FORMAL-D8 — 2026-09-29
+- Added fail-closed `FORMAL_SEED` orchestration selector to K5 formal runner.
+- Allowed values: 42–46 only; selected seed still executes all five frozen methods.
+- Frozen matrix remains 25 coordinates; no method/seed/workload/image/metric change.
+- Seed-batch mode does not emit final 25/25 manifest/completion.
+- Full K5 closure still requires all 25 validated coordinates.
