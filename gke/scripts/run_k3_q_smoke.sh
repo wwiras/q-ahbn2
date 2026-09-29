@@ -13,6 +13,9 @@ NUM_PEERS=4
 fail(){ echo "ERROR: $*" >&2; exit 1; }
 [ -n "${IMAGE}" ] || fail "IMAGE is required"
 for x in kubectl helm docker shasum; do command -v "${x}" >/dev/null || fail "missing command: ${x}"; done
+IMAGE_INSPECT="$(docker buildx imagetools inspect "${IMAGE}" 2>/dev/null || true)"
+echo "${IMAGE_INSPECT}" > /tmp/qahbn2-k3-image-inspect.txt
+printf "%s\n" "${IMAGE_INSPECT}" | grep -q "linux/amd64" || fail "IMAGE does not advertise linux/amd64; rebuild with gke/scripts/build_k3_q_image.sh"
 mkdir -p "${OUTDIR}"
 
 collect_artifacts(){
@@ -23,6 +26,7 @@ trap collect_artifacts EXIT
 
 git -C "${ROOT_DIR}" rev-parse HEAD >"${OUTDIR}/git_commit.txt"
 printf "%s\n" "${IMAGE}" >"${OUTDIR}/image.txt"
+cp /tmp/qahbn2-k3-image-inspect.txt "${OUTDIR}/image_manifest.txt"
 
 "${PYTHON}" "${ROOT_DIR}/gke/app/gen_topology.py" --config "${ROOT_DIR}/gke/experiments/k3_q_smoke.yaml" --out "${TOPOLOGY}"
 cp "${TOPOLOGY}" "${ROOT_DIR}/gke/helm/ahbn/topology.json"
