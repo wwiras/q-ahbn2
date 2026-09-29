@@ -17,14 +17,16 @@ fail(){ echo "ERROR: $*" >&2; exit 1; }
 for x in kubectl helm shasum; do command -v "${x}" >/dev/null || fail "missing command: ${x}"; done
 [ "$(kubectl config current-context)" = "${EXPECTED_CONTEXT}" ] || fail "unexpected kubectl context"
 [ ! -e "${RESULT_ROOT}" ] || fail "new output directory required: ${RESULT_ROOT}"
+PRE_STATUS="$(git status --porcelain)"
+[ -z "${PRE_STATUS}" ] || { printf '%s\n' "${PRE_STATUS}" >&2; fail "working tree must be clean before formal evidence creation"; }
+FORMAL_GIT_SHA="$(git rev-parse HEAD)"
 PYTHONPATH="${ROOT_DIR}" "${PYTHON}" gke/scripts/k5_q_prep_audit.py >/dev/null
 IMAGE="${IMAGE}" EXPECTED_PLATFORM=linux/amd64 bash gke/scripts/verify_k3_q_image.sh >/dev/null
 
 mkdir -p "${RESULT_ROOT}"/{configs,generated,runs,target-selection,raw}
 exec > >(tee -a "${RESULT_ROOT}/terminal.log") 2>&1
-git rev-parse HEAD >"${RESULT_ROOT}/git_commit.txt"
-git status --porcelain >"${RESULT_ROOT}/git_status.txt"
-[ ! -s "${RESULT_ROOT}/git_status.txt" ] || fail "working tree must be clean"
+printf '%s\n' "${FORMAL_GIT_SHA}" >"${RESULT_ROOT}/git_commit.txt"
+printf '%s\n' "${PRE_STATUS}" >"${RESULT_ROOT}/git_status.txt"
 printf '%s\n' "${IMAGE}" >"${RESULT_ROOT}/image.txt"
 printf '%s\n' "${EXPECTED_IMAGE_DIGEST}" >"${RESULT_ROOT}/expected_image_digest.txt"
 date -u +%FT%TZ >"${RESULT_ROOT}/started_utc.txt"
