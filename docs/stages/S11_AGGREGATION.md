@@ -264,3 +264,36 @@ The deterministic Exp13-Q aggregation implementation and tests are verified and 
 $\\boxed{\\textbf{S11-B-1 — Exp13-Q Deterministic Five-Method External Benchmark Aggregation}}$
 
 S11-B-1 may execute only the frozen 25-run Exp13-Q dataset at churn=0.40 under the verified statistical contract. It must preserve S11-A/S11-B separation and must not introduce ranking, omnibus scoring, post-hoc comparator selection, or scientific interpretation.
+
+
+## S11-B-1 — Exp13-Q Deterministic Five-Method External Benchmark Aggregation — 2026-09-29
+
+**Status:** PASS / CLOSED.
+
+### Formal execution and verification
+- Formal aggregation directory: `output/evidence/q-ahbn-29092026121201-s11b-aggregation-formal/`
+- Producing Git HEAD recorded by manifest: `3ab956c2de6db9b6c4ae8daec1135669d58ba6fb`
+- Dedicated formal-release test: **1/1 PASS; 0 failures; 0 errors**.
+- Full repository regression: **69/69 PASS; 0 failures; 0 errors**.
+- Frozen input: Exp13-Q only, 25/25 runs, churn=0.40, methods `{gossip, structured, dcsoc, ahbn, qahbn2}`.
+- Primary metrics only: `delivery_ratio`, `propagation_delay`, `duplicates`, `total_forwards`.
+- Source CSV SHA-256: `5b9f09c8403e7e287d631986fb76727542264eca5f07227b57d3e19b868c4708`; direct local readback equals manifest record.
+- Output SHA-256:
+  - `RUN.md`: `4fc17f39d2b8fec21de5321d31d3c47a841745f1be2381e117133ca1383d997d`
+  - `manifest.json`: `6919e338c1835536a59d063b336d8b85f9990f3b45d8a960cc9b48c48ddac897`
+  - `s11b_exp13q_aggregation.json`: `37ba7c1d77c93af21d3c2581d3f95b6752858afd5f461d1231850d625d6ec223`
+  - `s11b_exp13q_summary.csv`: `e48c0d2a4479a05ed5826fe83c627dceef71f2629f316e303924d7adb16d0aa3`
+- Manifest-recorded aggregation JSON and summary CSV hashes agree exactly with direct SHA-256 readback.
+- Repository was clean after formal execution.
+
+### Evidence preservation
+- Google Drive evidence folder: `q-ahbn-29092026121201-s11b-aggregation-formal`
+- Drive folder ID: `1frfPsofGtbvpRFCxFMjGi_EZUuv8tNxx`
+- Drive readback confirms exactly four expected artifacts: `RUN.md`, `manifest.json`, `s11b_exp13q_aggregation.json`, and `s11b_exp13q_summary.csv`.
+- The synchronized evidence folder already existed in the designated `output/evidence` hierarchy; no duplicate promotion copy was created.
+
+### Scientific boundary
+S11-B-1 establishes deterministic descriptive aggregation and the predeclared same-seed Q-AHBN2-minus-reference contrasts only. It remains separate from S11-A. No p-values, omnibus score, cross-metric ranking, post-hoc comparator selection, winner claim, or scientific interpretation was produced.
+
+## Result
+$$\boxed{\textbf{S11-B-1 = PASS / CLOSED}}$$
