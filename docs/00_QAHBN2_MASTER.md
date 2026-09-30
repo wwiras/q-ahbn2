@@ -2238,3 +2238,12 @@ Section 5 has been drafted and audited in the publication repository `versions/v
 **S13-6 = PASS / CLOSED.**
 
 **Next permitted paper action:** S13-7 — Section 6 Discussion Drafting.
+
+
+### S13-7 Section 6 Discussion drafting — 2026-09-30
+
+Section 6 has been drafted and audited in the publication repository `versions/v0.0/main.tex`. It synthesizes only frozen S12/S12A findings and preserves the required trade-off, uncertainty, naming, and overclaim boundaries.
+
+**S13-7 = PASS / CLOSED.**
+
+**Next permitted paper action:** S13-8 — Section 7 Limitations Drafting.
