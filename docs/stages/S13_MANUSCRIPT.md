@@ -1,6 +1,6 @@
 # S13 — Q-AHBN2 Manuscript
 
-**Status:** ACTIVE — S13-1 PASS / CLOSED; S13-2 PASS / CLOSED; S13-3 PASS / CLOSED; S13-4 PASS / CLOSED; S13-5 PASS / CLOSED; S13-6 PASS / CLOSED; S13-7 PASS / CLOSED; S13-8 PASS / CLOSED; S13-9 PASS / CLOSED; S13-10 PASS / CLOSED; S13-11 PASS / CLOSED; S13-12 PASS / CLOSED — 2026-09-30
+**Status:** ACTIVE — S13-1 PASS / CLOSED; S13-2 PASS / CLOSED; S13-3 PASS / CLOSED; S13-4 PASS / CLOSED; S13-5 PASS / CLOSED; S13-6 PASS / CLOSED; S13-7 PASS / CLOSED; S13-8 PASS / CLOSED; S13-9 PASS / CLOSED; S13-10 PASS / CLOSED; S13-11 PASS / CLOSED; S13-12 PASS / CLOSED; S13-12R PASS / CLOSED; S13-13 PASS / CLOSED — 2026-09-30
 
 ## Objective
 Draft the standalone Q-AHBN2 manuscript only from verified claims and registered evidence.
@@ -567,3 +567,20 @@ The revised Abstract includes traceable primary-ControlSim values: 40 same-seed 
 **S13-12R = PASS / CLOSED.**
 
 **Next permitted paper action remains:** S13-13 — Title and Keywords Finalization.
+
+
+---
+
+## S13-13 — Title and Keywords Finalization — 2026-09-30
+
+The final publication title and keywords were set in `wwiras/QAHBN2-Manuscript/versions/v0.0/main.tex`.
+
+**Final title:** Q-AHBN: Bounded Q-Learning Refinement for Adaptive Blockchain Dissemination under Dynamic Network Conditions
+
+**Keywords:** blockchain dissemination; adaptive networking; Q-learning; peer-to-peer networks; dynamic network conditions; Kubernetes
+
+Audit confirmed that publication naming remains Q-AHBN and that neither title nor keywords imply convergence, optimality, universal superiority, state-of-the-art dominance, generic low-overhead behavior, or Kubernetes performance confirmation. No new evidence or analysis was introduced.
+
+**S13-13 = PASS / CLOSED.**
+
+**Next permitted paper action:** S13-14 — Whole-Manuscript Consistency and Submission-Readiness Audit.
