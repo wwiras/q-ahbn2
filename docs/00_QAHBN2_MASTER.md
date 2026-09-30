@@ -2189,3 +2189,12 @@ Manuscript-side Google Drive folder ID: `1oQxyLENPvG-r10zuq62Au7AFyeeSpDxj`.
 **S13-3 = PASS / CLOSED** after manuscript Drive identity registration and cross-repository provenance initialization.
 
 **Next permitted paper action:** S13-4 — Section 3 Q-AHBN2 Method Drafting, bounded by the S13-2 source pack and frozen S12A claim contract.
+
+
+### S13-4 Section 3 Method drafting — 2026-09-30
+
+Section 3 has been drafted in the publication repository at `sections/03_method.tex` using the pinned science baseline `6ccc94e5df770d588a5ccfa592f603a9a8ab2c68` and S12A claims C01/C02 only. Controlled readback passed.
+
+**S13-4 = PASS / CLOSED.**
+
+**Next permitted paper action:** S13-5 — Section 4 Experimental Methodology Drafting.
