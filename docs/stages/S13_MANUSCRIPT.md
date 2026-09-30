@@ -554,3 +554,16 @@ Audit confirmed:
 **S13-12 = PASS / CLOSED.**
 
 **Next permitted paper action:** S13-13 — Title and Keywords Finalization.
+
+
+---
+
+## S13-12R — Abstract Quantitative Revision — 2026-09-30
+
+At researcher request, S13-12 was reopened only to strengthen the publication Abstract with already-frozen quantitative results from Section 5 / S11 / S12. Scientific design, experiments, aggregation, statistics, interpretation, and S12A claim authority were not reopened.
+
+The revised Abstract includes traceable primary-ControlSim values: 40 same-seed pairs across eight conditions; delivery/delay paired 95% CIs excluding zero throughout; failure +12.907 pp delivery / -5.832 delay units; churn delivery gains +13.347/+6.294/+2.304 pp; and heterogeneity delay reductions 6.541--7.814 units. It retains the duplicate/forwarding overhead trade-off and all C13--C15 limitations.
+
+**S13-12R = PASS / CLOSED.**
+
+**Next permitted paper action remains:** S13-13 — Title and Keywords Finalization.
