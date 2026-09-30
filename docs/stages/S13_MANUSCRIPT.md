@@ -1,6 +1,6 @@
 # S13 — Q-AHBN2 Manuscript
 
-**Status:** ACTIVE — S13-1 PASS / CLOSED; S13-2 NEXT — 2026-09-29
+**Status:** ACTIVE — S13-1 PASS / CLOSED; S13-2 PASS / CLOSED; S13-3 NEXT — 2026-09-30
 
 ## Objective
 Draft the standalone Q-AHBN2 manuscript only from verified claims and registered evidence.
@@ -84,13 +84,216 @@ The structure covers the requested Abstract, Introduction, Related Work, Q-AHBN2
 
 **S13-1 = PASS / CLOSED.**
 
+---
+
+# S13-2 — Manuscript Drafting Plan / Source-and-Evidence Pack
+
+**Result:** PASS / CLOSED — 2026-09-30
+
+## S13-2A — Publication workspace architecture
+
+The publication workspace is frozen as a dual-repository model inside the researcher’s Google Drive-synchronized local workspace:
+
+```text
+Google Drive synchronized workspace
+├── q-ahbn2/                 # scientific/code/control repository
+│   ├── Git-tracked code/docs/contracts
+│   └── output/              # Git-ignored, Drive-synchronized working/evidence area
+└── QAHBN2-Manuscript/       # separate manuscript repository
+    ├── Git-tracked LaTeX/publication/control files
+    └── output/              # Git-ignored, Drive-synchronized manuscript working/evidence area
+```
+
+The existing Q-AHBN2 master rule is preserved: generated artifacts remain under repository-local `output/`; no new root-level `evidence/`, `outputs/`, or `q-ahbn-*/` evidence trees are introduced.
+
+Git and Google Drive are overlapping local workspaces:
+- `.gitignore` controls what Git/GitHub tracks;
+- Google Drive Desktop may still synchronize ignored local content to the cloud;
+- incidental Drive synchronization does not by itself promote working output to authoritative scientific evidence.
+
+The designated Q-AHBN2 Drive evidence hierarchy remains the experimental evidence authority.
+
+## S13-2B — Repository-role separation
+
+### `wwiras/q-ahbn2`
+Authoritative for:
+- implementation;
+- canonical/design contracts;
+- experiment definitions;
+- statistical contract;
+- analysis code;
+- gate records;
+- results register;
+- S12 scientific interpretation;
+- S12A claim authorization;
+- provenance of frozen experimental evidence.
+
+### `wwiras/QAHBN2-Manuscript`
+To be created as the separate publication repository, authoritative for:
+- LaTeX manuscript source;
+- section files;
+- publication figures/tables;
+- bibliography subset used by the paper;
+- manuscript control/provenance records;
+- response-to-reviewers material when applicable;
+- frozen submission/revision source versions.
+
+It must not become a second authority for experiment design, parameters, statistics, or scientific interpretation.
+
+### Google Drive
+The local/cloud filesystem contains both repositories and their Git-ignored `output/` trees. Large or working artifacts may be physically present beside Git-tracked files without entering GitHub.
+
+For the manuscript repository, `output/` is reserved for working/publication evidence such as copied manifests, source-table extracts, figure-source artifacts, validation exports and submission working packages. Only publication-ready files required by LaTeX (for example final figures/tables) should be promoted into Git-tracked manuscript directories.
+
+## S13-2C — Cross-repository provenance contract
+
+The two repositories are linked by provenance, not by automatic copying of scientific state.
+
+The minimum traceability tuple is:
+
+```text
+Q-AHBN2 science commit SHA
++ Google Drive folder ID
++ manifest/file hash where available
++ S12A claim ID
++ manuscript artifact/section identifier
+```
+
+The manuscript repository must carry a Git-tracked provenance/control record identifying:
+- the authoritative `wwiras/q-ahbn2` repository;
+- the exact Q-AHBN2 scientific baseline commit used by the manuscript;
+- the S12A claim/evidence authority;
+- Drive folder IDs for promoted evidence families;
+- manuscript figure/table/source-artifact mappings.
+
+The Q-AHBN2 master/stage record should point back to the manuscript repository once that repository exists.
+
+A change on `q-ahbn2/main` does not silently change the manuscript scientific baseline. Any baseline advance must be a controlled reconciliation with a recorded reason.
+
+## S13-2D — GitHub / Overleaf boundary
+
+Overleaf must connect only to the manuscript repository, not to `q-ahbn2`.
+
+The intended publication sync path is:
+
+```text
+local QAHBN2-Manuscript
+        ⇅
+GitHub QAHBN2-Manuscript
+        ⇅
+Overleaf
+```
+
+The manuscript GitHub repository should remain lean. Code, tests, GKE files, raw experimental logs and large evidence are not imported merely for Overleaf convenience.
+
+Git-ignored `output/` content remains Drive-synchronized but invisible to GitHub/Overleaf unless a verified publication-ready derivative is deliberately promoted into a tracked manuscript directory.
+
+## S13-2E — Exact drafting order
+
+Substantive drafting must proceed in this order:
+
+1. **Section 3 — Q-AHBN2 Method**
+2. **Section 4 — Experimental Methodology**
+3. **Section 5 — Results**
+   - 5.1 Learning behaviour
+   - 5.2 Exp10-Q failure
+   - 5.3 Exp11-Q churn
+   - 5.4 Exp12-Q heterogeneity
+   - 5.5 Cross-condition ControlSim synthesis
+   - 5.6 Exp13-Q bounded external-reference benchmark
+   - 5.7 Kubernetes operational realization
+4. **Section 6 — Discussion**
+5. **Section 7 — Limitations**
+6. **Section 1 — Introduction**
+7. **Section 2 — Related Work**
+8. **Section 8 — Conclusion**
+9. **Abstract**
+10. **Title/keywords finalization**
+
+Rationale: draft first from the strongest frozen internal authorities and evidence; write literature-dependent framing only after the method/results contribution is fixed; write the Abstract and final title last to prevent claim inflation.
+
+## S13-2F — Authoritative source-and-evidence pack
+
+| Manuscript part | Required repository authorities | Evidence/literature authority | Authorized claims |
+|---|---|---|---|
+| Section 3 Method | `docs/01_CANONICAL_AHBN_CONTRACT.md`; `docs/02_QAHBN2_DESIGN_FREEZE.md`; relevant frozen implementation/tests only for consistency verification | No experimental result required | C01, C02 |
+| Section 4 Methodology | `docs/03_EXPERIMENT_CONTRACT.md`; `docs/04_STATISTICAL_CONTRACT.md`; K0–K6 stage records; S10A where Exp13-Q role is defined | Frozen experiment/evidence manifests as needed | C03–C10, C13 |
+| Section 5.1 Learning | S05/S12 learning-mechanism records; design freeze | Frozen learning traces/evidence only | C02 |
+| Section 5.2 Exp10-Q | S08, S11-A, S12, results register | Frozen Exp10-Q formal/aggregation evidence | C03 |
+| Section 5.3 Exp11-Q | S09, S11-A, S12, results register | Frozen Exp11-Q formal/aggregation evidence | C04 |
+| Section 5.4 Exp12-Q | S10, S11-A, S12, results register | Frozen Exp12-Q formal/aggregation evidence | C05 |
+| Section 5.5 Cross-condition | S11-A, S12, S12A, claim matrix | `s11a_primary_ro4_summary.csv` / registered frozen aggregation artifacts | C06 |
+| Section 5.6 Exp13-Q | S10A, S11-B, S12, S12A | Frozen S11-B 25-run five-method benchmark only | C07 |
+| Section 5.7 Kubernetes | K0–K6, S12, S12A | Frozen K8s validation/evidence family only | C08, C09, C10 |
+| Section 6 Discussion | S12 interpretation; S12A; claim matrix; reviewer lessons | No new analysis; literature may contextualize but cannot strengthen frozen empirical claims | C01, C02, C06–C10, C12–C15 |
+| Section 7 Limitations | statistical contract; S12; S12A; claim matrix | No new evidence required | C13–C15 |
+| Section 1 Introduction | canonical AHBN authority; S12A; reviewer lessons | Peer-reviewed literature + authoritative prior AHBN publication/repository lineage | C01, C12, C13, C15 boundaries |
+| Section 2 Related Work | reviewer lessons; canonical AHBN lineage | Peer-reviewed/primary literature on Gossip, structured dissemination, hybrid/adaptive dissemination and RL-based networking/blockchain dissemination | C01, C12, C15 boundaries |
+| Section 8 Conclusion | S12; S12A; claim matrix | Entire frozen evidence chain | C01, C06–C10, C12–C15 |
+| Abstract | S12A + final manuscript sections only | No independent new evidence | C01, C06–C10, C12, C13 |
+| Title/keywords | S12A + final manuscript scope | No new scientific claim | C01/C12 scope boundary |
+
+## Literature-source rules
+
+For Introduction and Related Work:
+1. prefer peer-reviewed primary literature and authoritative original protocol/system papers;
+2. use the existing verified AHBN/thesis bibliography where relevant rather than rebuilding citations from memory;
+3. verify every imported citation against its actual source before manuscript use;
+4. literature may motivate, compare concepts and establish gaps, but may not expand the frozen Q-AHBN2 empirical claim boundary;
+5. no citation is accepted solely because it appeared in an earlier AI-generated draft;
+6. bibliography scope should be paper-specific rather than automatically copying the complete thesis bibliography.
+
+## Quantitative-source rules
+
+For every quantitative manuscript statement:
+- trace to the frozen registered artifact/evidence family;
+- preserve n=5 per condition/cell where applicable;
+- preserve same-seed AHBN–Q-AHBN2 pairing;
+- preserve two-sided Student-t 95% CI language exactly within the statistical contract;
+- do not create a pooled overall effect across unlike conditions;
+- do not introduce a new p-value family, post-hoc significance selection, metric or derived statistic.
+
+## Figure/table provenance rule
+
+Every publication figure/table must have a traceable mapping:
+
+```text
+manuscript artifact
+→ claim ID(s)
+→ registered summary/source artifact
+→ Drive evidence folder ID
+→ manifest/hash where available
+→ q-ahbn2 science commit / generation code
+```
+
+Publication-ready figures/tables required for LaTeX may be Git-tracked in `QAHBN2-Manuscript`; large source artifacts remain in Git-ignored Drive-synchronized `output/`.
+
+## S13-2 verification
+
+S13-2 establishes:
+- the dual-repository + embedded-Drive workspace model;
+- repository authority separation;
+- the `output/` Git-ignore/evidence boundary consistent with the frozen master;
+- bidirectional provenance requirements;
+- a lean GitHub/Overleaf manuscript boundary;
+- exact section drafting order;
+- exact frozen source/evidence authorities for every manuscript section;
+- literature and quantitative-source rules;
+- figure/table provenance rules.
+
+No experiment, parameter, algorithm, metric, statistic, hypothesis or scientific interpretation was added or reopened.
+
+**S13-2 = PASS / CLOSED.**
+
 ## Next permitted action
-**S13-2 — Manuscript Drafting Plan / Source-and-Evidence Pack**
 
-S13-2 should establish the exact drafting sequence and authoritative source/evidence pack for each manuscript section before substantive prose is committed. Literature citations may be reconciled for Introduction/Related Work, but no scientific claim may exceed the S12A contract.
+**S13-3 — Manuscript Repository Bootstrap / Provenance Initialization**
 
-## Evidence organization
-The manuscript organizes verified evidence as: learning validation; failure; churn; heterogeneity; Exp13-Q reference benchmark; bounded Kubernetes deployment validation; and cross-experiment discussion.
+S13-3 may create the separate `wwiras/QAHBN2-Manuscript` repository and its minimal publication skeleton, establish the manuscript-side `.gitignore` and provenance/control files, record the exact Q-AHBN2 scientific baseline commit and Drive evidence links, and verify the repository boundary before substantive prose drafting.
+
+S13-3 must not yet draft substantive manuscript prose.
+
+The separate thesis path remains **S13-T — Chapter 6 Mapping** and is not opened by S13-3.
 
 ## Boundary
-Claim wording must remain traceable through `docs/07_CLAIM_EVIDENCE_MATRIX.md`. Exp13-Q is bounded external positioning, not a universal algorithm ranking. Kubernetes is operational-realization evidence, not independent confirmation of ControlSim performance. Unfinished or unverified evidence must not be promoted into manuscript claims.
+Claim wording remains traceable through `docs/07_CLAIM_EVIDENCE_MATRIX.md`. Exp13-Q is bounded external positioning, not a universal algorithm ranking. Kubernetes is operational-realization evidence, not independent confirmation of ControlSim performance. Unfinished or unverified evidence must not be promoted into manuscript claims.
