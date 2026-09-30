@@ -2256,3 +2256,12 @@ Section 7 has been drafted and audited in the publication repository `versions/v
 **S13-8 = PASS / CLOSED.**
 
 **Next permitted paper action:** S13-9 — Section 1 Introduction Drafting.
+
+
+### S13-9 Section 1 Introduction drafting — 2026-09-30
+
+Section 1 has been drafted and audited in the publication repository `versions/v0.0/main.tex` using the frozen Introduction source pack and S12A C01/C12/C13/C15 boundaries.
+
+**S13-9 = PASS / CLOSED.**
+
+**Next permitted paper action:** S13-10 — Section 2 Related Work Drafting.
