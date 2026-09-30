@@ -2331,3 +2331,28 @@ Verified:
 
 **Next controlled paper gate:** S14 — Submission / Reproducibility Audit.  
 **Separate thesis path:** S13-T — Chapter 6 Evidence Mapping remains unopened.
+
+
+### S14 Submission / Reproducibility Audit — 2026-09-30
+
+The final standalone-paper submission/reproducibility audit is complete.
+
+Verified against the frozen contracts and registered evidence:
+- Exp10-Q 20/20, Exp11-Q 30/30, Exp12-Q 30/30; primary aggregation 80/80 runs / 40/40 pairs;
+- Exp13-Q 25/25 separate bounded reference cells;
+- Kubernetes 25/25 validated coordinates;
+- seeds 42--46 and documented exclusion/rerun rules;
+- frozen Q-AHBN2 learning parameters and immutable AHBN boundary;
+- quantitative manuscript tables and claim-evidence consistency;
+- registered Drive/Git/manifest identifiers;
+- publication-facing Q-AHBN terminology and S12A claim limits;
+- researcher-managed Zotero/`references.bib` boundary;
+- no new supplementary scientific artifact is required under the current contract.
+
+Explicit table-level provenance is registered in `wwiras/QAHBN2-Manuscript/docs/PROVENANCE.md`.
+
+**S14 = PASS / CLOSED.**
+
+The standalone Q-AHBN paper scientific workflow is complete under the current frozen stage map. No new scientific result, experiment, parameter, comparator, claim, literature source, or analysis was introduced.
+
+**Separate thesis path:** S13-T — Chapter 6 Evidence Mapping remains PENDING / unopened.
