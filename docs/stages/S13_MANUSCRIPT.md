@@ -1,6 +1,6 @@
 # S13 — Q-AHBN2 Manuscript
 
-**Status:** ACTIVE — S13-1 PASS / CLOSED; S13-2 PASS / CLOSED; S13-3 PASS / CLOSED; S13-4 PASS / CLOSED; S13-5 PASS / CLOSED; S13-6 PASS / CLOSED; S13-7 PASS / CLOSED; S13-8 PASS / CLOSED; S13-9 PASS / CLOSED; S13-10 PASS / CLOSED; S13-11 PASS / CLOSED; S13-12 PASS / CLOSED; S13-12R PASS / CLOSED; S13-13 PASS / CLOSED — 2026-09-30
+**Status:** ACTIVE — S13-1 PASS / CLOSED; S13-2 PASS / CLOSED; S13-3 PASS / CLOSED; S13-4 PASS / CLOSED; S13-5 PASS / CLOSED; S13-6 PASS / CLOSED; S13-7 PASS / CLOSED; S13-8 PASS / CLOSED; S13-9 PASS / CLOSED; S13-10 PASS / CLOSED; S13-11 PASS / CLOSED; S13-12 PASS / CLOSED; S13-12R PASS / CLOSED; S13-13 PASS / CLOSED; S13-14 HOLD — bibliography source pending — 2026-09-30
 
 ## Objective
 Draft the standalone Q-AHBN2 manuscript only from verified claims and registered evidence.
@@ -584,3 +584,28 @@ Audit confirmed that publication naming remains Q-AHBN and that neither title no
 **S13-13 = PASS / CLOSED.**
 
 **Next permitted paper action:** S13-14 — Whole-Manuscript Consistency and Submission-Readiness Audit.
+
+
+---
+
+## S13-14 — Whole-Manuscript Consistency and Submission-Readiness Audit — 2026-09-30
+
+The active publication source was audited end-to-end against S12A, the claim-evidence matrix, results register, and manuscript provenance.
+
+Audit PASS:
+- Q-AHBN publication naming is consistent;
+- Sections 1--8 are complete and ordered;
+- no unresolved references, duplicate labels, unbalanced LaTeX environments/braces, or unsupported numerical substitutions were found;
+- primary ControlSim, Exp13-Q and Kubernetes values reconcile with frozen S12 authorities;
+- the Kubernetes Q-AHBN `total_forwards=10.0` value is confirmed by S12 and remains accompanied by the `F_attempt` accounting caveat;
+- prohibited performance wording occurs only as explicit limitation/negation;
+- evidence-role boundaries and non-pooling rules remain intact;
+- internal label/path editorial fixes were applied without scientific change.
+
+Submission-readiness HOLD:
+- `versions/v0.0/main.tex` now correctly calls `\bibliography{references}`, but `versions/v0.0/references.bib` is not present in the manuscript repository.
+- Per manuscript provenance, bibliography synchronization is researcher-managed; therefore full citation-source and compile readiness cannot be closed until that file is supplied/committed and read back.
+
+**S13-14 = HOLD — scientific/editorial consistency PASS; bibliography-source completeness pending.**
+
+No new scientific evidence or analysis was introduced.
