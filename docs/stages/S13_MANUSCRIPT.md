@@ -1,6 +1,6 @@
 # S13 — Q-AHBN2 Manuscript
 
-**Status:** ACTIVE — S13-1 PASS / CLOSED; S13-2 PASS / CLOSED; S13-3 PASS / CLOSED; S13-4 PASS / CLOSED; S13-5 PASS / CLOSED; S13-6 PASS / CLOSED; S13-7 PASS / CLOSED; S13-8 PASS / CLOSED; S13-9 PASS / CLOSED; S13-10 PASS / CLOSED; S13-11 PASS / CLOSED; S13-12 PASS / CLOSED; S13-12R PASS / CLOSED; S13-13 PASS / CLOSED; S13-14 PASS / CLOSED — contract-corrected bibliography boundary — 2026-09-30
+**Status:** PASS / CLOSED — post-drafting reconciliation complete; paper path releases S14; S13-T remains separate/unopened — 2026-09-30
 
 ## Objective
 Draft the standalone Q-AHBN2 manuscript only from verified claims and registered evidence.
@@ -610,3 +610,32 @@ The Google Drive `supportDocs` check independently confirmed all eight manuscrip
 **S13-14 = PASS / CLOSED.**
 
 No new literature or scientific evidence was introduced.
+
+
+---
+
+## S13 Post-Drafting Gate Reconciliation — 2026-09-30
+
+### Objective
+Reconcile the completed S13 manuscript sub-gates against the frozen downstream stage map and determine the next authorized action without inventing a new manuscript gate.
+
+### Reconciliation result
+- S13-1 through S13-14 are PASS / CLOSED.
+- The active manuscript source remains `wwiras/QAHBN2-Manuscript/versions/v0.0/main.tex`.
+- The pinned scientific baseline remains `6ccc94e5df770d588a5ccfa592f603a9a8ab2c68`.
+- S12A claim boundaries remain unchanged and no scientific evidence, parameter, experiment, statistic, metric, or interpretation is reopened.
+- Publication-facing naming remains Q-AHBN.
+- `references.bib` remains researcher-managed through Zotero under the established contract; its repository presence/absence is not an assistant-controlled gate criterion.
+- The frozen downstream stage map explicitly places `S14_SUBMISSION_AUDIT.md` after `S13_MANUSCRIPT.md`.
+- `S13_T_CHAPTER6_MAPPING.md` is a separate thesis path for Chapter 6 evidence mapping and remains PENDING / unopened. It is not a prerequisite for closing the standalone-paper S13 drafting stage.
+
+### Decision
+The standalone manuscript drafting stage is complete.
+
+**S13 = PASS / CLOSED.**
+
+### Next permitted task
+**Paper path:** S14 — Submission / Reproducibility Audit.  
+**Separate thesis path:** S13-T — Chapter 6 Evidence Mapping remains pending and unopened until deliberately entered.
+
+This reconciliation is administrative/control-only and does not modify the manuscript science baseline or evidence.
