@@ -1,6 +1,6 @@
 # S13 — Q-AHBN2 Manuscript
 
-**Status:** ACTIVE — S13-1 PASS / CLOSED; S13-2 PASS / CLOSED; S13-3 PASS / CLOSED; S13-4 PASS / CLOSED; S13-5 PASS / CLOSED; S13-6 PASS / CLOSED; S13-7 PASS / CLOSED; S13-8 PASS / CLOSED; S13-9 PASS / CLOSED; S13-10 PASS / CLOSED — 2026-09-30
+**Status:** ACTIVE — S13-1 PASS / CLOSED; S13-2 PASS / CLOSED; S13-3 PASS / CLOSED; S13-4 PASS / CLOSED; S13-5 PASS / CLOSED; S13-6 PASS / CLOSED; S13-7 PASS / CLOSED; S13-8 PASS / CLOSED; S13-9 PASS / CLOSED; S13-10 PASS / CLOSED; S13-11 PASS / CLOSED — 2026-09-30
 
 ## Objective
 Draft the standalone Q-AHBN2 manuscript only from verified claims and registered evidence.
@@ -511,3 +511,24 @@ Audit confirmed:
 ## Next permitted action
 
 **S13-11 — Section 8 Conclusion Drafting**, using only the frozen S12/S12A evidence chain and the now-complete Sections 1--7; no new evidence or literature claim.
+
+
+---
+
+## S13-11 — Section 8 Conclusion Drafting — 2026-09-30
+
+Section 8 Conclusion has been drafted in the publication repository `versions/v0.0/main.tex` using only frozen S12/S12A authorities, the claim-evidence matrix, and completed manuscript Sections 1--7.
+
+The audit confirmed:
+- publication-facing naming remains Q-AHBN;
+- no new citation or literature claim was introduced;
+- C01, C02, C06--C10, C12--C15 boundaries are preserved;
+- the primary ControlSim result is stated as higher delivery/lower propagation delay with communication-overhead trade-off across the eight tested conditions;
+- Exp13-Q remains bounded external positioning at churn=0.40;
+- Kubernetes remains operational-realization evidence and does not independently establish a consistent AHBN-performance advantage;
+- ControlSim and Kubernetes remain complementary, non-pooled and non-replication evidence families;
+- n=5/condition-specific inference and the prohibitions on convergence, policy optimality, global hyperparameter optimality, universal superiority, best/winner/dominance, and generic lightweight/low-overhead performance claims remain explicit.
+
+**S13-11 = PASS / CLOSED.**
+
+**Next permitted paper action:** S13-12 — Abstract Drafting.
