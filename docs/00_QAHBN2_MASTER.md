@@ -2138,3 +2138,36 @@ After S07-D closure, the immediate operational next task remains **S08-PREP-3 �
 S12A — Thesis–Paper Claim Reconciliation is **PASS / CLOSED**. The final claim authorization contract is frozen in `docs/stages/S12A_CLAIM_RECONCILIATION.md` and `docs/07_CLAIM_EVIDENCE_MATRIX.md`.
 
 The next permitted paper gate is **S13 — Q-AHBN2 Manuscript**. S13 must draft only within the S12A claim boundaries and must not reopen experimental design, parameters, algorithms, metrics, evidence, or statistical procedures. The separate thesis evidence-mapping gate remains **S13-T — Chapter 6 Mapping** according to the frozen downstream stage map.
+
+
+---
+
+## S13 Publication-Workspace Reconciliation — 2026-09-30
+
+S13-1 manuscript structure/evidence mapping and S13-2 manuscript drafting-plan/source-pack reconciliation are **PASS / CLOSED**.
+
+The publication architecture is now frozen as a dual-repository model within the Google Drive-synchronized local workspace:
+
+```text
+q-ahbn2/
+  Git-tracked scientific/code/control record
+  output/ = Git-ignored, Drive-synchronized generated/working evidence
+
+QAHBN2-Manuscript/
+  separate Git-tracked publication repository
+  output/ = Git-ignored, Drive-synchronized manuscript working/evidence area
+```
+
+This preserves the existing project-wide generated-output standard: new scientific/generated artifacts remain under repository-local `output/`; no competing root-level `evidence/` or `outputs/` hierarchy is introduced.
+
+Repository authority remains separated:
+- `wwiras/q-ahbn2` is the scientific/code/control authority;
+- the future `wwiras/QAHBN2-Manuscript` repository is the publication-source authority;
+- the designated Q-AHBN2 Google Drive evidence hierarchy remains the experimental evidence authority;
+- automatic Drive synchronization does not itself constitute evidence promotion.
+
+The repositories must be linked by explicit provenance using the Q-AHBN2 science commit SHA, Drive folder ID, manifest/hash where available, S12A claim ID, and manuscript section/figure/table identity. Overleaf is to connect only to the manuscript repository.
+
+**Current paper gate:** S13-2 = PASS / CLOSED.  
+**Next permitted paper action:** S13-3 — Manuscript Repository Bootstrap / Provenance Initialization.  
+**Separate thesis path:** S13-T remains unopened.
