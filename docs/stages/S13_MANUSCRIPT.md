@@ -1,6 +1,6 @@
 # S13 — Q-AHBN2 Manuscript
 
-**Status:** ACTIVE — S13-1 PASS / CLOSED; S13-2 PASS / CLOSED; S13-3 PASS / CLOSED — 2026-09-30
+**Status:** ACTIVE — S13-1 PASS / CLOSED; S13-2 PASS / CLOSED; S13-3 PASS / CLOSED; S13-4 PASS / CLOSED; S13-5 NEXT — 2026-09-30
 
 ## Objective
 Draft the standalone Q-AHBN2 manuscript only from verified claims and registered evidence.
@@ -320,3 +320,29 @@ The separate thesis path remains **S13-T — Chapter 6 Mapping** and is not open
 
 ## Boundary
 Claim wording remains traceable through `docs/07_CLAIM_EVIDENCE_MATRIX.md`. Exp13-Q is bounded external positioning, not a universal algorithm ranking. Kubernetes is operational-realization evidence, not independent confirmation of ControlSim performance. Unfinished or unverified evidence must not be promoted into manuscript claims.
+
+
+---
+
+# S13-4 — Section 3 Q-AHBN2 Method Drafting
+
+**Result:** PASS / CLOSED — 2026-09-30
+
+The manuscript repository now contains `sections/03_method.tex`, included from `main.tex`.
+
+The section was drafted against the pinned manuscript science baseline `6ccc94e5df770d588a5ccfa592f603a9a8ab2c68` and restricted to S12A claims C01/C02. It covers:
+- immutable canonical-AHBN proposal and post-AHBN intervention boundary;
+- canonical four-variable EWMA state and 81-state discretization;
+- five-action bounded refinement contract and requested-versus-realized fanout distinction;
+- direct-attempt NEW/DUPLICATE/FAILED reward contract and F=0 no-reward-bearing-update boundary;
+- zero-initialized 81x5 tabular Q-learning, alpha_Q=0.25, gamma=0.70, seeded epsilon-greedy selection, epsilon_0=0.30, epsilon_min=0.03, decay=0.995;
+- same-peer successor-state / delayed-reward transition lifecycle;
+- explicit no-convergence/no-optimality/no-performance implication boundary.
+
+Controlled readback verified the frozen constants, action set, reward form, fanout range, manuscript inclusion, and claim guard. No performance result, experiment interpretation, new algorithmic mechanism, new parameter, or new scientific claim was introduced.
+
+**S13-4 = PASS / CLOSED.**
+
+## Next permitted action
+
+**S13-5 — Section 4 Experimental Methodology Drafting**
