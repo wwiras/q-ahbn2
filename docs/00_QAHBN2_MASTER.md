@@ -2218,3 +2218,14 @@ This administrative refinement preserves the pinned scientific baseline and S13-
 
 **S13-4 remains PASS / CLOSED.**
 **Next permitted paper action remains S13-5 — Section 4 Experimental Methodology Drafting.**
+
+
+### S13-5 Experimental Methodology closure — 2026-09-30
+
+Section 4 Experimental Methodology has been drafted in `versions/v0.0/main.tex` and audited against the pinned science baseline `6ccc94e5df770d588a5ccfa592f603a9a8ab2c68`, the frozen experiment/statistical contracts, Exp13-Q role definition, K4/K6 Kubernetes records, and S12A boundaries.
+
+No result interpretation or new analysis was introduced.
+
+**S13-5 = PASS / CLOSED.**
+
+**Next permitted paper action:** S13-6 — Section 5 Results Drafting.
