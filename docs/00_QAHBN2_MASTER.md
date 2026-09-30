@@ -2310,3 +2310,14 @@ Final submission-readiness remains **HOLD** because the researcher-managed `vers
 **S13-14 = HOLD — bibliography source pending.**
 
 No scientific evidence, experiment, metric, statistic, or interpretation was reopened.
+
+
+### S13-14R citation-source reconciliation — 2026-09-30
+
+The S13-14 bibliography HOLD was resolved by direct verification against the researcher-authorized Google Drive `supportDocs` corpus. All eight manuscript citation keys resolve exactly in `biblist/ahbnLR25Sept2026chap2_93.bib` (Drive ID `1TXqYfsaInVi_FXOYVZZ_0ljfNSV9MtQe`).
+
+A manuscript-local `references.bib` is therefore a later packaging/compile artifact rather than a prerequisite for scientific citation traceability.
+
+**S13-14 = PASS / CLOSED.**
+
+No scientific evidence, experiment, analysis, statistic, or literature source was added.
