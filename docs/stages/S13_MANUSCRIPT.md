@@ -1,6 +1,6 @@
 # S13 — Q-AHBN2 Manuscript
 
-**Status:** ACTIVE — S13-1 PASS / CLOSED; S13-2 PASS / CLOSED; S13-3 PASS / CLOSED; S13-4 PASS / CLOSED; S13-5 PASS / CLOSED; S13-6 PASS / CLOSED; S13-7 PASS / CLOSED; S13-8 PASS / CLOSED; S13-9 PASS / CLOSED — 2026-09-30
+**Status:** ACTIVE — S13-1 PASS / CLOSED; S13-2 PASS / CLOSED; S13-3 PASS / CLOSED; S13-4 PASS / CLOSED; S13-5 PASS / CLOSED; S13-6 PASS / CLOSED; S13-7 PASS / CLOSED; S13-8 PASS / CLOSED; S13-9 PASS / CLOSED; S13-10 PASS / CLOSED — 2026-09-30
 
 ## Objective
 Draft the standalone Q-AHBN2 manuscript only from verified claims and registered evidence.
@@ -486,3 +486,28 @@ Audit confirmed:
 ## Next permitted action
 
 **S13-10 — Section 2 Related Work Drafting**, using only verified primary literature and the frozen canonical AHBN lineage/reviewer safeguards; no unsupported citation or comparative-superiority claims.
+
+
+## S13-10 — Section 2 Related Work Drafting — 2026-09-30
+
+Section 2 was drafted in `wwiras/QAHBN2-Manuscript/versions/v0.0/main.tex` using the researcher-approved literature hierarchy: frozen thesis Chapter 2 as the literature map, original papers in the designated Drive corpus as verification authority, canonical AHBN lineage, and S12A C01/C12/C15 boundaries.
+
+The paper-scale Related Work uses four strands: Gossip; structured/cluster-based dissemination; hybrid/adaptive dissemination; and learning-based network adaptation/Q-AHBN positioning.
+
+Retained verified source set: `berendea_fair_2020`, `felber_pulp_2012`, `rohrer_kadcast-ng_2023`, `shen_sekad_2024`, `dong_dc-soc_2024`, `choi_optimizing_2024`, `boyan_packet_1993`, and `polverini_-network_2025`.
+
+Audit confirmed:
+- Chapter 2 was used as a literature map, not as substitute citation authority;
+- retained claims were checked against original Drive PDFs or frozen Level-3 source verification;
+- cross-domain Q-learning evidence is explicitly qualified as non-blockchain evidence;
+- canonical AHBN remains the immediate immutable predecessor and Q-AHBN is positioned only as bounded post-AHBN refinement;
+- no literature-wide first/unique claim, unsupported gap, winner/ranking, or comparative-superiority claim is made;
+- no thesis result is back-projected into the literature review;
+- no bibliography file was created or modified; established citation keys remain researcher-managed;
+- manuscript-facing algorithm name remains Q-AHBN.
+
+**S13-10 = PASS / CLOSED.**
+
+## Next permitted action
+
+**S13-11 — Section 8 Conclusion Drafting**, using only the frozen S12/S12A evidence chain and the now-complete Sections 1--7; no new evidence or literature claim.
