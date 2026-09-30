@@ -1,6 +1,6 @@
 # S13 — Q-AHBN2 Manuscript
 
-**Status:** ACTIVE — S13-1 PASS / CLOSED; S13-2 PASS / CLOSED; S13-3 NEXT — 2026-09-30
+**Status:** ACTIVE — S13-1 PASS / CLOSED; S13-2 PASS / CLOSED; S13-3 PASS / CLOSED — 2026-09-30
 
 ## Objective
 Draft the standalone Q-AHBN2 manuscript only from verified claims and registered evidence.
@@ -289,7 +289,7 @@ No experiment, parameter, algorithm, metric, statistic, hypothesis or scientific
 
 **S13-3 — Manuscript Repository Bootstrap / Provenance Initialization**
 
-**Status:** HOLD — bootstrap materially complete; manuscript-side Google Drive cloud folder ID/link pending registration — 2026-09-30.
+**Status:** PASS / CLOSED — 2026-09-30.
 
 Completed:
 - private repository `wwiras/QAHBN2-Manuscript` verified on `main`;
@@ -302,11 +302,19 @@ Completed:
 - GitHub/Overleaf boundary recorded;
 - no substantive manuscript prose drafted.
 
-Remaining closure requirement:
-- register the manuscript-side Google Drive cloud folder link/ID in `docs/PROVENANCE.md`;
-- perform final manuscript-repo and q-ahbn2 readback after that registration.
+Closure completed:
+- manuscript-side Google Drive folder ID `1oQxyLENPvG-r10zuq62Au7AFyeeSpDxj` registered in manuscript provenance;
+- researcher local synchronized path registered;
+- manuscript repository and q-ahbn2 cross-repository authority recorded;
+- final readback required after these closure writes.
 
-S13-3 must not draft substantive manuscript prose before closure.
+**S13-3 = PASS / CLOSED.**
+
+## Next permitted action
+
+**S13-4 — Section 3 Q-AHBN2 Method Drafting**
+
+S13-4 may begin substantive manuscript prose only for Section 3, using the frozen S13-2 source pack and S12A claim boundaries. Later sections remain blocked until their controlled drafting turn.
 
 The separate thesis path remains **S13-T — Chapter 6 Mapping** and is not opened by S13-3.
 
