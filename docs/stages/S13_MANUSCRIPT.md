@@ -1,6 +1,6 @@
 # S13 — Q-AHBN2 Manuscript
 
-**Status:** ACTIVE — S13-1 PASS / CLOSED; S13-2 PASS / CLOSED; S13-3 PASS / CLOSED; S13-4 PASS / CLOSED; S13-5 PASS / CLOSED; S13-6 PASS / CLOSED; S13-7 PASS / CLOSED — 2026-09-30
+**Status:** ACTIVE — S13-1 PASS / CLOSED; S13-2 PASS / CLOSED; S13-3 PASS / CLOSED; S13-4 PASS / CLOSED; S13-5 PASS / CLOSED; S13-6 PASS / CLOSED; S13-7 PASS / CLOSED; S13-8 PASS / CLOSED — 2026-09-30
 
 ## Objective
 Draft the standalone Q-AHBN2 manuscript only from verified claims and registered evidence.
@@ -441,3 +441,27 @@ Audit confirmed:
 ## Next permitted action
 
 **S13-8 — Section 7 Limitations Drafting**, using only frozen C13--C15 and existing statistical/evidence boundaries.
+
+
+## S13-8 — Section 7 Limitations Drafting — 2026-09-30
+
+Section 7 was drafted directly in `wwiras/QAHBN2-Manuscript/versions/v0.0/main.tex` using the pinned manuscript science baseline and only frozen S12/S12A limitation authorities, especially C13--C15 and the frozen statistical contract.
+
+Audit confirmed:
+- n=5 per condition/cell and five-seed uncertainty scope are explicit;
+- inference remains condition-specific;
+- communication-overhead cost is explicit;
+- no convergence, policy-optimality or global-hyperparameter-optimality claim is made;
+- no omnibus ranking, winner or universal-superiority claim is made;
+- Exp13-Q is explicitly limited to one churn=0.40 bounded external benchmark;
+- Kubernetes performance uncertainty is explicit and its role remains operational realization;
+- ControlSim and Kubernetes are not pooled, treated as equivalent or described as literal replications;
+- generic lightweight/low-overhead/reduced-forwarding claims are explicitly unsupported;
+- no new limitation class, metric, analysis or scientific interpretation was introduced;
+- manuscript-facing algorithm name remains Q-AHBN.
+
+**S13-8 = PASS / CLOSED.**
+
+## Next permitted action
+
+**S13-9 — Section 1 Introduction Drafting**, following the frozen manuscript sequence and S12A C01, C12, C13 and C15 boundaries.
