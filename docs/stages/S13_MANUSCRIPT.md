@@ -289,9 +289,24 @@ No experiment, parameter, algorithm, metric, statistic, hypothesis or scientific
 
 **S13-3 — Manuscript Repository Bootstrap / Provenance Initialization**
 
-S13-3 may create the separate `wwiras/QAHBN2-Manuscript` repository and its minimal publication skeleton, establish the manuscript-side `.gitignore` and provenance/control files, record the exact Q-AHBN2 scientific baseline commit and Drive evidence links, and verify the repository boundary before substantive prose drafting.
+**Status:** HOLD — bootstrap materially complete; manuscript-side Google Drive cloud folder ID/link pending registration — 2026-09-30.
 
-S13-3 must not yet draft substantive manuscript prose.
+Completed:
+- private repository `wwiras/QAHBN2-Manuscript` verified on `main`;
+- researcher local clone verified at `/Users/wwiras/Library/CloudStorage/GoogleDrive-samsuddin.samsuddin@monash.edu/My Drive/PhDResearch/myPaper/ClusterComputing/QAHBN2-Manuscript`;
+- minimal publication skeleton initialized;
+- manuscript `.gitignore` established with `output/` excluded from Git;
+- `docs/MANUSCRIPT_MASTER.md` and `docs/PROVENANCE.md` created;
+- exact Q-AHBN2 scientific baseline pinned to `6ccc94e5df770d588a5ccfa592f603a9a8ab2c68`;
+- S11-A, S11-B and Kubernetes Drive evidence IDs registered in manuscript provenance;
+- GitHub/Overleaf boundary recorded;
+- no substantive manuscript prose drafted.
+
+Remaining closure requirement:
+- register the manuscript-side Google Drive cloud folder link/ID in `docs/PROVENANCE.md`;
+- perform final manuscript-repo and q-ahbn2 readback after that registration.
+
+S13-3 must not draft substantive manuscript prose before closure.
 
 The separate thesis path remains **S13-T — Chapter 6 Mapping** and is not opened by S13-3.
 
