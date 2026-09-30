@@ -1,6 +1,6 @@
 # S13 — Q-AHBN2 Manuscript
 
-**Status:** ACTIVE — S13-1 PASS / CLOSED; S13-2 PASS / CLOSED; S13-3 PASS / CLOSED; S13-4 PASS / CLOSED; S13-5 NEXT — 2026-09-30
+**Status:** ACTIVE — S13-1 PASS / CLOSED; S13-2 PASS / CLOSED; S13-3 PASS / CLOSED; S13-4 PASS / CLOSED; S13-5 PASS / CLOSED — 2026-09-30
 
 ## Objective
 Draft the standalone Q-AHBN2 manuscript only from verified claims and registered evidence.
@@ -367,3 +367,34 @@ This is a publication-source architecture change only. No experiment, algorithm,
 
 **S13-4 remains PASS / CLOSED.**
 **S13-5 remains NEXT — Section 4 Experimental Methodology Drafting.**
+
+
+## S13-5 — Section 4 Experimental Methodology Drafting — 2026-09-30
+
+Section 4 was drafted directly in the publication repository at `versions/v0.0/main.tex` using the pinned manuscript science baseline `6ccc94e5df770d588a5ccfa592f603a9a8ab2c68`.
+
+Source pack reconciled:
+- `docs/03_EXPERIMENT_CONTRACT.md`;
+- `docs/04_STATISTICAL_CONTRACT.md`;
+- `docs/stages/S10A_FORMAL_EXP13Q_REFERENCE_BENCHMARK.md`;
+- `docs/stages/K4_Q_K8S_VALIDATION_FREEZE.md`;
+- `docs/stages/K6_Q_K8S_EVIDENCE_FREEZE.md`;
+- S12A C03--C10 and C13 boundaries.
+
+Audit confirmed:
+- primary ControlSim matrix remains 80 runs (20 failure, 30 churn, 30 heterogeneity);
+- seeds 42--46, BA(100,m=3), source 0 and 1,000 sequential-message protocol preserved;
+- Exp10/11/12 frozen conditions and schedules preserved;
+- primary outcomes remain delivery ratio, propagation delay, duplicates and total forwards;
+- same-seed AHBN versus Q-AHBN pairing and n=5 Student-t 95% CI contract preserved;
+- Exp13-Q remains a separate 25-run churn=0.40 five-method reference benchmark;
+- Kubernetes remains a separate 25-run operational-realization/matched-reference matrix using N=20, BA(m=2), 240 messages, 0.4 s pacing and +1/+26/+51/+76 s churn offsets;
+- ControlSim and Kubernetes are explicitly non-pooled and non-replication evidence families;
+- no performance results, new metric, new test, new model, or new interpretation was introduced;
+- manuscript-facing algorithm name is Q-AHBN; literal q-ahbn2 repository identifiers remain provenance-only.
+
+**S13-5 = PASS / CLOSED.**
+
+## Next permitted action
+
+**S13-6 — Section 5 Results Drafting**, following the frozen S13 result flow and S12A claim/evidence boundaries.
