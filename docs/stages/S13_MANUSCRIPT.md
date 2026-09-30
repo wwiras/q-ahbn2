@@ -1,6 +1,6 @@
 # S13 — Q-AHBN2 Manuscript
 
-**Status:** ACTIVE — S13-1 PASS / CLOSED; S13-2 PASS / CLOSED; S13-3 PASS / CLOSED; S13-4 PASS / CLOSED; S13-5 PASS / CLOSED; S13-6 PASS / CLOSED; S13-7 PASS / CLOSED; S13-8 PASS / CLOSED; S13-9 PASS / CLOSED; S13-10 PASS / CLOSED; S13-11 PASS / CLOSED; S13-12 PASS / CLOSED; S13-12R PASS / CLOSED; S13-13 PASS / CLOSED; S13-14 PASS / CLOSED — Drive citation-source verification — 2026-09-30
+**Status:** ACTIVE — S13-1 PASS / CLOSED; S13-2 PASS / CLOSED; S13-3 PASS / CLOSED; S13-4 PASS / CLOSED; S13-5 PASS / CLOSED; S13-6 PASS / CLOSED; S13-7 PASS / CLOSED; S13-8 PASS / CLOSED; S13-9 PASS / CLOSED; S13-10 PASS / CLOSED; S13-11 PASS / CLOSED; S13-12 PASS / CLOSED; S13-12R PASS / CLOSED; S13-13 PASS / CLOSED; S13-14 PASS / CLOSED — contract-corrected bibliography boundary — 2026-09-30
 
 ## Objective
 Draft the standalone Q-AHBN2 manuscript only from verified claims and registered evidence.
@@ -590,39 +590,22 @@ Audit confirmed that publication naming remains Q-AHBN and that neither title no
 
 ## S13-14 — Whole-Manuscript Consistency and Submission-Readiness Audit — 2026-09-30
 
-The active publication source was audited end-to-end against S12A, the claim-evidence matrix, results register, and manuscript provenance.
+The active publication source was audited end-to-end against S12A, the claim-evidence matrix, results register, manuscript provenance, and completed Sections 1--8.
 
 Audit PASS:
 - Q-AHBN publication naming is consistent;
 - Sections 1--8 are complete and ordered;
 - no unresolved references, duplicate labels, unbalanced LaTeX environments/braces, or unsupported numerical substitutions were found;
 - primary ControlSim, Exp13-Q and Kubernetes values reconcile with frozen S12 authorities;
-- the Kubernetes Q-AHBN `total_forwards=10.0` value is confirmed by S12 and remains accompanied by the `F_attempt` accounting caveat;
+- the Kubernetes Q-AHBN `total_forwards=10.0` value remains accompanied by the `F_attempt` accounting caveat;
 - prohibited performance wording occurs only as explicit limitation/negation;
 - evidence-role boundaries and non-pooling rules remain intact;
 - internal label/path editorial fixes were applied without scientific change.
 
-Submission-readiness HOLD:
-- `versions/v0.0/main.tex` now correctly calls `\bibliography{references}`, but `versions/v0.0/references.bib` is not present in the manuscript repository.
-- Per manuscript provenance, bibliography synchronization is researcher-managed; therefore full citation-source and compile readiness cannot be closed until that file is supplied/committed and read back.
+### Contract-correct bibliography boundary
+`references.bib` is researcher-managed through Zotero under the established project contract. Its repository presence/absence is not an S13-14 criterion and must not be treated as a missing artifact, HOLD condition, submission blocker, or assistant-owned packaging task.
 
-**S13-14 = HOLD — scientific/editorial consistency PASS; bibliography-source completeness pending.**
-
-No new scientific evidence or analysis was introduced.
-
-
----
-
-## S13-14R — Citation-Source Reconciliation / HOLD Resolution — 2026-09-30
-
-The prior S13-14 HOLD was resolved using the researcher-authorized Google Drive support corpus (`supportDocs`, folder ID `1MLFZKEurQ8E3QSinvRll7gyK-JXmDBtJ`).
-
-Direct readback of `supportDocs/biblist/ahbnLR25Sept2026chap2_93.bib` (Drive ID `1TXqYfsaInVi_FXOYVZZ_0ljfNSV9MtQe`) confirmed exact records for all eight unique citation keys used in the manuscript:
-`berendea_fair_2020`, `felber_pulp_2012`, `rohrer_kadcast-ng_2023`, `shen_sekad_2024`, `dong_dc-soc_2024`, `choi_optimizing_2024`, `boyan_packet_1993`, and `polverini_-network_2025`.
-
-Therefore bibliography-source traceability is complete independently of whether a manuscript-local `references.bib` has yet been copied into the publication repository. The local BibTeX copy is classified as final submission packaging/compilation material, not as a missing scientific authority.
-
-Together with the previously passed naming, numerical, LaTeX-structure, S12A-boundary, table, reference, and evidence-role audits:
+The Google Drive `supportDocs` check independently confirmed all eight manuscript citation keys in `biblist/ahbnLR25Sept2026chap2_93.bib` (Drive ID `1TXqYfsaInVi_FXOYVZZ_0ljfNSV9MtQe`). This is supplementary citation/source verification only and does not replace or modify the Zotero workflow.
 
 **S13-14 = PASS / CLOSED.**
 
