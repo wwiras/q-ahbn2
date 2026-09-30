@@ -1,6 +1,6 @@
 # S13 — Q-AHBN2 Manuscript
 
-**Status:** ACTIVE — S13-1 PASS / CLOSED; S13-2 PASS / CLOSED; S13-3 PASS / CLOSED; S13-4 PASS / CLOSED; S13-5 PASS / CLOSED; S13-6 PASS / CLOSED; S13-7 PASS / CLOSED; S13-8 PASS / CLOSED; S13-9 PASS / CLOSED; S13-10 PASS / CLOSED; S13-11 PASS / CLOSED — 2026-09-30
+**Status:** ACTIVE — S13-1 PASS / CLOSED; S13-2 PASS / CLOSED; S13-3 PASS / CLOSED; S13-4 PASS / CLOSED; S13-5 PASS / CLOSED; S13-6 PASS / CLOSED; S13-7 PASS / CLOSED; S13-8 PASS / CLOSED; S13-9 PASS / CLOSED; S13-10 PASS / CLOSED; S13-11 PASS / CLOSED; S13-12 PASS / CLOSED — 2026-09-30
 
 ## Objective
 Draft the standalone Q-AHBN2 manuscript only from verified claims and registered evidence.
@@ -532,3 +532,25 @@ The audit confirmed:
 **S13-11 = PASS / CLOSED.**
 
 **Next permitted paper action:** S13-12 — Abstract Drafting.
+
+
+---
+
+## S13-12 — Abstract Drafting — 2026-09-30
+
+The manuscript Abstract has been drafted in `wwiras/QAHBN2-Manuscript/versions/v0.0/main.tex` from completed Sections 1--8 and the frozen S12A claim contract only.
+
+Audit confirmed:
+- publication-facing naming is Q-AHBN;
+- no citation or new literature claim was added;
+- C01, C02, C06--C10, C12--C15 boundaries are preserved;
+- the primary ControlSim result is summarized as higher delivery/lower propagation delay with generally higher duplicate/forwarding overhead across the eight tested conditions;
+- learning evidence is active outcome-driven refinement only, with no convergence/policy-optimality claim;
+- Exp13-Q remains bounded positioning at churn=0.40;
+- Kubernetes remains operational-realization evidence, not independent confirmatory superiority;
+- ControlSim/Kubernetes remain complementary and non-pooled;
+- n=5 per condition/cell, condition-specific inference, and prohibitions on global hyperparameter optimality, universal superiority, best/winner/dominance, and generic low-overhead claims remain visible.
+
+**S13-12 = PASS / CLOSED.**
+
+**Next permitted paper action:** S13-13 — Title and Keywords Finalization.
