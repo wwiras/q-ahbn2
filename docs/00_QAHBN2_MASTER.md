@@ -2312,3 +2312,22 @@ Independent verification against the researcher-authorized Google Drive `support
 **S13-14 = PASS / CLOSED.**
 
 No scientific evidence, experiment, analysis, statistic, metric, or literature source was added or reopened.
+
+
+### S13 Post-Drafting Gate Reconciliation — 2026-09-30
+
+The completed S13 manuscript sequence was reconciled against the frozen downstream stage map.
+
+Verified:
+- S13-1 through S13-14 are PASS / CLOSED;
+- pinned manuscript science baseline remains `6ccc94e5df770d588a5ccfa592f603a9a8ab2c68`;
+- S12A claim authority is unchanged;
+- no experiment, parameter, metric, statistic, evidence family, or scientific interpretation was reopened;
+- Zotero/`references.bib` remains researcher-managed under the established contract;
+- `S13_T_CHAPTER6_MAPPING.md` is a separate thesis path and remains pending/unopened;
+- the frozen paper-stage sequence proceeds from `S13_MANUSCRIPT.md` to `S14_SUBMISSION_AUDIT.md`.
+
+**S13 = PASS / CLOSED.**
+
+**Next controlled paper gate:** S14 — Submission / Reproducibility Audit.  
+**Separate thesis path:** S13-T — Chapter 6 Evidence Mapping remains unopened.
