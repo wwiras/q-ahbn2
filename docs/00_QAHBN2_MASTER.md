@@ -2171,3 +2171,17 @@ The repositories must be linked by explicit provenance using the Q-AHBN2 science
 **Current paper gate:** S13-2 = PASS / CLOSED.  
 **Next permitted paper action:** S13-3 — Manuscript Repository Bootstrap / Provenance Initialization.  
 **Separate thesis path:** S13-T remains unopened.
+
+
+### S13-3 manuscript-repository bootstrap status — 2026-09-30
+
+The separate private publication repository now exists at `wwiras/QAHBN2-Manuscript` and has been initialized with a lean publication skeleton, manuscript `.gitignore`, `docs/MANUSCRIPT_MASTER.md`, and `docs/PROVENANCE.md`.
+
+Pinned Q-AHBN2 manuscript science baseline: `6ccc94e5df770d588a5ccfa592f603a9a8ab2c68`.
+
+The manuscript repository is cloned by the researcher inside the Google Drive-synchronized local path:
+`/Users/wwiras/Library/CloudStorage/GoogleDrive-samsuddin.samsuddin@monash.edu/My Drive/PhDResearch/myPaper/ClusterComputing/QAHBN2-Manuscript`.
+
+The manuscript repository points back to this scientific repository and the registered frozen evidence families. This scientific repository now recognizes `wwiras/QAHBN2-Manuscript` as the publication-source repository.
+
+**S13-3 current status: HOLD** pending registration/readback of the manuscript-side Google Drive cloud folder link/ID. No substantive manuscript prose is authorized before S13-3 closure.
