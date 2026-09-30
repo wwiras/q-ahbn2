@@ -2229,3 +2229,12 @@ No result interpretation or new analysis was introduced.
 **S13-5 = PASS / CLOSED.**
 
 **Next permitted paper action:** S13-6 — Section 5 Results Drafting.
+
+
+### S13-6 Section 5 Results drafting — 2026-09-30
+
+Section 5 has been drafted and audited in the publication repository `versions/v0.0/main.tex`. It reproduces only frozen S11-A/S11-B/K6/S12/S12A results and preserves the required evidence-role and overclaim boundaries.
+
+**S13-6 = PASS / CLOSED.**
+
+**Next permitted paper action:** S13-7 — Section 6 Discussion Drafting.
