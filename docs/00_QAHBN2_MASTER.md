@@ -2198,3 +2198,23 @@ Section 3 has been drafted in the publication repository at `sections/03_method.
 **S13-4 = PASS / CLOSED.**
 
 **Next permitted paper action:** S13-5 — Section 4 Experimental Methodology Drafting.
+
+
+### S13 manuscript architecture refinement — 2026-09-30
+
+The publication-source repository `wwiras/QAHBN2-Manuscript` now uses a versioned single-file manuscript model.
+
+Current active source:
+`versions/v0.0/main.tex`
+
+Publication-source rules:
+- no root `main.tex`;
+- no `sections/`, `figures/`, `tables/`, or dedicated `bibliography/` directories;
+- all manuscript sections, LaTeX/TikZ figures/diagrams, and tables live directly in the active versioned `main.tex`;
+- Zotero/BibTeX bibliography files are researcher-managed and added manually inside the applicable version directory;
+- new `versions/vX.Y/` directories require explicit controlled version transition.
+
+This administrative refinement preserves the pinned scientific baseline and S13-4 content.
+
+**S13-4 remains PASS / CLOSED.**
+**Next permitted paper action remains S13-5 — Section 4 Experimental Methodology Drafting.**
