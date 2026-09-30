@@ -1,6 +1,6 @@
 # S13 — Q-AHBN2 Manuscript
 
-**Status:** ACTIVE — S13-1 PASS / CLOSED; S13-2 PASS / CLOSED; S13-3 PASS / CLOSED; S13-4 PASS / CLOSED; S13-5 PASS / CLOSED; S13-6 PASS / CLOSED — 2026-09-30
+**Status:** ACTIVE — S13-1 PASS / CLOSED; S13-2 PASS / CLOSED; S13-3 PASS / CLOSED; S13-4 PASS / CLOSED; S13-5 PASS / CLOSED; S13-6 PASS / CLOSED; S13-7 PASS / CLOSED — 2026-09-30
 
 ## Objective
 Draft the standalone Q-AHBN2 manuscript only from verified claims and registered evidence.
@@ -419,3 +419,25 @@ Audit confirmed:
 ## Next permitted action
 
 **S13-7 — Section 6 Discussion Drafting**, using only frozen S12/S12A interpretation and claim authorities; no new analysis.
+
+
+## S13-7 — Section 6 Discussion Drafting — 2026-09-30
+
+Section 6 was drafted directly in `wwiras/QAHBN2-Manuscript/versions/v0.0/main.tex` from the pinned manuscript science baseline using only frozen S12/S12A interpretation and claim authorities, the claim-evidence matrix, reviewer safeguards, and already drafted Sections 3--5.
+
+Audit confirmed:
+- discussion synthesizes the primary ControlSim delivery--latency improvement with explicit communication-overhead trade-off;
+- churn attenuation remains descriptive only, with no dose--response claim;
+- learning traces are interpreted as active bounded refinement, not convergence or policy optimality;
+- Exp13-Q remains bounded external positioning without winner/ranking or general-superiority claims;
+- Kubernetes remains operational-realization/deployment evidence, with all-four-CI uncertainty and no replication/equivalence claim;
+- generic lightweight/low-overhead performance wording is explicitly rejected;
+- canonical AHBN remains immutable and Q-AHBN is discussed only as a bounded post-AHBN refinement;
+- no new numerical analysis, metric, model, literature claim or scientific interpretation beyond S12/S12A was introduced;
+- manuscript-facing algorithm name remains Q-AHBN.
+
+**S13-7 = PASS / CLOSED.**
+
+## Next permitted action
+
+**S13-8 — Section 7 Limitations Drafting**, using only frozen C13--C15 and existing statistical/evidence boundaries.
