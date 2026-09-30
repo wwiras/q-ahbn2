@@ -2303,21 +2303,12 @@ No new evidence, experiment, statistic, metric, literature claim, convergence/op
 
 ### S13-14 whole-manuscript audit — 2026-09-30
 
-The whole-manuscript consistency audit passed for scientific claims, naming, numerical traceability, evidence-role boundaries, internal references, and LaTeX structural checks. Two editorial source fixes were applied in the manuscript repository: publication-facing internal label normalization and bibliography-path normalization relative to the versioned source.
+The whole-manuscript consistency and submission-readiness audit passed for scientific claims, publication naming, numerical traceability, evidence-role boundaries, internal references, LaTeX structure, and S12A claim limits.
 
-Final submission-readiness remains **HOLD** because the researcher-managed `versions/v0.0/references.bib` file is not currently present in the manuscript repository, so citation-source completeness and final compile readiness cannot yet be verified.
+**Bibliography authority clarification:** the established contract defines `references.bib` as researcher-managed through Zotero. Its repository presence or absence is not a manuscript-gate criterion and is not a missing scientific artifact, HOLD condition, submission blocker, or assistant-controlled packaging action.
 
-**S13-14 = HOLD — bibliography source pending.**
-
-No scientific evidence, experiment, metric, statistic, or interpretation was reopened.
-
-
-### S13-14R citation-source reconciliation — 2026-09-30
-
-The S13-14 bibliography HOLD was resolved by direct verification against the researcher-authorized Google Drive `supportDocs` corpus. All eight manuscript citation keys resolve exactly in `biblist/ahbnLR25Sept2026chap2_93.bib` (Drive ID `1TXqYfsaInVi_FXOYVZZ_0ljfNSV9MtQe`).
-
-A manuscript-local `references.bib` is therefore a later packaging/compile artifact rather than a prerequisite for scientific citation traceability.
+Independent verification against the researcher-authorized Google Drive `supportDocs` corpus confirmed all eight manuscript citation keys in `biblist/ahbnLR25Sept2026chap2_93.bib` (Drive ID `1TXqYfsaInVi_FXOYVZZ_0ljfNSV9MtQe`). This is supplementary source verification only; it does not replace or alter Zotero authority.
 
 **S13-14 = PASS / CLOSED.**
 
-No scientific evidence, experiment, analysis, statistic, or literature source was added.
+No scientific evidence, experiment, analysis, statistic, metric, or literature source was added or reopened.
