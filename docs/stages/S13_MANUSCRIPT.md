@@ -1,6 +1,6 @@
 # S13 — Q-AHBN2 Manuscript
 
-**Status:** ACTIVE — S13-1 PASS / CLOSED; S13-2 PASS / CLOSED; S13-3 PASS / CLOSED; S13-4 PASS / CLOSED; S13-5 PASS / CLOSED — 2026-09-30
+**Status:** ACTIVE — S13-1 PASS / CLOSED; S13-2 PASS / CLOSED; S13-3 PASS / CLOSED; S13-4 PASS / CLOSED; S13-5 PASS / CLOSED; S13-6 PASS / CLOSED — 2026-09-30
 
 ## Objective
 Draft the standalone Q-AHBN2 manuscript only from verified claims and registered evidence.
@@ -398,3 +398,24 @@ Audit confirmed:
 ## Next permitted action
 
 **S13-6 — Section 5 Results Drafting**, following the frozen S13 result flow and S12A claim/evidence boundaries.
+
+
+## S13-6 — Section 5 Results Drafting — 2026-09-30
+
+Section 5 was drafted directly in `wwiras/QAHBN2-Manuscript/versions/v0.0/main.tex` using the pinned manuscript science baseline and only frozen S11-A, S11-B, K6, S12 and S12A evidence/claim authorities.
+
+Audit confirmed:
+- frozen seven-part result flow preserved;
+- registered S12/S12A quantitative values reproduced without new computation;
+- all eight primary ControlSim paired delivery/delay directions and communication-overhead trade-off preserved;
+- learning evidence remains mechanistic only, with no convergence or policy-optimality claim;
+- Exp13-Q remains bounded churn=0.40 external positioning without ranking or winner claim;
+- Kubernetes retains all four zero-crossing paired CIs, seed-direction uncertainty, and the F_attempt accounting caveat;
+- ControlSim, Exp13-Q and Kubernetes evidence remain analytically separate and non-pooled;
+- manuscript-facing algorithm name is Q-AHBN.
+
+**S13-6 = PASS / CLOSED.**
+
+## Next permitted action
+
+**S13-7 — Section 6 Discussion Drafting**, using only frozen S12/S12A interpretation and claim authorities; no new analysis.
