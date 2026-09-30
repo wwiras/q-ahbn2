@@ -2184,4 +2184,8 @@ The manuscript repository is cloned by the researcher inside the Google Drive-sy
 
 The manuscript repository points back to this scientific repository and the registered frozen evidence families. This scientific repository now recognizes `wwiras/QAHBN2-Manuscript` as the publication-source repository.
 
-**S13-3 current status: HOLD** pending registration/readback of the manuscript-side Google Drive cloud folder link/ID. No substantive manuscript prose is authorized before S13-3 closure.
+Manuscript-side Google Drive folder ID: `1oQxyLENPvG-r10zuq62Au7AFyeeSpDxj`.
+
+**S13-3 = PASS / CLOSED** after manuscript Drive identity registration and cross-repository provenance initialization.
+
+**Next permitted paper action:** S13-4 — Section 3 Q-AHBN2 Method Drafting, bounded by the S13-2 source pack and frozen S12A claim contract.
