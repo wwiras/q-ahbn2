@@ -129,21 +129,24 @@ Authoritative for:
 - provenance of frozen experimental evidence.
 
 ### `wwiras/QAHBN2-Manuscript`
-To be created as the separate publication repository, authoritative for:
-- LaTeX manuscript source;
-- section files;
-- publication figures/tables;
-- bibliography subset used by the paper;
+Authoritative for:
+- the active versioned LaTeX manuscript source under `versions/vX.Y/main.tex`;
 - manuscript control/provenance records;
 - response-to-reviewers material when applicable;
-- frozen submission/revision source versions.
+- researcher-supplied Zotero/BibTeX files placed manually inside the applicable version directory;
+- controlled manuscript version transitions.
+
+Repository architecture is intentionally lean:
+- no root `main.tex`;
+- no `sections/`, `figures/`, `tables/`, or dedicated `bibliography/` directories;
+- all manuscript sections plus LaTeX/TikZ figures/diagrams and tables are maintained directly in the active versioned `main.tex`.
 
 It must not become a second authority for experiment design, parameters, statistics, or scientific interpretation.
 
 ### Google Drive
 The local/cloud filesystem contains both repositories and their Git-ignored `output/` trees. Large or working artifacts may be physically present beside Git-tracked files without entering GitHub.
 
-For the manuscript repository, `output/` is reserved for working/publication evidence such as copied manifests, source-table extracts, figure-source artifacts, validation exports and submission working packages. Only publication-ready files required by LaTeX (for example final figures/tables) should be promoted into Git-tracked manuscript directories.
+For the manuscript repository, `output/` is reserved for working/publication evidence such as copied manifests, source-table extracts, validation exports and submission working packages. Publication figures/diagrams and tables are authored directly in LaTeX/TikZ within the active versioned `main.tex`; no dedicated tracked figure/table directories are used.
 
 ## S13-2C — Cross-repository provenance contract
 
@@ -346,3 +349,21 @@ Controlled readback verified the frozen constants, action set, reward form, fano
 ## Next permitted action
 
 **S13-5 — Section 4 Experimental Methodology Drafting**
+
+
+## S13 publication-architecture refinement — 2026-09-30
+
+Researcher-approved administrative refinement after S13-4:
+
+- active manuscript source: `versions/v0.0/main.tex`;
+- root `main.tex` removed;
+- `sections/`, `figures/`, `tables/`, and dedicated `bibliography/` structures removed;
+- S13-4 Section 3 prose consolidated directly into the active versioned `main.tex`;
+- Zotero/BibTeX remains researcher-managed and will be supplied manually inside the applicable version directory;
+- all publication figures/diagrams and tables are to be authored directly in LaTeX/TikZ within the versioned `main.tex`;
+- new manuscript versions are created only by explicit controlled transition, not per drafting gate.
+
+This is a publication-source architecture change only. No experiment, algorithm, parameter, result, statistic, claim, S12A boundary, or S13-4 scientific content changed.
+
+**S13-4 remains PASS / CLOSED.**
+**S13-5 remains NEXT — Section 4 Experimental Methodology Drafting.**
