@@ -2274,3 +2274,15 @@ Section 2 has been drafted and audited in the publication repository using the f
 **S13-10 = PASS / CLOSED.**
 
 **Next permitted paper action:** S13-11 — Section 8 Conclusion Drafting.
+
+
+### S13-11 / S13-12 manuscript closure — 2026-09-30
+
+Section 8 Conclusion and the manuscript Abstract have been drafted and audited in the publication repository `versions/v0.0/main.tex` using only the frozen S12/S12A evidence chain and completed manuscript sections.
+
+**S13-11 = PASS / CLOSED.**  
+**S13-12 = PASS / CLOSED.**
+
+No new experiment, parameter, metric, statistic, evidence family, literature claim, convergence/optimality claim, universal-superiority claim, generic low-overhead claim, or cross-environment equivalence claim was introduced.
+
+**Next permitted paper action:** S13-13 — Title and Keywords Finalization.
