@@ -257,3 +257,98 @@ Autonomous revision scope:
 - preserve all S12A claim boundaries;
 - introduce no new experiment, statistic family, comparator, literature claim, or hyperparameter claim.
 
+
+
+## S15-11 — Manuscript Analytical Revision
+
+**Status:** PASS / CLOSED — 2026-10-01
+
+### Changes applied
+The active manuscript `wwiras/QAHBN2-Manuscript/versions/v0.0/main.tex` was strengthened using only frozen evidence:
+- added a bounded Q-AHBN intervention/learning-cycle figure;
+- added a learning-mechanism evidence table;
+- added explicit bounded gamma-sensitivity provenance;
+- added an eight-condition analytical trade-off synthesis table;
+- strengthened descriptive churn attenuation wording without fitting a trend model;
+- strengthened Exp13 metric-wise positioning without ranking;
+- added a Kubernetes `total_forwards` versus `F_attempt` accounting table;
+- strengthened Discussion links between mechanism, results, overhead, sensitivity, and evidence-role boundaries.
+
+Manuscript commit: `70a165f9be1636849e53a70c595aa6ec7aede2ba`.
+Provenance registration commit: `fafa4025cd9c9d2be795fdcd16b5049baa98bd94`.
+
+Structural readback:
+- 8 sections retained;
+- 6 table environments open/close balanced;
+- 1 figure environment open/close balanced;
+- all new labels occur exactly once.
+
+No new experiment, rerun, statistic family, pooled estimate, comparator, literature claim, parameter value, or scientific evidence was introduced.
+
+## S15-12 — Claim Reconciliation v2
+
+**Status:** PASS / CLOSED — 2026-10-01
+
+### Reconciliation result
+The S15 analytical revision does not require any new scientific claim authorization. S12A remains authoritative.
+
+The new artifacts map to existing claims:
+- architecture figure → C01/C02;
+- learning-mechanism table → C02/C13/C15;
+- primary trade-off synthesis → C03-C06/C13-C15;
+- Exp13 strengthened interpretation → C07/C12-C15;
+- Kubernetes accounting table → C08-C10/C14/C15;
+- gamma-sensitivity provenance → C13/C15 and frozen S05 selection evidence.
+
+### Wording boundary retained
+Still prohibited:
+- convergence or policy optimality;
+- global hyperparameter optimality;
+- universal superiority / best method / dominance;
+- generic lightweight or low-overhead performance;
+- literal ControlSim/Kubernetes replication;
+- pooled cross-environment effects or equivalence;
+- Exp13 omnibus ranking.
+
+No S12A claim ID needs to be reopened or replaced.
+
+## S15-13 — Q1 Submission Readiness Audit
+
+**Status:** PASS / CLOSED — 2026-10-01
+
+### Audit result
+The manuscript is now materially stronger than the S14 version in analytical presentation while remaining scientifically bounded.
+
+PASS checks:
+1. frozen science baseline unchanged: `6ccc94e5df770d588a5ccfa592f603a9a8ab2c68`;
+2. canonical AHBN remains immutable;
+3. Q-AHBN naming preserved;
+4. primary run counts/seeds/evidence roles unchanged;
+5. statistical contract unchanged;
+6. no unsupported new numerical claim introduced;
+7. mechanism evidence is separated from performance evidence;
+8. sensitivity provenance is bounded and non-optimality wording is explicit;
+9. primary trade-off is visible across all eight conditions;
+10. Exp13 remains bounded positioning only;
+11. Kubernetes accounting caveat is prominent;
+12. ControlSim/Kubernetes remain complementary and non-pooled;
+13. limitations/non-claims remain explicit;
+14. provenance record updated;
+15. no new experiment is scientifically necessary for the present submission-strengthening objective.
+
+### Residual submission tasks outside scientific S15 closure
+- journal-specific formatting/template migration;
+- final bibliography/Zotero synchronization and compile check;
+- final rendered-PDF visual/proof audit;
+- journal cover letter / submission metadata if required;
+- any journal-specific code/data availability wording.
+
+These are submission-production tasks rather than unresolved S15 science.
+
+## S15 programme closure
+
+**S15 = PASS / CLOSED — 2026-10-01.**
+
+Scientific decision: existing frozen evidence was sufficient to materially strengthen the Q-AHBN manuscript. No new experiment or parameter change was authorized or required.
+
+Next controlled activity is journal-specific submission preparation / final production audit, not additional scientific experimentation.
