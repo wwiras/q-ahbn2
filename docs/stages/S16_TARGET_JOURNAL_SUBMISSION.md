@@ -1,99 +1,105 @@
-# S16 — Target Journal Selection + Submission Production
+# S16 — Publication Artifact Engineering
 
 **Programme status:** ACTIVE  
 **Opened:** 2026-10-01  
 **Entry condition:** S15 PASS / CLOSED  
 **Scientific baseline:** `6ccc94e5df770d588a5ccfa592f603a9a8ab2c68`
 
-## Programme contract
+## Programme-control amendment
 
-S16 converts the scientifically closed Q-AHBN manuscript into a target-journal submission package. S16 is a publication-production programme, not an experimental programme.
+The earlier target-journal-selection branch is **SUPERSEDED by researcher decision on 2026-10-01**. Venue selection will be made manually by the researcher and is removed from the S16 critical path.
 
-Frozen throughout S16 unless a genuine scientific defect is discovered:
-- canonical AHBN and Q-AHBN algorithms;
-- parameters and experiment matrices;
-- S12/S12A interpretation and claim boundaries;
-- S15 analytical strengthening;
-- evidence roles and statistical contract.
+The existing neutral LaTeX format remains authoritative during S16. No journal-template migration is authorized.
 
-No journal template migration is permitted before S16-0 closes.
+S16 is now restricted to publication-artifact engineering from frozen evidence:
+- figures;
+- analytical tables;
+- formal algorithm/pseudocode;
+- artifact/text consistency and visual production.
 
-## S16-0 — Q1 Target-Journal Fit and Requirements Reconciliation
+Frozen throughout S16:
+- canonical AHBN and Q-AHBN science;
+- parameters, reward, state/action space and transition semantics;
+- experiment matrices and run counts;
+- S12/S12A claim boundaries;
+- S15 statistical/evidence-role contract.
+
+No new experiment or new inferential family is authorized by S16.
+
+# S16-0 — Figure, Table and Algorithm Architecture Audit
 
 **Status:** PASS / CLOSED — 2026-10-01
 
-### Current candidate set
-Four technically plausible Q1 candidates were reconciled against the manuscript's actual contribution:
-1. Journal of Network and Computer Applications (JNCA)
-2. Future Generation Computer Systems (FGCS)
-3. IEEE Transactions on Network and Service Management (TNSM)
-4. Cluster Computing
+## Audit question
 
-Current 2025 SCImago information identifies all four as Q1 in relevant computing/network categories. Quartile is time/category dependent and must be rechecked at actual submission.
+Determine exactly which final publication artifacts are scientifically necessary, which question each artifact answers, the frozen evidence source, and whether it replaces, complements, or absorbs an existing manuscript artifact.
 
-### Scope-fit reconciliation
+## Current manuscript artifact inventory
 
-**JNCA**
-- Publisher scope explicitly welcomes research in computer networks and applications, including new design techniques, cloud computing, network protocols, IoT, and network/security applications.
-- Q-AHBN's strongest fit axis: adaptive P2P dissemination/network protocol + distributed/cloud-native evaluation.
-- Main preparation risk: manuscript must foreground network-protocol contribution and experimental evidence rather than blockchain application narrative alone.
+The active manuscript currently contains:
+- Figure `fig:qahbn-cycle`: boxed textual Q-AHBN intervention/learning cycle.
+- Table `tab:learning-mechanism`: bounded learning-trace evidence.
+- Table `tab:primary-paired-results`: primary paired ControlSim results including uncertainty.
+- Table `tab:primary-tradeoff-synthesis`: eight-condition effect/trade-off synthesis.
+- Table `tab:exp13-results`: five-method churn=0.40 benchmark.
+- Table `tab:kubernetes-accounting`: total_forwards versus F_attempt accounting caveat.
+- Table `tab:kubernetes-results`: frozen Kubernetes five-method means.
 
-**FGCS**
-- Publisher scope explicitly covers distributed systems, clouds, IoT, dynamic resource management, protocols, algorithm design, large-scale communication/computation, scaling and performance.
-- Q-AHBN's strongest fit axis: adaptive distributed dissemination + cloud-native/Kubernetes realization + learning-based control.
-- Main preparation risk: Kubernetes evidence is operational rather than independent performance confirmation, so cloud/distributed-systems framing must remain evidence-bounded.
+No formal publication pseudocode/algorithm environment is currently present.
 
-**IEEE TNSM**
-- Official scope covers management of networks/systems/services, architectures/frameworks, reliability/quality assurance, management functions, enabling/emerging technologies, performance evaluation, scalability and optimization.
-- Q-AHBN has a plausible fit through adaptive network control/management and ML-enabled operation.
-- Main preparation risk: current manuscript is framed primarily as blockchain dissemination rather than network/service management; IEEE format also imposes a materially tighter page-production constraint (10 pages free; excess-page charges, maximum 16 under current policy).
+## Artifact architecture decision
 
-**Cluster Computing**
-- Recent publication record demonstrates active coverage of cloud/edge orchestration, distributed systems, blockchain and ML topics.
-- Q-AHBN has natural continuity with its cloud-native distributed-computing evaluation.
-- Main preparation risk: broader scope makes fit straightforward but provides less incentive than JNCA/FGCS to sharpen the manuscript toward its strongest network/distributed-systems contribution.
+| ID | Final artifact | Scientific question answered | Frozen evidence / contract | Relationship to current manuscript | Priority |
+|---|---|---|---|---|---|
+| F1 | Q-AHBN architecture and learning-cycle figure | Where does Q-AHBN act relative to immutable AHBN, and how does information/reward flow? | Frozen AHBN boundary; Q-AHBN state/action/reward/transition contract; S12 C01-C02 | **REPLACE/UPGRADE** current boxed `fig:qahbn-cycle` | ESSENTIAL |
+| A1 | Formal Q-AHBN bounded-refinement pseudocode | What exact ordered procedure is executed at each decision and update? | 81-state, five-action, epsilon-greedy, direct-attempt reward closure, next-same-peer update, frozen Q update | **NEW; COMPLEMENTS F1**. Must not duplicate explanatory prose line-for-line | ESSENTIAL |
+| F2 | Primary eight-condition paired trade-off figure | Are delivery/delay improvements accompanied by communication cost across the primary conditions? | S11-A 40 paired comparisons; authorized paired CIs; S12 C03-C06 | **COMPLEMENTS/ABSORBS visual role of** `tab:primary-tradeoff-synthesis`; exact uncertainty remains in `tab:primary-paired-results` | ESSENTIAL |
+| F3 | Dynamic-stress response figure | How does the AHBN→Q-AHBN effect vary across failure, churn and heterogeneity conditions? | Same S11-A frozen effects; descriptive churn attenuation; S12/S15 | **COMPLEMENTS F2**, not a second copy of all four metrics. Focus on stress-family interpretation | HIGH |
+| F4 | Exp13 bounded comparator figure | Where does Q-AHBN sit relative to Gossip, Structured, DC-SoC and AHBN at the single frozen churn=0.40 benchmark? | S11-B / Exp13-Q 25 runs; S12 C07 | **COMPLEMENTS** `tab:exp13-results`; must remain metric-wise, descriptive, non-ranking | HIGH |
+| T1 | Learning-mechanism evidence table | Is learning demonstrably active without claiming convergence? | Frozen learning traces; q_updates, coverage, interventions/action use; S12 C02/C13/C15 | **RETAIN AND RATIONALIZE** `tab:learning-mechanism` | HIGH |
+| T2 | Primary paired statistical table | What are the exact primary paired estimates/uncertainty supporting the main claims? | S11-A paired contract | **RETAIN** `tab:primary-paired-results` as numerical/statistical authority | ESSENTIAL |
+| T3 | Kubernetes evidence + accounting table | What does Kubernetes establish, and why must total_forwards be interpreted with F_attempt? | 25/25 Kubernetes coordinates; paired intervals; runtime accounting; S12 C08-C10/C14-C15 | **MERGE/RATIONALIZE** `tab:kubernetes-accounting` with the relevant AHBN/Q-AHBN portion of `tab:kubernetes-results` where clarity permits; five-method operational context may remain separately if needed | HIGH |
+| T4 | Gamma sensitivity table/callout | Why was gamma=0.70 selected, and what is the bounded scope of that evidence? | 15-run gamma sensitivity, gamma={0.70,0.80,0.90}, seeds 42-46 | **NEW compact artifact** only if exact frozen values are publication-ready; otherwise concise methods text is sufficient | MEDIUM |
+| T5 | Exp13 exact-values table | What exact five-method values underlie F4? | Frozen Exp13 means | **RETAIN** `tab:exp13-results`, potentially compacted after F4 | HIGH |
 
-### Autonomous target decision
+## Redundancy decisions
 
-**Primary target for S16 production: Journal of Network and Computer Applications (JNCA).**
+1. **F1 versus A1:** both are required but answer different questions. F1 is architecture/information flow; A1 is executable logical sequence.
+2. **F2 versus primary tables:** F2 carries the pattern/trade-off message. T2 remains the exact statistical authority. The current `tab:primary-tradeoff-synthesis` becomes redundant once F2 exists unless it contains exact values unavailable in T2; default disposition is **ABSORB/REMOVE after verification**.
+3. **F2 versus F3:** F2 gives the complete eight-condition four-metric overview; F3 must therefore emphasize stress-family response, especially churn attenuation and heterogeneity/failure context, rather than redraw the same four panels.
+4. **F4 versus T5:** F4 supports visual comparison; T5 preserves exact benchmark values. Neither may imply an omnibus score, ranking or winner.
+5. **Kubernetes:** do **not** create a superiority figure. A table/callout is scientifically safer because the key message is evidence role and accounting semantics, not a stable performance direction.
+6. **Gamma:** do **not** create a large robustness figure. The evidence covers gamma only over three predeclared values and does not justify broad sensitivity/robustness presentation.
 
-Reason: among the reconciled candidates, the manuscript's frozen scientific centre is a new adaptive dissemination mechanism for a dynamic P2P network, evaluated through protocol-level delivery/delay/communication metrics and complemented by cloud-native realization. This maps most directly to JNCA's explicit computer-network/new-design/network-protocol scope without requiring a scientific reframing or new experiment.
+## Minimum final artifact set
 
-**Fallback 1:** Future Generation Computer Systems (FGCS).  
-Use if JNCA fit/editorial outcome is unfavorable. The distributed/cloud-native/Kubernetes dimension is strong enough for FGCS, but the paper would need a somewhat stronger e-infrastructure/distributed-systems framing.
+The minimum publication-complete package is therefore:
+- **4 figures:** F1 architecture, F2 primary trade-off, F3 dynamic stress, F4 Exp13 positioning;
+- **1 formal algorithm:** A1 Q-AHBN pseudocode;
+- **4 core tables:** T1 learning evidence, T2 paired statistical results, T3 Kubernetes/accounting, T5 Exp13 exact values;
+- **optional compact T4 gamma table/callout**, subject to exact-value/provenance readback.
 
-**Fallback 2:** IEEE Transactions on Network and Service Management (TNSM).  
-Technically credible, but would require the largest framing and page-format adaptation toward network-management language.
+This is a maximum useful architecture, not a requirement to inflate artifact count. During implementation, an artifact may be merged only when the scientific question remains immediately readable.
 
-**Fallback 3:** Cluster Computing.  
-Strong scope compatibility and Q1 status, retained as a lower-friction fallback.
+## Construction principles
 
-This ordering is a publication-strategy decision, not a scientific-quality ranking of the journals.
+- Every artifact must answer one explicit scientific/reviewer question.
+- Exact numerical values must originate from frozen registered evidence or existing authorized manuscript values.
+- No chart may imply ranking, convergence, universal superiority, global optimality, generic low overhead or cross-environment equivalence.
+- ControlSim and Kubernetes remain visually and statistically separate.
+- Use consistent condition/method naming across figure, table and prose.
+- Captions must state evidence scope and interpretation boundaries where misreading is plausible.
+- Publication artifacts should be source-controlled and reproducible; no decorative graphics are authorized.
+- Existing neutral LaTeX format remains unchanged.
 
-### S16-0 closure decision
-No manuscript template was changed during journal selection. No scientific claim, parameter, evidence family or experiment was altered.
+## Gate decision
+
+The current evidence is sufficient to construct the artifact package. No new experiment, rerun, parameter change or new inferential test is required.
 
 **S16-0 = PASS / CLOSED.**
 
 ## Next controlled gate
 
-**S16-1 — JNCA Author-Guideline + Submission-Artifact Contract**
+**S16-1 — Q-AHBN Architecture Figure + Formal Algorithm Specification**
 
-S16-1 must retrieve and freeze the current official JNCA requirements before any source-format migration. It must reconcile:
-- article type and scope;
-- manuscript structure/format;
-- word/page constraints if any;
-- abstract/highlights/keywords;
-- figures/tables;
-- references;
-- declarations and author statements;
-- data/code availability;
-- supplementary material;
-- anonymization/review model if applicable;
-- submission files and editable-source requirements;
-- cover letter;
-- AI-use disclosure requirements if applicable;
-- open-access/APC choices;
-- submission portal requirements.
-
-Only after S16-1 closes may S16-2 alter `versions/v0.0/main.tex` or create a target-journal version.
+S16-1 should first replace the boxed mechanism placeholder with a publication-quality architecture/learning-cycle figure and introduce formal pseudocode derived exactly from the frozen algorithm contract. It must complete a figure↔algorithm↔Methods consistency audit before proceeding to empirical figures.
