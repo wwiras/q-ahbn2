@@ -3589,3 +3589,62 @@ No raw evidence, experiment, statistic, parameter, figure value, table value, co
 ## Next controlled gate
 
 **S16-16 — Artifact-to-Evidence Provenance Audit.**
+
+
+---
+
+# S16-16 — Artifact-to-Evidence Provenance Audit
+
+**Status:** PASS / CLOSED — 2026-10-02
+
+## Objective
+
+Verify that every active publication artifact in the integrated F1--F5 + A1 + T1--T5 package traces to the correct frozen scientific authority and registered evidence family, without dependence on weaker historical or working-output sources.
+
+## Audit result
+
+PASS.
+
+The provenance chain was verified for all active artifacts:
+- F1 / A1 / T1 → frozen canonical AHBN + Q-AHBN design/mechanism evidence;
+- F2 / F3 / T2 → S11-A primary paired ControlSim aggregation;
+- F4 / T5 → S11-B Exp13-Q bounded benchmark aggregation;
+- F5 / T4 → AR-1.4.2--AR-1.4.4 bounded gamma-sensitivity/selection evidence;
+- T3 → K6-Q frozen Kubernetes evidence plus S16-13A runtime-accounting semantics audit.
+
+## Provenance normalization
+
+The manuscript provenance record still contained historical S15 artifact names:
+- `tab:primary-tradeoff-synthesis`;
+- `tab:kubernetes-accounting`.
+
+These were not active manuscript labels after S16 rationalization.
+
+The provenance record now explicitly marks:
+- `tab:primary-tradeoff-synthesis` as SUPERSEDED/RATIONALIZED into T2 `tab:primary-paired-results`, with F2/F3 carrying visual synthesis;
+- `tab:kubernetes-accounting` as SUPERSEDED/MERGED into T3 `tab:kubernetes-results`.
+
+This is documentation normalization only and does not change manuscript scientific content.
+
+## Evidence-authority checks
+
+Confirmed:
+1. every active artifact has an identified frozen scientific authority;
+2. every quantitative result artifact traces to a registered evidence family;
+3. S11-A and S11-B artifacts retain their registered Drive folder/file/hash provenance;
+4. Kubernetes T3 retains the frozen evidence-family/folder/manifest/Git/image provenance;
+5. F5/T4 use only the frozen AR-1.4.2--AR-1.4.4 sensitivity evidence;
+6. no active artifact relies on Authority Level 6 historical Q-AHBN manuscript results or superseded semantics;
+7. repository-local `output/` is not treated as authority merely because it is Drive-synchronized;
+8. the pinned manuscript science baseline remains `6ccc94e5df770d588a5ccfa592f603a9a8ab2c68`;
+9. claim roles remain bounded by S12A and the claim-evidence matrix.
+
+## Gate decision
+
+**S16-16 = PASS / CLOSED.**
+
+No evidence-authority gap or scientific defect was found.
+
+## Next controlled gate
+
+**S16-17 — Figure/Table/Algorithm Visual + LaTeX Production Audit.**
