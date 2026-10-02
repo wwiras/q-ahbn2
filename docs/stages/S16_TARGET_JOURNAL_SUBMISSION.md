@@ -2205,3 +2205,121 @@ No table values, figure coordinates, confidence intervals, or scientific claims 
 **S16-7A = PASS / CLOSED.**
 
 S16-7 remains PASS/CLOSED and S16-8 remains the next released construction gate.
+
+
+---
+
+# S16-8 — Dynamic-Stress Figure Construction + Verification
+
+**Status:** PASS / CLOSED — 2026-10-02
+
+## Objective
+
+Construct and integrate **F3 — Dynamic-Stress Response Figure** directly in native TikZ/PGFPlots from the frozen S16-7 specification and registered S11-A primary ControlSim evidence.
+
+## Authority reconciliation
+
+Before construction, the current authoritative state was re-read from:
+- `docs/00_QAHBN2_MASTER.md`;
+- `docs/00_SOURCE_AUTHORITY_REGISTER.md`;
+- S12/S12A claim boundaries;
+- `docs/07_CLAIM_EVIDENCE_MATRIX.md`;
+- `docs/06_RESULTS_REGISTER.md`;
+- S16-7 and S16-7A;
+- manuscript `docs/MANUSCRIPT_MASTER.md`;
+- manuscript `docs/PROVENANCE.md`;
+- active `versions/v0.0/main.tex`;
+- registered S11-A Drive summary `s11a_primary_ro4_summary.csv`, file ID `1D6Z1DZa5CLnXBX6Z0Adljb260Er7S1_M`.
+
+The pinned science baseline remains:
+`6ccc94e5df770d588a5ccfa592f603a9a8ab2c68`.
+
+## Construction
+
+F3 was integrated directly into:
+`wwiras/QAHBN2-Manuscript/versions/v0.0/main.tex`
+
+as a native TikZ/PGFPlots `groupplot` with:
+- group size 3 by 2;
+- three experimental-family columns;
+- delivery row above delay row;
+- common delivery scale `0..22` across all three delivery panels;
+- common delay scale `-12..0.5` across all three delay panels;
+- paired 95% Student-t confidence intervals for every plotted point;
+- zero reference line on every sub-axis;
+- connected points only for the ordered churn levels;
+- unconnected failure and heterogeneity effects.
+
+Figure label:
+`fig:dynamic-stress-response`.
+
+## Verified values
+
+All values were transcribed from the registered S11-A summary.
+
+### Failure
+- Control delivery: +13.3472 pp, CI [+6.313727,+20.380673]
+- One-peer failure delivery: +12.9066 pp, CI [+7.273178,+18.540022]
+- Control delay: -5.977232, CI [-7.978592,-3.975872]
+- One-peer failure delay: -5.832377, CI [-7.476635,-4.188118]
+
+### Churn
+- 0.00 delivery: +13.3472 pp, CI [+6.313727,+20.380673]
+- 0.20 delivery: +6.2944 pp, CI [+4.831447,+7.757353]
+- 0.40 delivery: +2.3040 pp, CI [+0.497956,+4.110044]
+- 0.00 delay: -5.977232, CI [-7.978592,-3.975872]
+- 0.20 delay: -3.765746, CI [-4.779881,-2.751610]
+- 0.40 delay: -1.198793, CI [-2.018132,-0.379453]
+
+### Heterogeneity
+- Balanced delivery: +9.3462 pp, CI [+3.804499,+14.887901]
+- Moderate delivery: +5.7428 pp, CI [+1.476160,+10.009440]
+- Weak-heavy delivery: +5.8072 pp, CI [+2.059961,+9.554439]
+- Balanced delay: -6.875323, CI [-8.041421,-5.709225]
+- Moderate delay: -6.541088, CI [-8.072779,-5.009396]
+- Weak-heavy delay: -7.813670, CI [-11.239517,-4.387823]
+
+## Manuscript integration
+
+A dedicated explanatory paragraph was inserted immediately after F3.
+
+It:
+- distinguishes F3 from the F2 omnibus trade-off view;
+- describes the near-similar failure/control effects;
+- states the descriptive churn attenuation;
+- identifies heterogeneity-profile variation;
+- explicitly denies fitted churn-response and continuous heterogeneity-scale interpretation.
+
+The caption also directs communication-overhead interpretation to:
+- Figure `fig:primary-paired-tradeoff`;
+- Table `tab:primary-paired-results`.
+
+## Verification
+
+- F3 native TikZ/PGFPlots source present — **PASS**;
+- 3 x 2 architecture present — **PASS**;
+- all failure coordinates and CI widths present — **PASS**;
+- all churn coordinates and CI widths present — **PASS**;
+- all heterogeneity coordinates and CI widths present — **PASS**;
+- common delivery scale across family panels — **PASS**;
+- common delay scale across family panels — **PASS**;
+- only churn points connected — **PASS**;
+- failure effects unconnected — **PASS**;
+- heterogeneity effects unconnected — **PASS**;
+- zero reference lines present — **PASS**;
+- explanatory paragraph present — **PASS**;
+- no overhead series in F3 — **PASS**;
+- no fitted model, pooling or new inferential family — **PASS**;
+- existing F2 source preserved — **PASS**.
+
+Final rendered typography/spacing remains subject to the later S16-17 visual/LaTeX production audit.
+
+## Gate decision
+
+**S16-8 = PASS / CLOSED.**
+
+F3 is now constructed, numerically verified and integrated directly in the manuscript as native TikZ/PGFPlots.
+
+## Next controlled gate
+
+**S16-9 — Exp13 Bounded Positioning Figure Specification.**
