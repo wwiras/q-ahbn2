@@ -33,7 +33,7 @@ This document records the conclusions of the completed read-only reconciliation 
 | 3A | RO2 characterization manuscript draft, 04 Apr 2026 | [Characterizing Latency Duplication Trade-off in Blockchain Dissemination A Systematic Study of Gossip and Structured Broadcast](https://drive.google.com/file/d/1fIpDLWE2pMTJMnnUXVXzYWRNUFFIJ0jS/view?usp=sharing) | Authoritative RO2 evidentiary source for the dissemination trade-off characterization used to justify Q-AHBN2 state/action design decisions, including fanout, Gossip-vs-Structured behavior, failure/overload, churn, and heterogeneity findings. Exact Drive/GitHub URL to be recorded when the artifact is archived at a durable project location. |
 | 4 | `wwiras/q-ahbn` | `7bca26213cbfb2099cff8b2f659008b8e040b238` [q-ahbn repo](https://github.com/wwiras/q-ahbn) | Historical ControlSim Q-AHBN implementation and evidence only. |
 | 5 | `wwiras/q-ahbn_gke` | `a9af5ccb9b564d5f2c2daaeeb9a04b191780cdbe` [q-ahbn_gke repo](https://github.com/wwiras/q-ahbn_gke) | Historical Kubernetes/GKE Q-AHBN implementation and evidence only. |
-| 6 | Historical Q-AHBN manuscript draft | [Q_AHBN_FirstDraft.pdf](https://drive.google.com/file/d/1NahEY5sZPdwhpg2uduBxIxqyS3ikMGqj/view?usp=drive_link) | Historical design narrative and experiment context only; non-authoritative where it conflicts with levels 1–4. |
+| 6 | Historical Q-AHBN manuscript draft | [Q_AHBN_FirstDraft.pdf](https://drive.google.com/file/d/1NahEY5sZPdwhpg2uduBxIxqyS3ikMGqj/view?usp=drive_link) | Historical design narrative, prior Q-AHBN architecture/figure ideas, experiment context, and publication-presentation reference only. It may be mined for antecedent concepts, terminology history, and artifact-design inspiration, but it is **non-authoritative for current Q-AHBN2 state/action/reward semantics, parameters, convergence/optimality claims, experimental results, or current claim wording** wherever it conflicts with Levels 1–5, the frozen Q-AHBN2 contracts, or promoted evidence. |
 | 7 | Q-AHBN2 Master Research, Development, Experiment and Publication Contract v1.0 | `docs/00_QAHBN2_MASTER.md` | Authoritative Q-AHBN2 operating/workflow contract: project governance, stage/freeze sequence, evidence handling, experiment/publication workflow, and new-session bootstrap. It does not override Levels 1–2 scientific AHBN authority or independently define the future Q-AHBN2 RL specification. |
 
 ### 2.0A Operational Code and Evidence Authority — Project-Wide Standard
@@ -68,6 +68,25 @@ The governing operational rule is:
 
 > **GitHub controls the code and scientific state; the designated Google Drive evidence area preserves verified test evidence.**
 
+
+### 2.0B Historical Q-AHBN Manuscript Use Rule
+
+`Q_AHBN_FirstDraft.pdf` (Drive file ID `1NahEY5sZPdwhpg2uduBxIxqyS3ikMGqj`) is explicitly retained as **Authority Level 6 historical material**.
+
+Permitted use:
+- recover historical design rationale and terminology;
+- understand the lineage from earlier Q-AHBN work;
+- inspect prior architecture, workflow, figure, table, and manuscript-presentation ideas;
+- identify historical experiment context that may require provenance comparison.
+
+Prohibited use as current authority:
+- inheriting the historical six-action space or superseded state/reward semantics;
+- asserting convergence, learned-policy optimality, or stable-policy proof;
+- importing historical numeric results as Q-AHBN2 evidence;
+- overriding the frozen 81-state × 5-action Q-AHBN2 design, current parameters, S12/S12A claim boundaries, or promoted evidence;
+- treating historical simulation-to-Kubernetes transfer claims as current cross-environment confirmation.
+
+Where the historical draft conflicts with current Q-AHBN2 contracts or evidence, the current frozen authority controls.
 
 ### 2.1 Canonical AHBN reference boundary
 
