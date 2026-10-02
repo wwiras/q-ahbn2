@@ -3183,3 +3183,204 @@ S16-13 remains PASS/CLOSED with the stronger accounting qualification.
 ## Next controlled gate
 
 **S16-14 — Gamma Sensitivity Figure Specification.**
+
+
+---
+
+# S16-14 — Gamma Sensitivity Figure Specification
+
+**Status:** PASS / CLOSED — 2026-10-02
+
+## Objective
+
+Freeze the scientific and visual specification for **F5 — Gamma Sensitivity Figure** before construction.
+
+No figure is constructed at this gate.
+
+## Authority reconciliation
+
+S16-14 was reconciled after S16-13A against:
+- `docs/00_QAHBN2_MASTER.md`;
+- `docs/00_SOURCE_AUTHORITY_REGISTER.md`;
+- `docs/02_QAHBN2_DESIGN_FREEZE.md`, especially AR-1.4.2--AR-1.4.4;
+- `docs/06_RESULTS_REGISTER.md`;
+- S12/S12A claim boundaries;
+- manuscript `docs/MANUSCRIPT_MASTER.md`;
+- manuscript `docs/PROVENANCE.md`;
+- active `versions/v0.0/main.tex`.
+
+Pinned science baseline remains:
+`6ccc94e5df770d588a5ccfa592f603a9a8ab2c68`.
+
+## Frozen evidence
+
+AR-1.4.2 Learning Validation:
+- ControlSim;
+- stationary 1,000-message workload;
+- BA(100,m=3), source 0;
+- base delay 1.0, jitter 0.2;
+- four static clusters;
+- no failure, churn or resource disturbance;
+- gamma candidates exactly {0.70,0.80,0.90};
+- seeds exactly {42,43,44,45,46};
+- 15/15 runs;
+- same seed set for every gamma;
+- alpha_Q=0.25;
+- epsilon_0=0.30;
+- epsilon_min=0.03;
+- epsilon_decay=0.995.
+
+AR-1.4.3 verified evidence integrity.
+
+AR-1.4.4 selected and researcher-approved gamma=0.70 for subsequent evaluation.
+
+## Reviewer-facing question
+
+F5 must answer:
+
+> Across the three predeclared discount-factor candidates in the bounded stationary Learning Validation workload, what learning/dissemination trade-off supported freezing gamma=0.70 for subsequent Q-AHBN evaluation?
+
+It must **not** answer:
+- which gamma is globally optimal;
+- which gamma converges best;
+- which gamma is universally superior;
+- how gamma behaves under the later failure/churn/heterogeneity experiments.
+
+## Figure architecture
+
+F5 shall be one native manuscript figure with a **2 x 2 panel layout**.
+
+Common x-axis in every panel:
+- gamma = 0.70, 0.80, 0.90;
+- categorical candidate positions in ascending numerical order;
+- no fitted trend or extrapolation outside the three tested values.
+
+### Panel (a) — Mean reward
+Five-seed descriptive mean:
+- gamma 0.70: -0.264444
+- gamma 0.80: -0.268304
+- gamma 0.90: -0.268232
+
+Role:
+- learning-behaviour selection evidence;
+- visually expose that differences are small;
+- no convergence interpretation.
+
+### Panel (b) — Delivery ratio
+Five-seed descriptive mean:
+- gamma 0.70: 0.86552
+- gamma 0.80: 0.86181
+- gamma 0.90: 0.85597
+
+Role:
+- productive dissemination component of the selection trade-off.
+
+### Panel (c) — Propagation delay
+Five-seed descriptive mean:
+- gamma 0.70: 10.05872
+- gamma 0.80: 10.07401
+- gamma 0.90: 10.16041
+
+Role:
+- latency component of the selection trade-off.
+
+### Panel (d) — Total forwards
+Five-seed descriptive mean:
+- gamma 0.70: 226189.6
+- gamma 0.80: 225464.6
+- gamma 0.90: 222940.0
+
+Role:
+- communication-effort counterweight;
+- make explicit that gamma=0.70 was not selected because it minimized every metric.
+
+## Why duplicates are not a fifth panel
+
+Frozen duplicate means:
+- gamma 0.70: 140637.4
+- gamma 0.80: 140283.4
+- gamma 0.90: 138342.6.
+
+They carry the same qualitative trade-off direction as total forwards in this bounded matrix. A fifth panel would add visual density without changing the selection interpretation.
+
+Duplicates remain eligible for:
+- T4 if retained at S16-14B;
+- exact prose/table reporting;
+- the caption's trade-off qualification.
+
+No scientific evidence is discarded.
+
+## Uncertainty/statistical treatment
+
+F5 is **descriptive parameter-selection provenance**, not a new inferential analysis.
+
+Therefore:
+- plot the registered five-seed means only;
+- do not invent confidence intervals, standard errors, p-values or significance stars;
+- do not add post-hoc pairwise tests;
+- do not pool this sensitivity matrix with S11-A or Exp13;
+- do not construct a composite score.
+
+The existing paired-seed directional evidence may be stated in the accompanying text/caption:
+- gamma=0.70 higher mean reward than gamma=0.80 on 4/5 seeds and gamma=0.90 on 4/5;
+- gamma=0.70 higher delivery than each alternative on 4/5 seeds;
+- gamma=0.70 lower delay than gamma=0.90 on 5/5 seeds;
+- gamma=0.90 lower duplicates and forwards than gamma=0.70 on 4/5 seeds.
+
+These are frozen descriptive direction checks, not significance tests.
+
+## Visual semantics
+
+- gamma=0.70 may be identified as the **selected/frozen candidate**, but must not be styled or labelled as “best”, “optimal”, or “winner”.
+- All three candidates receive equal candidate status in axes and data marks.
+- The figure must make the overhead counter-trade-off visible in panel (d).
+- No arrows implying monotonic optimization.
+- No convergence curve.
+- No stabilization curve.
+- No dynamic-condition labels.
+
+## Exact-values authority
+
+F5 is a visual synthesis, not the sole numerical authority.
+
+The exact AR-1.4.4 descriptive means remain authoritative in the frozen design record.
+
+S16-14B will decide whether **T4 — Compact Gamma-Sensitivity Table/Callout** is needed for exact-value retention in the manuscript or whether the figure plus prose is sufficient.
+
+## Frozen caption contract
+
+> **Figure F5. Bounded discount-factor sensitivity used to freeze the Q-AHBN discount factor.** Five-seed descriptive means are shown for the predeclared ControlSim Learning Validation candidates gamma in {0.70,0.80,0.90} under one stationary 1,000-message workload. Panels report (a) mean reward, (b) delivery ratio, (c) propagation delay and (d) total forwarding effort. Gamma=0.70 was subsequently frozen for formal evaluation after the controlled paired-seed review: it retained the strongest mean reward, highest mean delivery and lowest mean delay in this bounded workload, while gamma=0.90 used fewer forwards and duplicates. The figure documents parameter-selection provenance only and does not establish convergence, global hyperparameter optimality or superiority under the later dynamic-condition experiments.
+
+## Claim boundary
+
+Permitted:
+- gamma=0.70 was selected from a predeclared bounded three-candidate/five-seed sensitivity matrix;
+- the selection reflected a documented reward/delivery/delay versus communication-effort trade-off;
+- all candidates showed non-zero state-action coverage and broad action use;
+- gamma=0.70 was frozen before the formal dynamic-condition experiments.
+
+Prohibited:
+- gamma=0.70 is optimal;
+- gamma=0.70 converges fastest/best;
+- gamma=0.70 universally outperforms 0.80/0.90;
+- the three-candidate matrix exhaustively validates gamma;
+- sensitivity results generalize directly to failure, churn, heterogeneity or Kubernetes.
+
+## Relationship to other artifacts
+
+- F5 = visual bounded parameter-selection provenance.
+- T4 = optional exact-value compact table/callout, decision deferred to S16-14B.
+- T1 = learning-mechanism evidence, not gamma selection.
+- F2/F3 = primary S11-A dynamic-condition evidence; scientifically separate.
+- F4/T5 = Exp13 bounded external positioning; scientifically separate.
+- T3 = Kubernetes operational realization; scientifically separate.
+
+## Gate decision
+
+**S16-14 = PASS / CLOSED.**
+
+No figure was constructed and no manuscript scientific result was changed.
+
+## Next controlled gate
+
+**S16-14A — Gamma Sensitivity Figure Construction + Verification.**
