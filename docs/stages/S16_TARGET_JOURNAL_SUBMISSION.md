@@ -3648,3 +3648,66 @@ No evidence-authority gap or scientific defect was found.
 ## Next controlled gate
 
 **S16-17 — Figure/Table/Algorithm Visual + LaTeX Production Audit.**
+
+
+---
+
+# S16-17 — Figure/Table/Algorithm Visual + LaTeX Production Audit
+
+**Status:** HOLD / PARTIAL — 2026-10-02
+
+## Objective
+
+Audit the complete F1--F5 + A1 + T1--T5 package for LaTeX production correctness and page-level visual quality.
+
+## Source-level LaTeX production audit
+
+PASS findings:
+1. required packages are loaded: TikZ, PGFPlots, groupplots, algorithm, algpseudocode, booktabs, graphicx and amsmath;
+2. all five TikZ figure environments are structurally balanced;
+3. all four PGFPlots groupplot environments are structurally balanced;
+4. all five table environments are structurally balanced;
+5. the single algorithm environment is structurally balanced;
+6. no duplicate LaTeX labels were found;
+7. no unresolved internal figure/table/algorithm references were found;
+8. all 11 intended artifacts remain present exactly once;
+9. active publication artifacts are embedded directly in the versioned manuscript source rather than depending on untracked figure files.
+
+## Visual-verification boundary
+
+A full visual PASS cannot be issued from repository source alone.
+
+The manuscript repository currently contains the LaTeX source and bibliography but no tracked compiled PDF and no GitHub build workflow/artifact that renders the current post-S16-14B source. Therefore the following page-level properties remain unverified:
+- clipping or overflow of TikZ/PGFPlots figures;
+- axis-label/tick-label collisions;
+- panel spacing and legibility at rendered size;
+- table width/overflow and line wrapping;
+- algorithm line wrapping and float placement;
+- float ordering/page breaks;
+- caption placement and whitespace balance;
+- final PDF reference rendering.
+
+Calling these visually verified without a compiled PDF would exceed the available evidence.
+
+## Required closure evidence
+
+Researcher/local execution should compile the current active manuscript source and provide the resulting PDF/log for visual/proof audit. The scientific source must remain unchanged unless the visual audit identifies a production defect.
+
+Suggested local command from the manuscript version directory:
+
+```text
+pdflatex main.tex
+bibtex main
+pdflatex main.tex
+pdflatex main.tex
+```
+
+Equivalent latexmk execution is acceptable if available.
+
+## Gate decision
+
+**S16-17 = HOLD / PARTIAL.**
+
+The LaTeX/source production sub-audit passes. The page-level visual sub-audit remains pending compiled-PDF evidence.
+
+S16-18 is not released until S16-17 visual closure is completed.
