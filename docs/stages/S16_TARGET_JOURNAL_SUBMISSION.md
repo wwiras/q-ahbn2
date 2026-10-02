@@ -2162,3 +2162,46 @@ No F3 was constructed and `versions/v0.0/main.tex` was not modified under S16-7.
 ## Next controlled gate
 
 **S16-8 — Dynamic-Stress Figure Construction + Verification.**
+
+
+---
+
+# S16-7A — F2 Explanatory-Paragraph Integration Amendment
+
+**Status:** PASS / CLOSED — 2026-10-02
+
+## Trigger
+
+The researcher identified that the native F2 figure, `fig:primary-paired-tradeoff`, had a valid caption and a later cross-condition reference but lacked a dedicated explanatory paragraph immediately after the figure.
+
+## Scope
+
+This amendment is editorial/analytical integration only.
+
+It does not reopen:
+- S16-5 figure specification;
+- S16-6 numerical verification;
+- S16-6A TikZ/PGFPlots representation;
+- S12/S12A claim boundaries.
+
+## Manuscript change
+
+A dedicated post-figure paragraph was added immediately after `fig:primary-paired-tradeoff` in:
+`wwiras/QAHBN2-Manuscript/versions/v0.0/main.tex`.
+
+The paragraph:
+- explains panels (a)--(d) together;
+- states the sign interpretation for delivery and delay;
+- notes that the registered paired 95% CIs for delivery/delay remain on the same side of zero in all eight conditions;
+- highlights condition dependence, especially churn attenuation;
+- explains that duplicate/forward panels represent communication cost;
+- explicitly states that the overhead panels are descriptive and do not create a new inferential claim;
+- closes with the bounded interpretation: higher delivery/lower delay at greater mean communication activity, not across-the-board improvement or a pooled effect.
+
+No table values, figure coordinates, confidence intervals, or scientific claims were changed.
+
+## Gate decision
+
+**S16-7A = PASS / CLOSED.**
+
+S16-7 remains PASS/CLOSED and S16-8 remains the next released construction gate.
