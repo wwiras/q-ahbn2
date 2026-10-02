@@ -124,6 +124,7 @@ No formal publication pseudocode/algorithm environment is currently present.
 | F2 | Primary eight-condition paired trade-off figure | Are delivery/delay improvements accompanied by communication cost across the primary conditions? | S11-A 40 paired comparisons; authorized paired CIs; S12 C03-C06 | **COMPLEMENTS/ABSORBS visual role of** `tab:primary-tradeoff-synthesis`; exact uncertainty remains in `tab:primary-paired-results` | ESSENTIAL |
 | F3 | Dynamic-stress response figure | How does the AHBN→Q-AHBN effect vary across failure, churn and heterogeneity conditions? | Same S11-A frozen effects; descriptive churn attenuation; S12/S15 | **COMPLEMENTS F2**, not a second copy of all four metrics. Focus on stress-family interpretation | HIGH |
 | F4 | Exp13 bounded comparator figure | Where does Q-AHBN sit relative to Gossip, Structured, DC-SoC and AHBN at the single frozen churn=0.40 benchmark? | S11-B / Exp13-Q 25 runs; S12 C07 | **COMPLEMENTS** `tab:exp13-results`; must remain metric-wise, descriptive, non-ranking | HIGH |
+| F5 | Gamma sensitivity figure | What bounded evidence supported selection of gamma=0.70 among the predeclared values {0.70,0.80,0.90}? | Frozen 15-run gamma sensitivity; seeds 42-46; AR-1.4.2-AR-1.4.4 | **NEW** publication figure; must show bounded parameter-selection provenance only, not broad robustness/global optimality | HIGH |
 | T1 | Learning-mechanism evidence table | Is learning demonstrably active without claiming convergence? | Frozen learning traces; q_updates, coverage, interventions/action use; S12 C02/C13/C15 | **RETAIN AND RATIONALIZE** `tab:learning-mechanism` | HIGH |
 | T2 | Primary paired statistical table | What are the exact primary paired estimates/uncertainty supporting the main claims? | S11-A paired contract | **RETAIN** `tab:primary-paired-results` as numerical/statistical authority | ESSENTIAL |
 | T3 | Kubernetes evidence + accounting table | What does Kubernetes establish, and why must total_forwards be interpreted with F_attempt? | 25/25 Kubernetes coordinates; paired intervals; runtime accounting; S12 C08-C10/C14-C15 | **MERGE/RATIONALIZE** `tab:kubernetes-accounting` with the relevant AHBN/Q-AHBN portion of `tab:kubernetes-results` where clarity permits; five-method operational context may remain separately if needed | HIGH |
@@ -137,17 +138,18 @@ No formal publication pseudocode/algorithm environment is currently present.
 3. **F2 versus F3:** F2 gives the complete eight-condition four-metric overview; F3 must therefore emphasize stress-family response, especially churn attenuation and heterogeneity/failure context, rather than redraw the same four panels.
 4. **F4 versus T5:** F4 supports visual comparison; T5 preserves exact benchmark values. Neither may imply an omnibus score, ranking or winner.
 5. **Kubernetes:** do **not** create a superiority figure. A table/callout is scientifically safer because the key message is evidence role and accounting semantics, not a stable performance direction.
-6. **Gamma:** do **not** create a large robustness figure. The evidence covers gamma only over three predeclared values and does not justify broad sensitivity/robustness presentation.
+6. **Gamma:** create **F5 as a compact bounded sensitivity figure**, restricted to the three predeclared values gamma={0.70,0.80,0.90}. It must explain parameter-selection provenance only and must not imply broad robustness, global optimality, convergence, or exhaustive hyperparameter search. T4 remains an optional exact-value companion if needed.
 
 ## Minimum final artifact set
 
-The minimum publication-complete package is therefore:
-- **4 figures:** F1 architecture, F2 primary trade-off, F3 dynamic stress, F4 Exp13 positioning;
-- **1 formal algorithm:** A1 Q-AHBN pseudocode;
-- **4 core tables:** T1 learning evidence, T2 paired statistical results, T3 Kubernetes/accounting, T5 Exp13 exact values;
-- **optional compact T4 gamma table/callout**, subject to exact-value/provenance readback.
+The researcher-approved publication-artifact package is therefore:
+- **5 figures:** F1 architecture, F2 primary trade-off, F3 dynamic stress, F4 Exp13 positioning, F5 bounded gamma sensitivity;
+- **1 formal algorithm:** A1 Q-AHBN bounded-refinement pseudocode;
+- **5 tables:** T1 learning evidence, T2 paired statistical results, T3 Kubernetes/accounting, T4 compact gamma-sensitivity exact-value table/callout, and T5 Exp13 exact values.
 
-This is a maximum useful architecture, not a requirement to inflate artifact count. During implementation, an artifact may be merged only when the scientific question remains immediately readable.
+**T4 is optional at final publication layout**, so the final manuscript may contain 4 core tables if F5 and surrounding Methods text provide sufficient exact-value clarity. F5 itself is now part of the approved figure architecture.
+
+This architecture is deliberately selective: each artifact must answer a distinct reviewer/scientific question. It does not authorize artifact-count inflation or new evidence.
 
 ## Construction principles
 
@@ -230,17 +232,25 @@ Audit `tab:primary-paired-results` and `tab:primary-tradeoff-synthesis`. Preserv
 
 Reconcile `tab:kubernetes-results` and `tab:kubernetes-accounting`. Preserve Kubernetes as operational-realization evidence, all paired-CI uncertainty, seed-direction limits where relevant, and the `total_forwards` versus `F_attempt` accounting distinction. No Kubernetes superiority visualization is authorized.
 
-### S16-14 — Gamma Sensitivity Publication Artifact Decision
+### S16-14 — Gamma Sensitivity Figure Specification
 
-Inspect the frozen 15-run gamma sensitivity evidence over gamma={0.70,0.80,0.90}, seeds 42--46. Add a compact table/callout only if exact frozen values materially improve publication clarity. Otherwise retain concise Methods prose. No broad robustness, global-optimality or convergence interpretation is permitted.
+Specify F5 from the frozen 15-run gamma sensitivity evidence over gamma={0.70,0.80,0.90}, seeds 42--46. Freeze the visual encoding, exact evidence fields, caption scope and non-claims. The figure must support only bounded parameter-selection provenance for gamma=0.70 and must not imply broad robustness, global optimality, convergence, or exhaustive hyperparameter search.
+
+### S16-14A — Gamma Sensitivity Figure Construction + Verification
+
+Construct F5 and independently reconcile every plotted quantity, label and caption against the frozen gamma-sensitivity evidence and AR-1.4.2--AR-1.4.4. Verify that the visual does not overstate the evidence scope.
+
+### S16-14B — Gamma Sensitivity Table/Callout Decision
+
+Evaluate whether T4 materially improves exact-value auditability beyond F5 and concise Methods text. Retain T4 only if it adds nonredundant publication value. If retained, it must remain compact and exact-value oriented; if omitted, record the redundancy decision explicitly.
 
 ### S16-15 — Whole Artifact Package Integration
 
-Integrate verified F1--F4, A1 and the rationalized table set into `wwiras/QAHBN2-Manuscript/versions/v0.0/main.tex`. Update cross-references, captions, placement and immediately surrounding prose only as needed. No new science is authorized.
+Integrate verified F1--F5, A1 and the rationalized table set into `wwiras/QAHBN2-Manuscript/versions/v0.0/main.tex`. Update cross-references, captions, placement and immediately surrounding prose only as needed. No new science is authorized.
 
 ### S16-16 — Artifact-to-Evidence Provenance Audit
 
-For every final figure, table and algorithm, register and verify:
+For every final figure (F1--F5), table (T1--T5, with T4 optional at final layout) and algorithm (A1), register and verify:
 
 `artifact ID -> manuscript label -> source evidence/contract -> claim IDs -> exact numerical provenance where applicable -> permitted interpretation -> prohibited interpretation`.
 
@@ -264,19 +274,21 @@ Return once to Authority-Level-6 `Q_AHBN_FirstDraft.pdf` after the current artif
 
 ### S16-21 — Publication Artifact Engineering Closure
 
-Close S16 only after all essential artifacts are integrated and verified, table redundancy is resolved, artifact provenance is complete, visual/LaTeX and reviewer-challenge audits pass, whole-manuscript artifact/text consistency passes, and no unauthorized scientific change has occurred.
+Close S16 only after the approved 5-figure + 1-algorithm + 5-table architecture has been resolved, all retained artifacts are integrated and verified, the optional T4 redundancy decision is recorded, artifact provenance is complete, visual/LaTeX and reviewer-challenge audits pass, whole-manuscript artifact/text consistency passes, and no unauthorized scientific change has occurred.
 
 ## Controlled state after programme revision
 
 - **S16-0:** PASS / CLOSED.
-- **S16-0A:** NEXT / RELEASED.
-- **S16-1 through S16-21:** PENDING; each is released only by closure of its required predecessor.
+- **S16-0A:** PASS / CLOSED.
+- **Researcher-approved artifact architecture amendment (2026-10-02):** **5 figures + 1 formal algorithm + 5 tables**, with T4 optional at final manuscript layout.
+- **S16-1:** NEXT / RELEASED.
+- **S16-2 through S16-14, S16-14A, S16-14B, and S16-15 through S16-21:** PENDING; each is released only by closure of its required predecessor.
 - Venue selection remains researcher-controlled and outside the S16 critical path.
 - A later venue-specific submission-production programme may be opened only after researcher venue selection and S16 closure.
 
 ## Next controlled gate
 
-**S16-0A — Historical Q-AHBN Manuscript Artifact Refinement Audit.**
+**S16-1 — Q-AHBN Architecture Figure Specification.**
 
 ---
 
@@ -371,3 +383,44 @@ The historical manuscript yielded useful presentation concepts but no current sc
 ## Next controlled gate
 
 **S16-1 — Q-AHBN Architecture Figure Specification.**
+
+
+---
+
+# S16 Programme Architecture Amendment — Researcher Approval, 2026-10-02
+
+**Status:** PASS / FROZEN ADMINISTRATIVE AMENDMENT
+
+Following S16-0 and S16-0A closure, the researcher explicitly approved the final working publication-artifact architecture:
+
+| ID | Approved artifact | Purpose / reviewer question | Highlight rationale |
+|---|---|---|---|
+| F1 | Q-AHBN Architecture and Learning-Cycle Figure | Explain canonical observations -> immutable AHBN proposal -> bounded Q-AHBN refinement -> realized forwarding -> attributable outcomes -> learning feedback. | Main conceptual figure; makes the post-AHBN bounded-refinement novelty and immutable-AHBN boundary immediately visible. |
+| F2 | Primary Eight-Condition Paired Trade-off Figure | Visualize the main AHBN vs Q-AHBN evidence across the eight primary ControlSim conditions, including benefit and communication-cost directions. | Main quantitative result figure; communicates the central paired trade-off without hiding duplicates/forwarding cost. |
+| F3 | Dynamic-Stress Response Figure | Show how the AHBN->Q-AHBN effect varies across failure, churn and heterogeneity stress families. | Shows where refinement helps and how the effect changes under the dynamic conditions the method targets. |
+| F4 | Exp13 Bounded Five-Method Comparator Figure | Position Gossip, Structured, DC-SoC, AHBN and Q-AHBN at the single frozen churn=0.40 benchmark. | Provides bounded external methodological positioning without converting Exp13 into primary causal evidence or a winner ranking. |
+| F5 | Gamma Sensitivity Figure | Show the bounded gamma={0.70,0.80,0.90} evidence supporting selection of gamma=0.70. | Demonstrates that the discount factor was examined rather than arbitrarily chosen, while remaining explicitly bounded and non-optimality seeking. |
+| A1 | Formal Q-AHBN Bounded-Refinement Algorithm / Pseudocode | Specify the exact executable lifecycle including AHBN-first proposal, five Q-actions, realization, outcome attribution, reward closure, F=0 no-update, next-same-peer semantics and Q update. | Reproducibility bridge between conceptual architecture and implementation semantics. |
+| T1 | Learning-Mechanism Evidence Table | Summarize evidence that learning/refinement was active without convergence or policy-optimality claims. | Gives compact mechanism evidence and replaces historical convergence-style diagnostics. |
+| T2 | Primary Paired Statistical Results Table | Preserve exact primary AHBN vs Q-AHBN paired estimates and authorized uncertainty. | Numerical/statistical authority behind F2/F3. |
+| T3 | Kubernetes Evidence and Accounting Table | Present Kubernetes operational-realization evidence and the total_forwards versus F_attempt accounting distinction. | Keeps deployment evidence bounded and avoids misleading performance-confirmation visualization. |
+| T4 | Compact Gamma-Sensitivity Table / Callout | Provide exact gamma-sensitivity values when they materially improve auditability. | Optional companion to F5; retained only if nonredundant. |
+| T5 | Exp13 Exact-Values Table | Preserve the exact five-method values underlying F4. | Numerical authority for the bounded Exp13 comparison. |
+
+Approved hierarchy:
+- **Mechanism:** F1 -> A1 -> T1
+- **Primary scientific evidence:** F2 -> F3 -> T2
+- **Broader comparator positioning:** F4 -> T5
+- **Parameter justification:** F5 -> T4 (optional)
+- **Cloud-native validation:** T3 only; no Kubernetes superiority figure
+
+Administrative consequences:
+1. F5 is now an approved core figure rather than an optional/omitted large gamma artifact.
+2. S16-14 is converted from an artifact-decision gate into **F5 specification**.
+3. New **S16-14A** constructs/verifies F5.
+4. New **S16-14B** decides whether optional T4 adds nonredundant exact-value utility.
+5. S16-15 integration scope becomes **F1--F5 + A1 + rationalized T1--T5**.
+6. No new experiment, rerun, parameter search, statistical family, claim authorization, or manuscript-source edit is introduced by this amendment.
+7. The pinned science baseline remains `6ccc94e5df770d588a5ccfa592f603a9a8ab2c68`.
+
+**Next released gate remains S16-1 — Q-AHBN Architecture Figure Specification.**
