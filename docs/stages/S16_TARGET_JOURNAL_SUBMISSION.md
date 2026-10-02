@@ -3825,3 +3825,33 @@ The completed artifact package is sufficient to defend the manuscript's authoriz
 No manuscript-source edit is required under S16-18.
 
 **Next controlled gate: S16-19 — Whole-Manuscript Artifact/Text Consistency Audit.**
+
+
+## S16-19 — Whole-Manuscript Artifact/Text Consistency Audit — 2026-10-02
+
+**Status: PASS / CLOSED**
+
+### Scope
+Whole-manuscript reconciliation of Abstract, Introduction, Q-AHBN Method, Experimental Methodology, Results, Discussion, Limitations and Conclusion against the final F1--F5, A1 and T1--T5 package, the S12A claim contract, S16-16 provenance record and S16-18 reviewer-challenge boundaries. No new experiment, statistic, parameter, evidence family or scientific interpretation was authorized.
+
+### Checks completed
+- quantitative prose signs/magnitudes were reconciled with T2/T4/T5/T3 and the plotted F2--F5 values;
+- F2/F3/T2 retain Q-AHBN-minus-AHBN orientation and condition-specific, non-pooled interpretation;
+- F4/T5 remain churn=0.40 bounded positioning with no ranking/winner claim;
+- F5/T4 remain pre-formal gamma-selection provenance only;
+- T3 remains Kubernetes operational/accounting evidence only;
+- F1/A1/T1 remain consistent with immutable-AHBN-first, bounded-refinement and active-learning/non-convergence semantics;
+- all final artifact labels resolve, no duplicate labels were found, and every retained artifact has at least one in-text reference;
+- Abstract/Introduction/Discussion/Limitations/Conclusion retain the prohibitions on convergence/policy optimality, global hyperparameter optimality, universal superiority/ranking, generic low-overhead performance, cross-environment pooling/equivalence and Kubernetes performance confirmation.
+
+### Three consistency corrections
+Manuscript commit `611548491b3d4fa9c63678eec0f0f2394ee46791` applies three bounded corrections:
+1. **A1 lifecycle ordering:** eligible targets are now determined first, the decision-owned attribution record is created next, and only then are direct forwarding attempts initiated and attached to that record. This aligns the pseudocode with the frozen per-decision attribution contract; reward/action semantics are unchanged.
+2. **Primary churn overhead wording:** removed one sentence invoking overhead confidence intervals at churn 0.40 because final F2/T2 intentionally retain duplicate/forward effects descriptively and do not expose an additional overhead inferential family. The exact overhead means remain unchanged.
+3. **T3 caption grammar/structure:** corrected “five-method columns” to “five method rows,” matching the actual table orientation.
+
+No numerical result, plotted value, CI retained in an artifact, algorithm action/reward/update rule, evidence authority, parameter, or authorized scientific conclusion changed.
+
+**S16-19 = PASS / CLOSED.**
+
+**Next controlled gate: S16-20 — Final Historical-to-Current Manuscript Refinement Audit.**
