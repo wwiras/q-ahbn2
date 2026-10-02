@@ -277,3 +277,97 @@ Close S16 only after all essential artifacts are integrated and verified, table 
 ## Next controlled gate
 
 **S16-0A — Historical Q-AHBN Manuscript Artifact Refinement Audit.**
+
+---
+
+# S16-0A — Historical Q-AHBN Manuscript Artifact Refinement Audit
+
+**Status:** PASS / CLOSED — 2026-10-02
+
+## Objective
+
+Audit Authority-Level-6 historical manuscript `Q_AHBN_FirstDraft.pdf` only for reusable publication-presentation ideas. Historical science, numerical results, state/action/reward semantics, hyperparameters, convergence/optimality claims, and simulation-to-Kubernetes conclusions remain non-authoritative.
+
+## Historical artifact inventory and classification
+
+| Historical artifact / pattern | Useful presentation idea | Current scientific conflict | Classification | Permitted reuse | Prohibited inheritance | Proposed S16 destination |
+|---|---|---|---|---|---|---|
+| Fig. 1 — overall Q-AHBN architecture | Layered visual hierarchy from observations through learning/control to dissemination, with explicit feedback | Historical figure places Q-learning before AHBN and treats learned policy as feeding the AHBN controller; current design requires immutable AHBN first, then bounded post-AHBN refinement | **ADAPT** | Reuse layered structure, compact labels, directional flow and feedback-loop concept | No historical ordering, six-action semantics, adaptive-weight wording, or implication that Q-learning retunes AHBN internals | **F1** |
+| Fig. 2 — Q-learning decision workflow | Simple top-to-bottom lifecycle with a visible cycle return | Historical workflow assumes generic immediate reward/update and omits direct-attempt closure, F=0 no-update, delayed attribution and next-same-peer semantics | **ADAPT** | Reuse lifecycle readability and explicit cycle arrow | No “AHBN executes selected policy” semantics, immediate generic reward ownership, or same-step successor assumption | **F1 + A1** |
+| Fig. 3 — AHBN/Q-learning interaction | Separating baseline proposal, meta-refinement, final policy and execution is reviewer-friendly | Historical action names and parameter-adjustment semantics differ materially from the frozen five-action design | **REUSE CONCEPT** | Reuse the visual distinction among baseline proposal, bounded refinement and final/realized behaviour | No six named legacy actions, weight/tau manipulation, or superseded AHBN controller details | **F1**, with exact lifecycle deferred to **A1** |
+| Fig. 4 — overall experimental framework | Compact environment/evidence pipeline helps readers understand study structure | Historical simulation-training -> learned-Q-table -> Kubernetes transfer/generalization narrative conflicts with current separate evidence-family contract | **REPLACE** | At most reuse the idea of visually separating environments and evidence flow | No trained-policy transfer, convergence-before-deployment, identical-metric/generalization, replication or cross-environment confirmation framing | No new S16 artifact; presentation lesson only for **T3/captions** |
+| Figs. 5–7 — reward/state/action learning plots | Learning activity is easier to review when mechanism evidence is visible | Historical plots explicitly support convergence, state-space saturation and six-action distributions; values and semantics are obsolete | **DO NOT REUSE** | Presentation lesson only: keep current learning evidence concise and interpretable | No historical curves, values, convergence/saturation claims, six-action frequencies or old episode counts | **T1** only |
+| Failure result figures | Pair dissemination benefit with communication cost rather than present one metric | Historical values/claims differ from current paired evidence and include lower-overhead conclusions | **REPLACE** | Reuse multi-metric pairing and condition-specific captioning | No old numbers, run counts, comparator matrix or lower-overhead interpretation | **F2/F3** |
+| Churn result figures | Small multiples with common stress axis improve pattern recognition | Historical churn grid, recovery/adaptation-efficiency metrics and numerical trends are not current evidence | **ADAPT** | Reuse small-multiple stress-family layout and consistent condition axis | No old churn levels, recovery/adaptation-efficiency metric, monotonic/dose-response interpretation or values | **F3** |
+| Heterogeneity result figures | Metric-specific panels make the trade-off immediately visible | Historical evidence often shows lower duplicates/forwards and resource-aware six-action explanations, conflicting with current evidence | **ADAPT** | Reuse aligned metric panels and direct AHBN/Q-AHBN comparison style | No historical lower-overhead claim, values, scenario semantics or action-frequency interpretation | **F2/F3** |
+| Kubernetes result figures/tables | Deployment-specific presentation should expose operational metrics and accounting explicitly | Historical manuscript treats Kubernetes as policy-transfer/generalization/performance confirmation and reports obsolete values | **REPLACE** | Reuse compact operational table organization and explanatory captions | No performance-confirmation, generalization, adaptation-efficiency or old numerical claims | **T3** |
+| Tables 1–5 — objectives/framework/scenario/metric mapping | Tables can compress methodology and map questions to evidence | Historical RO numbering, metrics, experiment descriptions and adaptation-efficiency formulation are superseded | **NOT RELEVANT TO CURRENT S16** | General navigation lesson only | No restoration of old experiment matrix, convergence objective, adaptation-efficiency metric or run descriptions | Existing Methods prose; no new S16 artifact |
+| Tables 6+ — learning/results/action-frequency tables | Exact values beside figures can support auditability | Historical values, six-action frequencies, state counts, rewards and run counts are not Q-AHBN2 evidence | **DO NOT REUSE** | Only the principle that exact numerical authority belongs in tables | No historical statistics, action labels or values | **T1/T2/T5** with current evidence only |
+| Algorithm/pseudocode | No formal algorithm/pseudocode environment was found in the historical draft | There is therefore no historical algorithm authority to reuse | **NOT RELEVANT TO CURRENT S16** | None beyond confirming the need for a formal current algorithm | Do not reconstruct the current algorithm from historical prose | **A1 remains NEW** |
+| Captions | Self-contained captions can explain the scientific message and scope | Several historical captions embed unsupported convergence, generalization, lower-overhead or superiority claims | **ADAPT** | Reuse descriptive, self-contained caption style with explicit condition/scope | No stronger interpretation than S12/S12A permits | All **F1–F4/T1–T5** |
+| Section-to-figure sequencing | Architecture -> workflow -> interaction -> experimental framework -> results creates a progressive mental model | Historical mechanism figures are partially redundant and science ordering is obsolete | **REUSE CONCEPT** | Keep progressive reviewer comprehension: mechanism first, exact procedure second, evidence/trade-offs next, bounded deployment evidence later | Do not retain three overlapping mechanism diagrams or obsolete experiment progression | **S16-1 onward** |
+
+## Reusable presentation lessons
+
+1. Use a **layered visual hierarchy** with short labels and clear arrows; this is more readable than prose-only boxes.
+2. Keep **architecture and executable procedure separate**: F1 explains where information flows; A1 defines exact lifecycle semantics.
+3. Show the **closed-loop feedback path explicitly**, but label it with current attributable outcomes/reward ownership rather than generic dissemination feedback.
+4. Prefer **small multiples/aligned metric panels** for dynamic-stress interpretation; do not collapse delivery, delay and communication cost into a composite score.
+5. Keep **exact numerical authority in tables** while figures communicate pattern and evidence role.
+6. Make captions **self-contained and scope-bounded**, especially where a reviewer could misread an artifact as convergence, superiority, low overhead, or cross-environment confirmation.
+7. Preserve **visual separation between ControlSim and Kubernetes**; the historical sequential-transfer narrative is rejected.
+8. Avoid redundancy: the historical manuscript shows that three overlapping mechanism diagrams are unnecessary; current **F1 + A1** is sufficient.
+
+## Scientific conflicts that remain blocked
+
+The audit reconfirmed that the historical manuscript contains presentation-adjacent scientific statements incompatible with the frozen design/evidence:
+- six-action policy semantics and obsolete action names;
+- superseded state/reward/controller descriptions;
+- convergence/stable-policy and state-space-saturation interpretations;
+- historical adaptation-efficiency formulation;
+- old experiment matrices, churn levels, run counts and numerical results;
+- lower-overhead/resource-efficiency conclusions that conflict with the current communication-cost trade-off;
+- simulation-training -> learned-Q-table -> Kubernetes-transfer/generalization framing;
+- Kubernetes performance-confirmation language.
+
+None may migrate into S16.
+
+## Mapping into frozen S16 artifact architecture
+
+- **F1:** strongly benefits from the historical layered architecture, feedback-loop clarity and baseline/refinement/final-action separation, but current ordering must be **observations -> immutable AHBN proposal -> bounded Q-AHBN refinement -> eligible-target realization/forwarding -> directly attributable outcomes -> reward/learning feedback**.
+- **A1:** remains entirely current-specification work. Historical workflow contributes only the idea of a readable ordered lifecycle.
+- **F2:** reuse the multi-metric comparison principle only; all values, uncertainty and trade-off direction come from S11-A/S12.
+- **F3:** reuse the small-multiple stress-response presentation pattern, especially shared axes and family-specific panels; use only current failure/churn/heterogeneity evidence and no trend fitting.
+- **F4:** no direct historical five-method analogue is suitable for reuse; current Exp13 purpose remains unchanged. Historical lesson: keep metrics visually separate.
+- **T1:** expose active learning compactly, but no historical reward/convergence/state/action statistic is reusable.
+- **T2:** remains exact current paired-statistical authority; historical result tables have no evidentiary role.
+- **T3:** historical Kubernetes presentation reinforces the value of explicit runtime accounting, but current table must emphasize operational realization and the `total_forwards`/`F_attempt` distinction.
+- **T4:** no useful historical gamma artifact; retain the current bounded sensitivity decision.
+- **T5:** current Exp13 exact-values table remains unchanged; historical numerical tables provide no reusable data.
+
+## Concrete recommendations for S16-1 onward
+
+1. In **S16-1**, use one reviewer-oriented F1 with roughly 5–6 clear layers rather than multiple overlapping mechanism figures.
+2. F1 should visually distinguish **AHBN proposal**, **Q-AHBN requested refinement**, and **realized forwarding**; this is the strongest reusable idea from historical Fig. 3.
+3. Draw the learning return path from **directly attributable NEW/DUPLICATE/FAILED outcomes / reward closure** back to the learning layer; do not use a generic immediate Bellman loop that hides delayed closure and same-peer succession.
+4. Reserve exact temporal/update semantics for **A1** so F1 remains conceptually readable.
+5. Build **F2/F3** as aligned panels with consistent condition naming and a visible zero/reference baseline where appropriate; do not add adaptation-efficiency or recovery-time panels.
+6. Keep **Kubernetes tabular**, not a performance-superiority plot.
+7. Use captions to state scope and non-claims explicitly where misinterpretation risk is high.
+8. Consolidate rather than inflate: current **F1 + A1** is sufficient for mechanism exposition.
+
+## Administrative-adjustment decision
+
+**No adjustment to the frozen S16 artifact architecture is required.**
+
+The historical audit refines presentation strategy only. F1, A1, F2, F3, F4 and T1–T5 retain their S16-0 scientific purposes and evidence roles. No new artifact, experiment, statistic, metric, algorithm change, parameter change, claim authorization or manuscript-source edit is required.
+
+## Gate decision
+
+**S16-0A = PASS / CLOSED.**
+
+The historical manuscript yielded useful presentation concepts but no current scientific authority. The audit therefore closes without scientific redesign and without modification of `versions/v0.0/main.tex`.
+
+## Next controlled gate
+
+**S16-1 — Q-AHBN Architecture Figure Specification.**
