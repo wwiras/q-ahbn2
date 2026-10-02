@@ -2323,3 +2323,288 @@ F3 is now constructed, numerically verified and integrated directly in the manus
 ## Next controlled gate
 
 **S16-9 — Exp13 Bounded Positioning Figure Specification.**
+
+
+---
+
+# S16-9 — Exp13 Bounded Positioning Figure Specification
+
+**Status:** PASS / CLOSED — 2026-10-02
+
+## Objective
+
+Freeze the scientific and visual specification for **F4 — Exp13 Bounded Five-Method Positioning Figure** using only the frozen S11-B Exp13-Q ControlSim benchmark.
+
+F4 must show how Gossip, Structured, DC-SoC, AHBN and Q-AHBN occupy different operating points at the single predeclared churn=0.40 benchmark without converting that benchmark into an overall ranking, winner claim or primary RO4 proof.
+
+This gate specifies F4 only. It does not construct the figure and does not edit `versions/v0.0/main.tex`.
+
+## Authority reconciliation
+
+S16-9 was reconciled against:
+- `docs/00_QAHBN2_MASTER.md`;
+- `docs/00_SOURCE_AUTHORITY_REGISTER.md`;
+- `docs/stages/S11_AGGREGATION.md`;
+- `docs/stages/S12_INTERPRETATION.md`;
+- `docs/stages/S12A_CLAIM_RECONCILIATION.md`;
+- `docs/07_CLAIM_EVIDENCE_MATRIX.md`;
+- `docs/06_RESULTS_REGISTER.md`;
+- S16-0 through S16-8 control records;
+- manuscript `docs/MANUSCRIPT_MASTER.md`, `docs/PROVENANCE.md`, and active `versions/v0.0/main.tex`;
+- frozen S11-B Drive folder `1frfPsofGtbvpRFCxFMjGi_EZUuv8tNxx`;
+- frozen S11-B summary `s11b_exp13q_summary.csv`, Drive file ID `1QGHZCa1tR3G4f0nUGlVcPjWNexGZhf76`.
+
+The pinned science baseline remains:
+`6ccc94e5df770d588a5ccfa592f603a9a8ab2c68`.
+
+No new experiment, aggregation, statistical test or claim is introduced.
+
+## Evidence role
+
+Exp13-Q remains:
+- 25/25 frozen ControlSim runs;
+- five methods;
+- seeds 42--46;
+- one churn condition only: 0.40;
+- external-reference positioning evidence only;
+- separate from the S11-A primary RO4/RQ4 evidence.
+
+F4 therefore must not be presented as:
+- the main causal comparison;
+- an omnibus benchmark;
+- a method leaderboard;
+- evidence of general superiority over Gossip, Structured or DC-SoC.
+
+## F4 reviewer question
+
+F4 must answer:
+
+> **At the single frozen churn=0.40 ControlSim benchmark, where do Q-AHBN and AHBN sit relative to Gossip, Structured and DC-SoC across delivery, propagation delay and communication-cost metrics?**
+
+The purpose is **bounded positioning within a multi-metric trade-off**, not selection of a best method.
+
+## Frozen figure architecture
+
+F4 uses a **2 x 2 small-multiple figure**, one panel per metric:
+
+1. **Delivery ratio**
+2. **Propagation delay**
+3. **Duplicate transmissions**
+4. **Total forwards**
+
+Each panel shows the same five methods in the same fixed order:
+
+1. Gossip
+2. Structured
+3. DC-SoC
+4. AHBN
+5. Q-AHBN
+
+The order is methodological/reference order and must remain fixed across all panels.
+
+Methods must not be sorted by metric value.
+
+## Plot form
+
+Preferred form: **point-and-interval plot** for each metric.
+
+For each method:
+- point = five-seed arithmetic mean;
+- error bar = descriptive two-sided 95% Student-t CI for that method mean, `df=4`.
+
+This is preferable to bars because:
+- it emphasizes operating-point location rather than magnitude-as-ranking;
+- it exposes uncertainty without creating a leaderboard visual;
+- it remains compact and grayscale-safe;
+- it keeps exact numerical authority in T5.
+
+No paired-difference error bars are used for the external methods.
+
+## Statistical boundary
+
+The F4 intervals are **per-method descriptive 95% confidence intervals**, not a new family of pairwise significance tests.
+
+Required:
+- n=5 per method;
+- arithmetic mean;
+- sample-SD based two-sided 95% Student-t CI;
+- `df=4`;
+- no p-values;
+- no significance stars;
+- no pairwise test annotations;
+- no multiple-comparison procedure;
+- no omnibus test;
+- no derived winner labels.
+
+AHBN-vs-Q-AHBN paired Exp13 contrasts may remain part of the S11-B evidence record, but F4 is not designed as a paired-difference inferential figure.
+
+## Frozen numerical authority
+
+All values come directly from `s11b_exp13q_summary.csv`.
+
+### Delivery ratio
+
+| Method | Mean | 95% CI |
+|---|---:|---:|
+| Gossip | 0.916300 | [0.914036, 0.918564] |
+| Structured | 0.920000 | [0.920000, 0.920000] |
+| DC-SoC | 0.920000 | [0.920000, 0.920000] |
+| AHBN | 0.798664 | [0.766549, 0.830779] |
+| Q-AHBN | 0.821704 | [0.786368, 0.857040] |
+
+### Propagation delay
+
+| Method | Mean | 95% CI |
+|---|---:|---:|
+| Gossip | 3.420314 | [3.296321, 3.544307] |
+| Structured | 4.489333 | [4.486088, 4.492579] |
+| DC-SoC | 1.505306 | [0.939534, 2.071077] |
+| AHBN | 10.063965 | [9.287946, 10.839983] |
+| Q-AHBN | 8.865172 | [8.505423, 9.224921] |
+
+### Duplicate transmissions
+
+| Method | Mean | 95% CI |
+|---|---:|---:|
+| Gossip | 327220.0 | [324606.010, 329833.990] |
+| Structured | 0.0 | [0.0, 0.0] |
+| DC-SoC | 0.0 | [0.0, 0.0] |
+| AHBN | 140033.8 | [131495.870, 148571.730] |
+| Q-AHBN | 142978.6 | [132197.983, 153759.217] |
+
+### Total forwards
+
+| Method | Mean | 95% CI |
+|---|---:|---:|
+| Gossip | 417850.0 | [415057.291, 420642.709] |
+| Structured | 91000.0 | [91000.0, 91000.0] |
+| DC-SoC | 91000.0 | [91000.0, 91000.0] |
+| AHBN | 218900.2 | [207457.526, 230342.874] |
+| Q-AHBN | 224149.0 | [209942.837, 238355.163] |
+
+Construction must use the full registered precision from the frozen CSV.
+
+## Scale and axis policy
+
+Each metric has its own scientifically natural scale.
+
+Required:
+- delivery axis remains in raw ratio units, not percentage points;
+- delay remains in the ControlSim propagation-delay units used by the manuscript;
+- duplicates and forwards remain absolute counts;
+- no metric is sign-inverted;
+- no z-score, normalization, min-max scaling or composite score;
+- zero baseline should remain visible for duplicates and forwards;
+- delivery/delay axes should be chosen to preserve legibility without implying a shared cross-metric scale.
+
+Axes across panels are not numerically comparable to one another.
+
+## Visual grammar
+
+F4 must be grayscale-safe and, when constructed, native TikZ/PGFPlots.
+
+Required:
+- 2 x 2 aligned panels;
+- same fixed method order in every panel;
+- point estimates plus descriptive 95% CI;
+- clear metric units;
+- compact method labels;
+- no color-dependent meaning;
+- no arrows saying “better” or “worse”;
+- no gold/bold “winner” method;
+- no ranking numerals;
+- no method reordered by performance;
+- no shaded dominance region;
+- no radar chart;
+- no spider chart;
+- no parallel-coordinate aggregate;
+- no composite efficiency score.
+
+A subtle typographic distinction may identify AHBN and Q-AHBN as the study methods, but it must not imply superiority. If used, that distinction must remain grayscale-safe and symmetric between the two.
+
+## Scientific reading rules
+
+F4 may support these bounded descriptive statements:
+
+1. At churn=0.40, Q-AHBN has higher mean delivery and lower mean propagation delay than AHBN.
+2. Q-AHBN and AHBN occupy similar intermediate communication-cost regions relative to the zero-duplicate Structured/DC-SoC references and the much higher-cost Gossip reference.
+3. Gossip, Structured, DC-SoC, AHBN and Q-AHBN occupy different metric-specific operating points rather than a single common ordering.
+4. Structured and DC-SoC have the same mean delivery, duplicate count and forward count in this benchmark but differ in propagation delay.
+5. Gossip has higher mean delivery than AHBN/Q-AHBN but also markedly higher duplicate and forward counts.
+6. The benchmark illustrates trade-off positioning at one fixed high-churn condition.
+
+F4 does not by itself establish pairwise statistical superiority among all five methods.
+
+## Prohibited readings
+
+F4 must not claim or visually imply:
+- Q-AHBN is the best method;
+- AHBN or Q-AHBN wins overall;
+- any global ranking of the five methods;
+- dominance across all four metrics;
+- state-of-the-art superiority;
+- general external-baseline superiority;
+- general churn robustness;
+- results beyond churn=0.40;
+- Exp13 as primary RO4 causal evidence;
+- pooled effect with S11-A;
+- statistical significance between arbitrary external-method pairs;
+- a composite performance/efficiency score.
+
+## Relationship to T5
+
+F4 and T5 have complementary roles.
+
+**F4**
+- visual operating-point positioning;
+- metric-by-metric comparison;
+- descriptive uncertainty;
+- no ranking.
+
+**T5**
+- exact five-method numerical authority;
+- exact means and, after S16-11/S16-12 rationalization if retained, exact interval values as appropriate.
+
+The existing `tab:exp13-results` is the current precursor to T5 and is not removed or restructured during S16-9.
+
+## Relationship to F2/F3
+
+F4 is scientifically separate from F2/F3.
+
+- F2 = primary eight-condition AHBN-vs-Q-AHBN trade-off.
+- F3 = within-family response of that primary paired effect.
+- F4 = one-condition, five-method external positioning.
+
+F4 must never be visually blended with F2/F3 in a way that suggests a single pooled evidence family.
+
+## Working caption
+
+> **Bounded five-method ControlSim positioning at churn 0.40.** Points show five-seed method means and error bars show descriptive 95% Student-$t$ confidence intervals ($df=4$) for delivery ratio, propagation delay, duplicate transmissions and total forwards. The five methods are shown in a fixed reference order rather than ranked by performance. The panels therefore depict metric-specific operating points at one predeclared high-churn benchmark: AHBN and Q-AHBN occupy intermediate communication-cost regions, Gossip operates at substantially higher duplicate/forwarding activity, and Structured/DC-SoC occupy zero-duplicate lower-forward regions while differing in delay. The figure is bounded external positioning only and does not define an overall winner or generalize beyond churn 0.40.
+
+## Construction contract for S16-10
+
+S16-10 must:
+1. construct F4 directly as native TikZ/PGFPlots;
+2. use only `s11b_exp13q_summary.csv`;
+3. independently verify all 20 mean values;
+4. independently verify all 20 CI endpoint pairs;
+5. preserve fixed method order across all four panels;
+6. use point-and-interval representation;
+7. keep metric scales separate and natural;
+8. avoid sorting/ranking/winner emphasis;
+9. keep F4 visually separate from F2/F3 evidence roles;
+10. integrate a dedicated figure-specific explanatory paragraph;
+11. preserve existing T5 precursor table pending later table rationalization;
+12. record provenance and perform repository readback before closure.
+
+## Gate decision
+
+**S16-9 = PASS / CLOSED.**
+
+F4's reviewer question, evidence role, four-panel architecture, fixed method order, descriptive uncertainty, visual grammar, scientific reading rules and anti-ranking boundaries are frozen.
+
+No F4 was constructed and `versions/v0.0/main.tex` was not modified under S16-9.
+
+## Next controlled gate
+
+**S16-10 — Exp13 Figure Construction + Verification.**
