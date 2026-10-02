@@ -3088,3 +3088,98 @@ T3 is now one consolidated Kubernetes operational-realization/accounting table w
 ## Next controlled gate
 
 **S16-14 — Gamma Sensitivity Figure Specification.**
+
+
+---
+
+# S16-13A — Kubernetes Forwarding-Accounting Semantics Audit
+
+**Status:** PASS / CLOSED — 2026-10-02
+
+**Classification:** read-only implementation/evidence audit; no new experiment, no result recomputation, no algorithm change.
+
+## Trigger
+
+Post-S16-13 reviewer-readability review identified that the frozen Kubernetes Q-AHBN mean `total_forwards=10.0` required exact code-level semantic explanation before proceeding to S16-14.
+
+## Code-level finding
+
+Authoritative Kubernetes validator:
+`gke/app/k7_exp11_tools.py`
+
+It defines:
+- `attempts = [event == "k7_forward_attempt"]`;
+- `fwd = [event == "forward"]`;
+- `F_attempt = len(attempts)`;
+- `F_success = len(fwd)`;
+- `total_forwards = len(fwd)`.
+
+Authoritative Q-AHBN runtime:
+`gke/app/qahbn2_runtime.py`
+
+For every call to the forwarding wrapper it first emits:
+`event="k7_forward_attempt"`.
+
+For a Q-AHBN decision-bound attempt, the Q-AHBN-specific branch then performs the RPC and records exactly one attributable outcome:
+- `NEW`;
+- `DUPLICATE`;
+- `FAILED`.
+
+On `resp.ok` / `NEW`, the Q-AHBN branch increments `self.forward_count` but does **not** emit the inherited generic `event="forward"`.
+
+The inherited generic forward path is invoked for Q-AHBN only when no Q decision ID is bound for the message (fallback path).
+
+## Meaning of the frozen value 10.0
+
+The frozen Q-AHBN Kubernetes `total_forwards=10.0` is therefore the mean count of generic `forward` log events observed by the validator.
+
+It is **not** a complete or comparable count of successful Q-AHBN forwarding activity, because successful decision-bound Q-AHBN forwards are represented by `qahbn2_attempt_outcome=NEW` and an internal `forward_count` increment rather than a generic `forward` event.
+
+The audit does not infer that all 10 generic events necessarily have one specific causal origin without raw-event classification; the code establishes that the Q-AHBN fallback original-forward path can emit them.
+
+## Meaning of F_attempt
+
+`F_attempt` is directly defined by the validator as the number of `k7_forward_attempt` events.
+
+Frozen means:
+- AHBN: 1448.0
+- Q-AHBN: 2345.4
+
+Thus `F_attempt` is the trace-comparable initiated-attempt quantity available for the AHBN/Q-AHBN accounting caution.
+
+## Scientific consequence
+
+No frozen raw result is changed.
+
+However, `total_forwards` must no longer be described as a directly comparable successful-forwarding quantity for Q-AHBN in Kubernetes.
+
+Permitted:
+- report the frozen value with explicit instrumentation qualification;
+- use it as evidence of the runtime accounting mismatch;
+- use `F_attempt` to demonstrate that the low `total_forwards` value does not establish low forwarding effort.
+
+Prohibited:
+- Q-AHBN sent only 10 messages/forwards;
+- Q-AHBN reduced Kubernetes forwarding by ~99%;
+- `total_forwards` proves low overhead;
+- direct AHBN-vs-Q-AHBN successful-forward comparison using this field.
+
+## Manuscript correction
+
+The T3 caption, Kubernetes results paragraph and communication-overhead discussion were amended to state the exact instrumentation semantics.
+
+This is an explanatory correction only:
+- no raw evidence changed;
+- no CI changed;
+- no experiment rerun;
+- no performance claim added.
+
+## Gate decision
+
+**S16-13A = PASS / CLOSED.**
+
+S16-13 remains PASS/CLOSED with the stronger accounting qualification.
+
+## Next controlled gate
+
+**S16-14 — Gamma Sensitivity Figure Specification.**
