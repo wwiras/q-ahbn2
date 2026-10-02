@@ -2740,3 +2740,123 @@ F4 is now constructed, numerically verified, integrated and bounded to its regis
 ## Next controlled gate
 
 **S16-11 — Learning-Evidence Table Rationalization.**
+
+
+---
+
+# S16-11 — Learning-Evidence Table Rationalization
+
+**Status:** PASS / CLOSED — 2026-10-02
+
+## Objective
+
+Rationalize **T1 — Learning-Mechanism Evidence Table** so it carries distinct evidential value beyond F1/A1 and the surrounding learning-behaviour prose, while remaining strictly inside the frozen S12/S12A learning-mechanism claim boundary.
+
+## Authority reconciliation
+
+Before editing, the current authoritative state was re-read from:
+- `docs/00_QAHBN2_MASTER.md`;
+- `docs/00_SOURCE_AUTHORITY_REGISTER.md`;
+- `docs/stages/S12_INTERPRETATION.md`;
+- `docs/stages/S12A_CLAIM_RECONCILIATION.md`;
+- `docs/07_CLAIM_EVIDENCE_MATRIX.md`;
+- `docs/06_RESULTS_REGISTER.md`;
+- `docs/stages/S11_AGGREGATION.md`;
+- manuscript `docs/MANUSCRIPT_MASTER.md`;
+- manuscript `docs/PROVENANCE.md`;
+- active `versions/v0.0/main.tex`.
+
+The pinned science baseline remains:
+`6ccc94e5df770d588a5ccfa592f603a9a8ab2c68`.
+
+## Audit of pre-rationalization T1
+
+The previous table was scientifically safe but publication-weak because it:
+- repeated nearby prose almost verbatim;
+- mixed qualitative observations, exact anchors and claim boundaries in one two-column list;
+- did not distinguish evidence class from scientific interpretation;
+- did not show why each trace feature matters;
+- risked reading as a checklist rather than a mechanism-evidence table.
+
+No numerical defect was found.
+
+## Rationalization decision
+
+T1 is retained, but its role is changed from a generic evidence checklist to a structured:
+
+**evidence class -> frozen observation -> scientific role / claim boundary**
+
+table.
+
+This makes T1 complementary to:
+- F1: conceptual architecture/information flow;
+- A1: executable bounded-learning semantics;
+- surrounding prose: narrative interpretation.
+
+T1 now answers:
+> What concrete trace evidence shows that the learning layer was active, and what claim does each observation legitimately support?
+
+## Frozen evidence retained
+
+T1 retains only evidence already frozen by S12/S12A:
+- repeated reward-bearing Q updates;
+- non-zero state-action use;
+- coverage anchor 0.142 at churn 0.40;
+- heterogeneity coverage range 0.106--0.111;
+- repeated bounded interventions above preserved AHBN proposals;
+- coexistence of KEEP decisions with interventions;
+- negative mean reward under the frozen reward definition;
+- trace retention of AHBN proposal, selected Q action, requested Q proposal, realized forwarding and attributable outcomes.
+
+No new exact update count, intervention count, action-frequency count or reward statistic was introduced because those exact values are not part of the presently frozen publication-facing claim record being rationalized here.
+
+## New T1 structure
+
+The table is now a `table*` with three columns:
+1. Evidence class
+2. Frozen observation
+3. Scientific role / claim boundary
+
+Rows:
+- Reward-bearing updates
+- State--action use
+- Bounded interventions
+- Reward behaviour
+- Traceability
+- Overall inference
+
+## Claim discipline
+
+T1 explicitly supports:
+- active learning;
+- outcome-driven updating;
+- bounded interventions above AHBN;
+- condition-dependent state/action use;
+- reconstructable decision/outcome traceability.
+
+T1 explicitly does **not** support:
+- Q-table convergence;
+- policy optimality;
+- universal performance benefit;
+- method superiority;
+- reward-sign-as-success/failure classification.
+
+## Manuscript change
+
+Updated:
+`wwiras/QAHBN2-Manuscript/versions/v0.0/main.tex`
+
+Table label remains:
+`tab:learning-mechanism`.
+
+The label is preserved to avoid unnecessary reference churn.
+
+## Gate decision
+
+**S16-11 = PASS / CLOSED.**
+
+T1 is now rationalized as a reviewer-facing mechanism-evidence table with explicit observation-to-claim mapping and no new scientific evidence.
+
+## Next controlled gate
+
+**S16-12 — Primary Statistical Table Rationalization.**
