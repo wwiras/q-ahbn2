@@ -166,8 +166,114 @@ The current evidence is sufficient to construct the artifact package. No new exp
 
 **S16-0 = PASS / CLOSED.**
 
+## Revised controlled programme — researcher-approved stage architecture
+
+This programme revision is an administrative/control amendment made after S16-0 closure and before any further scientific/publication-artifact gate is executed. It does not reopen S16-0, S12/S12A/S15, the pinned science baseline, experiments, statistics, parameters, or manuscript claims.
+
+### S16-0A — Historical Q-AHBN Manuscript Artifact Refinement Audit — NEXT
+
+Systematically inspect the Authority-Level-6 historical `Q_AHBN_FirstDraft.pdf` before new artifact design. Produce a controlled mapping:
+
+`historical artifact -> useful presentation idea -> current scientific conflict (if any) -> permitted reuse -> prohibited inheritance -> proposed S16 destination`.
+
+This gate may recover presentation concepts, architecture organization, algorithm/workflow presentation, result-figure structures, table organization, caption patterns, and explanatory sequencing only. It must not inherit historical six-action semantics, superseded state/reward definitions or parameters, convergence/optimality claims, historical numerical results, or historical simulation/Kubernetes conclusions as current Q-AHBN evidence.
+
+### S16-1 — Q-AHBN Architecture Figure Specification
+
+Freeze the scientific and visual specification for F1 only: canonical observations -> immutable AHBN proposal -> bounded Q-AHBN refinement -> eligible-target realization/forwarding -> directly attributable outcomes -> reward/learning feedback. S16-0A presentation lessons may inform layout only.
+
+### S16-2 — Formal Q-AHBN Algorithm Specification
+
+Freeze A1 against the current 81-state x 5-action design, AHBN-first intervention boundary, epsilon-greedy selection, bounded proposal transformation, requested-versus-realized forwarding distinction, direct-attempt reward closure, F=0 no-update boundary, same-peer successor-state semantics, delayed attribution, and frozen Q update. Exact lifecycle ordering must be reconciled with current implementation/contracts before publication.
+
+### S16-3 — Mechanism Figure + Algorithm Consistency Audit
+
+Perform a strict semantic reconciliation across F1, A1, manuscript Section 3, `docs/02_QAHBN2_DESIGN_FREEZE.md`, canonical AHBN authority, implementation semantics, and source-authority rules. Neither artifact is publication-ready until this audit passes.
+
+### S16-4 — Mechanism Artifact Manuscript Integration
+
+Replace/upgrade the current boxed `fig:qahbn-cycle`, integrate A1, and update only directly affected explanatory prose, captions and cross-references. Preserve the neutral LaTeX architecture and frozen science.
+
+### S16-5 — Primary Paired Trade-off Figure Specification
+
+Specify F2 from the frozen 40 same-seed AHBN--Q-AHBN pairs across eight primary ControlSim conditions. Delivery and propagation delay use only authorized paired uncertainty; duplicates and forwards expose the communication-cost direction without inventing a new inferential family.
+
+### S16-6 — Primary Trade-off Figure Construction + Verification
+
+Construct F2 and independently reconcile every plotted quantity, uncertainty statement, label and caption against S11-A/S12/S12A and registered provenance. No new interpretation is authorized.
+
+### S16-7 — Dynamic-Stress Response Figure Specification
+
+Specify F3 so it adds information beyond F2, emphasizing the failure contrast, descriptive churn attenuation, and heterogeneity response. No fitted trend, dose-response model, or extrapolation is authorized.
+
+### S16-8 — Dynamic-Stress Figure Construction + Verification
+
+Construct F3 and verify all values, visual encodings, captions and evidence boundaries against frozen primary evidence.
+
+### S16-9 — Exp13 Bounded Positioning Figure Specification
+
+Specify F4 for Gossip, Structured, DC-SoC, AHBN and Q-AHBN at the single frozen churn=0.40 Exp13-Q reference benchmark. The artifact must remain metric-wise, descriptive and non-ranking; no composite score or winner framing is permitted.
+
+### S16-10 — Exp13 Figure Construction + Verification
+
+Construct F4 and reconcile every plotted value and caption with frozen Exp13-Q evidence and the exact-values table.
+
+### S16-11 — Learning-Evidence Table Rationalization
+
+Review `tab:learning-mechanism`. Retain only evidence establishing active learning/refinement, including Q updates, state-action coverage and intervention/action use where authorized. Remove redundancy with F1/A1 and preserve the no-convergence/no-policy-optimality boundary.
+
+### S16-12 — Primary Statistical Table Rationalization
+
+Audit `tab:primary-paired-results` and `tab:primary-tradeoff-synthesis`. Preserve the paired statistical table as the exact numerical/uncertainty authority. After F2 verification, absorb/remove the synthesis table if it is redundant and contains no uniquely required exact value.
+
+### S16-13 — Kubernetes Evidence and Accounting Table Rationalization
+
+Reconcile `tab:kubernetes-results` and `tab:kubernetes-accounting`. Preserve Kubernetes as operational-realization evidence, all paired-CI uncertainty, seed-direction limits where relevant, and the `total_forwards` versus `F_attempt` accounting distinction. No Kubernetes superiority visualization is authorized.
+
+### S16-14 — Gamma Sensitivity Publication Artifact Decision
+
+Inspect the frozen 15-run gamma sensitivity evidence over gamma={0.70,0.80,0.90}, seeds 42--46. Add a compact table/callout only if exact frozen values materially improve publication clarity. Otherwise retain concise Methods prose. No broad robustness, global-optimality or convergence interpretation is permitted.
+
+### S16-15 — Whole Artifact Package Integration
+
+Integrate verified F1--F4, A1 and the rationalized table set into `wwiras/QAHBN2-Manuscript/versions/v0.0/main.tex`. Update cross-references, captions, placement and immediately surrounding prose only as needed. No new science is authorized.
+
+### S16-16 — Artifact-to-Evidence Provenance Audit
+
+For every final figure, table and algorithm, register and verify:
+
+`artifact ID -> manuscript label -> source evidence/contract -> claim IDs -> exact numerical provenance where applicable -> permitted interpretation -> prohibited interpretation`.
+
+Synchronize the manuscript-side provenance record only after verification.
+
+### S16-17 — Figure/Table/Algorithm Visual + LaTeX Production Audit
+
+Audit rendering, legibility, typography, line/marker distinction, legends, table width, figure scale, caption completeness, cross-references, float placement, page flow, grayscale readability and LaTeX/source integrity. This is a production audit, not a scientific reopening.
+
+### S16-18 — Reviewer-Challenge Artifact Audit
+
+Test whether the finished artifact package directly answers foreseeable reviewer questions about the intervention boundary, immutable AHBN, exact algorithm procedure, evidence of active learning, communication cost, dynamic-stress response, bounded comparator positioning, Kubernetes evidence role/accounting, and gamma selection. No new reviewer-driven experiment is implied by this gate.
+
+### S16-19 — Whole-Manuscript Artifact/Text Consistency Audit
+
+Reconcile Abstract, Introduction, Methods, Experimental Methodology, Results, Discussion, Limitations and Conclusion against every final artifact. Reconfirm prohibitions on convergence/policy optimality, global hyperparameter optimality, universal superiority/ranking, generic lightweight/low-overhead performance, cross-environment pooling/equivalence, and Kubernetes performance confirmation.
+
+### S16-20 — Final Historical-to-Current Manuscript Refinement Audit
+
+Return once to Authority-Level-6 `Q_AHBN_FirstDraft.pdf` after the current artifact package is mature. Check whether any useful historical presentation/explanatory element was missed. Permitted changes are limited to presentation, explanatory sequencing, visual organization, captions and bounded contextual clarity. Historical science, results and superseded claims remain prohibited.
+
+### S16-21 — Publication Artifact Engineering Closure
+
+Close S16 only after all essential artifacts are integrated and verified, table redundancy is resolved, artifact provenance is complete, visual/LaTeX and reviewer-challenge audits pass, whole-manuscript artifact/text consistency passes, and no unauthorized scientific change has occurred.
+
+## Controlled state after programme revision
+
+- **S16-0:** PASS / CLOSED.
+- **S16-0A:** NEXT / RELEASED.
+- **S16-1 through S16-21:** PENDING; each is released only by closure of its required predecessor.
+- Venue selection remains researcher-controlled and outside the S16 critical path.
+- A later venue-specific submission-production programme may be opened only after researcher venue selection and S16 closure.
+
 ## Next controlled gate
 
-**S16-1 — Q-AHBN Architecture Figure + Formal Algorithm Specification**
-
-S16-1 should first replace the boxed mechanism placeholder with a publication-quality architecture/learning-cycle figure and introduce formal pseudocode derived exactly from the frozen algorithm contract. It must complete a figure↔algorithm↔Methods consistency audit before proceeding to empirical figures.
+**S16-0A — Historical Q-AHBN Manuscript Artifact Refinement Audit.**
