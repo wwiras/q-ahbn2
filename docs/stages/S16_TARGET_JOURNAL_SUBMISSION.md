@@ -1885,3 +1885,280 @@ S16-6 remains PASS/CLOSED. F2 is now integrated natively in the manuscript as Ti
 ## Next controlled gate
 
 **S16-7 — Dynamic-Stress Response Figure Specification.**
+
+
+---
+
+# S16-7 — Dynamic-Stress Response Figure Specification
+
+**Status:** PASS / CLOSED — 2026-10-02
+
+## Objective
+
+Freeze the scientific and visual specification for **F3 — Dynamic-Stress Response Figure** using only the already-frozen S11-A primary ControlSim evidence.
+
+F3 must add analytical value beyond F2 by exposing **within-family variation in the Q-AHBN-minus-AHBN delivery and propagation-delay effects** under:
+1. failure status;
+2. increasing churn;
+3. heterogeneous resource profiles.
+
+This gate specifies F3 only. It does not construct the figure and does not edit `versions/v0.0/main.tex`.
+
+## Authority reconciliation
+
+S16-7 was reconciled against:
+- `docs/00_QAHBN2_MASTER.md`;
+- `docs/00_SOURCE_AUTHORITY_REGISTER.md`;
+- S12/S12A interpretation and claim boundaries;
+- `docs/07_CLAIM_EVIDENCE_MATRIX.md`;
+- `docs/06_RESULTS_REGISTER.md`;
+- S16-5/S16-6/S16-6A;
+- manuscript `docs/MANUSCRIPT_MASTER.md`, `docs/PROVENANCE.md`, and active `versions/v0.0/main.tex`;
+- registered S11-A Drive summary `s11a_primary_ro4_summary.csv`, file ID `1D6Z1DZa5CLnXBX6Z0Adljb260Er7S1_M`.
+
+The pinned science baseline remains:
+`6ccc94e5df770d588a5ccfa592f603a9a8ab2c68`.
+
+No new experiment, aggregation, statistical test, uncertainty family, fitted model or scientific claim is introduced by S16-7.
+
+## F3 reviewer question
+
+F3 must answer:
+
+> **How does the condition-specific Q-AHBN refinement effect on delivery and propagation delay vary within the predeclared failure, churn and heterogeneity stress families?**
+
+This is intentionally different from F2:
+- F2 asks for the complete eight-condition **delivery/latency/communication-cost trade-off overview**;
+- F3 asks how the two primary effectiveness effects **respond within each dynamic-stress family**.
+
+F3 is therefore an effect-response figure, not a second omnibus trade-off figure.
+
+## Scope of metrics
+
+F3 includes only:
+1. delivery paired difference, expressed in percentage points;
+2. propagation-delay paired difference, retaining the registered sign.
+
+Duplicates and total forwards are excluded from F3 because:
+- their communication-cost direction is already visible in F2;
+- exact values remain in T2 pending S16-12 rationalization;
+- including all four metrics would substantially duplicate F2 rather than answer the stress-response question.
+
+The F3 caption must explicitly direct the reader to F2/T2 for communication-overhead context.
+
+## Frozen family structure
+
+F3 consists of **three horizontally arranged family panels**:
+
+### Panel (a) — Failure response
+
+Conditions:
+- Control;
+- One-peer failure.
+
+Purpose:
+- show whether the Q-AHBN-minus-AHBN delivery and delay effects materially change between the undisturbed Exp10 control and the predeclared one-peer failure condition.
+
+This is a two-condition contrast only.
+
+No claim of general failure robustness or failure-rate response is permitted.
+
+### Panel (b) — Churn response
+
+Conditions:
+- churn 0.00;
+- churn 0.20;
+- churn 0.40.
+
+Purpose:
+- expose the registered descriptive attenuation of the delivery effect as churn rises;
+- show the corresponding condition-specific delay effects.
+
+The three observed points may be connected by a thin line **only as a visual guide through the ordered predeclared churn levels**.
+
+Such a line is not a fitted regression, interpolation or dose-response model.
+
+No trend line, regression coefficient, correlation, slope test or extrapolation is permitted.
+
+### Panel (c) — Heterogeneity response
+
+Conditions:
+- Balanced;
+- Moderate heterogeneity;
+- Weak-heavy.
+
+Purpose:
+- show how delivery and delay effects differ across the three named resource profiles.
+
+These resource profiles are categorical scenarios, not a validated continuous heterogeneity scale.
+
+Therefore:
+- points must **not** be connected by a line;
+- no monotonic ordering or dose-response implication is permitted.
+
+## Dual-metric visual architecture
+
+Each family panel uses two vertically aligned sub-axes sharing the family-specific x positions:
+
+**Upper sub-axis — Delivery**
+- quantity: `100 x paired_diff_mean(delivery_ratio)`;
+- unit: percentage points;
+- registered paired 95% Student-t CI;
+- zero reference line.
+
+**Lower sub-axis — Propagation delay**
+- quantity: paired `Q-AHBN - AHBN` delay difference;
+- registered paired 95% Student-t CI;
+- zero reference line.
+
+This yields a conceptual **3 columns x 2 metric rows** figure while preserving the reviewer-facing three-family organization.
+
+A six-small-axis implementation is preferred over dual y-axes. Dual y-axes are prohibited because they can obscure the sign and scale distinction between delivery and delay.
+
+## Frozen numerical authority
+
+All plotted values come directly from the registered S11-A summary.
+
+| Family | Condition | Delivery Δ (pp) | Delivery paired 95% CI (pp) | Delay Δ | Delay paired 95% CI |
+|---|---|---:|---:|---:|---:|
+| Failure | Control | +13.3472 | [+6.313727, +20.380673] | -5.977232 | [-7.978592, -3.975872] |
+| Failure | One-peer failure | +12.9066 | [+7.273178, +18.540022] | -5.832377 | [-7.476635, -4.188118] |
+| Churn | 0.00 | +13.3472 | [+6.313727, +20.380673] | -5.977232 | [-7.978592, -3.975872] |
+| Churn | 0.20 | +6.2944 | [+4.831447, +7.757353] | -3.765746 | [-4.779881, -2.751610] |
+| Churn | 0.40 | +2.3040 | [+0.497956, +4.110044] | -1.198793 | [-2.018132, -0.379453] |
+| Heterogeneity | Balanced | +9.3462 | [+3.804499, +14.887901] | -6.875323 | [-8.041421, -5.709225] |
+| Heterogeneity | Moderate | +5.7428 | [+1.476160, +10.009440] | -6.541088 | [-8.072779, -5.009396] |
+| Heterogeneity | Weak-heavy | +5.8072 | [+2.059961, +9.554439] | -7.813670 | [-11.239517, -4.387823] |
+
+Construction must use the full registered precision in `s11a_primary_ro4_summary.csv`.
+
+## Scale policy
+
+Within each metric row, use a **common y-scale across all three family panels**:
+- all delivery sub-axes share one delivery scale;
+- all delay sub-axes share one delay scale.
+
+This allows condition-to-condition magnitude comparison without panel-specific visual magnification.
+
+The delivery and delay rows do not share a numeric scale with each other.
+
+The zero line must remain visible on every sub-axis.
+
+## Uncertainty policy
+
+F3 uses only the already-registered paired 95% Student-t confidence intervals for delivery and delay.
+
+Required:
+- paired CIs only;
+- `df=4`;
+- five matched seeds per condition;
+- no method-wise CI substitution;
+- no new bootstrap/SE/SD interval;
+- no significance stars;
+- no p-values;
+- no pooled CI;
+- no family-level omnibus test.
+
+All registered delivery/delay CIs exclude zero, but F3 must not convert that observation into a universal or cross-family statistical claim.
+
+## Visual grammar
+
+F3 must be grayscale-safe and native TikZ/PGFPlots when constructed.
+
+Required:
+- three family columns labelled **Failure**, **Churn**, **Heterogeneity**;
+- delivery row above delay row;
+- point estimates with paired 95% CI error bars;
+- zero line in every sub-axis;
+- shared delivery scale across columns;
+- shared delay scale across columns;
+- compact condition labels;
+- no color-dependent meaning;
+- no background decoration or topology graphic;
+- no communication-overhead series.
+
+For churn only:
+- a thin solid/dashed line may join the three point estimates within each metric row as an ordering guide;
+- the caption must state that it is a visual guide and not a fitted trend.
+
+For failure and heterogeneity:
+- use unconnected points/error bars.
+
+## F2/F3 non-redundancy contract
+
+F2 and F3 have different publication jobs.
+
+**F2 — trade-off overview**
+- eight rows on one common condition axis;
+- delivery + delay + duplicates + forwards;
+- emphasizes effectiveness versus communication cost;
+- answers “what operating-point shift occurs?”
+
+**F3 — stress-response view**
+- organized by experimental family;
+- delivery + delay only;
+- emphasizes within-family effect variation;
+- answers “how does the effectiveness shift vary with the tested dynamic condition?”
+
+F3 must not repeat duplicate/forward panels, recreate the F2 eight-condition axis, or introduce an aggregate effectiveness score.
+
+## Permitted scientific reading
+
+F3 may support the following bounded observations:
+
+1. **Failure:** the delivery and delay paired effects are similar in magnitude between the Exp10 control and one-peer failure rows.
+2. **Churn:** the delivery effect decreases descriptively from +13.3472 pp at churn 0.00 to +6.2944 pp at 0.20 and +2.3040 pp at 0.40.
+3. **Churn:** the magnitude of the negative delay difference also narrows across the three frozen churn levels.
+4. **Heterogeneity:** all three profiles retain positive delivery and negative delay effects, but effect magnitudes vary by profile.
+5. **Heterogeneity:** the weak-heavy profile has the largest-magnitude negative mean delay difference among the three tested profiles, while its delivery effect is similar to the moderate profile.
+6. All statements remain condition-specific and descriptive unless already authorized by the registered paired CIs.
+
+## Prohibited readings
+
+F3 must not claim or visually imply:
+- Q-AHBN is failure-proof or universally robust;
+- a formal failure-response curve;
+- a statistically established monotonic churn dose-response;
+- linear/nonlinear churn trend;
+- interpolation between churn 0.00, 0.20 and 0.40;
+- extrapolation beyond churn 0.40;
+- that the three heterogeneity profiles form a continuous severity scale;
+- monotonic heterogeneity response;
+- cross-family pooling;
+- a family-level winner;
+- universal superiority;
+- convergence or policy optimality;
+- communication-cost improvement.
+
+## Working caption
+
+> **Dynamic-stress response of the primary paired ControlSim effects.** Each column isolates one predeclared experiment family: one-peer failure relative to its control, churn at 0.00/0.20/0.40, and the balanced/moderate/weak-heavy resource profiles. The upper row shows Q-AHBN-minus-AHBN delivery differences in percentage points and the lower row shows propagation-delay differences; error bars are the registered paired 95% Student-$t$ confidence intervals across the five matched seeds ($df=4$). The joined churn points are an ordering guide through the three tested churn levels, not a fitted trend or dose-response model. Heterogeneity profiles are categorical and are therefore shown as unconnected effects. Communication-overhead effects are reported separately in Figure F2 and the primary paired-results table.
+
+The final figure number/reference wording will be synchronized during construction/integration.
+
+## Construction contract for S16-8
+
+S16-8 must:
+1. construct F3 natively in TikZ/PGFPlots;
+2. use only the registered S11-A summary values;
+3. independently verify all delivery percentage-point values and CI endpoints;
+4. independently verify all delay values and CI endpoints;
+5. preserve common delivery scale across family columns;
+6. preserve common delay scale across family columns;
+7. connect only the ordered churn points, if a connecting guide is retained;
+8. keep heterogeneity and failure effects unconnected;
+9. verify grayscale readability and manuscript-width legibility;
+10. record artifact/manuscript provenance;
+11. avoid adding overhead metrics, fitted trends, pooling or new inference.
+
+## Gate decision
+
+**S16-7 = PASS / CLOSED.**
+
+F3's reviewer question, evidence scope, family organization, metric selection, uncertainty use, common-scale policy, visual grammar, permitted readings and prohibited readings are frozen.
+
+No F3 was constructed and `versions/v0.0/main.tex` was not modified under S16-7.
+
+## Next controlled gate
+
+**S16-8 — Dynamic-Stress Figure Construction + Verification.**
