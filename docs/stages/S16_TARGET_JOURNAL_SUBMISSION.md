@@ -486,7 +486,7 @@ The figure MUST communicate this ordering:
                              ↓
 [4] ELIGIBLE-TARGET REALIZATION + FORWARDING
     mode-specific eligible set N_e
-    realized target count k_real=min(k_Q,|N_e|)
+    realized target count 0 <= k_real <= min(k_Q,|N_e|)
     requested decision remains distinct from realized forwarding
                              ↓
 [5] DIRECT ATTRIBUTABLE OUTCOMES
@@ -510,7 +510,7 @@ F1 MUST visually preserve these distinctions:
 1. **Continuous canonical AHBN state vs discrete Q state.** AHBN operates on continuous EWMA values; the L/M/H discretization is only the Q-table key.
 2. **AHBN proposal vs Q-AHBN refinement.** `(mode_AHBN,k_AHBN)` is complete and traceable before Q-AHBN acts.
 3. **Selected Q action vs refined requested proposal.** The action transforms the preserved AHBN proposal; it does not retune AHBN internals.
-4. **Requested fanout vs realized forwarding.** `k_Q` is a request; `k_real=min(k_Q,|N_e|)` is constrained by the eligible set.
+4. **Requested fanout vs realized forwarding.** `k_Q` is a request; `0 <= k_real <= min(k_Q,|N_e|)` is constrained by the eligible set.
 5. **Realized targets vs initiated attempts/outcomes.** Unrealized target slots do not create synthetic FAILED outcomes.
 6. **Outcome evidence vs environmental state.** NEW/DUPLICATE/FAILED and reward information feed learning; they are not additional environmental state dimensions.
 7. **Reward closure vs successor-state timing.** The figure must not imply that reward and `s_(t+1)` necessarily become available simultaneously.
@@ -561,7 +561,7 @@ Short heading: **Eligible-target realization and forwarding**
 
 Show:
 - eligible-neighbour set `N_e`;
-- `k_real=min(k_Q,|N_e|)`;
+- `0 <= k_real <= min(k_Q,|N_e|)`;
 - forwarding attempts.
 
 This layer is the visual boundary between **requested refinement** and **realized execution**.
@@ -804,7 +804,7 @@ ON each new-message Q-AHBN decision opportunity for message m at peer p:
 
   7. Apply the existing mode-specific eligible-target realization:
        choose eligible set N_e according to canonical execution semantics
-       k_real <- min(k_Q, |N_e|)
+       0 <= k_real <= min(k_Q, |N_e|)
      Initiate forwarding only to the realized targets.
      Requested fanout and realized forwarding remain distinct.
 
@@ -1025,3 +1025,195 @@ A1's publication-level executable semantics are frozen. No algorithm was inserte
 ## Next controlled gate
 
 **S16-3 — Mechanism Figure + Algorithm Consistency Audit.**
+
+
+---
+
+# S16-3 — Mechanism Figure + Algorithm Consistency Audit
+
+**Status:** PASS / CLOSED — 2026-10-02
+
+## Objective
+
+Perform a strict semantic reconciliation across the frozen F1 specification, frozen A1 specification, current manuscript Section 3, `docs/02_QAHBN2_DESIGN_FREEZE.md`, canonical AHBN authority, validated implementation semantics, and source-authority rules.
+
+This gate is an audit/correction gate only. It does not construct F1/A1 and does not edit `versions/v0.0/main.tex`.
+
+## Reconciliation result
+
+One specification-level overstatement was found and corrected before closure:
+
+### C1 — realized-fanout equality overstatement
+
+**Finding:** S16-1/S16-2 used `k_real=min(k_Q,|N_e|)` / assignment-equivalent wording in the draft F1/A1 specifications.
+
+**Higher-authority contract:** the frozen design requires:
+
+[
+0 le k_{mathrm{real}} le min(k_Q,|N_e|).
+]
+
+The eligible-target realization stage may realize fewer targets than the requested budget. Therefore equality is not guaranteed by the frozen contract.
+
+**Correction:** all S16 F1/A1 specification occurrences that asserted equality/assignment were corrected to the bounded relation. This is a documentation-semantic correction to match already-frozen science; it does not change the algorithm, implementation, experiments, evidence, or claims.
+
+**Manuscript status:** current Section 3 already uses the correct bounded relation and therefore requires no scientific correction for this item.
+
+## F1 ↔ A1 ↔ Section 3 consistency matrix
+
+| Semantic item | F1 | A1 | Current Section 3 | Frozen authority | Audit |
+|---|---|---|---|---|---|
+| canonical observations / EWMA | continuous canonical state shown | canonical state updated first | explicit | canonical AHBN | PASS |
+| AHBN executes first | explicit immutable AHBN layer | Step 2 before Q action | explicit | architectural invariant | PASS |
+| AHBN proposal preserved | explicit `p_AHBN` | preserved/logged before Q intervention | explicit | proposal/intervention boundary | PASS |
+| Q state source | same canonical EWMA snapshot | same canonical EWMA snapshot | same variables | state contract | PASS |
+| discretization | L/M/H, 81 states | fixed 1/3 and 2/3 bins | explicit | 81-state contract | PASS |
+| action set | five actions | same five transforms | same five transforms | action contract | PASS |
+| Q fanout boundary | bounded one-step refinement | `k_Q in {1,...,7}` | same | action contract | PASS |
+| historical cap at 6 | prohibited | explicitly prohibited | values 1 and 7 explicit | action invariant A12/A13 | PASS |
+| requested vs realized | distinct | distinct | distinct | architecture/observability | PASS |
+| realized-fanout relation | corrected to bounded relation | corrected to bounded relation | bounded relation | `0<=k_real<=min(...)` | **PASS after C1** |
+| direct attempt outcomes | NEW/DUPLICATE/FAILED | exact terminal outcomes | explicit | reward contract | PASS |
+| unrealized slots | not FAILED | not FAILED | explicit | reward attribution | PASS |
+| `F=0` | no numerical reward/update | explicit | explicit | reward contract | PASS |
+| numerical `R=0,F>0` | deferred to A1 | explicit | explicit | reward contract | PASS |
+| same-peer successor | named | exact capture rule | explicit | transition contract | PASS |
+| overlapping records | deferred to A1 | concurrent records | explicit | transition contract | PASS |
+| reward/next-state arrival order | non-synchronous visual requirement | either order | either order | transition contract | PASS |
+| nonterminal update readiness | deferred to A1 | both components required | explicit | transition contract | PASS |
+| terminal zero bootstrap | deferred to A1 | explicit | explicit | transition contract | PASS |
+| Q update | deferred to A1 | alpha=0.25, gamma=0.70 | same | current learning contract | PASS |
+| epsilon mechanics | deferred to A1 | 0.30→floor 0.03, decay 0.995 | same | lifecycle contract | PASS |
+| convergence/optimality | prohibited | prohibited | explicitly disclaimed | claim contract | PASS |
+
+## Notation reconciliation
+
+The audit identified a presentation ambiguity, not a scientific conflict:
+
+- manuscript Section 3 currently uses `s_t` once for the continuous four-variable learning-state description and `S_t` for the discrete Q-table key;
+- A1 uses `x_t` for the continuous canonical EWMA snapshot and `s_t` for the discrete Q state;
+- F1 conceptually distinguishes the continuous canonical state from the discrete Q key.
+
+For F1/A1 integration, the publication notation is frozen as:
+
+[
+x_t=(hat d_t,hatell_t,hat u_t,hat c_t)
+]
+
+for the **continuous canonical EWMA snapshot**, and
+
+[
+s_t=(B(hat d_t),B(hatell_t),B(hat u_t),B(hat c_t))
+]
+
+for the **discrete 81-state Q-table key**.
+
+At S16-4, Section 3 may receive this notation-only harmonization so F1, A1 and prose use one unambiguous convention. This does not alter state semantics.
+
+## Temporal consistency audit
+
+F1 intentionally compresses the asynchronous lifecycle. It remains consistent with A1 only under these frozen reading rules:
+
+1. the feedback arrow represents learning evidence returning to **future Q-AHBN decisions**, not an immediate same-step update;
+2. `s_(t+1)` is the same peer's next Q-AHBN decision state;
+3. reward belongs to the originating decision and may close before or after that successor state is observed;
+4. A1, not F1, is authoritative for per-decision records, readiness and update ordering;
+5. terminal rewarded transitions use zero bootstrap;
+6. `F=0` never enters the numerical reward/Q-update path.
+
+No temporal contradiction remains under these rules.
+
+## Action/realization consistency audit
+
+The mechanism artifacts must retain the following exact separation:
+
+```text
+canonical AHBN proposal:
+  k_AHBN in {2,3,4,5,6}
+
+one selected Q action:
+  delta fanout in {-1,0,+1} OR mode-set primitive
+
+Q-requested proposal:
+  k_Q in {1,2,3,4,5,6,7}
+
+canonical mode-specific realization:
+  0 <= k_real <= min(k_Q, |N_e|)
+```
+
+The phrase **realized target count** must not be typeset as if it were necessarily equal to the requested eligible budget.
+
+## F1/A1 division of responsibility — frozen after audit
+
+**F1 must answer:** where the learning layer sits, what it receives, what it may refine, what is requested versus realized, what outcomes return as evidence, and where the feedback loop goes.
+
+**A1 must answer:** exactly how state/action selection, proposal transformation, per-decision attribution, reward closure, successor linkage, update readiness, terminal handling, Q update and epsilon decay operate.
+
+F1 must not duplicate A1's concurrency machinery. A1 must not become an environment-specific implementation listing.
+
+## Current manuscript Section 3 disposition
+
+Section 3 is scientifically consistent with the audited F1/A1 contracts on:
+- immutable AHBN;
+- state dimensions and bins;
+- five actions;
+- `k_Q in {1,...,7}`;
+- bounded eligible-target realization;
+- direct-attempt reward;
+- `F=0`;
+- alpha/gamma;
+- epsilon schedule;
+- same-peer successor state;
+- asynchronous reward/successor ordering;
+- terminal zero bootstrap;
+- no convergence/optimality implication.
+
+Two publication-engineering changes are therefore authorized for **S16-4 only**:
+1. replace/upgrade the placeholder `fig:qahbn-cycle` with audited F1;
+2. harmonize continuous/discrete state notation and integrate audited A1 with only directly necessary prose/cross-reference changes.
+
+No broader Section 3 rewrite is justified by S16-3.
+
+## Prohibited semantic drift reconfirmed
+
+Neither F1 nor A1 may imply:
+- Q-before-AHBN execution;
+- replacement or retuning of canonical AHBN;
+- six historical actions, tau or adaptive-weight manipulation;
+- privileged disturbance labels as Q state;
+- Q-layer clipping to 6;
+- equality between requested eligible budget and realized target count;
+- synthetic FAILED outcomes for unrealized targets;
+- `F=0` as numerical zero reward;
+- reward-closure order as transition order;
+- synchronous-only updates;
+- convergence/policy optimality/global parameter optimality;
+- performance superiority;
+- ControlSim-to-Kubernetes learned-policy transfer.
+
+## Verification
+
+- mandatory authority reconciliation — **PASS**;
+- F1 versus A1 semantic audit — **PASS after C1 correction**;
+- F1/A1 versus current Section 3 — **PASS**;
+- F1/A1 versus design freeze — **PASS after C1 correction**;
+- AHBN-first boundary — **PASS**;
+- state/discretization — **PASS**;
+- five-action transforms — **PASS**;
+- requested/realized distinction — **PASS**;
+- reward attribution and F=0 — **PASS**;
+- transition/concurrency semantics — **PASS**;
+- terminal handling — **PASS**;
+- learning constants/exploration — **PASS**;
+- claim/non-claim boundaries — **PASS**;
+- no experiment/evidence/science change — **PASS**.
+
+## Gate decision
+
+**S16-3 = PASS / CLOSED.**
+
+The F1 and A1 specifications are now mutually consistent with the frozen design authority and current manuscript science. The only defect found was the realized-fanout equality overstatement, corrected to the authoritative bounded relation. No final artifact was constructed or integrated.
+
+## Next controlled gate
+
+**S16-4 — Mechanism Artifact Manuscript Integration.**
