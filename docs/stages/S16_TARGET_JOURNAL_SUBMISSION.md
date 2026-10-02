@@ -3767,3 +3767,12 @@ S16-14/S16-14A scientific closure remains valid. This amendment is tracked under
 ### S16-17 Figure 2 production correction — 2026-10-02
 
 Compiled manuscript `main02Oct2026_1836.pdf` confirmed F5 scientific content and the blue styling amendment. One minor production issue remained: the lower-row y-axis labels, especially panel (d) `Total forwards`, were visually tight toward the centre gap. Manuscript commit `91a97d73fe1bb8ed466cf7401469d0b8436c493e` increases the F5 groupplot horizontal separation from 1.35 cm to 1.65 cm. No plotted values, axis ranges, panel dimensions, statistics, caption, scientific interpretation, or S16-14/S16-14A evidence boundary changed. Final S16-17 closure is held pending one researcher recompile/readback.
+
+
+### S16-17 final compiled-PDF readback — 2026-10-02
+
+Researcher-supplied compiled manuscript `main02Oct2026_1842.pdf` was visually/readback audited after the F5 spacing correction. Figure 2 now has adequate lower-row y-label clearance and a balanced 2x2 layout; no overlap or clipping requiring another production edit was identified. Figure 1 remains visually coherent after its previously approved single-blue styling and standardized box treatment. Figures 3--5, Tables 1--5, and Algorithm 1 are present and legible in the compiled package. No scientific-value, statistical, caption, or claim-boundary change was introduced by the final production correction.
+
+**S16-17 — Figure/Table/Algorithm Visual + LaTeX Production Audit = PASS / CLOSED (2026-10-02).**
+
+Next controlled gate: **S16-18 — Reviewer-Challenge Artifact Audit**.
