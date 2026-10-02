@@ -1780,3 +1780,108 @@ F2 is constructed and numerically verified against the registered S11-A source. 
 ## Next controlled gate
 
 **S16-7 — Dynamic-Stress Response Figure Specification.**
+
+
+---
+
+# S16-6A — F2 Native TikZ/PGFPlots Manuscript Integration Amendment
+
+**Status:** PASS / CLOSED — 2026-10-02
+
+## Researcher direction
+
+The researcher explicitly preferred a native TikZ figure in the manuscript rather than retaining PNG/PDF as the publication representation of F2.
+
+This amendment does not reopen S16-5 scientific specification or S16-6 numerical verification. It changes only the manuscript representation of the already-verified F2 artifact.
+
+## Reconciliation
+
+Before editing, the current authoritative state was re-read from:
+- `docs/00_QAHBN2_MASTER.md`;
+- `docs/00_SOURCE_AUTHORITY_REGISTER.md`;
+- S16-5/S16-6 control records;
+- manuscript `docs/MANUSCRIPT_MASTER.md`;
+- manuscript `docs/PROVENANCE.md`;
+- active `versions/v0.0/main.tex`.
+
+The pinned science baseline remains:
+`6ccc94e5df770d588a5ccfa592f603a9a8ab2c68`.
+
+## Manuscript implementation
+
+F2 is now authored directly in:
+`wwiras/QAHBN2-Manuscript/versions/v0.0/main.tex`
+
+using:
+- TikZ;
+- PGFPlots;
+- PGFPlots `groupplots` library.
+
+The manuscript preamble now includes:
+- `\usepackage{pgfplots}`;
+- `\usepgfplotslibrary{groupplots}`;
+- `\pgfplotsset{compat=1.18}`.
+
+The final manuscript figure label is:
+`fig:primary-paired-tradeoff`.
+
+## Scientific content retained exactly
+
+The native figure retains the frozen S16-5/S16-6 architecture:
+1. delivery paired mean difference in percentage points with registered paired 95% CI;
+2. propagation-delay paired mean difference with registered paired 95% CI;
+3. duplicate paired mean difference only;
+4. total-forward paired mean difference only.
+
+It preserves:
+- `Delta = Q-AHBN - AHBN`;
+- all eight condition positions;
+- Exp10/Exp11/Exp12 family separation;
+- paired CI only for delivery/delay;
+- descriptive overhead panels without significance markers;
+- no pooling or composite score;
+- no fitted trend/dose-response implication.
+
+The TikZ/PGFPlots coordinates were transcribed from the already-verified S16-6 values. No new statistic or data transformation was introduced beyond the already-frozen delivery percentage-point conversion.
+
+## Manuscript prose integration
+
+The cross-condition synthesis now references:
+`Figure~\ref{fig:primary-paired-tradeoff}`
+
+as the visual trade-off overview.
+
+The existing exact-value tables are intentionally retained pending S16-12 table rationalization.
+
+## Status of prior PNG/PDF outputs
+
+The earlier PNG/PDF remain historical S16-6 construction/verification working artifacts only.
+
+They are no longer the preferred manuscript representation of F2.
+
+The authoritative publication representation is now the native TikZ/PGFPlots source embedded in `versions/v0.0/main.tex`.
+
+## Verification
+
+- native PGFPlots package/library present — **PASS**;
+- four-panel groupplot present — **PASS**;
+- all eight delivery coordinates present — **PASS**;
+- all eight delay coordinates present — **PASS**;
+- delivery/delay error bars present — **PASS**;
+- overhead panels contain no error bars — **PASS**;
+- Exp10/Exp11/Exp12 separators present — **PASS**;
+- manuscript label/cross-reference present — **PASS**;
+- existing tables retained — **PASS**;
+- no science/evidence/claim change — **PASS**.
+
+Final rendered typography and float/page-flow judgment remain assigned to S16-17.
+
+## Gate decision
+
+**S16-6A = PASS / CLOSED.**
+
+S16-6 remains PASS/CLOSED. F2 is now integrated natively in the manuscript as TikZ/PGFPlots.
+
+## Next controlled gate
+
+**S16-7 — Dynamic-Stress Response Figure Specification.**
