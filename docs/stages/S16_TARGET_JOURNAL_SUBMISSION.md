@@ -1217,3 +1217,152 @@ The F1 and A1 specifications are now mutually consistent with the frozen design 
 ## Next controlled gate
 
 **S16-4 — Mechanism Artifact Manuscript Integration.**
+
+
+---
+
+# S16-4 — Mechanism Artifact Manuscript Integration
+
+**Status:** PASS / CLOSED — 2026-10-02
+
+## Objective
+
+Integrate the audited mechanism artifacts into the active manuscript without reopening science:
+1. replace/upgrade the placeholder `fig:qahbn-cycle` with the audited F1 mechanism figure;
+2. integrate formal Algorithm A1;
+3. harmonize continuous/discrete state notation;
+4. update only directly affected prose, captions and cross-references.
+
+## Authority reconciliation
+
+S16-4 was executed after reconciling:
+- `docs/00_QAHBN2_MASTER.md`;
+- `docs/00_SOURCE_AUTHORITY_REGISTER.md`;
+- S16-1, S16-2 and S16-3;
+- manuscript `docs/MANUSCRIPT_MASTER.md`;
+- manuscript `docs/PROVENANCE.md`;
+- active `versions/v0.0/main.tex`;
+- researcher-supplied Drive roots for the scientific and manuscript workspaces.
+
+No new scientific evidence was required because F1/A1 are mechanism artifacts derived from already-frozen design authority rather than quantitative experimental results.
+
+## Manuscript changes performed
+
+File:
+`wwiras/QAHBN2-Manuscript/versions/v0.0/main.tex`
+
+### F1 integration
+
+The previous boxed textual placeholder was replaced by a publication-oriented TikZ mechanism figure with six layers:
+
+1. canonical local observations;
+2. immutable canonical AHBN;
+3. bounded Q-AHBN refinement;
+4. eligible-target realization;
+5. direct attributable outcomes;
+6. reward closure and learning feedback.
+
+The figure preserves:
+- AHBN-first ordering;
+- continuous canonical state versus discrete Q-state key;
+- five-action Q-AHBN refinement;
+- preserved AHBN proposal;
+- requested proposal versus realized forwarding;
+- bounded realization `0 <= k_real <= min(k_Q,|N_e|)`;
+- NEW/DUPLICATE/FAILED outcomes;
+- `F=0` no-reward-bearing-update boundary;
+- same-peer future-state learning feedback;
+- non-immediate feedback-loop visual grammar.
+
+The retained manuscript label is:
+`fig:qahbn-cycle`.
+
+### A1 integration
+
+Algorithm A1 was integrated using `algorithm` + `algpseudocode` and labelled:
+`alg:qahbn`.
+
+The integrated algorithm includes:
+- zero Q-table initialization for 81 x 5 entries;
+- current constants `alpha_Q=0.25`, `gamma=0.70`, `epsilon_0=0.30`, `epsilon_min=0.03`, `lambda_epsilon=0.995`;
+- immutable AHBN execution first;
+- discrete state construction from the same canonical EWMA snapshot;
+- same-peer successor linkage;
+- seeded epsilon-greedy action selection;
+- five exact bounded transforms;
+- bounded eligible-target realization;
+- decision-owned direct-attempt attribution;
+- NEW/DUPLICATE/FAILED closure;
+- `F=0` no numerical reward/no reward-bearing update;
+- reward-bearing update only when required information is available;
+- terminal zero bootstrap;
+- one epsilon decay per learner decision;
+- note that multiple decision records may coexist and close independently.
+
+A compact manuscript paragraph now explicitly ties Algorithm A1 to Fig. F1 and states that environment-specific ControlSim/Kubernetes plumbing is intentionally omitted.
+
+### Notation harmonization
+
+The continuous canonical EWMA snapshot is now written:
+
+[
+x_t=(hat d_t,hatell_t,hat u_t,hat c_t),
+]
+
+while the discrete Q-table key is:
+
+[
+s_t=(B(hat d_t),B(hatell_t),B(hat u_t),B(hat c_t)).
+]
+
+This is a notation-only harmonization frozen by S16-3. No state semantics changed.
+
+## LaTeX support changes
+
+Added:
+- `tikz` with `arrows.meta,positioning,fit,calc`;
+- `algorithm`;
+- `algpseudocode`;
+- small local `\When` / `\EndWhen` commands for readable asynchronous reward-closure pseudocode.
+
+A source-level audit corrected an initial command-escaping issue in the Q-update display before gate closure.
+
+## Scientific non-changes
+
+S16-4 did not:
+- alter the pinned science baseline;
+- change AHBN or Q-AHBN implementation;
+- alter parameters/actions/reward/transition semantics;
+- rerun any experiment;
+- create new evidence;
+- change result values or claims;
+- introduce convergence/optimality/superiority language;
+- change Kubernetes evidence role;
+- change Exp13 positioning.
+
+## Verification
+
+Source audit after integration:
+- placeholder F1 removed/replaced — **PASS**;
+- `fig:qahbn-cycle` retained — **PASS**;
+- six F1 layers present — **PASS**;
+- AHBN-first semantics — **PASS**;
+- bounded realization relation — **PASS**;
+- five actions present — **PASS**;
+- direct-attempt outcomes/reward boundary — **PASS**;
+- same-peer future state shown — **PASS**;
+- A1 label/cross-reference present — **PASS**;
+- current alpha/gamma/epsilon constants — **PASS**;
+- terminal zero bootstrap — **PASS**;
+- notation x_t versus s_t harmonized — **PASS**;
+- no scientific result section modified by this gate — **PASS**.
+
+## Gate decision
+
+**S16-4 = PASS / CLOSED.**
+
+The audited mechanism figure and formal algorithm are now integrated into the active manuscript source. Later visual-production audit remains responsible for final rendered typography, float placement, scaling and page-flow judgement.
+
+## Next controlled gate
+
+**S16-5 — Primary Paired Trade-off Figure Specification.**
