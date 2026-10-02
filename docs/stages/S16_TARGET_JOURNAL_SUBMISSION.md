@@ -3384,3 +3384,68 @@ No figure was constructed and no manuscript scientific result was changed.
 ## Next controlled gate
 
 **S16-14A — Gamma Sensitivity Figure Construction + Verification.**
+
+
+---
+
+# S16-14A — Gamma Sensitivity Figure Construction + Verification
+
+**Status:** PASS / CLOSED — 2026-10-02
+
+## Objective
+
+Construct F5 in the active manuscript exactly from the frozen S16-14 specification and verify numerical, visual-semantic and claim-boundary consistency.
+
+## Construction
+
+F5 was added natively to:
+`wwiras/QAHBN2-Manuscript/versions/v0.0/main.tex`
+
+Figure label:
+`fig:gamma-sensitivity`
+
+Architecture:
+- native TikZ/PGFPlots;
+- 2 x 2 panel layout;
+- common candidate x-axis gamma={0.70,0.80,0.90};
+- descriptive five-seed means only;
+- no confidence intervals, standard errors, significance tests, fitted trend, convergence curve or composite score.
+
+Panels and exact frozen values:
+- mean reward: -0.264444, -0.268304, -0.268232;
+- delivery ratio: 0.86552, 0.86181, 0.85597;
+- propagation delay: 10.05872, 10.07401, 10.16041;
+- total forwards: 226189.6, 225464.6, 222940.0.
+
+Frozen duplicate means remain preserved outside the four-panel figure:
+140637.4, 140283.4, 138342.6.
+
+## Verification
+
+Readback verification passed:
+1. all 12 plotted values exactly match AR-1.4.4;
+2. all four specified panels are present;
+3. no invented uncertainty or significance layer is present;
+4. the caption preserves the bounded parameter-selection interpretation;
+5. accompanying prose explicitly presents a trade-off rather than a universal-winner interpretation;
+6. gamma=0.70 is identified as the subsequently frozen candidate without “optimal”, “best”, convergence or universal-superiority language;
+7. the paired-seed directional checks remain descriptive only;
+8. F5 remains scientifically separate from S11-A, Exp13 and Kubernetes evidence.
+
+## Provenance
+
+Manuscript provenance was extended with a dedicated S16-14A F5 record. No separate PNG/PDF is required because the authoritative publication representation is native LaTeX/TikZ/PGFPlots.
+
+## Scientific consequence
+
+No experiment, rerun, parameter, statistic, claim authorization or pinned science baseline changed.
+
+F5 documents only the already-frozen AR-1.4.2--AR-1.4.4 parameter-selection provenance.
+
+## Gate decision
+
+**S16-14A = PASS / CLOSED.**
+
+## Next controlled gate
+
+**S16-14B — Gamma Sensitivity Table/Callout Decision.**
