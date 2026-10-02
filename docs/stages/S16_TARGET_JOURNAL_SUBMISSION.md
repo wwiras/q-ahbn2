@@ -3732,3 +3732,16 @@ Corrections applied:
 **Current S16-17 status remains HOLD / PARTIAL pending one recompile of the corrected source and visual confirmation that both defects are resolved.**
 
 S16-18 remains blocked until that recompiled PDF is checked.
+
+
+### S16-17 Figure 1 visual refinement amendment — 2026-10-02
+
+Researcher supplied recompiled `main02Oct2026_1739.pdf`. Visual readback confirms the earlier Table 3 right-edge clipping defect is resolved: the complete `Forward Δ` column is now contained within the page.
+
+At researcher request, Figure 1 received a presentation-only refinement while preserving the frozen F1 scientific semantics. The revised native TikZ design uses restrained publication-safe stage colors, a clean clockwise six-stage pipeline, a separately routed dashed canonical-EWMA state-reuse path above the pipeline, and a separately routed dashed learning-feedback return path below the pipeline. This removes the crowded crossing/annotation region in the previous rendering and visually distinguishes immutable AHBN, bounded Q-AHBN refinement, forwarding realization, outcomes, and reward closure.
+
+Manuscript source commit: `b2d32b171c16b2e5bb407f0ad662185da6f44b12`.
+
+No scientific content, algorithm semantics, numerical evidence, caption claim boundary, or artifact role changed.
+
+**S16-17 remains HOLD / PARTIAL pending one recompile/readback of the redesigned Figure 1.** Table 3 is visually cleared. S16-18 remains blocked until Figure 1 is confirmed clean in the compiled PDF.
