@@ -3745,3 +3745,20 @@ Manuscript source commit: `b2d32b171c16b2e5bb407f0ad662185da6f44b12`.
 No scientific content, algorithm semantics, numerical evidence, caption claim boundary, or artifact role changed.
 
 **S16-17 remains HOLD / PARTIAL pending one recompile/readback of the redesigned Figure 1.** Table 3 is visually cleared. S16-18 remains blocked until Figure 1 is confirmed clean in the compiled PDF.
+
+
+### S16-14A Figure 2 visual-production amendment — 2026-10-02
+
+The researcher explicitly reopened the gamma-sensitivity artifact for visual audit using compiled manuscript PDF `main02Oct2026_1806.pdf`.
+
+Visual finding: Figure 2 is scientifically correct and readable, with all four frozen panels present and no clipping, overlap, or label collision. The plotted trade-off is visible, but the default plot styling is visually light relative to the newly standardized Figure 1 and the other publication figures.
+
+Presentation-only refinement applied in manuscript commit `b3b362446cf527ed157cfec51b5ed8e35fc6027d`:
+- all four F5 series use one consistent blue publication color;
+- markers are slightly enlarged for manuscript-scale readability;
+- line weight is slightly increased;
+- panel layout, axes, values, candidate order, captions, and claim boundaries are unchanged.
+
+No scientific value, uncertainty layer, statistic, trend model, or parameter-selection conclusion changed.
+
+S16-14/S16-14A scientific closure remains valid. This amendment is tracked under the current S16-17 visual-production audit and requires one recompile/readback before final visual closure.
