@@ -3855,3 +3855,37 @@ No numerical result, plotted value, CI retained in an artifact, algorithm action
 **S16-19 = PASS / CLOSED.**
 
 **Next controlled gate: S16-20 — Final Historical-to-Current Manuscript Refinement Audit.**
+
+
+## S16-20 — Final Historical-to-Current Manuscript Refinement Audit — 2026-10-02
+
+**Status: PASS / CLOSED — NO MANUSCRIPT CHANGE**
+
+### Authority and scope
+The Authority-Level-6 historical manuscript `Q_AHBN_FirstDraft.pdf` (Drive file ID `1NahEY5sZPdwhpg2uduBxIxqyS3ikMGqj`) was re-read only for presentation/explanatory techniques after completion of the current F1--F5, A1 and T1--T5 package. Historical numerical results, six-action semantics, superseded state/reward definitions, historical hyperparameters, convergence/stability claims, adaptation-efficiency metric, lightweight/low-overhead claims, and simulation-to-Kubernetes transfer/generalization conclusions remain non-authoritative and prohibited.
+
+### Historical elements re-evaluated
+
+| Historical presentation/explanatory element | Current manuscript status | Decision |
+|---|---|---|
+| Layered architecture with visible feedback loop (historical Figs. 1--3) | Current F1 already provides a clearer AHBN-first six-stage architecture, explicit state reuse, requested/realized distinction and learning return; A1 owns exact lifecycle. | NO CHANGE |
+| Separate lifecycle workflow figure | F1 + A1 already split conceptual architecture from executable semantics more accurately than the historical immediate-reward workflow. | NO CHANGE |
+| Baseline/meta-controller/final-policy visual distinction | Current F1 already preserves immutable AHBN proposal, bounded Q refinement and eligible-target realization without historical parameter-retuning implications. | NO CHANGE |
+| Overall experimental-framework diagram (historical Fig. 4) | Historical diagram depends on simulation training -> learned Q-table -> Kubernetes transfer/generalization, which conflicts with the current non-transfer, complementary-evidence contract. Current Methods prose and T3 are sufficient. | REJECT |
+| Learning curves/action distributions (historical Figs. 5--7) | Historical artifacts support convergence/stable-policy/six-action narratives. Current T1 intentionally exposes only authorized active-learning evidence. | REJECT |
+| Methodology mapping tables (historical Tables 1--5) | Their objective/scenario/metric mappings are tied to superseded experiments, convergence, recovery/adaptation-efficiency metrics and learned-policy deployment. Current Section 4 already gives the valid frozen protocols directly. | REJECT |
+| Exact-value result tables paired with figures | This lesson is already implemented through T2, T4, T5 and T3. | NO CHANGE |
+| Small-multiple stress/result presentation | Already implemented in F2/F3/F4/F5. | NO CHANGE |
+| Explicit practical-limitations subsection | Current Sections 6--7 already provide stronger evidence-bounded limitations, including n=5, communication-overhead cost, non-convergence, bounded Exp13 and non-replicative Kubernetes evidence. | NO CHANGE |
+| Historical future-work paragraph on deep RL/larger deployments/multi-agent learning | Not supported by the frozen current evidence contract and not necessary for the current publication-artifact engineering programme. | DO NOT IMPORT |
+
+### Final determination
+The mature current manuscript has already absorbed every reusable historical presentation lesson identified at S16-0A: layered mechanism visualization, closed-loop clarity, conceptual-vs-executable separation, small multiples, exact-value companions, bounded captions and explicit environment separation. The remaining historical material would either duplicate current content, expand the manuscript without clear reviewer value, or reintroduce superseded science/claims.
+
+Therefore **no manuscript-source edit is warranted under S16-20**.
+
+Pinned science baseline remains `6ccc94e5df770d588a5ccfa592f603a9a8ab2c68`. Current manuscript evidence/claim boundaries remain unchanged.
+
+**S16-20 = PASS / CLOSED.**
+
+**Next controlled gate: S16-21 — Publication Artifact Engineering Closure.**
