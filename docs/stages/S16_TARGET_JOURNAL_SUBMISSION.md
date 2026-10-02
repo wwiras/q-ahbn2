@@ -2860,3 +2860,124 @@ T1 is now rationalized as a reviewer-facing mechanism-evidence table with explic
 ## Next controlled gate
 
 **S16-12 — Primary Statistical Table Rationalization.**
+
+
+---
+
+# S16-12 — Primary Statistical Table Rationalization
+
+**Status:** PASS / CLOSED — 2026-10-02
+
+## Objective
+
+Rationalize **T2 — Primary Paired Statistical Results Table** so it serves as the single exact numerical companion to F2/F3 without retaining two near-duplicate eight-condition tables.
+
+## Authority reconciliation
+
+Before editing, the current authoritative state was re-read from:
+- `docs/00_QAHBN2_MASTER.md`;
+- `docs/00_SOURCE_AUTHORITY_REGISTER.md`;
+- `docs/stages/S11_AGGREGATION.md`;
+- `docs/stages/S12_INTERPRETATION.md`;
+- `docs/stages/S12A_CLAIM_RECONCILIATION.md`;
+- `docs/04_STATISTICAL_CONTRACT.md`;
+- `docs/07_CLAIM_EVIDENCE_MATRIX.md`;
+- S16-5 through S16-8;
+- manuscript `docs/MANUSCRIPT_MASTER.md`;
+- manuscript `docs/PROVENANCE.md`;
+- active `versions/v0.0/main.tex`;
+- registered S11-A Drive summary `s11a_primary_ro4_summary.csv`, file ID `1D6Z1DZa5CLnXBX6Z0Adljb260Er7S1_M`.
+
+Pinned science baseline remains:
+`6ccc94e5df770d588a5ccfa592f603a9a8ab2c68`.
+
+## Audit finding
+
+Two tables were redundant:
+- `tab:primary-paired-results`;
+- `tab:primary-tradeoff-synthesis`.
+
+Both contained the same eight conditions and the same four paired effects, differing mainly in delivery scaling/rounding and caption wording.
+
+Keeping both created:
+- numerical duplication;
+- excess manuscript length;
+- risk of inconsistent rounding;
+- unnecessary reviewer navigation burden.
+
+## Rationalization decision
+
+The two tables are consolidated into one authoritative T2 under the preserved label:
+`tab:primary-paired-results`.
+
+The old `tab:primary-tradeoff-synthesis` table is removed.
+
+T2 now retains:
+1. condition;
+2. delivery paired mean difference in percentage points;
+3. registered delivery paired 95% Student-t CI;
+4. propagation-delay paired mean difference;
+5. registered delay paired 95% Student-t CI;
+6. duplicate paired mean difference;
+7. total-forward paired mean difference.
+
+This preserves the full trade-off while assigning inference only to the two metrics for which F2/F3 already use the registered paired intervals.
+
+## Statistical boundary
+
+T2 uses the frozen S11-A same-seed paired design:
+- five matched seeds per condition;
+- `Delta = Q-AHBN - AHBN`;
+- delivery reported in percentage points;
+- two-sided paired 95% Student-t CIs for delivery and delay;
+- `df=4`.
+
+Duplicate and total-forward columns remain paired mean differences only in T2.
+
+No duplicate/forward CIs, p-values, significance stars, pooled estimate or new inferential family were added during rationalization.
+
+## Numerical authority
+
+All T2 values were reconciled against:
+`s11a_primary_ro4_summary.csv`.
+
+The eight frozen rows remain:
+- Exp10 control;
+- Exp10 failure;
+- Exp11 churn 0.00;
+- Exp11 churn 0.20;
+- Exp11 churn 0.40;
+- Exp12 balanced;
+- Exp12 moderate;
+- Exp12 weak-heavy.
+
+## Manuscript integration
+
+Updated:
+`wwiras/QAHBN2-Manuscript/versions/v0.0/main.tex`.
+
+The cross-condition synthesis now references only:
+`Table~\\ref{tab:primary-paired-results}`.
+
+The prose was updated to describe T2 as the consolidated numerical record containing:
+- condition-specific paired estimates;
+- registered delivery/delay confidence intervals;
+- descriptive communication-overhead differences.
+
+## Artifact hierarchy after rationalization
+
+- F2: all-eight-condition visual trade-off overview.
+- F3: within-family delivery/delay effect variation.
+- T2: exact consolidated numerical authority for the primary paired evidence.
+
+This removes duplication while preserving complementarity.
+
+## Gate decision
+
+**S16-12 = PASS / CLOSED.**
+
+T2 is now a single consolidated primary statistical table; the redundant synthesis table has been removed without loss of frozen evidence.
+
+## Next controlled gate
+
+**S16-13 — Kubernetes Evidence and Accounting Table Rationalization.**
