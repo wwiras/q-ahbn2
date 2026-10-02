@@ -5,6 +5,74 @@
 **Entry condition:** S15 PASS / CLOSED  
 **Scientific baseline:** `6ccc94e5df770d588a5ccfa592f603a9a8ab2c68`
 
+
+## Authorized sources and reconciliation contract
+
+S16 inherits the project-wide authority model from `docs/00_QAHBN2_MASTER.md` and `docs/00_SOURCE_AUTHORITY_REGISTER.md`. Every S16 gate must reconcile the latest authoritative state before artifact construction or manuscript modification.
+
+### Scientific/code/control authority
+
+- Repository: `wwiras/q-ahbn2`
+- Pinned manuscript science baseline: `6ccc94e5df770d588a5ccfa592f603a9a8ab2c68`
+- Designated local synchronized scientific workspace:  
+  `/Users/wwiras/Library/CloudStorage/GoogleDrive-samsuddin.samsuddin@monash.edu/My Drive/PhDResearch/myResearch/NewAlgorithm-AHBN/AHBNcode/q-ahbn2`
+- Authoritative preserved scientific/evidence Drive root: folder ID `1a6_WrsZL2iXbFVeMemdujYxvzEqcBFC5`
+
+Operational model:
+
+```text
+GitHub science/control
+        ↓
+local execution / working area
+        ↓
+validity + completeness checks
+        ↓
+deliberate evidence promotion / preservation
+        ↓
+verified Drive evidence
+```
+
+Automatic Drive synchronization alone is not evidence promotion.
+
+### Manuscript/publication-source authority
+
+- Repository: `wwiras/QAHBN2-Manuscript`
+- Active manuscript source: `versions/v0.0/main.tex`
+- Manuscript-side Drive folder ID: `1oQxyLENPvG-r10zuq62Au7AFyeeSpDxj`
+- Designated local synchronized manuscript workspace:  
+  `/Users/wwiras/Library/CloudStorage/GoogleDrive-samsuddin.samsuddin@monash.edu/My Drive/PhDResearch/myPaper/ClusterComputing/QAHBN2-Manuscript`
+
+Operational model:
+
+```text
+QAHBN2-Manuscript GitHub
+        ↕
+local manuscript workspace
+        ↕
+manuscript Drive synchronization
+```
+
+The manuscript repository is the publication-source authority. Drive synchronization does not override Git-tracked manuscript provenance.
+
+### Historical source authority used during S16
+
+- `Q_AHBN_FirstDraft.pdf` — Drive file ID `1NahEY5sZPdwhpg2uduBxIxqyS3ikMGqj` — **Authority Level 6 historical source only**.
+- Permitted during S16 for historical design lineage and prior figure/table/algorithm/presentation ideas.
+- It is not current scientific authority for state/action/reward semantics, hyperparameters, convergence/optimality, quantitative results, or claim wording.
+- Any conflict is resolved in favour of the current frozen Q-AHBN2 contracts, promoted evidence, S12/S12A, and the pinned science baseline.
+
+### Mandatory gate reconciliation
+
+Before each S16 gate:
+1. fetch and reconcile latest `main` for `wwiras/q-ahbn2`;
+2. reconcile `docs/00_QAHBN2_MASTER.md` and `docs/00_SOURCE_AUTHORITY_REGISTER.md`;
+3. reconcile the applicable S16 stage record and frozen S12/S12A/S15 constraints;
+4. reconcile the latest `wwiras/QAHBN2-Manuscript` publication source and manuscript provenance before any manuscript artifact edit;
+5. use Drive only for preserved evidence/source material according to its registered role;
+6. after every GitHub write, re-fetch the affected file(s) and verify readback before declaring the transition authoritative.
+
+Conversation memory is not authority.
+
 ## Programme-control amendment
 
 The earlier target-journal-selection branch is **SUPERSEDED by researcher decision on 2026-10-01**. Venue selection will be made manually by the researcher and is removed from the S16 critical path.
