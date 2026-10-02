@@ -1366,3 +1366,298 @@ The audited mechanism figure and formal algorithm are now integrated into the ac
 ## Next controlled gate
 
 **S16-5 — Primary Paired Trade-off Figure Specification.**
+
+
+---
+
+# S16-5 — Primary Paired Trade-off Figure Specification
+
+**Status:** PASS / CLOSED — 2026-10-02
+
+## Objective
+
+Freeze the scientific, numerical and visual specification for **F2 — Primary Eight-Condition Paired Trade-off Figure** from the already-frozen S11-A primary RO4 aggregation. This gate specifies F2 only. It does not construct the figure and does not edit `versions/v0.0/main.tex`.
+
+## Authority reconciliation
+
+S16-5 was reconciled against:
+- `docs/00_QAHBN2_MASTER.md`;
+- `docs/00_SOURCE_AUTHORITY_REGISTER.md`;
+- S12/S12A interpretation and claim boundaries;
+- `docs/07_CLAIM_EVIDENCE_MATRIX.md`;
+- `docs/06_RESULTS_REGISTER.md`;
+- current S16 control state through S16-4;
+- manuscript `docs/MANUSCRIPT_MASTER.md`, `docs/PROVENANCE.md`, and active `versions/v0.0/main.tex`;
+- registered S11-A Drive evidence folder `1XMWn5FWKwJV78YeTGakJb1bVJ6XKfrLH`.
+
+The authoritative numerical source for F2 is:
+`s11a_primary_ro4_summary.csv`
+Drive file ID: `1D6Z1DZa5CLnXBX6Z0Adljb260Er7S1_M`.
+
+Supporting aggregation/provenance:
+- `s11a_primary_ro4_aggregation.json` — Drive ID `1pnw4Bj4USG2ZhqTyUgqW78Y9OggOg0WB`;
+- `manifest.json` — Drive ID `1GNXUE5erbj0-diF4DL60nlIJu48awiB7`;
+- S11-A comprises 80 formal runs and 40 same-seed AHBN--Q-AHBN pairs.
+
+No new calculation, experiment, statistical family or evidence source is authorized by S16-5.
+
+## F2 scientific question
+
+F2 must answer:
+
+> **Across each of the eight predeclared primary ControlSim conditions, how does Q-AHBN shift the frozen AHBN operating point in delivery, propagation delay, duplicate traffic and forwarding effort, while preserving the paired design and the communication-overhead trade-off?**
+
+F2 is the main visual representation of claim family C03--C06. It is not an omnibus performance score and must not answer “which method wins?”
+
+## Unit of comparison
+
+Every plotted quantity is a condition-specific same-seed paired difference:
+
+[
+Delta_i = Q	ext{-}AHBN_i-AHBN_i.
+]
+
+F2 plots the **mean paired difference across the five frozen seeds** for each condition.
+
+No cross-condition pooling is permitted.
+
+## Frozen condition order
+
+The x-axis order is fixed by experiment family and protocol:
+
+1. Exp10 control;
+2. Exp10 failure;
+3. Exp11 churn 0.00;
+4. Exp11 churn 0.20;
+5. Exp11 churn 0.40;
+6. Exp12 balanced;
+7. Exp12 moderate heterogeneity;
+8. Exp12 weak-heavy.
+
+The Exp10 control and Exp11 churn 0.00 rows have identical frozen numerical values because they instantiate the same undisturbed baseline configuration in their respective experiment families. **Both must remain visible** because F2 represents the eight predeclared experimental conditions rather than deduplicating them post hoc.
+
+Visual grouping should make the three families apparent:
+- Failure: 2 conditions;
+- Churn: 3 conditions;
+- Heterogeneity: 3 conditions.
+
+No visual joining line may imply that all eight conditions form one continuous ordered dose axis.
+
+## Frozen F2 architecture
+
+F2 is a **2 x 2 aligned small-multiple figure** sharing the same eight condition positions:
+
+### Panel (a) — Delivery
+
+Quantity:
+[
+100	imesDelta	ext{delivery ratio}
+]
+reported as **percentage-point difference**.
+
+Encoding:
+- point estimate = paired mean difference converted to percentage points;
+- horizontal/vertical error bar = paired 95% Student-t CI, also converted to percentage points;
+- zero reference line mandatory.
+
+Interpretation:
+- positive = higher Q-AHBN delivery;
+- negative = lower Q-AHBN delivery.
+
+### Panel (b) — Propagation delay
+
+Quantity:
+[
+Delta	ext{propagation delay}.
+]
+
+Encoding:
+- point estimate = paired mean difference;
+- error bar = paired 95% Student-t CI;
+- zero reference line mandatory.
+
+Interpretation:
+- negative = lower Q-AHBN delay;
+- positive = higher Q-AHBN delay.
+
+Do not invert the sign merely to make “improvement” positive; the plotted quantity must remain the registered Q-AHBN-minus-AHBN difference.
+
+### Panel (c) — Duplicate transmissions
+
+Quantity:
+[
+Delta	ext{duplicates}.
+]
+
+Encoding:
+- paired mean difference only;
+- zero reference line mandatory;
+- **no inferential error bar in F2**.
+
+Interpretation:
+- positive = more duplicate transmissions under Q-AHBN;
+- negative = fewer duplicates.
+
+The registered S11-A file contains paired uncertainty fields for duplicates, but F2 deliberately uses overhead as the descriptive communication-cost dimension. This avoids visually elevating overhead uncertainty into a new headline inferential family beyond the frozen S12/S12A framing. Exact uncertainty remains available in the registered aggregation and may remain in T2 if retained by S16-12.
+
+### Panel (d) — Total forwards
+
+Quantity:
+[
+Delta	ext{total forwards}.
+]
+
+Encoding:
+- paired mean difference only;
+- zero reference line mandatory;
+- **no inferential error bar in F2**.
+
+Interpretation:
+- positive = more forwarding effort under Q-AHBN;
+- negative = less forwarding effort.
+
+As with duplicates, F2 uses the overhead metric descriptively; it does not create a new statistical claim family.
+
+## Frozen numerical plotting table
+
+All values below are copied from the registered S11-A summary; no recomputation is required at construction time except delivery-ratio-to-percentage-point scaling.
+
+| Condition | Delivery Δ (pp) | Delivery paired 95% CI (pp) | Delay Δ | Delay paired 95% CI | Duplicate Δ | Forward Δ |
+|---|---:|---:|---:|---:|---:|---:|
+| Exp10 control | +13.3472 | [+6.3137, +20.3807] | -5.977232 | [-7.978592, -3.975872] | +29,983.2 | +43,330.4 |
+| Exp10 failure | +12.9066 | [+7.2732, +18.5400] | -5.832377 | [-7.476635, -4.188118] | +28,798.0 | +41,704.6 |
+| Exp11 churn 0.00 | +13.3472 | [+6.3137, +20.3807] | -5.977232 | [-7.978592, -3.975872] | +29,983.2 | +43,330.4 |
+| Exp11 churn 0.20 | +6.2944 | [+4.8314, +7.7574] | -3.765746 | [-4.779881, -2.751610] | +16,345.0 | +22,639.4 |
+| Exp11 churn 0.40 | +2.3040 | [+0.4980, +4.1100] | -1.198793 | [-2.018132, -0.379453] | +2,944.8 | +5,248.8 |
+| Exp12 balanced | +9.3462 | [+3.8045, +14.8879] | -6.875323 | [-8.041421, -5.709225] | +23,313.0 | +32,659.2 |
+| Exp12 moderate | +5.7428 | [+1.4762, +10.0094] | -6.541088 | [-8.072779, -5.009396] | +16,042.4 | +21,785.2 |
+| Exp12 weak-heavy | +5.8072 | [+2.0600, +9.5544] | -7.813670 | [-11.239517, -4.387823] | +18,496.4 | +24,303.6 |
+
+Construction must use the full registered precision from `s11a_primary_ro4_summary.csv`; the table above is the human-readable specification.
+
+## Visual grammar
+
+F2 must be readable without relying on color.
+
+Required:
+- four aligned panels;
+- same condition order in all panels;
+- clear panel labels (a)--(d);
+- explicit zero reference line in every panel;
+- family grouping by spacing, separators, brackets or facet-strip-like labels;
+- points/markers for paired mean differences;
+- error bars only in delivery and delay panels;
+- compact condition labels suitable for publication width;
+- axis labels containing units/meaning;
+- caption explicitly defining `Delta = Q-AHBN - AHBN`.
+
+Preferred publication labels:
+- Exp10: Control, Failure;
+- Exp11: Churn 0.00, Churn 0.20, Churn 0.40;
+- Exp12: Balanced, Moderate, Weak-heavy.
+
+The experiment-family identity must remain visible even if labels are shortened.
+
+## Why paired differences rather than raw method means
+
+F2 is designed around the predeclared paired experiment. Plotting the paired effect:
+- directly represents the scientific AHBN--Q-AHBN comparison;
+- preserves seed as the blocking factor;
+- exposes the zero-effect reference naturally;
+- makes favorable direction explicit per metric;
+- avoids visually overstating differences through separate raw-mean scales;
+- complements rather than duplicates exact method means and tables.
+
+F2 must not use message-level observations or within-run trace points as independent samples.
+
+## Uncertainty authority
+
+For delivery and delay:
+- use only the registered paired two-sided 95% Student-t confidence intervals with `df=4`;
+- do not substitute method-wise CIs, standard deviations, standard errors, bootstrap intervals, Bayesian intervals or newly computed uncertainty;
+- do not pool seeds across conditions.
+
+For duplicates and forwards:
+- F2 shows paired mean differences descriptively;
+- no F2 error bars;
+- do not attach significance markers, stars, p-values or categorical “significant/not significant” labels.
+
+This specification does not deny the registered overhead CIs; it controls their visual role in F2.
+
+## Scientific reading rules
+
+The figure supports the following bounded reading:
+
+1. delivery differences are positive in all eight plotted conditions;
+2. delay differences are negative in all eight;
+3. registered paired 95% CIs for delivery and delay exclude zero in all eight;
+4. duplicate and forward mean differences are positive in all eight;
+5. therefore the tested conditions show a repeated shift toward higher delivery/lower delay accompanied by higher mean communication activity;
+6. the magnitude is condition-dependent;
+7. the churn delivery effect contracts descriptively from churn 0.00 to 0.40.
+
+The figure does **not** establish:
+- one pooled primary effect;
+- universal superiority;
+- improvement in all metrics;
+- a composite winner;
+- formal monotonic dose-response;
+- extrapolation outside the frozen conditions;
+- lower communication overhead;
+- statistical certainty for overhead merely because its plotted mean is positive;
+- convergence or policy optimality.
+
+## F2 versus F3 separation
+
+F2 is the **complete primary trade-off overview** across all eight rows and four primary metrics.
+
+F3, specified later, must not duplicate F2. Its role is to expose **within-family dynamic-stress response and effect variation**, especially:
+- control versus one-peer failure;
+- descriptive churn attenuation;
+- heterogeneity-profile response.
+
+F3 may reorganize frozen primary evidence to answer the stress-response question but may not introduce fitted trends, pooled effects or extrapolation.
+
+## Relationship to current manuscript tables
+
+F2 complements the exact-value authority currently represented by:
+- `tab:primary-paired-results`;
+- `tab:primary-tradeoff-synthesis`.
+
+S16-5 does **not** remove or edit either table. S16-12 will decide redundancy after F2 exists and is verified.
+
+The intended hierarchy is:
+- F2 = visual trade-off pattern and condition-wise effect direction;
+- T2 = exact paired numerical/statistical authority;
+- any redundant synthesis table = candidate for removal only at S16-12.
+
+## Frozen working caption
+
+> **Primary paired ControlSim trade-off across the eight predeclared conditions.** Points show condition-specific mean paired differences, `Delta = Q-AHBN - AHBN`, across the five matched seeds. Delivery is expressed as percentage-point difference; delivery and propagation-delay error bars are the registered paired 95% Student-t confidence intervals (`df=4`). Duplicate and total-forward panels show paired mean differences descriptively to expose communication-cost direction. Positive delivery and negative delay indicate the Q-AHBN shift toward higher delivery and lower delay, whereas positive duplicate and forward differences indicate greater communication activity. Conditions remain separated by failure, churn and heterogeneity families and are not pooled into an overall effect.
+
+Caption wording may be tightened at S16-6/S16-15 without changing these semantics.
+
+## Construction contract for S16-6
+
+S16-6 must:
+1. construct F2 from the registered S11-A summary;
+2. independently verify every plotted value against `s11a_primary_ro4_summary.csv`;
+3. verify delivery percentage-point conversion;
+4. verify delivery/delay CI endpoints;
+5. verify condition order/family grouping;
+6. verify zero lines and favorable-direction explanations;
+7. verify grayscale readability and manuscript-width legibility;
+8. record the generated-artifact provenance;
+9. avoid editing scientific interpretation beyond directly necessary figure references/caption preparation unless explicitly released by the gate.
+
+## Gate decision
+
+**S16-5 = PASS / CLOSED.**
+
+F2's scientific question, evidence source, condition order, four-panel architecture, uncertainty use, visual grammar, caption scope, permitted interpretation and prohibited interpretation are frozen.
+
+No figure was constructed and `versions/v0.0/main.tex` was not modified under S16-5.
+
+## Next controlled gate
+
+**S16-6 — Primary Trade-off Figure Construction + Verification.**
