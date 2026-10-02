@@ -1661,3 +1661,122 @@ No figure was constructed and `versions/v0.0/main.tex` was not modified under S1
 ## Next controlled gate
 
 **S16-6 — Primary Trade-off Figure Construction + Verification.**
+
+
+---
+
+# S16-6 — Primary Trade-off Figure Construction + Verification
+
+**Status:** PASS / CLOSED — 2026-10-02
+
+## Objective
+
+Construct and verify **F2 — Primary Eight-Condition Paired Trade-off Figure** exactly from the frozen S16-5 specification and registered S11-A aggregation, without introducing new evidence, new statistics, pooling, or broader manuscript interpretation.
+
+## Construction authority
+
+Primary numerical source:
+- `s11a_primary_ro4_summary.csv`
+- Drive file ID: `1D6Z1DZa5CLnXBX6Z0Adljb260Er7S1_M`
+- registered SHA-256: `9b2d21a103c9cd115acc56a003eb8bab60a49db92bc82af3a8da004d03b33833`
+
+Supporting provenance:
+- S11-A aggregation commit: `59ef254099fb3edb617f323dd864324c320d9a85`
+- canonical AHBN commit: `936a79480bc1252c79b6ee01f65c88c740af2844`
+- 80 formal runs
+- 40 same-seed paired comparisons
+- frozen seeds 42--46
+- Student-t multiplier for paired 95% CI, df=4: `2.7764451051977987`
+
+## Constructed artifact
+
+Working publication outputs:
+- `F2_primary_paired_tradeoff.png`
+- `F2_primary_paired_tradeoff.pdf`
+- `F2_primary_paired_tradeoff_verification.csv`
+
+Working artifact SHA-256 values:
+- PNG: `cd8dff98854cc6b3c574c29eb3e16458fdaca1014b0f09915ec6c049968686b3`
+- PDF: `8e2113a4c2df3f7234f8d1c05e1cfa9d56ab8da06ad5361c23db43d164b2db3a`
+- verification CSV: `add7e31ffa71decfb5fba01bab1350769570481b364c5e55d9710b0f26946c4f`
+
+These are publication working artifacts, not new scientific evidence.
+
+## Visual construction
+
+F2 was constructed as the frozen 2 x 2 aligned small-multiple architecture:
+
+1. **(a) Delivery** — paired mean difference in percentage points with registered paired 95% Student-t CI;
+2. **(b) Propagation delay** — paired mean difference with registered paired 95% Student-t CI;
+3. **(c) Duplicates** — paired mean difference only;
+4. **(d) Total forwards** — paired mean difference only.
+
+All panels:
+- use `Delta = Q-AHBN - AHBN`;
+- preserve the same eight-condition order;
+- contain a zero reference line;
+- use family separators between Exp10 / Exp11 / Exp12;
+- avoid connecting all conditions as one continuous dose axis;
+- remain readable without dependence on color.
+
+## Verified plotted values
+
+| Condition | Delivery Δ (pp) | Delivery 95% CI (pp) | Delay Δ | Delay 95% CI | Duplicate Δ | Forward Δ |
+|---|---:|---:|---:|---:|---:|---:|
+| Exp10 control | 13.3472 | [6.313727, 20.380673] | -5.977232 | [-7.978592, -3.975872] | 29,983.2 | 43,330.4 |
+| Exp10 failure | 12.9066 | [7.273178, 18.540022] | -5.832377 | [-7.476635, -4.188118] | 28,798.0 | 41,704.6 |
+| Exp11 churn 0.00 | 13.3472 | [6.313727, 20.380673] | -5.977232 | [-7.978592, -3.975872] | 29,983.2 | 43,330.4 |
+| Exp11 churn 0.20 | 6.2944 | [4.831447, 7.757353] | -3.765746 | [-4.779881, -2.751610] | 16,345.0 | 22,639.4 |
+| Exp11 churn 0.40 | 2.3040 | [0.497956, 4.110044] | -1.198793 | [-2.018132, -0.379453] | 2,944.8 | 5,248.8 |
+| Exp12 balanced | 9.3462 | [3.804499, 14.887901] | -6.875323 | [-8.041421, -5.709225] | 23,313.0 | 32,659.2 |
+| Exp12 moderate | 5.7428 | [1.476160, 10.009440] | -6.541088 | [-8.072779, -5.009396] | 16,042.4 | 21,785.2 |
+| Exp12 weak-heavy | 5.8072 | [2.059961, 9.554439] | -7.813670 | [-11.239517, -4.387823] | 18,496.4 | 24,303.6 |
+
+The verification export preserves these values directly from the registered summary after only the authorized delivery-ratio-to-percentage-point conversion.
+
+## Verification results
+
+- authoritative S11-A source reconciliation — **PASS**;
+- registered source hash/provenance reconciliation — **PASS**;
+- eight-condition order — **PASS**;
+- Exp10 control retained — **PASS**;
+- Exp11 churn 0.00 retained separately — **PASS**;
+- delivery percentage-point conversion — **PASS**;
+- delivery paired CI endpoints — **PASS**;
+- delay paired CI endpoints — **PASS**;
+- duplicate paired means — **PASS**;
+- total-forward paired means — **PASS**;
+- no overhead inferential error bars — **PASS**;
+- zero-effect reference in all panels — **PASS**;
+- family separators — **PASS**;
+- no cross-condition pooling — **PASS**;
+- no composite score/ranking — **PASS**;
+- no new statistical family — **PASS**;
+- grayscale-independent visual encoding — **PASS**;
+- working PNG/PDF/CSV hashes recorded — **PASS**.
+
+## Scientific reading audit
+
+The constructed F2 supports only the frozen bounded reading:
+- delivery paired means are positive in all eight tested conditions;
+- delay paired means are negative in all eight;
+- delivery/delay paired 95% CIs exclude zero in all eight;
+- duplicate and forward paired means are positive in all eight;
+- the resulting pattern is a delivery--latency shift with higher mean communication activity;
+- effect magnitude remains condition-dependent.
+
+F2 does not support or imply universal superiority, improvement in all metrics, pooled overall effect, formal dose-response, lower communication overhead, convergence, policy optimality, or extrapolation outside tested conditions.
+
+## Manuscript integration status
+
+S16-6 is construction + verification only. The current active manuscript source is not broadly rewritten at this gate. Final package integration and table rationalization remain controlled by later S16 gates.
+
+## Gate decision
+
+**S16-6 = PASS / CLOSED.**
+
+F2 is constructed and numerically verified against the registered S11-A source. The working figure is publication-ready for later controlled integration, subject to the later whole-package visual/LaTeX production audit.
+
+## Next controlled gate
+
+**S16-7 — Dynamic-Stress Response Figure Specification.**
