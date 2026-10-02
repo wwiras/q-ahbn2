@@ -3889,3 +3889,67 @@ Pinned science baseline remains `6ccc94e5df770d588a5ccfa592f603a9a8ab2c68`. Curr
 **S16-20 = PASS / CLOSED.**
 
 **Next controlled gate: S16-21 — Publication Artifact Engineering Closure.**
+
+
+## S16-21 — Publication Artifact Engineering Closure — 2026-10-02
+
+**Status: PASS / CLOSED / FROZEN**
+
+### Closure scope
+Administrative and scientific-integrity reconciliation only. No new experiment, statistic, parameter, evidence family, figure/table/algorithm content, or scientific interpretation was authorized.
+
+### Final architecture verification
+The active manuscript `versions/v0.0/main.tex` contains exactly the approved publication-artifact architecture:
+- **5 figures**: `fig:qahbn-cycle`, `fig:gamma-sensitivity`, `fig:dynamic-stress-response`, `fig:primary-paired-tradeoff`, `fig:exp13-bounded-positioning`;
+- **1 algorithm**: `alg:qahbn`;
+- **5 tables**: `tab:gamma-sensitivity`, `tab:learning-mechanism`, `tab:primary-paired-results`, `tab:exp13-results`, `tab:kubernetes-results`.
+
+T4 (gamma-sensitivity exact-value companion) is retained by the already-closed S16-14B decision.
+
+### Gate-state reconciliation
+The S16 programme is complete:
+- S16-0 and S16-0A: PASS / CLOSED;
+- S16-1 through S16-14: PASS / CLOSED;
+- S16-13A, S16-14A and S16-14B: PASS / CLOSED;
+- S16-15: PASS / CLOSED;
+- S16-16: PASS / CLOSED;
+- S16-17: PASS / CLOSED;
+- S16-18: PASS / CLOSED;
+- S16-19: PASS / CLOSED;
+- S16-20: PASS / CLOSED.
+
+Intermediate production amendments/subchecks (including S16-6A, S16-7A, visual amendments and accounting audit) remain preserved in the stage record and do not reopen any closed scientific gate.
+
+### Provenance and authority verification
+- pinned manuscript science baseline remains `6ccc94e5df770d588a5ccfa592f603a9a8ab2c68`;
+- scientific/code/control authority remains `wwiras/q-ahbn2`;
+- publication-source authority remains `wwiras/QAHBN2-Manuscript`;
+- active manuscript source remains `versions/v0.0/main.tex`;
+- current active manuscript blob at closure: `ec0bf2503251d39950f3a76202c57378b82d28ef`;
+- manuscript-side provenance contains entries for all 11 retained publication artifacts;
+- registered Drive evidence/source identities remain evidence authorities only under the source-authority contract;
+- repository-local `output/` and Drive synchronization remain working-storage mechanisms and do not by themselves promote scientific evidence.
+
+### Scientific-integrity verification
+No S16 action altered:
+- canonical AHBN equations or S5 controller semantics;
+- Q-AHBN state/action/reward/transition contract;
+- frozen learning parameters;
+- experiment designs, seeds, comparators or run counts;
+- S11-A/S11-B/Kubernetes quantitative evidence;
+- S12/S12A claim authorization boundaries.
+
+The final artifact package preserves the prohibited-claim boundaries:
+- no Q-table convergence or policy-optimality claim;
+- no global hyperparameter-optimality claim;
+- no universal superiority or omnibus ranking;
+- no generic lightweight/low-overhead performance claim;
+- no ControlSim/Kubernetes pooling or equivalence;
+- no Kubernetes confirmation of ControlSim performance gains.
+
+### Closure decision
+The approved publication artifact engineering programme is complete, internally reconciled, provenance-complete and production-audited. No further artifact engineering is required under the frozen S16 contract.
+
+**S16 = PASS / CLOSED / FROZEN.**
+
+Venue selection remains researcher-controlled and outside S16. Any venue-specific template conversion, word/page-limit adaptation, cover letter, submission metadata or journal packaging must occur in a later separately controlled submission-production programme after venue selection.
