@@ -3776,3 +3776,52 @@ Researcher-supplied compiled manuscript `main02Oct2026_1842.pdf` was visually/re
 **S16-17 — Figure/Table/Algorithm Visual + LaTeX Production Audit = PASS / CLOSED (2026-10-02).**
 
 Next controlled gate: **S16-18 — Reviewer-Challenge Artifact Audit**.
+
+
+## S16-18 — Reviewer-Challenge Artifact Audit — 2026-10-02
+
+**Status: PASS / CLOSED**
+
+### Scope
+Adversarial reviewer-facing audit of the completed publication artifact package only. No new experiment, statistic, parameter, evidence family, or scientific interpretation was authorized.
+
+Audited package:
+F1 `fig:qahbn-cycle`; A1 `alg:qahbn`; T1 `tab:learning-mechanism`; F2 `fig:primary-paired-tradeoff`; F3 `fig:dynamic-stress-response`; T2 `tab:primary-paired-results`; F4 `fig:exp13-bounded-positioning`; T5 `tab:exp13-results`; F5 `fig:gamma-sensitivity`; T4 `tab:gamma-sensitivity`; T3 `tab:kubernetes-results`.
+
+### Reviewer-challenge matrix
+
+| Likely reviewer challenge | Artifact defence | Audit disposition |
+|---|---|---|
+| Is Q-AHBN replacing or silently retuning AHBN? | F1 + A1 explicitly place immutable canonical AHBN first, preserve its proposal, and permit one bounded post-AHBN refinement before canonical eligible-target realization. | COVERED |
+| Are state/action/reward/update semantics reproducible? | A1 plus Section 3 define 81-state discretization, five actions, attributable NEW/DUPLICATE/FAILED reward, F=0 rule, next-same-peer successor, terminal zero bootstrap, and frozen learning constants. | COVERED |
+| Is there evidence that learning actually executed rather than behaving as a static wrapper? | T1 records repeated reward-bearing updates, non-zero state-action coverage, bounded interventions, reward behaviour and traceability, with explicit non-convergence boundaries. | COVERED |
+| Are the primary performance claims supported by paired evidence and uncertainty? | F2 + T2 expose all eight predeclared same-seed AHBN--Q-AHBN conditions; delivery/delay use registered paired 95% Student-t CIs; duplicates/forwards remain descriptive. | COVERED |
+| Are condition effects hidden by pooling? | F3 separates failure, churn and heterogeneity families; T2 retains exact condition-specific estimates; no pooled overall effect is introduced. | COVERED |
+| Is the communication-overhead cost obscured? | F2 panels (c,d) + T2 explicitly expose positive duplicate/forward differences; manuscript text frames the result as a delivery-latency/overhead trade-off. | COVERED |
+| Does the five-method comparison imply a universal winner? | F4 + T5 show fixed-order metric-specific operating points only at churn=0.40 and explicitly prohibit omnibus ranking/generalization. | COVERED |
+| Was gamma chosen post hoc from formal results or presented as globally optimal? | F5 + T4 expose the pre-formal 15-run, three-candidate Learning Validation trade-off and explicitly bound it to parameter-selection provenance, not global optimality/convergence. | COVERED |
+| Does Kubernetes independently confirm superiority or low overhead? | T3 plus its caption/text explicitly restrict Kubernetes to operational realization/observability, report CIs crossing zero, and explain the Q-AHBN `total_forwards` instrumentation mismatch using `F_attempt`. | COVERED |
+| Are exact values recoverable rather than only graphical? | T2, T4, T5 and T3 provide exact publication-facing numerical companions for the quantitative figures/evidence families. | COVERED |
+| Are artifact roles redundant or internally contradictory? | F1/A1/T1 = mechanism; F2/F3/T2 = primary evidence; F4/T5 = bounded comparator positioning; F5/T4 = gamma provenance; T3 = Kubernetes. S16-15/16/17 already verified integration, provenance and production. | COVERED |
+
+### Residual reviewer vulnerabilities
+
+The audit identifies limitations that are already disclosed and do not justify new artifacts:
+1. primary inferential cells contain only five paired seeds; uncertainty is therefore bounded to that design;
+2. gamma sensitivity covers only three predeclared gamma candidates and one stationary Learning Validation workload;
+3. T1 is intentionally mechanism-level and does not expose every raw learning diagnostic or per-action frequency;
+4. Exp13-Q covers only the single predeclared churn=0.40 reference condition;
+5. Kubernetes is not a numerical replication of ControlSim and its performance contrasts are inconclusive;
+6. the Kubernetes `total_forwards` field is instrumentation-noncomparable for Q-AHBN, but T3 now exposes rather than hides that limitation.
+
+These are scope/validity limitations, not missing-artifact defects. Adding new experiments, post-hoc analyses, or extra figures to answer them would violate or unnecessarily expand the frozen evidence contract.
+
+### Decision
+
+The completed artifact package is sufficient to defend the manuscript's authorized claims against the principal foreseeable reviewer challenges. No additional figure, table, algorithm, statistical test, or experiment is required by this gate. Existing artifact redundancy is purposeful figure-to-exact-table pairing rather than duplication without scientific role.
+
+**S16-18 = PASS / CLOSED.**
+
+No manuscript-source edit is required under S16-18.
+
+**Next controlled gate: S16-19 — Whole-Manuscript Artifact/Text Consistency Audit.**
