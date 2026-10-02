@@ -2608,3 +2608,135 @@ No F4 was constructed and `versions/v0.0/main.tex` was not modified under S16-9.
 ## Next controlled gate
 
 **S16-10 — Exp13 Figure Construction + Verification.**
+
+
+---
+
+# S16-10 — Exp13 Figure Construction + Verification
+
+**Status:** PASS / CLOSED — 2026-10-02
+
+## Objective
+
+Construct and integrate **F4 — Exp13 Bounded Five-Method Positioning Figure** directly in native TikZ/PGFPlots from the frozen S16-9 specification and registered S11-B Exp13-Q evidence.
+
+## Authority reconciliation
+
+Before construction, the current authoritative state was re-read from:
+- `docs/00_QAHBN2_MASTER.md`;
+- `docs/00_SOURCE_AUTHORITY_REGISTER.md`;
+- `docs/stages/S11_AGGREGATION.md`;
+- `docs/stages/S12A_CLAIM_RECONCILIATION.md`;
+- `docs/07_CLAIM_EVIDENCE_MATRIX.md`;
+- `docs/06_RESULTS_REGISTER.md`;
+- S16-9;
+- manuscript `docs/MANUSCRIPT_MASTER.md`;
+- manuscript `docs/PROVENANCE.md`;
+- active `versions/v0.0/main.tex`;
+- frozen S11-B summary `s11b_exp13q_summary.csv`, Drive file ID `1QGHZCa1tR3G4f0nUGlVcPjWNexGZhf76`.
+
+The pinned science baseline remains:
+`6ccc94e5df770d588a5ccfa592f603a9a8ab2c68`.
+
+## Construction
+
+F4 was integrated directly into:
+`wwiras/QAHBN2-Manuscript/versions/v0.0/main.tex`
+
+as a native TikZ/PGFPlots 2 x 2 point-and-interval figure.
+
+Figure label:
+`fig:exp13-bounded-positioning`.
+
+Panels:
+1. delivery ratio;
+2. propagation delay;
+3. duplicate transmissions;
+4. total forwards.
+
+Fixed method order in all panels:
+1. Gossip;
+2. Structured;
+3. DC-SoC;
+4. AHBN;
+5. Q-AHBN.
+
+## Numerical verification
+
+All 20 five-method means were transcribed from `s11b_exp13q_summary.csv`.
+
+The plotted error-bar half widths were calculated only from the frozen registered CI endpoints:
+`halfwidth = ci95_high - mean = mean - ci95_low`.
+
+### Delivery
+- Gossip 0.916300 +/- 0.002264122
+- Structured 0.920000 +/- 0
+- DC-SoC 0.920000 +/- 0
+- AHBN 0.798664 +/- 0.032115405
+- Q-AHBN 0.821704 +/- 0.035336179
+
+### Delay
+- Gossip 3.420313942 +/- 0.123992615
+- Structured 4.489333441 +/- 0.003245495
+- DC-SoC 1.505305601 +/- 0.565771579
+- AHBN 10.063964653 +/- 0.776018311
+- Q-AHBN 8.865171996 +/- 0.359748174
+
+### Duplicates
+- Gossip 327220.0 +/- 2613.990259
+- Structured 0 +/- 0
+- DC-SoC 0 +/- 0
+- AHBN 140033.8 +/- 8537.930459
+- Q-AHBN 142978.6 +/- 10780.616708
+
+### Total forwards
+- Gossip 417850.0 +/- 2792.709084
+- Structured 91000.0 +/- 0
+- DC-SoC 91000.0 +/- 0
+- AHBN 218900.2 +/- 11442.673780
+- Q-AHBN 224149.0 +/- 14206.163256
+
+No new statistical interval was computed. The PGFPlots half-width representation is a transcription of the already-registered two-sided S11-B confidence intervals.
+
+## Manuscript integration
+
+F4 was placed inside the Exp13 results subsection before the existing exact-value table.
+
+A dedicated explanatory paragraph now follows F4 and states:
+- Q-AHBN has higher mean delivery and lower mean delay than AHBN at this one benchmark;
+- AHBN/Q-AHBN occupy intermediate communication-cost regions;
+- Gossip occupies a higher duplicate/forward operating point;
+- Structured/DC-SoC share delivery, duplicate and forward means here but differ in delay;
+- the figure is descriptive external positioning only;
+- it does not define a best method, add arbitrary pairwise significance tests, or generalize beyond churn=0.40.
+
+The existing `tab:exp13-results` was preserved unchanged as the exact-value precursor to T5.
+
+## Verification
+
+- F4 native TikZ/PGFPlots source present — **PASS**;
+- 2 x 2 architecture present — **PASS**;
+- fixed five-method order preserved in all panels — **PASS**;
+- 20 means verified against frozen S11-B CSV — **PASS**;
+- 20 registered CI pairs represented through corresponding explicit half widths — **PASS**;
+- no method sorting — **PASS**;
+- no winner/ranking annotation — **PASS**;
+- no composite normalization or score — **PASS**;
+- natural metric scales retained — **PASS**;
+- duplicate/forward zero baselines visible — **PASS**;
+- dedicated explanatory paragraph present — **PASS**;
+- existing Exp13 exact-value table retained — **PASS**;
+- no pooling with S11-A or F2/F3 — **PASS**;
+- no new inference — **PASS**.
+
+Final rendered typography/spacing remains assigned to the later S16-17 visual/LaTeX production audit.
+
+## Gate decision
+
+**S16-10 = PASS / CLOSED.**
+
+F4 is now constructed, numerically verified, integrated and bounded to its registered one-condition external-positioning role.
+
+## Next controlled gate
+
+**S16-11 — Learning-Evidence Table Rationalization.**
