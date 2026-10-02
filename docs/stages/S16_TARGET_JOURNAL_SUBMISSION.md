@@ -2981,3 +2981,110 @@ T2 is now a single consolidated primary statistical table; the redundant synthes
 ## Next controlled gate
 
 **S16-13 — Kubernetes Evidence and Accounting Table Rationalization.**
+
+
+---
+
+# S16-13 — Kubernetes Evidence and Accounting Table Rationalization
+
+**Status:** PASS / CLOSED — 2026-10-02
+
+## Objective
+
+Rationalize **T3 — Kubernetes Evidence and Accounting Table** so the cloud-native evidence is presented as one coherent operational-realization artifact rather than two partially overlapping tables.
+
+## Authority reconciliation
+
+Before editing, the current authoritative state was re-read from:
+- `docs/00_QAHBN2_MASTER.md`;
+- `docs/00_SOURCE_AUTHORITY_REGISTER.md`;
+- `docs/stages/S12_INTERPRETATION.md`;
+- `docs/stages/S12A_CLAIM_RECONCILIATION.md`;
+- `docs/07_CLAIM_EVIDENCE_MATRIX.md`;
+- `docs/06_RESULTS_REGISTER.md`;
+- S16 control records through S16-12;
+- manuscript `docs/MANUSCRIPT_MASTER.md`;
+- manuscript `docs/PROVENANCE.md`;
+- active `versions/v0.0/main.tex`.
+
+Pinned science baseline remains:
+`6ccc94e5df770d588a5ccfa592f603a9a8ab2c68`.
+
+## Audit finding
+
+The manuscript previously carried two Kubernetes tables:
+- `tab:kubernetes-accounting` — AHBN/Q-AHBN `total_forwards` vs `F_attempt`;
+- `tab:kubernetes-results` — five-method Kubernetes means.
+
+These tables belong to the same evidentiary package but were separated in a way that:
+- duplicated the AHBN/Q-AHBN forwarding values;
+- forced the reader to reconcile runtime-accounting context across two tables;
+- made the very low Q-AHBN `total_forwards` value visually easier to detach from the higher attributable-attempt count.
+
+## Rationalization decision
+
+The two tables are consolidated into one authoritative T3 under the preserved label:
+`tab:kubernetes-results`.
+
+The old `tab:kubernetes-accounting` table is removed.
+
+T3 now contains:
+1. Method
+2. Delivery mean
+3. Delay mean (s)
+4. Duplicate mean
+5. `total_forwards` mean
+6. `F_attempt` mean where applicable
+
+`F_attempt` is populated only for:
+- AHBN: 1,448.0
+- Q-AHBN: 2,345.4
+
+External methods use “--” because the frozen accounting caveat is specifically an AHBN/Q-AHBN runtime-accounting comparison.
+
+## Evidence-role boundary
+
+T3 remains operational-realization evidence only.
+
+The surrounding manuscript prose retains the same-seed AHBN-vs-Q-AHBN paired differences and registered 95% CIs:
+- delivery +0.132700, CI [-0.254409,+0.519810];
+- delay +0.014968 s, CI [-0.029801,+0.059737];
+- duplicates +262.2, CI [-441.9,+966.3];
+- `total_forwards` -988.6, CI [-2022.75,+45.55].
+
+All four intervals cross zero and seed-level directions vary.
+
+Therefore T3 must not be interpreted as:
+- independent confirmation of ControlSim performance gains;
+- Kubernetes superiority evidence;
+- literal replication of ControlSim;
+- generic low-overhead evidence.
+
+## Accounting boundary
+
+The table caption explicitly preserves the distinction:
+- `total_forwards` = one runtime accounting view;
+- `F_attempt` = attributable forwarding-attempt accounting for the AHBN/Q-AHBN contrast.
+
+The very low Q-AHBN `total_forwards` mean of 10.0 is therefore shown adjacent to `F_attempt=2345.4`, preventing an isolated “fewer sends” interpretation.
+
+## Manuscript integration
+
+Updated:
+`wwiras/QAHBN2-Manuscript/versions/v0.0/main.tex`.
+
+The Kubernetes subsection now states that:
+`Table~\\ref{tab:kubernetes-results}`
+consolidates the five-method means and AHBN/Q-AHBN forwarding-accounting context.
+
+All references to `tab:kubernetes-accounting` were removed.
+
+## Gate decision
+
+**S16-13 = PASS / CLOSED.**
+
+T3 is now one consolidated Kubernetes operational-realization/accounting table with the accounting caveat structurally embedded.
+
+## Next controlled gate
+
+**S16-14 — Gamma Sensitivity Figure Specification.**
