@@ -424,3 +424,269 @@ Administrative consequences:
 7. The pinned science baseline remains `6ccc94e5df770d588a5ccfa592f603a9a8ab2c68`.
 
 **Next released gate remains S16-1 — Q-AHBN Architecture Figure Specification.**
+
+
+---
+
+# S16-1 — Q-AHBN Architecture Figure Specification
+
+**Status:** PASS / CLOSED — 2026-10-02
+
+## Objective
+
+Freeze the scientific content and visual specification for **F1 — Q-AHBN Architecture and Learning-Cycle Figure** only. This gate specifies the figure; it does not construct the final TikZ/LaTeX artifact and does not modify `versions/v0.0/main.tex`.
+
+## Reconciliation
+
+S16-1 was reconciled against:
+- `docs/00_QAHBN2_MASTER.md`;
+- `docs/00_SOURCE_AUTHORITY_REGISTER.md`;
+- `docs/02_QAHBN2_DESIGN_FREEZE.md`;
+- S12/S12A claim boundaries;
+- S16-0 and S16-0A;
+- manuscript `docs/MANUSCRIPT_MASTER.md`, `docs/PROVENANCE.md`, and current `versions/v0.0/main.tex`;
+- pinned science baseline `6ccc94e5df770d588a5ccfa592f603a9a8ab2c68`.
+
+No scientific conflict requiring reopening was found.
+
+## F1 reviewer question
+
+> **Where does Q-AHBN act relative to immutable canonical AHBN, what is requested versus realized, and how do directly attributable forwarding outcomes return learning evidence to the bounded refinement layer?**
+
+F1 is conceptual architecture/information-flow authority. A1 will remain the exact executable lifecycle authority.
+
+## Frozen F1 scientific flow
+
+The figure MUST communicate this ordering:
+
+```text
+[1] LOCAL CANONICAL OBSERVATIONS
+    normalized local d, l, u, c
+              ↓
+    canonical EWMA state
+    (d_hat, l_hat, u_hat, c_hat)
+              │
+              ├─────────────────────────────┐
+              ↓                             ↓
+[2] IMMUTABLE CANONICAL AHBN          [3a] Q STATE KEY
+    z = -d_hat+l_hat+u_hat+c_hat           discretize same EWMA state
+    w = sigmoid(z)                          L/M/H per dimension
+    canonical mode + S5 fanout              3^4 = 81 states
+              ↓                             │
+    p_AHBN=(mode_AHBN,k_AHBN)              │
+              └──────────────┬──────────────┘
+                             ↓
+[3] BOUNDED Q-AHBN REFINEMENT
+    epsilon-greedy selection from five actions:
+    KEEP | FANOUT_DOWN | FANOUT_UP |
+    SET_GOSSIP | SET_STRUCTURED
+    action is applied relative to preserved AHBN proposal
+                             ↓
+    requested p_Q=(mode_Q,k_Q)
+                             ↓
+[4] ELIGIBLE-TARGET REALIZATION + FORWARDING
+    mode-specific eligible set N_e
+    realized target count k_real=min(k_Q,|N_e|)
+    requested decision remains distinct from realized forwarding
+                             ↓
+[5] DIRECT ATTRIBUTABLE OUTCOMES
+    each initiated direct attempt terminates as exactly one:
+    NEW | DUPLICATE | FAILED
+    F=NEW+DUPLICATE+FAILED
+                             ↓
+[6] REWARD / LEARNING FEEDBACK
+    reward-bearing closure only when F>0
+    R=(NEW-DUPLICATE-FAILED)/F
+    F=0 => no numerical reward / no reward-bearing Q update
+    learning update uses the originating decision and
+    next-same-peer successor-state contract
+                             └──────────────↺ future Q-AHBN decisions
+```
+
+## Required semantic distinctions
+
+F1 MUST visually preserve these distinctions:
+
+1. **Continuous canonical AHBN state vs discrete Q state.** AHBN operates on continuous EWMA values; the L/M/H discretization is only the Q-table key.
+2. **AHBN proposal vs Q-AHBN refinement.** `(mode_AHBN,k_AHBN)` is complete and traceable before Q-AHBN acts.
+3. **Selected Q action vs refined requested proposal.** The action transforms the preserved AHBN proposal; it does not retune AHBN internals.
+4. **Requested fanout vs realized forwarding.** `k_Q` is a request; `k_real=min(k_Q,|N_e|)` is constrained by the eligible set.
+5. **Realized targets vs initiated attempts/outcomes.** Unrealized target slots do not create synthetic FAILED outcomes.
+6. **Outcome evidence vs environmental state.** NEW/DUPLICATE/FAILED and reward information feed learning; they are not additional environmental state dimensions.
+7. **Reward closure vs successor-state timing.** The figure must not imply that reward and `s_(t+1)` necessarily become available simultaneously.
+8. **Current decision vs future learning.** Reward ownership remains with the originating decision; transition order follows the same peer's next Q-AHBN decision opportunity.
+
+## Visual architecture
+
+F1 is frozen as **one landscape-oriented conceptual figure with six numbered visual layers**.
+
+### Layer 1 — Observe
+Short heading: **Canonical local observations**
+
+Show:
+- `d, l, u, c`;
+- canonical normalization/EWMA;
+- `(d_hat,l_hat,u_hat,c_hat)`.
+
+Do not show environment-specific raw sensor implementation details.
+
+### Layer 2 — AHBN Adapt
+Short heading: **Immutable canonical AHBN**
+
+Show:
+- `z=-d_hat+l_hat+u_hat+c_hat`;
+- mode rule at conceptual level;
+- S5 fanout proposal;
+- output `(mode_AHBN,k_AHBN)`.
+
+The word **IMMUTABLE** or an equivalent explicit visual label is mandatory.
+
+### Layer 3 — Q-AHBN Refine
+Short heading: **Bounded Q-AHBN refinement**
+
+Show two converging inputs:
+- discrete 81-state key from the same canonical EWMA state;
+- preserved AHBN proposal.
+
+Inside the layer show:
+- epsilon-greedy Q-action selection;
+- the five frozen actions;
+- transformation of the AHBN proposal only;
+- output `(mode_Q,k_Q)`.
+
+Do not show historical six-action names, adaptive weights, tau, direct modification of z/w/EWMA, or a learned replacement controller.
+
+### Layer 4 — Realize / Execute
+Short heading: **Eligible-target realization and forwarding**
+
+Show:
+- eligible-neighbour set `N_e`;
+- `k_real=min(k_Q,|N_e|)`;
+- forwarding attempts.
+
+This layer is the visual boundary between **requested refinement** and **realized execution**.
+
+### Layer 5 — Outcome
+Short heading: **Direct attributable outcomes**
+
+Show:
+- NEW;
+- DUPLICATE;
+- FAILED;
+- `F=NEW+DUPLICATE+FAILED`.
+
+The three outcomes must be presented as mutually exclusive terminal outcomes of initiated direct attempts.
+
+### Layer 6 — Learn
+Short heading: **Reward closure and learning feedback**
+
+Show:
+- `R=(NEW-DUPLICATE-FAILED)/F` for `F>0`;
+- compact note: `F=0 -> no reward-bearing update`;
+- compact note: `s_(t+1) = same peer's next Q-AHBN decision state`;
+- return arrow to the Q-AHBN learning layer/future decision.
+
+Do **not** draw a simple immediate `s_t,a_t,R_t,s_(t+1)` loop that visually asserts simultaneous reward closure and successor-state availability.
+
+## Visual grammar
+
+- Use **solid forward arrows** for runtime observation/proposal/refinement/execution/outcome flow.
+- Use a **visually distinct return arrow** for learning feedback. Distinction must remain understandable in grayscale; line style/arrow form, not color alone, must carry meaning.
+- AHBN and Q-AHBN must occupy separate bounded regions.
+- The preserved AHBN proposal must cross an explicit post-AHBN intervention boundary before entering the Q-AHBN refinement block.
+- Requested and realized quantities must use different labels and boxes; they must never share one ambiguous “final action” label.
+- Keep formulas minimal. F1 is not the algorithm listing.
+- Use short labels suitable for one-column or two-column publication scaling; no prose paragraph inside the figure.
+- No decorative network topology graphic is required unless it directly clarifies eligible-target realization.
+- The figure must remain legible in grayscale and when reduced to normal manuscript width.
+
+## Information deliberately deferred to A1
+
+F1 MUST NOT become a pseudocode substitute. A1 remains authoritative for:
+- exact per-decision bookkeeping;
+- action application ordering;
+- epsilon decay/parameter mechanics;
+- delayed reward attachment;
+- next-state-first versus reward-first arrival;
+- overlapping/out-of-order closures;
+- Q-update readiness condition;
+- terminal rewarded transition zero bootstrap;
+- exact Q-update equation and frozen alpha_Q/gamma values.
+
+F1 may name these boundaries only where necessary to avoid a false lifecycle interpretation.
+
+## Caption specification
+
+Working caption:
+
+> **Q-AHBN bounded-refinement architecture and learning cycle.** Canonical AHBN first processes the local normalized observations and produces an independently traceable mode/fanout proposal. Q-AHBN discretizes the same canonical EWMA state, selects one of five bounded meta-actions, and refines only the completed AHBN proposal before eligible-target realization. Learning evidence is derived from directly attributable NEW, DUPLICATE, and FAILED forwarding outcomes. Requested and realized forwarding remain distinct, and the learning return path follows the frozen reward-closure and next-same-peer transition contract. The figure describes architecture and information flow; exact update ordering is specified by Algorithm A1.
+
+Final wording may be tightened during S16-4 integration without changing these semantics.
+
+## Required figure labels / terminology
+
+Publication-facing terminology:
+- **Q-AHBN**, not Q-AHBN2, inside the manuscript figure;
+- **canonical AHBN**;
+- **immutable AHBN proposal** or equivalent;
+- **bounded refinement**;
+- **requested proposal**;
+- **eligible-target realization**;
+- **realized forwarding**;
+- **direct attributable outcomes**;
+- **reward closure / learning feedback**.
+
+Repository/control documentation may continue to use Q-AHBN2 where referring to the project/repository identity.
+
+## Prohibited visual implications
+
+F1 MUST NOT imply:
+- Q-learning executes before AHBN;
+- Q-AHBN replaces AHBN;
+- Q-AHBN modifies AHBN normalization, EWMA, z, sigmoid, mode rule or S5 thresholds;
+- historical six-action semantics, weight adjustment or tau control;
+- a hard Q-layer fanout cap of 6;
+- failure/event labels as privileged Q-state inputs;
+- immediate reward closure for every decision;
+- `F=0` as numerical zero reward;
+- unrealized target slots as FAILED attempts;
+- convergence, stable/optimal policy, or global hyperparameter optimality;
+- generic low-overhead/resource-efficiency performance;
+- simulation-to-Kubernetes policy transfer or cross-environment confirmation;
+- any experimental result or superiority claim.
+
+## Relationship to current manuscript artifact
+
+Current `fig:qahbn-cycle` is a useful semantic placeholder but is not the final F1. At S16-4 it will be **REPLACED/UPGRADED**, preserving its valid scientific ordering while adding:
+- explicit continuous-state/discrete-state branching;
+- explicit AHBN proposal preservation;
+- requested-versus-realized distinction;
+- eligible-target realization;
+- precise reward/no-reward boundary;
+- non-immediate next-same-peer learning feedback.
+
+No `versions/v0.0/main.tex` edit is authorized in S16-1.
+
+## Verification checklist
+
+S16-1 specification passes only if:
+- canonical AHBN is visibly first and immutable — **PASS**;
+- Q-AHBN acts only post-AHBN — **PASS**;
+- 81-state/five-action contract is correct — **PASS**;
+- requested and realized forwarding are distinct — **PASS**;
+- NEW/DUPLICATE/FAILED attribution is correct — **PASS**;
+- `F=0` no-update boundary is preserved — **PASS**;
+- next-same-peer/delayed attribution is not misrepresented — **PASS**;
+- historical six-action/convergence/transfer semantics are absent — **PASS**;
+- F1 remains conceptual and A1 retains executable-detail authority — **PASS**;
+- no new science/evidence/claim is introduced — **PASS**.
+
+## Gate decision
+
+**S16-1 = PASS / CLOSED.**
+
+F1's scientific and visual specification is frozen. No figure was constructed, no experiment/evidence was changed, and no manuscript source was modified.
+
+## Next controlled gate
+
+**S16-2 — Formal Q-AHBN Algorithm Specification.**
