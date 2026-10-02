@@ -3530,3 +3530,62 @@ Readback confirmed:
 ## Next controlled gate
 
 **S16-15 — Whole Artifact Package Integration.**
+
+
+---
+
+# S16-15 — Whole Artifact Package Integration
+
+**Status:** PASS / CLOSED — 2026-10-02
+
+## Objective
+
+Integrate and cross-check the complete publication artifact package after completion of the individual construction/rationalization gates.
+
+## Integrated package
+
+- F1 — Q-AHBN architecture and learning-cycle figure;
+- A1 — formal Q-AHBN bounded-refinement algorithm;
+- T1 — learning-mechanism evidence table;
+- F2 — primary eight-condition paired trade-off figure;
+- F3 — dynamic-stress response figure;
+- T2 — primary paired statistical table;
+- F4 — Exp13 bounded five-method positioning figure;
+- T5 — Exp13 exact-values table;
+- F5 — gamma-sensitivity figure;
+- T4 — compact gamma exact-value table;
+- T3 — Kubernetes evidence/accounting table.
+
+## Integration audit
+
+The active manuscript was audited as one package rather than artifact-by-artifact.
+
+PASS findings:
+1. all 11 intended artifacts are present exactly once;
+2. no duplicate LaTeX labels are present;
+3. no unresolved internal figure/table/algorithm references were found;
+4. mechanism, primary ControlSim, Exp13, gamma-sensitivity and Kubernetes evidence roles remain distinct;
+5. F1/A1/T1 are complementary rather than duplicative;
+6. F2/F3/T2 retain the primary S11-A evidence hierarchy;
+7. F4/T5 remain bounded to Exp13 churn=0.40 positioning;
+8. F5/T4 remain bounded pre-formal-evaluation parameter-selection provenance;
+9. T3 remains operational-realization/accounting evidence only;
+10. no cross-environment pooling, omnibus ranking, convergence, optimality or universal-superiority framing was introduced.
+
+## Minor integration correction
+
+T1 existed correctly but had no explicit in-text reference. The learning-behaviour subsection now points reviewers to `tab:learning-mechanism` as the consolidated mechanism-evidence/claim-boundary map.
+
+This correction is editorial/integrative only and changes no scientific content.
+
+## Scientific consequence
+
+No raw evidence, experiment, statistic, parameter, figure value, table value, confidence interval, claim authorization or pinned science baseline changed.
+
+## Gate decision
+
+**S16-15 = PASS / CLOSED.**
+
+## Next controlled gate
+
+**S16-16 — Artifact-to-Evidence Provenance Audit.**
