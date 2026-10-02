@@ -3711,3 +3711,24 @@ Equivalent latexmk execution is acceptable if available.
 The LaTeX/source production sub-audit passes. The page-level visual sub-audit remains pending compiled-PDF evidence.
 
 S16-18 is not released until S16-17 visual closure is completed.
+
+
+## S16-17 compiled-PDF visual audit update — 2026-10-02
+
+Compiled PDF audited: `main02Oct2026_1723.pdf` (26 pages).
+
+Observed production defects:
+1. Figure 1: connector/annotation text around the AHBN→Q-AHBN and canonical-state paths visually overlaps, reducing legibility.
+2. Table 3: the final `Forward Δ` column extends beyond the right page boundary and is clipped in the rendered PDF.
+
+Other inspected artifacts (Algorithm 1, F3, F4, F5, T1, T4, T5, T3) are visually readable with acceptable spacing and no detected clipping/overlap.
+
+Corrective manuscript commit: `da5132a1a84e829ffeb7d49f12b0a9bd2fa51fca`.
+
+Corrections applied:
+- Figure 1 connector labels reduced/repositioned for clearer separation.
+- Table 3 changed to a width-bounded production form using `\resizebox{\textwidth}{!}{...}` with tighter spacing to prevent right-edge clipping while preserving all exact values.
+
+**Current S16-17 status remains HOLD / PARTIAL pending one recompile of the corrected source and visual confirmation that both defects are resolved.**
+
+S16-18 remains blocked until that recompiled PDF is checked.
