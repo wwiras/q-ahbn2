@@ -690,3 +690,338 @@ F1's scientific and visual specification is frozen. No figure was constructed, n
 ## Next controlled gate
 
 **S16-2 — Formal Q-AHBN Algorithm Specification.**
+
+
+---
+
+# S16-2 — Formal Q-AHBN Algorithm Specification
+
+**Status:** PASS / CLOSED — 2026-10-02
+
+## Objective
+
+Freeze **A1 — Formal Q-AHBN Bounded-Refinement Algorithm / Pseudocode** as the publication-facing executable-semantics bridge between F1 and the frozen implementation. This gate specifies A1 only. It does not insert the algorithm into `versions/v0.0/main.tex`, construct F1, alter source code, rerun experiments, or change frozen science.
+
+## Authority reconciliation
+
+A1 was reconciled against the current authority chain, especially:
+- canonical-AHBN-first architecture;
+- frozen four-dimensional canonical EWMA state and 81-state discretization;
+- final five-action contract;
+- requested-versus-realized forwarding distinction;
+- direct-attempt NEW/DUPLICATE/FAILED attribution;
+- reward and F=0 semantics;
+- concurrent per-decision transition bookkeeping;
+- next-same-peer successor-state semantics;
+- terminal zero-bootstrap semantics;
+- one-step tabular Q-learning;
+- current learning constants after S02 closure.
+
+Historical `gamma=0.90` worked examples in earlier chronological design text are explicitly superseded and MUST NOT appear as current A1 authority.
+
+## A1 reviewer question
+
+> **Exactly how does one Q-AHBN decision refine a completed AHBN proposal, how are its forwarding outcomes attributed, and under what conditions is the corresponding Q-value updated?**
+
+## Publication role
+
+A1 is the executable-semantics authority for the manuscript. It complements:
+- **F1:** conceptual architecture/information flow;
+- **T1:** evidence that the learning mechanism was active.
+
+A1 is not implementation source code and must not expose environment-specific plumbing that is irrelevant to the logical cross-platform algorithm.
+
+## Frozen algorithm title
+
+**Algorithm A1 — Q-AHBN bounded post-AHBN refinement with attributable delayed Q-learning**
+
+A shorter typeset title may be used at integration if the semantic meaning is unchanged.
+
+## Frozen inputs and state
+
+A1 MUST declare or make unambiguous:
+
+- canonical local observations supplied through the existing AHBN adapter;
+- canonical AHBN controller, immutable;
+- shared Q table initialized to zero;
+- action set
+  `A={KEEP,FANOUT_DOWN,FANOUT_UP,SET_GOSSIP,SET_STRUCTURED}`;
+- `alpha_Q=0.25`;
+- `gamma=0.70`;
+- `epsilon_0=0.30`;
+- `epsilon_min=0.03`;
+- `lambda_epsilon=0.995`;
+- seeded learner RNG / uniform random tie handling;
+- per-peer/per-decision transition records required for overlapping decisions.
+
+The logical Q table contains at most `81 x 5 = 405` state-action entries.
+
+## Frozen A1 pseudocode specification
+
+The publication algorithm MUST be semantically equivalent to the following:
+
+```text
+Algorithm A1: Q-AHBN bounded post-AHBN refinement with attributable delayed Q-learning
+
+Initialize Q[S,A] <- 0 for 81 states x 5 actions
+Initialize epsilon <- epsilon_0 = 0.30
+Initialize empty per-decision transition records
+Set alpha_Q <- 0.25, gamma <- 0.70
+Set epsilon_min <- 0.03, lambda_epsilon <- 0.995
+
+ON each new-message Q-AHBN decision opportunity for message m at peer p:
+
+  1. Update canonical AHBN observations and canonical EWMA state
+       x_t <- (d_hat_t, l_hat_t, u_hat_t, c_hat_t)
+
+  2. Execute immutable canonical AHBN first
+       p_AHBN <- (mode_AHBN, k_AHBN)
+     Preserve/log p_AHBN before any Q intervention
+
+  3. Form the Q state from the same canonical EWMA snapshot
+       s_t <- (B(d_hat_t), B(l_hat_t), B(u_hat_t), B(c_hat_t))
+     where B maps [0,1] to L/M/H using fixed 1/3 and 2/3 boundaries
+
+  4. Before selecting the current action, register s_t as the successor
+     state for the immediately preceding Q-AHBN decision at the SAME PEER,
+     if such a predecessor is awaiting its next-state component.
+     If that predecessor's reward is already closed, it may now become
+     update-ready.
+
+  5. Select a_t by seeded epsilon-greedy policy over Q(s_t, .):
+       with probability epsilon:
+           choose uniformly from the five actions
+       otherwise:
+           choose uniformly among actions attaining max_a Q(s_t,a)
+
+  6. Apply exactly one bounded action relative to preserved p_AHBN:
+       KEEP            -> (mode_AHBN, k_AHBN)
+       FANOUT_DOWN     -> (mode_AHBN, k_AHBN - 1)
+       FANOUT_UP       -> (mode_AHBN, k_AHBN + 1)
+       SET_GOSSIP      -> (Gossip, k_AHBN)
+       SET_STRUCTURED  -> (Structured, k_AHBN)
+     Denote the requested refined proposal p_Q=(mode_Q,k_Q).
+
+  7. Apply the existing mode-specific eligible-target realization:
+       choose eligible set N_e according to canonical execution semantics
+       k_real <- min(k_Q, |N_e|)
+     Initiate forwarding only to the realized targets.
+     Requested fanout and realized forwarding remain distinct.
+
+  8. Create a transition/attribution record owned by this decision
+       D_t=(peer p, message m, s_t, a_t, p_AHBN, p_Q, ...)
+     and attach every initiated direct attempt to D_t.
+
+  9. For each initiated direct attempt, record exactly one terminal outcome:
+       NEW | DUPLICATE | FAILED
+     Do not create FAILED outcomes for target slots that were not realized.
+
+ 10. When all direct attempts owned by D_t have terminated:
+       F_t <- NEW_t + DUPLICATE_t + FAILED_t
+
+       if F_t = 0:
+           mark NO_FORWARDING_EVIDENCE
+           assign no numerical reward
+           perform no reward-bearing Q update for D_t
+       else:
+           R_t <- (NEW_t - DUPLICATE_t - FAILED_t) / F_t
+           attach R_t to D_t
+
+ 11. A nonterminal D_t is update-ready only when BOTH are available:
+       (a) its own closed numerical reward R_t, and
+       (b) s_(t+1), captured at peer p's next Q-AHBN decision opportunity.
+     Reward closure and successor-state arrival may occur in either order.
+     Closure order MUST NOT redefine transition order.
+
+ 12. For each update-ready nonterminal record:
+       Q(s_t,a_t) <-
+         Q(s_t,a_t)
+         + alpha_Q * [ R_t
+                       + gamma * max_a' Q(s_(t+1),a')
+                       - Q(s_t,a_t) ]
+
+ 13. For each terminal rewarded record:
+       use zero bootstrap:
+       Q(s_t,a_t) <-
+         Q(s_t,a_t)
+         + alpha_Q * [ R_t - Q(s_t,a_t) ]
+
+ 14. Decay exploration once per learner decision:
+       epsilon <- max(epsilon_min, lambda_epsilon * epsilon)
+
+ 15. Continue; multiple attribution records may coexist and close
+     independently against the shared Q table.
+```
+
+## Temporal-order clarification
+
+For publication readability, A1 may visually group the runtime decision path and the asynchronous learning-completion path into two labelled parts:
+
+**A. Decision and forwarding path**
+- observe/update canonical AHBN;
+- execute AHBN first;
+- discretize state;
+- capture same-peer successor linkage;
+- epsilon-greedy action;
+- bounded proposal transform;
+- eligible-target realization;
+- direct attempts.
+
+**B. Attribution and learning-completion path**
+- close NEW/DUPLICATE/FAILED attribution;
+- compute reward only for `F>0`;
+- wait until both reward and successor state exist;
+- update shared Q table;
+- terminal zero bootstrap;
+- no reward-bearing update for `F=0`.
+
+This two-part presentation is preferred if a single linear listing would falsely imply synchronous reward closure.
+
+## Action boundary details
+
+A1 MUST preserve:
+- canonical AHBN proposal fanout `k_AHBN in {2,3,4,5,6}`;
+- one-step Q fanout refinement, permitting requested `k_Q in {1,...,7}`;
+- **no historical Q-layer clipping back to 6**;
+- physical/topological realization by the eligible set;
+- mode and fanout primitive actions remain independently attributable.
+
+A1 MUST NOT invent a new fanout bound or safety override.
+
+## Reward and attribution details
+
+A1 MUST preserve:
+- one Q action for one new-message forwarding decision at one peer;
+- direct-attempt attribution ownership by the originating decision;
+- mutually exclusive NEW/DUPLICATE/FAILED outcomes;
+- `F=NEW+DUPLICATE+FAILED`;
+- `R=(NEW-DUPLICATE-FAILED)/F` only when `F>0`;
+- numerical `R=0` with `F>0` is a valid observed reward and is NOT equivalent to `F=0`;
+- `F=0` produces no numerical reward and no reward-bearing Q update.
+
+## Transition and concurrency details
+
+A1 MUST preserve:
+- concurrent per-message attribution records;
+- same-peer next-decision state as `s_(t+1)`;
+- reward ownership by the originating decision even if closure is delayed/out of order;
+- reward and successor state may arrive in either order;
+- update occurs only when both are available;
+- terminal rewarded transition uses zero bootstrap;
+- shared Q table receives each independently completed transition.
+
+A1 MUST NOT revert to a single historical `prev_state/prev_action` chain.
+
+## Exploration mechanics
+
+Publication A1 MUST use the current frozen exploration mechanics:
+- epsilon-greedy;
+- seeded controlled RNG;
+- uniform random exploration over all five actions;
+- uniform random tie-breaking among maximizing actions;
+- `epsilon_0=0.30`;
+- `epsilon_min=0.03`;
+- multiplicative `lambda_epsilon=0.995`;
+- decay once per learner decision.
+
+No exploration parameter is claimed optimal.
+
+## Q-update authority
+
+For a nonterminal rewarded transition:
+
+[
+Q(s_t,a_t) leftarrow Q(s_t,a_t)
++alpha_Qleft[
+R_t+gammamax_{a'}Q(s_{t+1},a')-Q(s_t,a_t)
+ight],
+]
+
+with current frozen values:
+
+[
+alpha_Q=0.25,qquad gamma=0.70.
+]
+
+For a terminal rewarded transition the bootstrap term is zero.
+
+Historical chronological text using `gamma=0.90` is provenance only and is prohibited from the current algorithm artifact.
+
+## Publication abstraction boundary
+
+A1 SHOULD omit:
+- ControlSim event-queue implementation details;
+- Kubernetes/gRPC implementation details;
+- file/log field names unless required for scientific meaning;
+- experiment-specific disturbance values;
+- Exp10/Exp11/Exp12/Exp13 conditions;
+- statistical analysis;
+- gamma-sensitivity results;
+- learning-curve or convergence diagnostics.
+
+A1 SHOULD retain only algorithmically necessary logical semantics common to the validated implementations.
+
+## Relationship to F1
+
+F1 and A1 must agree on:
+1. canonical AHBN executes first;
+2. Q state comes from the same canonical EWMA snapshot;
+3. five bounded actions;
+4. preserved AHBN proposal;
+5. requested refined proposal;
+6. eligible-target realization;
+7. direct attributable NEW/DUPLICATE/FAILED outcomes;
+8. F=0 no-reward-bearing-update boundary;
+9. learning feedback to future decisions.
+
+A1 adds the temporal/concurrency precision deliberately omitted from F1.
+
+## Working algorithm note/caption
+
+Working note:
+
+> **Algorithm A1 formalizes the bounded post-AHBN refinement lifecycle.** Canonical AHBN produces and preserves its complete proposal before Q-AHBN selects one of five primitive refinements. Requested decisions are then subject to existing eligible-target realization. Each decision owns the terminal outcomes of its initiated direct forwarding attempts; a numerical reward exists only when at least one attempt is made. Because reward closure and the same peer's next decision state may arrive asynchronously, a nonterminal Q update is executed only after both components are available. Terminal rewarded transitions use zero bootstrap.
+
+## Prohibited implications
+
+A1 MUST NOT imply:
+- AHBN is learned, replaced or retuned;
+- Q-AHBN selects before AHBN;
+- historical six-action/weight/tau semantics;
+- privileged failure/recovery labels in the Q state;
+- Q-requested fanout is capped at canonical AHBN's maximum 6;
+- unrealized targets count as FAILED;
+- F=0 is numerical zero reward;
+- reward closure determines successor-state order;
+- updates are necessarily synchronous;
+- convergence, stable policy, policy optimality or global hyperparameter optimality;
+- ControlSim-trained policy transfer to Kubernetes;
+- performance superiority.
+
+## Verification
+
+Specification audit:
+- AHBN-first ordering — **PASS**;
+- current 81 x 5 state/action contract — **PASS**;
+- five action transforms — **PASS**;
+- no Q-layer cap at 6 — **PASS**;
+- requested-versus-realized distinction — **PASS**;
+- direct-attempt outcome ownership — **PASS**;
+- F=0 semantics — **PASS**;
+- next-same-peer transition — **PASS**;
+- asynchronous reward/successor readiness — **PASS**;
+- terminal zero bootstrap — **PASS**;
+- current alpha_Q=0.25 and gamma=0.70 — **PASS**;
+- current epsilon schedule — **PASS**;
+- historical gamma=0.90 excluded as current authority — **PASS**;
+- no new science or evidence — **PASS**.
+
+## Gate decision
+
+**S16-2 = PASS / CLOSED.**
+
+A1's publication-level executable semantics are frozen. No algorithm was inserted into the manuscript and no scientific implementation was changed.
+
+## Next controlled gate
+
+**S16-3 — Mechanism Figure + Algorithm Consistency Audit.**
