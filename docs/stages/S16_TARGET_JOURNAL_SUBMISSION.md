@@ -3449,3 +3449,84 @@ F5 documents only the already-frozen AR-1.4.2--AR-1.4.4 parameter-selection prov
 ## Next controlled gate
 
 **S16-14B — Gamma Sensitivity Table/Callout Decision.**
+
+
+---
+
+# S16-14B — Gamma Sensitivity Table/Callout Decision
+
+**Status:** PASS / CLOSED — 2026-10-02
+
+## Objective
+
+Decide whether the publication package needs T4 in addition to F5, without introducing new analysis.
+
+## Decision
+
+**RETAIN T4 as a compact exact-value companion table.**
+
+F5 remains the visual synthesis. T4 exists only to preserve compact exact values, including the duplicate series that is not plotted in F5.
+
+## Retained T4 scope
+
+Columns:
+- gamma=0.70;
+- gamma=0.80;
+- gamma=0.90.
+
+Rows:
+- mean reward;
+- delivery ratio;
+- propagation delay;
+- duplicates;
+- total forwards.
+
+Exact values are copied directly from the frozen AR-1.4.4 descriptive comparison.
+
+## Excluded diagnostics
+
+The following remain in the authoritative design record and are intentionally not duplicated in T4:
+- cumulative reward;
+- stabilization;
+- q_updates;
+- state_action_coverage;
+- action distributions.
+
+These support bounded learning-behaviour consistency rather than the compact publication-facing parameter-selection trade-off.
+
+## Claim boundary
+
+T4:
+- does not create a composite score;
+- does not rank candidates;
+- does not add significance testing or inferential claims;
+- does not establish convergence;
+- does not establish global hyperparameter optimality;
+- does not generalize the stationary sensitivity matrix to later dynamic experiments.
+
+## Manuscript implementation
+
+T4 was integrated into:
+`wwiras/QAHBN2-Manuscript/versions/v0.0/main.tex`
+
+Label:
+`tab:gamma-sensitivity`
+
+Its caption explicitly states that it is a compact exact-value companion to F5 and not an omnibus score or optimality test.
+
+## Verification
+
+Readback confirmed:
+- all 15 table values match AR-1.4.4 exactly;
+- all five intended metrics are present;
+- no additional statistic or uncertainty estimate was introduced;
+- F5/T4 roles remain distinct;
+- provenance is recorded in the manuscript repository.
+
+## Gate decision
+
+**S16-14B = PASS / CLOSED.**
+
+## Next controlled gate
+
+**S16-15 — Whole Artifact Package Integration.**
