@@ -99,3 +99,49 @@ PASS:
 **S19-5 — Figure 1 Presentation Redesign Specification** is the next and only released action.
 
 S19-5 is specification/parity-control only for MI-04. It must not yet alter the active Figure 1 implementation.
+
+
+## Corrective expansion amendment — 2026-10-03
+Researcher review identified that the initial ten-reference S19-4 integration was too sparse for the manuscript's actual literature and methodology lineage. S19-4 was therefore reopened narrowly for citation-density correction before S19-5.
+
+### Scope of correction
+The corrective pass preserves the existing prose/claim structure and adds citation support across:
+- Introduction condition-dependent dissemination framing;
+- Related Work breadth across gossip, structured, topology-aware, hybrid/adaptive and learning-assisted networking;
+- methodology foundations for BA/ER topology modeling;
+- cloud-native/Kubernetes evaluation lineage;
+- prior project/paper lineage where the current manuscript explicitly builds on earlier dissemination characterization or cloud-native evaluation work.
+
+### Source-map authorities used
+The corrective audit used the latest AHBN Scientific Reports manuscript and the previous systematic characterization manuscript as citation maps, while re-verifying cited source roles against available Drive originals. The previous characterization manuscript itself documents a broad literature base spanning Gossip, structured dissemination, topology-aware optimization and the BA topology model, and explicitly identifies the static-strategy trade-off motivating adaptive dissemination.
+
+The researcher's prior published works were also released for self-citation where directly relevant:
+- Wira et al. (2025), _Cloud-native simulation framework for gossip protocol: Modeling and analyzing network dynamics_, PLOS ONE, DOI 10.1371/journal.pone.0325817;
+- Wira et al. (2025), _A Kubernetes-Based Framework for Simulating Gossip Protocols in Blockchain Networks_, DOI 10.1145/3761668.3761706;
+- Samsuddin Wira et al. (2026), _Characterizing Latency--Duplication Trade-off in Blockchain Dissemination: A Systematic Study of Gossip and Structured Broadcast_.
+
+### Expanded active citation architecture
+The active manuscript now cites more than twenty distinct sources across Introduction, Related Work and Methodology. Added source families include:
+- Perigee / learned peer-topology design;
+- geography/topology-aware blockchain overlays;
+- strategic latency reduction;
+- improved Gossip / LS-Gossip;
+- TONS, DONS and BNSF neighbour-selection/structured approaches;
+- prior AHBN/RO2 systematic characterization;
+- prior cloud-native and Kubernetes framework publications;
+- blockchain deployment/evaluation framework work;
+- heterogeneous Kubernetes emulation;
+- blockchain topology benchmarking;
+- BA and ER random-graph foundations.
+
+### Bibliography correction
+The active bibliography was expanded from 10 to 27 entries, matching the now-cited source set. Bibliographic fields remain conservative: only fields supported by source PDFs, DOI records already present in those PDFs, or the previously verified source register were added.
+
+### Corrective commits
+- manuscript citation expansion: `84e499a24ff737ab1f3f70f7cb90c6662871c873`
+- bibliography expansion: `515a40274d35e3108f5f7564b534b82e334a2351`
+
+### Boundary
+No experiment, algorithm, statistic, result, confidence interval, claim authorization, section ordering, or Figure 1 content changed. This amendment changes citation coverage only.
+
+**S19-4 remains PASS / CLOSED after corrective expansion.**
