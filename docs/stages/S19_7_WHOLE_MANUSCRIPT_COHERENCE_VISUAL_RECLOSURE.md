@@ -82,3 +82,21 @@ Compile and visual/proof inspection of the complete manuscript remains pending. 
 - overall page-flow/readability.
 
 **Current status: S19-7 = IN PROGRESS.**
+
+
+## Citation-support correction — Gossip and DC-SoC — 2026-10-03
+Researcher review identified that several publication-facing mentions of Gossip and DC-SoC appeared without nearby literature support.
+
+A bounded citation pass was applied to the active manuscript using already-vetted published bibliography entries:
+- Gossip-related support: `berendea_fair_2020` and `baniata_dons_2022` where the prose makes general Gossip/comparator statements;
+- introductory Gossip trade-off support additionally uses `li_ls_gossip_2022`;
+- DC-SoC support: `dong_dc-soc_2024` at comparator-introduction and later positioning/scope statements.
+
+The Related Work section already contained direct DC-SoC and Gossip citations and was retained. No citation was added to purely numerical table rows, labels, or figure axis text where the values originate from this study's frozen experiment rather than from the cited papers.
+
+Active manuscript citation commit:
+`61a49da97641a3be3761f06553549a1ba1c8c571`.
+
+No bibliography entry was added or changed; all cited keys already existed in the active published/eligible 26-reference bibliography. No experiment, result, statistic, parameter, figure value, table value, or claim boundary changed.
+
+S19-7 remains IN PROGRESS pending compile/visual proof.
