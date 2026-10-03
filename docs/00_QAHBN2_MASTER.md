@@ -2530,3 +2530,36 @@ This closes deterministic instrumentation verification only. It does not constit
 **Next controlled gate: S17-3 — Kubernetes Smoke Execution.**
 
 S17-4, formal rerun-scope selection, formal reruns, manuscript-result replacement, and S18 remain blocked until the required smoke sequence advances through S17-3 and S17-4.
+
+
+### S17-3 Kubernetes smoke preparation — 2026-10-03
+
+**Status: PREPARED / AWAITING RESEARCHER GKE EXECUTION**
+
+S17-3 reuses the previously validated bounded K3-Q smoke protocol rather than creating a new performance workload:
+
+- Q-AHBN2 only;
+- N=4, BA(m=2), seed 42, source 0;
+- four messages at 0.2 s interval;
+- no induced failure, churn, overload, or bottleneck;
+- operational/instrumentation validation only.
+
+The smoke runner was extended only at its post-run validation/summary layer. The topology, workload, Q-AHBN2 algorithm, AHBN controller, learning parameters, forwarding runtime, and formal protocol were not changed.
+
+Preparation commit:
+
+`7a1aa490a0231008b26c58a242b752a1c507c4d5`
+
+The S17-3 runtime acceptance checks now require:
+
+1. decision-bound `qahbn2_attempt_outcome=NEW` keys and generic `event="forward"` keys with `decision_id` to match exactly;
+2. no DUPLICATE/FAILED outcome key may overlap a decision-bound generic successful-forward key;
+3. `F_success <= F_attempt`;
+4. the normal Q-AHBN2 decision/outcome/reward evidence remains present;
+5. the generated smoke summary records `F_attempt`, `F_success`, decision-bound NEW count, decision-bound generic-forward count, exact-match status, non-NEW overlap count, and the accounting inequality.
+
+This smoke does not artificially induce FAILED outcomes. Absence of FAILED in this no-failure bounded smoke is not a gate failure; S17-2 already verifies the FAILED instrumentation branch deterministically.
+
+A fresh immutable image must be built from the current post-S17-3-preparation commit and pushed for `linux/amd64`; the existing K3 image predates the S17-1 runtime repair and must not be reused.
+
+**S17-3 remains OPEN pending researcher execution and artifact readback.** S17-4, formal rerun-scope selection, formal reruns, manuscript-result replacement, and S18 remain blocked.
