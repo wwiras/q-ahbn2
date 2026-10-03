@@ -3420,3 +3420,26 @@ Detailed S19-6 corrective record:
 
 **S19-6 remains PASS / CLOSED.**
 **Next and only released gate remains S19-7.**
+
+
+### S19-6 corrective abstract refinement — 2026-10-03
+Researcher-approved abstract wording was integrated after direct verification against the frozen S11-A primary RO4 summary CSV.
+
+The revised abstract now makes the scientific progression explicit:
+latency--duplication characterization -> deterministic AHBN adaptation -> bounded Q-AHBN learning refinement.
+
+Primary ControlSim results are reported as relative percentage changes rather than raw absolute metric differences. Verified values are taken directly from S11-A:
+- one-peer failure: delivery +17.60%; propagation delay -36.74%;
+- tested churn/resource conditions: delivery improvement range +2.88% to +18.23%;
+- tested churn/resource conditions: propagation-delay reduction range 11.91% to 37.27%.
+
+Evidence authority:
+Drive folder `1XMWn5FWKwJV78YeTGakJb1bVJ6XKfrLH`;
+summary CSV `1D6Z1DZa5CLnXBX6Z0Adljb260Er7S1_M`;
+registered SHA-256 `9b2d21a103c9cd115acc56a003eb8bab60a49db92bc82af3a8da004d03b33833`.
+
+Manuscript commit:
+`cd43b1512737c70f5d603926396c8364e9d10c29`.
+
+**S19-6 remains PASS / CLOSED.**
+**Next and only released gate remains S19-7.**
