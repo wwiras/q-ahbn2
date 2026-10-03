@@ -3399,3 +3399,24 @@ Detailed S19-6 audit: `docs/stages/S19_6_FIGURE1_IMPLEMENTATION_SEMANTIC_PARITY_
 P1-P12 semantic parity: PASS.
 
 **Next and only released gate: S19-7 — Whole-Manuscript Consistency / Compile / Visual-Proof Re-Closure.**
+
+
+### S19-6 corrective Figure 1 loop/overlap refinement — 2026-10-03
+Researcher visual review of the compiled Figure 1 identified overlap among side annotations. The active figure was therefore corrected without changing scientific evidence or Algorithm 1.
+
+Corrections:
+- increased separation around the same-state annotation;
+- isolated the right-side learning-loop label;
+- added an explicit local control loop from directly attributable outcomes back to future local observations;
+- clarified in the caption/prose that the local control loop and Q-AHBN learning loop are distinct.
+
+The local control loop is architectural only and does not add any new observation dimension, reward term, controller signal or metric.
+
+Corrective manuscript commit:
+`c74609e45a03ac2f4d5399e6cd0c7a9f6e642004`.
+
+Detailed S19-6 corrective record:
+`docs/stages/S19_6_FIGURE1_IMPLEMENTATION_SEMANTIC_PARITY_AUDIT.md`.
+
+**S19-6 remains PASS / CLOSED.**
+**Next and only released gate remains S19-7.**
