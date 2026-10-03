@@ -3109,3 +3109,73 @@ S17-9 may now update the QAHBN2-Manuscript repository using the exact frozen rep
 - verify no stale historical Q-AHBN2 forwarding-accounting wording/value remains.
 
 S18 remains blocked until S17-9 manuscript integration and its source/PDF consistency closure are complete.
+
+
+### S17-9 manuscript-side corrected Kubernetes integration — PASS / CLOSED
+
+The manuscript repository `wwiras/QAHBN2-Manuscript` has been reconciled against the S17-8 replacement contract.
+
+Manuscript-side closure commit:
+
+`d1c77ebfceca2eb58f2fd42051060afd743f812a`
+
+Active manuscript source:
+
+`versions/v0.0/main.tex`
+
+Active source blob after integration:
+
+`c5248da7237131b5c6681a139d63535e26851361`
+
+S17-9 updated only the authorized Kubernetes-facing manuscript material:
+- T3 / `tab:kubernetes-results` Q-AHBN row;
+- same-seed AHBN--Q-AHBN Kubernetes paired-difference prose;
+- table caption;
+- Kubernetes/overhead discussion wording;
+- manuscript provenance records.
+
+Publication-facing Q-AHBN Kubernetes means are now:
+- delivery 0.390977;
+- delay 0.038385 s;
+- duplicates 578.4;
+- successful forwards / `total_forwards` 1,612.2;
+- `F_attempt` 2,251.0.
+
+Corrected paired Q-AHBN-minus-AHBN means / 95% CIs:
+- delivery +0.130842 [-0.243288,+0.504973];
+- delay +0.013192 s [-0.027568,+0.053952];
+- duplicates +174.8 [-281.0,+630.6];
+- forwarding attempts +803.0 [-1424.2,+3030.2];
+- successful forwards +613.6 [-1157.7,+2384.9].
+
+All five intervals cross zero.
+
+Direct active-source readback confirms removal of stale publication-facing values and defect wording:
+- no Q-AHBN Kubernetes `total_forwards=10.0`;
+- no `2345.4`;
+- no `0.392835 / 0.040161 / 665.8`;
+- no publication-facing statement that corrected Q-AHBN `total_forwards` is non-comparable;
+- no stale “all four” paired-CI wording.
+
+The historical S16-13A defect description remains only as control/provenance history.
+
+Kubernetes remains operational-realization evidence only. No ControlSim/Kubernetes pooling, confirmation, equivalence, generic low-overhead, convergence, or optimality claim is authorized.
+
+A local LaTeX/PDF compile and visual proof remains a production check in the researcher’s synchronized manuscript workspace; it does not change the scientific S17 evidence freeze.
+
+**S17-9 = PASS / CLOSED.**
+
+### Next controlled gate
+
+**S17-10 — Local Manuscript Compile / PDF Visual-Proof Closure.**
+
+S17-10 is restricted to:
+1. synchronize the manuscript repository locally;
+2. compile `versions/v0.0/main.tex` in the normal manuscript LaTeX environment;
+3. inspect the generated PDF around T3 and the affected Kubernetes prose;
+4. confirm no overflow, clipping, broken references, or stale rendered values;
+5. record the compiled artifact/proof result.
+
+No scientific number change, new experiment, or reinterpretation is authorized at S17-10.
+
+S18 remains blocked until S17-10 closes.
