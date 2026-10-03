@@ -100,3 +100,23 @@ Corrective manuscript commit:
 `c74609e45a03ac2f4d5399e6cd0c7a9f6e642004`
 
 P1-P12 remain satisfied. Algorithm 1 is unchanged. S19-6 remains PASS / CLOSED after corrective visual refinement.
+
+
+## Corrective abstract refinement — 2026-10-03
+Following researcher review, the abstract was updated to make the scientific progression explicit:
+RO2-style latency--duplication characterization -> deterministic AHBN adaptation -> bounded Q-AHBN experience-driven refinement.
+
+The abstract now reports primary ControlSim effects as relative percentage changes using the frozen S11-A summary CSV rather than raw absolute metric differences. Verified publication-facing values include:
+- one-peer failure: delivery +17.60%, propagation delay -36.74%;
+- across tested churn/resource conditions: delivery improvement range +2.88% to +18.23%;
+- propagation-delay reduction range 11.91% to 37.27%.
+
+Authoritative evidence:
+Drive folder `1XMWn5FWKwJV78YeTGakJb1bVJ6XKfrLH`;
+summary CSV file ID `1D6Z1DZa5CLnXBX6Z0Adljb260Er7S1_M`;
+registered summary SHA-256 `9b2d21a103c9cd115acc56a003eb8bab60a49db92bc82af3a8da004d03b33833`.
+
+Manuscript abstract commit:
+`cd43b1512737c70f5d603926396c8364e9d10c29`.
+
+No experiment, statistical computation, parameter, claim authorization, figure, table, or Algorithm 1 content changed. S19-6 remains PASS / CLOSED.
