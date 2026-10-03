@@ -2860,3 +2860,67 @@ Released execution scope is exactly:
 - separate post-remediation evidence namespace only.
 
 No comparator rerun is authorized. No historical artifact may be overwritten. No manuscript-result replacement or S18 work is authorized. S17-6 execution remains a researcher/manual GKE action.
+
+
+### S17-6 Q-AHBN2-only formal remediation execution — PASS / CLOSED
+
+Researcher-executed the released five-coordinate remediation campaign on 2026-10-03 using:
+
+- runner: `gke/scripts/run_s17_qahbn2_remediation.sh`;
+- image: `wwiras/q-ahbn2:s17-remediation-formal-20261003`;
+- expected digest: `sha256:91eaed37889678b92a6e3fa4338773fcb3d93faa285a3b1bac793610f9aa8666`;
+- execution Git SHA: `352b90091d7c0fec255a9030a5c7d188af2d437b`.
+
+The separate post-remediation evidence root is:
+
+`output/evidence/q-ahbn-gke-03102026113510-s17-qahbn2-remediation/`
+
+Synchronized Google Drive folder ID:
+
+`1cNZ-7ty_PkxeQHoAvvU3JZlI-Y4tewnP`
+
+Completion timestamp recorded in evidence:
+
+`2026-10-03T03:49:59Z`
+
+All five authorized Q-AHBN2 coordinates completed and passed the inherited K7 result validator:
+
+- seed 42: F_attempt=2118, F_success=1539, total_forwards=1539, delivery_ratio=0.37124237965104057, propagation_delay=0.0401592363913854, duplicates=512;
+- seed 43: F_attempt=970, F_success=643, total_forwards=643, delivery_ratio=0.18573551263001487, propagation_delay=0.01605471074581146, duplicates=284;
+- seed 44: F_attempt=1442, F_success=947, total_forwards=947, delivery_ratio=0.25367012089810015, propagation_delay=0.023390597105026244, duplicates=443;
+- seed 45: F_attempt=2951, F_success=2162, total_forwards=2162, delivery_ratio=0.5033726812816189, propagation_delay=0.05044329464435578, duplicates=728;
+- seed 46: F_attempt=3774, F_success=2770, total_forwards=2770, delivery_ratio=0.6408662092624356, propagation_delay=0.061876047650973, duplicates=925.
+
+Every coordinate satisfies `F_success <= F_attempt`, and the validator-reported `total_forwards` equals `F_success` for every seed under the repaired instrumentation.
+
+The runner returned:
+
+`S17 Q-AHBN2 FORMAL REMEDIATION 5/5 PASS`
+
+No Gossip, Structured, DC-SoC or standalone AHBN coordinate was rerun. The historical 25-run evidence family remains preserved and untouched.
+
+Drive readback confirms the new evidence family contains:
+- `remediation_manifest.json`;
+- `s17_protocol_manifest.json`;
+- five seed run folders;
+- frozen K4/K5 contract copies;
+- Git/image/digest provenance;
+- start/completion timestamps;
+- terminal log.
+
+**S17-6 = PASS / CLOSED.**
+
+This closes execution only. It does not yet authorize replacement of historical manuscript numbers or scientific reinterpretation.
+
+### Next controlled gate
+
+**S17-7 — Post-Remediation Evidence Reconciliation / Acceptance Freeze.**
+
+S17-7 must:
+1. read the five post-remediation Q-AHBN2 artifacts;
+2. verify protocol/provenance completeness and metric-accounting consistency;
+3. reconcile the new Q-AHBN2 measurements against the unchanged historical comparator evidence;
+4. determine which Kubernetes table/statistical values are scientifically replaceable and which historical values remain provenance-only;
+5. freeze the corrected Kubernetes evidence family before any manuscript update or S18 work.
+
+No manuscript editing or S18 interpretation is authorized until S17-7 closes.
