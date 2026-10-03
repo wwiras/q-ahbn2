@@ -100,3 +100,27 @@ Active manuscript citation commit:
 No bibliography entry was added or changed; all cited keys already existed in the active published/eligible 26-reference bibliography. No experiment, result, statistic, parameter, figure value, table value, or claim boundary changed.
 
 S19-7 remains IN PROGRESS pending compile/visual proof.
+
+
+## Citation-key synchronization with Chapter 2 bibliography — 2026-10-03
+Researcher supplied `ahbnLR26Sept2026chap2_92.bib` as the citation-key authority for overlapping references.
+
+A title/DOI reconciliation was performed against the active manuscript bibliography. Citation keys were changed only where the same publication could be matched unambiguously. The active manuscript source was synchronized as follows:
+- `shahsavari_block_2022` -> `shahsavari_theoretical_2022`
+- `perigee_2020` -> `mao_perigee_2020`
+- `tang_latency_2023` -> `tang_strategic_2023`
+- `li_ls_gossip_2022` -> `li_ls-gossip_2022`
+- `fortino_tons_2023` -> `fortino_using_2023`
+- `mohamed_bnsf_2024` -> `mohamed_efficient_2024`
+- `tran_nval_2022` -> `tran_framework_2022`
+- `diperna_topologies_2025` -> `di_perna_impact_2025`
+- `koshikawa_overlay_2026` -> `koshikawa_impacts_2026`
+
+Entries whose keys already matched the Chapter 2 bibliography were left unchanged.
+
+Several active manuscript references do not have a verified matching entry in the supplied 92-entry bibliography and were therefore not renamed: `qiu_geography_2023`, `wira_cloudnative_2025`, `wira_kubernetes_2025`, `decker_q8s_2025`, `albert_barabasi_2002`, and `erdos_renyi_1960`.
+
+Manuscript source commit:
+`a7d7aa9155345f9620296b4215c460f72349bcdc`.
+
+No scientific claim, evidence, result, parameter, figure, or table value changed. S19-7 remains IN PROGRESS pending bibliography-entry synchronization/readback and final compile/visual proof.
