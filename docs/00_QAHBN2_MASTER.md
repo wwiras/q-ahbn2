@@ -3460,3 +3460,16 @@ Detailed record:
 `docs/stages/S19_7_WHOLE_MANUSCRIPT_COHERENCE_VISUAL_RECLOSURE.md`.
 
 S19-7 remains open pending full compile and visual/proof inspection.
+
+
+### S19-7 citation-support correction — 2026-10-03
+Researcher review identified publication-facing mentions of Gossip and DC-SoC without nearby literature support. The active manuscript was corrected using only existing vetted bibliography entries:
+- Gossip: `berendea_fair_2020`, `baniata_dons_2022`, and where appropriate `li_ls_gossip_2022`;
+- DC-SoC: `dong_dc-soc_2024`.
+
+The correction was limited to narrative statements introducing or positioning these comparator families. Numerical table rows, figure labels and this study's own measured values were not externally cited.
+
+Manuscript commit:
+`61a49da97641a3be3761f06553549a1ba1c8c571`.
+
+No bibliography entry, experiment, statistic, parameter, evidence family, or claim boundary changed. S19-7 remains IN PROGRESS pending compile/visual proof.
