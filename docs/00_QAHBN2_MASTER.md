@@ -3443,3 +3443,20 @@ Manuscript commit:
 
 **S19-6 remains PASS / CLOSED.**
 **Next and only released gate remains S19-7.**
+
+
+### S19-7 whole-manuscript coherence harmonization — 2026-10-03
+**IN PROGRESS.**
+
+The active manuscript has been harmonized to follow one consistent argument:
+latency--duplication characterization -> deterministic AHBN runtime balancing -> bounded Q-AHBN experience-driven refinement -> condition-specific delivery/delay gains with explicit communication-overhead cost.
+
+Narrative updates were applied to Introduction, Related Work, Q-AHBN Method, Results, and Discussion. Primary ControlSim prose now uses verified relative percentage effects consistent with the revised abstract, while all frozen tables, figures, absolute paired effects, confidence intervals, algorithms, parameters, and evidence roles remain unchanged.
+
+Manuscript harmonization commit:
+`451d86ffc29d6c8ee273258e92df282f77b46b05`.
+
+Detailed record:
+`docs/stages/S19_7_WHOLE_MANUSCRIPT_COHERENCE_VISUAL_RECLOSURE.md`.
+
+S19-7 remains open pending full compile and visual/proof inspection.
