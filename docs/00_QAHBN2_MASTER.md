@@ -2810,3 +2810,53 @@ Until those checks pass:
 - historical evidence remains untouched;
 - manuscript-result replacement is prohibited;
 - S18 remains blocked.
+
+
+### S17-5 closure — local prep audit and formal image freeze
+
+Researcher-executed local/static preparation audit returned:
+
+```text
+S17-5 PREP AUDIT PASS
+scope=qahbn2-only seeds=42,43,44,45,46
+protocol=identical frozen K5 base
+namespace=separate post-remediation evidence family
+```
+
+A fresh immutable `linux/amd64` formal remediation tag was then built, pushed, registry-verified, and container-import preflighted:
+
+`wwiras/q-ahbn2:s17-remediation-formal-20261003`
+
+Frozen registry digest:
+
+`sha256:91eaed37889678b92a6e3fa4338773fcb3d93faa285a3b1bac793610f9aa8666`
+
+The registry digest is identical to the S17-3 smoke-image digest. This is expected and acceptable because the Docker build context/runtime payload is unchanged since the accepted S17-1 repair; the separate immutable tag provides campaign-specific provenance without implying a different runtime binary.
+
+Researcher output confirmed:
+
+- image build/push PASS;
+- registry platform verification PASS for `linux/amd64`;
+- container import preflight PASS;
+- image preflight PASS.
+
+Repository readback at closure confirms:
+- remediation runner blob: `fcf8cabac0b15728b39474b153fc5fcfa93e3c71`;
+- S17-5 prep-audit blob: `f74b509a054cc57e34fec8959797620db9b62898`;
+- repaired runtime blob remains `1bc97905f59e7ed701058b08e42a07e30ef934c3`.
+
+**S17-5 = PASS / CLOSED.**
+
+### Next controlled gate
+
+**S17-6 — Q-AHBN2-Only Formal Remediation Execution (5 runs).**
+
+Released execution scope is exactly:
+- method: Q-AHBN2;
+- seeds: 42, 43, 44, 45, 46;
+- image: `wwiras/q-ahbn2:s17-remediation-formal-20261003`;
+- expected digest: `sha256:91eaed37889678b92a6e3fa4338773fcb3d93faa285a3b1bac793610f9aa8666`;
+- runner: `gke/scripts/run_s17_qahbn2_remediation.sh`;
+- separate post-remediation evidence namespace only.
+
+No comparator rerun is authorized. No historical artifact may be overwritten. No manuscript-result replacement or S18 work is authorized. S17-6 execution remains a researcher/manual GKE action.
