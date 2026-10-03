@@ -1,6 +1,6 @@
 # Q-AHBN2 Claim–Evidence Matrix
 
-**Status:** ACTIVE — S12A CLAIM CONTRACT FROZEN / 2026-09-29
+**Status:** ACTIVE — S18 POST-REMEDIATION CLAIM CONTRACT FROZEN / 2026-10-03
 **Created:** 2026-09-23 under DOC-SYNC-1
 
 ## Governing rule
@@ -18,12 +18,12 @@ Every major thesis/paper claim must remain traceable to frozen evidence, scope, 
 | C06 | Across all eight primary ControlSim conditions, Q-AHBN2 improves the delivery–latency trade-off relative to AHBN while generally increasing communication overhead. | S11-A 80 runs / 40 pairs; all eight delivery/delay paired CIs exclude zero; duplicates/forwards means higher | Exp10/11/12 only | consistent tested-condition delivery/latency improvement with overhead trade-off | same | best; dominates; universal superiority; improves all metrics | SUPPORTED |
 | C07 | Exp13-Q provides bounded external positioning at churn=0.40; Q-AHBN2 improves AHBN delivery/delay but does not dominate external references across metrics. | S11-B/S12 five-method benchmark | one ControlSim churn benchmark | within dissemination trade-off; not a winner result | same | omnibus winner/ranking; general external superiority | SUPPORTED-CONDITIONALLY |
 | C08 | Kubernetes demonstrates executable distributed/cloud-native realization and observability. | K6 25/25 validated coordinates + S12 | frozen K8s matrix | operational realization / deployment credibility | same | Kubernetes proves performance superiority | SUPPORTED |
-| C09 | Kubernetes does not independently establish a consistent AHBN-performance advantage. | all four paired 95% CIs cross zero; seed directions vary | frozen K8s matrix | operational evidence, not confirmatory performance evidence | same | confirms/replicates ControlSim gains | SUPPORTED |
+| C09 | Kubernetes does not independently establish a consistent AHBN-performance advantage. | all five corrected paired 95% CIs cross zero; seed directions vary | frozen K8s matrix | operational evidence, not confirmatory performance evidence | same | confirms/replicates ControlSim gains | SUPPORTED |
 | C10 | ControlSim and Kubernetes are complementary evidence families; no pooling or literal replication. | experiment/statistical contracts; K6; S12 | cross-environment | primary controlled performance + complementary deployment evidence | same | pooled cross-environment effect; equivalence; literal replication | SUPPORTED |
 | C11 | RO4/RQ4: bounded Q-learning refinement can improve delivery and delay under tested dynamic ControlSim conditions, with condition-dependent communication-overhead cost. | C01–C06 | thesis RO4/RQ4 | authorized RO4 synthesis | n/a | optimal/universal adaptive dissemination | SUPPORTED |
 | C12 | Paper contribution combines bounded learning refinement, primary paired evaluation, bounded external positioning and Kubernetes operational realization. | frozen design + S11/S12/K6 | paper scope | publication contribution summary | authorized contribution framing | best/state-of-the-art/universal/K8s confirmation | SUPPORTED |
 | C13 | Core limitations must remain explicit: n=5, condition scope, no convergence/optimality proof, no omnibus ranking, no cross-environment pooling/equivalence. | statistical contract; S12 | whole study | explicit limitations | explicit limitations | omission or dilution of these limits | SUPPORTED |
-| C14 | Generic low-overhead/lightweight performance benefit is not established. | ControlSim higher duplicate/forward means; K8s F_attempt 2345.4 Q-AHBN2 vs 1448.0 AHBN | performance/resource claim | architecture may be called bounded/decentralized, not generically low-overhead | same | lightweight because fewer sends; reduced network overhead; resource-efficient | NOT SUPPORTED |
+| C14 | Generic low-overhead/lightweight performance benefit is not established. | ControlSim higher duplicate/forward means; corrected K8s F_attempt 2251.0 and successful forwards 1612.2 Q-AHBN2 vs 1448.0 and 998.6 AHBN | performance/resource claim | architecture may be called bounded/decentralized, not generically low-overhead | same | lightweight because fewer sends; reduced network overhead; resource-efficient | NOT SUPPORTED |
 | C15 | Convergence, policy optimality, universal superiority, best-method and dominance claims are prohibited. | design/statistical contracts; S12; reviewer lessons | whole project | explicitly outside evidence | explicitly outside evidence | converged/optimal/best/dominates/universally superior | PROHIBITED |
 
 ## Mandatory quantitative boundary
@@ -65,3 +65,7 @@ The prior NOT-YET-CLAIMABLE entries are superseded by this final claim contract 
 
 **S12A = PASS / CLOSED.**
 **Next paper gate: S13 — Q-AHBN2 Manuscript.**
+
+
+## S18 post-remediation freeze — 2026-10-03
+S17 corrected the Q-AHBN2 Kubernetes forwarding accounting without changing the frozen protocol or the scientific role of Kubernetes. C08–C10 and C14 retain their prior authorization status. The authoritative Kubernetes contrast now contains five paired metrics (delivery, delay, duplicates, forwarding attempts, successful forwards), and every 95% CI crosses zero. Primary ControlSim, Exp13-Q, learning-mechanism, convergence/optimality, pooling, replication, and universal-superiority boundaries are unchanged.
