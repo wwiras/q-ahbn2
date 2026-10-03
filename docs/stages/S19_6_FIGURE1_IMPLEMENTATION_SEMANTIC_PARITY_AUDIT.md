@@ -83,3 +83,20 @@ Source-level semantic and layout inspection is complete. A compiled-PDF visual p
 
 ## Next permitted task
 **S19-7 — Whole-Manuscript Consistency / Compile / Visual-Proof Re-Closure**
+
+
+## Corrective visual refinement — 2026-10-03
+Researcher compiled Figure 1 and identified side-annotation overlap. A narrow S19-6 corrective pass therefore refined only Figure 1 presentation and its companion explanation.
+
+Changes:
+- widened separation between the left same-state annotation and the main Q-AHBN box;
+- moved the learning-loop label to a dedicated right-side return path;
+- added an explicit **local control loop** from directly attributable outcomes back to future local observations;
+- updated caption/prose to distinguish the two loops: outcomes influence subsequent local observations for AHBN control, while reward evidence drives future Q-AHBN learning decisions.
+
+The local control loop is interpretive/architectural: it does not introduce a new metric, state dimension, reward term, controller input, or causal shortcut. It represents the existing fact that locally observed duplicate/latency/utilization/churn conditions are refreshed from subsequent execution/network behavior. Q-AHBN still uses only the same four canonical EWMA dimensions.
+
+Corrective manuscript commit:
+`c74609e45a03ac2f4d5399e6cd0c7a9f6e642004`
+
+P1-P12 remain satisfied. Algorithm 1 is unchanged. S19-6 remains PASS / CLOSED after corrective visual refinement.
