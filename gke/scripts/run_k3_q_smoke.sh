@@ -74,10 +74,43 @@ for p in root.glob("peer-*.log"):
 dec=[e for e in events if e.get("event")=="qahbn2_decision"]
 out=[e for e in events if e.get("event")=="qahbn2_attempt_outcome"]
 rew=[e for e in events if e.get("event")=="qahbn2_reward_closed"]
-assert dec and out and rew
+attempt=[e for e in events if e.get("event")=="k7_forward_attempt" and e.get("strategy")=="qahbn2"]
+fwd=[e for e in events if e.get("event")=="forward" and e.get("strategy")=="qahbn2"]
+assert dec and out and rew and attempt
 required={"decision_id","state","action","mode_ahbn","k_ahbn","mode_q","k_q","realized_targets"}
 assert required <= set(dec[0])
-summary={"status":"PASS","decision_events":len(dec),"attempt_events":len(out),"reward_closed_events":len(rew),"outcomes":sorted({e.get("outcome") for e in out})}
+
+new=[e for e in out if e.get("outcome")=="NEW"]
+nonnew=[e for e in out if e.get("outcome") in {"DUPLICATE","FAILED"}]
+decision_fwd=[e for e in fwd if e.get("decision_id") is not None]
+
+def key(e):
+    return (str(e.get("decision_id")), int(e.get("dst_peer")), str(e.get("message_id")))
+
+new_keys=[key(e) for e in new]
+fwd_keys=[key(e) for e in decision_fwd]
+assert len(new_keys)==len(set(new_keys)), "duplicate NEW outcome key"
+assert len(fwd_keys)==len(set(fwd_keys)), "duplicate generic forward key"
+assert sorted(new_keys)==sorted(fwd_keys), "NEW/generic-forward mismatch"
+
+nonnew_keys={key(e) for e in nonnew}
+assert not (nonnew_keys & set(fwd_keys)), "DUPLICATE/FAILED has generic successful-forward event"
+assert len(fwd) <= len(attempt), "F_success exceeds F_attempt"
+
+summary={
+    "status":"PASS",
+    "decision_events":len(dec),
+    "attempt_outcome_events":len(out),
+    "reward_closed_events":len(rew),
+    "outcomes":sorted({e.get("outcome") for e in out}),
+    "F_attempt":len(attempt),
+    "F_success":len(fwd),
+    "decision_bound_NEW":len(new),
+    "decision_bound_forward":len(decision_fwd),
+    "new_forward_exact_match":sorted(new_keys)==sorted(fwd_keys),
+    "nonnew_forward_overlap":len(nonnew_keys & set(fwd_keys)),
+    "f_success_le_f_attempt":len(fwd)<=len(attempt),
+}
 (root/"k3q_smoke_summary.json").write_text(json.dumps(summary,indent=2))
 print(json.dumps(summary,indent=2))
 PY
