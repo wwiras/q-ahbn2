@@ -3179,3 +3179,50 @@ S17-10 is restricted to:
 No scientific number change, new experiment, or reinterpretation is authorized at S17-10.
 
 S18 remains blocked until S17-10 closes.
+
+
+### S17-10 local manuscript compile / PDF visual-proof closure — PASS / CLOSED
+
+Researcher supplied compiled manuscript PDF `main03Oct2026_1223.pdf`.
+
+The 26-page compiled PDF was inspected directly against the S17-9 manuscript/source freeze.
+
+Rendered Kubernetes section confirms:
+- Q-AHBN delivery 0.390977;
+- delay 0.038385 s;
+- duplicates 578.4;
+- successful forwards / `total_forwards` 1,612.2;
+- `F_attempt` 2,251.0.
+
+Rendered paired Q-AHBN-minus-AHBN contrasts confirm:
+- delivery +0.130842 [-0.243288,+0.504973];
+- delay +0.013192 s [-0.027568,+0.053952];
+- duplicates +174.8 [-281.0,+630.6];
+- forwarding attempts +803.0 [-1424.2,+3030.2];
+- successful forwards +613.6 [-1157.7,+2384.9].
+
+All five paired 95% confidence intervals cross zero, preserving the frozen conclusion that Kubernetes is operational-realization evidence rather than confirmatory performance evidence.
+
+Visual proof of page 21 / Table 5 found:
+- no clipping;
+- no overflow;
+- no overlapping cells or rules;
+- corrected caption and table values legible;
+- surrounding text consistent with S17-8/S17-9 claim boundaries.
+
+Whole-PDF readback confirms 26 pages and no stale publication-facing Q-AHBN Kubernetes values/wording in the corrected section.
+
+Manuscript-side S17-10 closure commit:
+`6b73f4156646fcf35c6faa75983ae35cf2ce608b`.
+
+No scientific result, parameter, experiment, algorithm, or evidence role changed.
+
+**S17-10 = PASS / CLOSED.**
+
+### Controlled release
+
+S17-0 through S17-10 are now PASS / CLOSED. The forwarding-accounting remediation, formal Q-AHBN2-only rerun, corrected evidence freeze, statistical reconstruction, manuscript integration, and compiled-PDF proof are complete.
+
+**S18 — Post-Remediation Scientific Interpretation / Final Manuscript Consistency Re-Closure is now RELEASED.**
+
+S18 is interpretation/control-only. It must not reopen experiments, parameters, controller logic, Q-learning design, or evidence generation.
