@@ -3239,3 +3239,27 @@ S18 reconciled the frozen S12/S12A interpretation and claim contract against the
 Scientific interpretation is unchanged: primary ControlSim remains the comparative performance authority; Exp13-Q remains bounded external positioning; Kubernetes remains complementary operational-realization/observability evidence and does not independently establish a consistent performance advantage. No pooling, replication/equivalence, generic low-overhead, convergence, policy-optimality, global hyperparameter-optimality, universal-superiority, or global-ranking claim is authorized.
 
 Detailed closure authority: `docs/stages/S18_POST_REMEDIATION_RECLOSURE.md`.
+
+
+---
+
+## S19 — Author Manual-Review Manuscript Improvements
+
+**Programme status: ACTIVE — 2026-10-03.**
+
+The researcher released a bounded post-S18 manuscript-communication programme. It does not reopen experiments, parameters, algorithms, statistical methods, evidence generation, or the S18 claim/evidence contract.
+
+### S19-0 — Manuscript Improvement Backlog Freeze and Authority Reconciliation
+**PASS / CLOSED — 2026-10-03.**
+
+Frozen backlog:
+- MI-01: ControlSim propagation-delay unit → rounds; Kubernetes remains seconds.
+- MI-02: strengthen Introduction/Related Work citation density without unnecessary restructuring.
+- MI-03: clarify fixed dissemination → RO2 characterization → AHBN runtime adaptation → Q-AHBN experience-driven bounded refinement.
+- MI-04: simplify/polish Figure 1 without changing frozen semantics.
+- MI-05: remove unnecessary publication-facing S5 terminology.
+- MI-06: correct “Adaptive Hybrid Blockchain Networking” to “Adaptive Hybrid Broadcast Network (AHBN)”.
+
+Detailed authority and execution freeze: `docs/stages/S19_0_MANUSCRIPT_IMPROVEMENT_BACKLOG_FREEZE.md`.
+
+**Next and only released gate: S19-1 — Terminology, Nomenclature and Unit Consistency Remediation.**
