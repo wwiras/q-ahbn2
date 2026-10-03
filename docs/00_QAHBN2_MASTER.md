@@ -3226,3 +3226,16 @@ S17-0 through S17-10 are now PASS / CLOSED. The forwarding-accounting remediatio
 **S18 — Post-Remediation Scientific Interpretation / Final Manuscript Consistency Re-Closure is now RELEASED.**
 
 S18 is interpretation/control-only. It must not reopen experiments, parameters, controller logic, Q-learning design, or evidence generation.
+
+
+---
+
+## S18 — Post-Remediation Scientific Interpretation / Final Manuscript Consistency Re-Closure
+
+**Status: PASS / CLOSED — 2026-10-03.**
+
+S18 reconciled the frozen S12/S12A interpretation and claim contract against the corrected S17 Kubernetes forwarding-accounting evidence. The corrected Q-AHBN2 Kubernetes means are delivery 0.390977, delay 0.038385 s, duplicates 578.4, F_attempt 2251.0, and successful forwards/total_forwards 1612.2. All five corrected paired Q-AHBN2-minus-AHBN 95% CIs cross zero.
+
+Scientific interpretation is unchanged: primary ControlSim remains the comparative performance authority; Exp13-Q remains bounded external positioning; Kubernetes remains complementary operational-realization/observability evidence and does not independently establish a consistent performance advantage. No pooling, replication/equivalence, generic low-overhead, convergence, policy-optimality, global hyperparameter-optimality, universal-superiority, or global-ranking claim is authorized.
+
+Detailed closure authority: `docs/stages/S18_POST_REMEDIATION_RECLOSURE.md`.
