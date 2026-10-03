@@ -118,7 +118,6 @@ The corrective audit used the latest AHBN Scientific Reports manuscript and the 
 The researcher's prior published works were also released for self-citation where directly relevant:
 - Wira et al. (2025), _Cloud-native simulation framework for gossip protocol: Modeling and analyzing network dynamics_, PLOS ONE, DOI 10.1371/journal.pone.0325817;
 - Wira et al. (2025), _A Kubernetes-Based Framework for Simulating Gossip Protocols in Blockchain Networks_, DOI 10.1145/3761668.3761706;
-- Samsuddin Wira et al. (2026), _Characterizing Latency--Duplication Trade-off in Blockchain Dissemination: A Systematic Study of Gossip and Structured Broadcast_.
 
 ### Expanded active citation architecture
 The active manuscript now cites more than twenty distinct sources across Introduction, Related Work and Methodology. Added source families include:
@@ -135,7 +134,7 @@ The active manuscript now cites more than twenty distinct sources across Introdu
 - BA and ER random-graph foundations.
 
 ### Bibliography correction
-The active bibliography was expanded from 10 to 27 entries, matching the now-cited source set. Bibliographic fields remain conservative: only fields supported by source PDFs, DOI records already present in those PDFs, or the previously verified source register were added.
+The active bibliography was expanded from 10 to 26 published/eligible entries, matching the now-cited source set. Bibliographic fields remain conservative: only fields supported by source PDFs, DOI records already present in those PDFs, or the previously verified source register were added.
 
 ### Corrective commits
 - manuscript citation expansion: `84e499a24ff737ab1f3f70f7cb90c6662871c873`
@@ -145,3 +144,13 @@ The active bibliography was expanded from 10 to 27 entries, matching the now-cit
 No experiment, algorithm, statistic, result, confidence interval, claim authorization, section ordering, or Figure 1 content changed. This amendment changes citation coverage only.
 
 **S19-4 remains PASS / CLOSED after corrective expansion.**
+
+
+### Unpublished-source removal correction — 2026-10-03
+Researcher confirmed that _Characterizing Latency--Duplication Trade-off in Blockchain Dissemination: A Systematic Study of Gossip and Structured Broadcast_ is not yet published. It is therefore excluded as a publication-facing citation and bibliography entry. It may remain an internal source-map/evidence artifact, but it is not counted among manuscript references.
+
+Removal commits:
+- manuscript citation removal: `1502b9617fbd3fd7b5ab025d5d8f29d608b65fb5`
+- bibliography-entry removal: `c339cd108b3c1dccfa9c88aea8a81fe90c6c2222`
+
+The active manuscript/reference set is now 26 cited entries, subject to post-write key parity verification.
