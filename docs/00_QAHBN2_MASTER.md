@@ -2924,3 +2924,105 @@ S17-7 must:
 5. freeze the corrected Kubernetes evidence family before any manuscript update or S18 work.
 
 No manuscript editing or S18 interpretation is authorized until S17-7 closes.
+
+
+### S17-7 post-remediation evidence reconciliation / acceptance freeze — PASS / CLOSED
+
+S17-7 reconciled the post-remediation Q-AHBN2 evidence against the unchanged historical Kubernetes comparator evidence and froze the corrected authority model.
+
+#### Post-remediation Q-AHBN2 evidence authority
+
+Authoritative corrected Q-AHBN2 Kubernetes evidence family:
+
+`output/evidence/q-ahbn-gke-03102026113510-s17-qahbn2-remediation/`
+
+Synchronized Google Drive folder ID:
+
+`1cNZ-7ty_PkxeQHoAvvU3JZlI-Y4tewnP`
+
+Execution provenance:
+- Git SHA: `352b90091d7c0fec255a9030a5c7d188af2d437b`;
+- image: `wwiras/q-ahbn2:s17-remediation-formal-20261003`;
+- digest: `sha256:91eaed37889678b92a6e3fa4338773fcb3d93faa285a3b1bac793610f9aa8666`;
+- method: Q-AHBN2 only;
+- seeds: 42--46;
+- all five coordinates validated.
+
+The frozen per-seed corrected metrics are:
+
+| Seed | Delivery | Delay (s) | Duplicates | F_attempt | F_success / total_forwards |
+|---|---:|---:|---:|---:|---:|
+| 42 | 0.37124237965104057 | 0.0401592363913854 | 512 | 2118 | 1539 |
+| 43 | 0.18573551263001487 | 0.01605471074581146 | 284 | 970 | 643 |
+| 44 | 0.25367012089810015 | 0.023390597105026244 | 443 | 1442 | 947 |
+| 45 | 0.5033726812816189 | 0.05044329464435578 | 728 | 2951 | 2162 |
+| 46 | 0.6408662092624356 | 0.061876047650973 | 925 | 3774 | 2770 |
+
+Corrected Q-AHBN2 means (n=5):
+- delivery ratio = **0.3909773807446420**;
+- propagation delay = **0.03838477730751038 s**;
+- duplicates = **578.4**;
+- F_attempt = **2251.0**;
+- F_success / total_forwards = **1612.2**.
+
+Sample SDs:
+- delivery ratio = **0.184692**;
+- propagation delay = **0.018867 s**;
+- duplicates = **250.960754**;
+- F_attempt = **1131.664703**;
+- F_success / total_forwards = **870.341715**.
+
+#### Protocol/provenance acceptance
+
+The five post-remediation coordinates share:
+- contract version `k7-exp11-v2`;
+- target-selection version `k7-targets-v1`;
+- frozen targets 0,5,10,15;
+- 240 messages;
+- 0.4 s message interval;
+- churn offsets 1,26,51,76 s;
+- common contract hash `5b26ed302abc57ce2816511f5257da7aca488ba7f3d6686e52483cd3f5675a7d`.
+
+Therefore the post-remediation Q-AHBN2 family is accepted as protocol-consistent and provenance-complete.
+
+#### Corrected Kubernetes authority model
+
+The corrected composite Kubernetes evidence set is now:
+
+1. **Gossip, Structured, DC-SoC, AHBN:** retain their validated historical K5-Q formal coordinates unchanged.
+2. **Q-AHBN2:** use the S17 post-remediation five-run family for all publication-facing quantitative values.
+3. Historical Q-AHBN2 K5-Q runs remain preserved as provenance/history but are **superseded for quantitative publication use** where the affected execution/accounting semantics could differ.
+4. Historical Q-AHBN2 `total_forwards / F_success` values are explicitly non-authoritative.
+5. The corrected Q-AHBN2 `F_attempt`, `F_success`, and `total_forwards` are authoritative from S17.
+6. For scientific consistency, publication-facing Q-AHBN2 delivery ratio, propagation delay, and duplicates must also come from the same S17 post-remediation coordinates rather than mixing metrics from different executions.
+7. Historical comparator metrics remain authoritative because their execution paths were unaffected by the repaired Q-AHBN2 branch.
+
+This preserves seed/method provenance while avoiding a mixed-execution Q-AHBN2 row.
+
+#### Manuscript replacement boundary
+
+Once a dedicated manuscript-update gate is released, T3 / `tab:kubernetes-results` may replace the entire Q-AHBN2 row with the S17-derived Q-AHBN2 statistics while retaining the historical comparator rows.
+
+The previous manuscript explanation that Q-AHBN2 `total_forwards` is instrumentation-noncomparable becomes historical remediation context and should no longer be the publication-facing interpretation after the corrected table is integrated.
+
+Kubernetes remains operational-realization evidence only. This remediation does **not** authorize:
+- ControlSim/Kubernetes pooling;
+- claims of numerical replication or equivalence;
+- Kubernetes confirmation of ControlSim superiority;
+- generic low-overhead claims;
+- convergence or policy-optimality claims.
+
+**S17-7 = PASS / CLOSED.**
+
+### Next controlled gate
+
+**S17-8 — Corrected Kubernetes Statistical Reconstruction / Manuscript-Update Contract.**
+
+S17-8 should reconstruct the complete publication-facing Kubernetes table/statistics using:
+- unchanged historical comparator coordinates;
+- S17-remediated Q-AHBN2 coordinates;
+- the frozen n=5 mean/SD/95% CI and paired-difference rules.
+
+It must produce the exact corrected values and replacement wording contract before any manuscript source is edited.
+
+S18 remains blocked until the corrected Kubernetes evidence/statistics and manuscript-update contract are frozen.
