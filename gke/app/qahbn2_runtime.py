@@ -167,6 +167,23 @@ def _forward(self, dst_peer, envelope):
                     self.unavailable_neighbors.remove(dst_peer)
                     self.observations.record_join()
                 self.qahbn2_adapter.record_ack(decision_id, dst_peer, ack_ok=True)
+                peer.log_event(
+                    event="forward",
+                    run_id=self.run_id,
+                    experiment=self.experiment,
+                    peer_id=self.peer_id,
+                    dst_peer=dst_peer,
+                    src_peer=envelope.sender_id,
+                    message_id=envelope.message_id,
+                    strategy=self.strategy,
+                    mode=self.mode,
+                    fanout=self.fanout,
+                    overload_ms=self.overload_ms,
+                    bottleneck_active=self.bottleneck_active,
+                    bottleneck_delay_ms=self.bottleneck_delay_ms,
+                    is_cluster_head=self.is_cluster_head,
+                    decision_id=decision_id,
+                )
                 outcome = "NEW"
             elif resp.message == "duplicate":
                 if dst_peer in self.unavailable_neighbors:
