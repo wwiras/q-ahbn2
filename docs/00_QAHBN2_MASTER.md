@@ -3282,3 +3282,11 @@ Detailed closure authority: `docs/stages/S19_1_TERMINOLOGY_NOMENCLATURE_UNIT_REM
 
 ### S19-1 MI-01 source-level corrective amendment — 2026-10-03
 A narrow source audit against canonical `wwiras/ahbn@936a79480bc1252c79b6ee01f65c88c740af2844` corrected the earlier S19 assumption that ControlSim propagation delay should be labelled rounds. Canonical metrics compute elapsed simulation-clock time (`max(first_seen_times) - created_at`), transport advances the same clock using `base_delay`, `jitter`, and condition-specific delay terms, and the authoritative AHBN Scientific Reports manuscript reports controlled-simulation propagation delay in seconds. Accordingly, MI-01 is frozen as **ControlSim delay = seconds; Kubernetes delay = seconds**. Numeric evidence and S18 claim boundaries are unchanged. S19-1 remains PASS / CLOSED after corrective re-verification.
+
+
+### S19-1 MI-01 methodological-rationale preservation — 2026-10-03
+For future defence/documentation, the project preserves a separate rationale from the source-level unit correction. Blockchain discrete-event simulation may legitimately use a physical-time clock (including millisecond-scale parameterization) for controlled comparative dissemination studies; this does not imply that a nominal `base_delay=1.0` reproduces typical Internet/WAN blockchain latency. The controlled simulator and Kubernetes serve complementary evidence roles, with no absolute-latency prediction, pooling, equivalence, or literal-replication claim.
+
+A specific interpretation such as `base_delay=1.0 ms`, `jitter=0.2 ms` must not be retroactively inferred from the constants alone. It requires a dimensional-consistency audit of all quantities interacting with the simulation clock before being separately frozen. Detailed rationale and audit boundary are recorded in `docs/stages/S19_1_TERMINOLOGY_NOMENCLATURE_UNIT_REMEDIATION.md`.
+
+The current publication decision remains **ControlSim propagation delay = seconds (s)**. Expressing the same consistently defined simulation clock in milliseconds in a future document would be a unit rescaling, not a change to the underlying propagation-delay definition.
