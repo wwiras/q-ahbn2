@@ -3026,3 +3026,86 @@ S17-8 should reconstruct the complete publication-facing Kubernetes table/statis
 It must produce the exact corrected values and replacement wording contract before any manuscript source is edited.
 
 S18 remains blocked until the corrected Kubernetes evidence/statistics and manuscript-update contract are frozen.
+
+
+### S17-8 corrected Kubernetes statistical reconstruction / manuscript-update contract — PASS / CLOSED
+
+S17-8 reconstructed the complete publication-facing Kubernetes statistics from:
+- unchanged historical K5-Q formal comparator coordinates for Gossip, Structured, DC-SoC and AHBN;
+- S17 post-remediation Q-AHBN2 coordinates for seeds 42--46.
+
+No manuscript source was edited during this gate.
+
+#### Publication-facing method statistics (n=5 each)
+
+All intervals are two-sided 95% Student-t confidence intervals using df=4.
+
+| Method | Delivery mean ± SD [95% CI] | Delay s mean ± SD [95% CI] | Duplicates mean ± SD [95% CI] | F_attempt mean ± SD [95% CI] | Successful forwards / total_forwards mean ± SD [95% CI] |
+|---|---|---|---|---|---|
+| Gossip | 0.886812 ± 0.017678 [0.864862, 0.908762] | 0.098913 ± 0.052701 [0.033476, 0.164349] | 3485.4 ± 1265.2 [1914.5, 5056.3] | 7489.0 ± 1338.2 [5827.4, 9150.6] | 3959.2 ± 77.5 [3863.0, 4055.4] |
+| Structured | 0.081950 ± 0.000747 [0.081023, 0.082878] | 0.003793 ± 0.000542 [0.003120, 0.004466] | 0.0 ± 0.0 [0.0, 0.0] | 153.0 ± 0.0 [153.0, 153.0] | 152.0 ± 0.0 [152.0, 152.0] |
+| DC-SoC | 0.409472 ± 0.442103 [-0.139472, 0.958416] | 0.105556 ± 0.135294 [-0.062433, 0.273546] | 3.6 ± 8.0 [-6.4, 13.6] | 1726.0 ± 2101.5 [-883.3, 4335.3] | 1709.2 ± 2099.4 [-897.6, 4316.0] |
+| AHBN | 0.260135 ± 0.176009 [0.041590, 0.478679] | 0.025193 ± 0.019750 [0.000670, 0.049715] | 403.6 ± 272.3 [65.6, 741.6] | 1448.0 ± 1089.0 [95.8, 2800.2] | 998.6 ± 828.1 [-29.6, 2026.8] |
+| Q-AHBN2 | 0.390977 ± 0.184692 [0.161652, 0.620302] | 0.038385 ± 0.018867 [0.014958, 0.061811] | 578.4 ± 251.0 [266.8, 890.0] | 2251.0 ± 1131.7 [845.9, 3656.1] | 1612.2 ± 870.3 [531.5, 2692.9] |
+
+Negative lower confidence limits for inherently non-negative metrics are retained as untruncated Student-t intervals, not physical predictions.
+
+#### Paired Q-AHBN2 minus AHBN differences by matched seed
+
+| Metric | Mean paired difference | SD | 95% CI |
+|---|---:|---:|---:|
+| Delivery ratio | +0.130842 | 0.301314 | [-0.243288, +0.504973] |
+| Propagation delay (s) | +0.013192 | 0.032827 | [-0.027568, +0.053952] |
+| Duplicates | +174.8 | 367.1 | [-281.0, +630.6] |
+| F_attempt | +803.0 | 1793.7 | [-1424.2, +3030.2] |
+| Successful forwards / total_forwards | +613.6 | 1426.5 | [-1157.7, +2384.9] |
+
+All five paired 95% CIs cross zero.
+
+Therefore the corrected forwarding-accounting repair restores quantitative comparability for Q-AHBN2 successful forwards but does not change the frozen scientific interpretation that the Kubernetes performance contrasts are inconclusive at n=5.
+
+#### Exact manuscript-update contract
+
+For T3 / `tab:kubernetes-results`:
+
+1. retain the historical Gossip, Structured, DC-SoC and AHBN rows;
+2. replace the entire Q-AHBN2 row with S17-remediated Q-AHBN2 statistics;
+3. replace any Q-AHBN2 successful-forward / `total_forwards` value derived from the historical defective runs with the corrected S17 value;
+4. if T3 reports `F_attempt`, use 2251.0 ± 1131.7 [845.9, 3656.1] for Q-AHBN2;
+5. if T3 reports successful forwards / `total_forwards`, use 1612.2 ± 870.3 [531.5, 2692.9] for Q-AHBN2;
+6. publication-facing paired AHBN--Q-AHBN2 prose must use the corrected paired differences above;
+7. remove or rewrite the prior statement that Q-AHBN2 `total_forwards` is instrumentation-noncomparable;
+8. replace it with a concise provenance statement that the Q-AHBN2 row was regenerated after correcting a successful-forward logging omission, while comparator rows remain from the unchanged validated historical K5-Q evidence;
+9. retain the statement that all paired 95% CIs cross zero and that Kubernetes is operational-realization evidence rather than confirmation of ControlSim superiority;
+10. do not claim that the repaired forwarding count implies lower overhead, higher efficiency, superiority, equivalence, transfer, convergence or policy optimality.
+
+#### Evidence provenance to retain in manuscript/supporting records
+
+Historical comparator evidence:
+- formal matrix Git SHA: `7ad474c3a249fde58223f2abd5d54918b4bcbb9f`;
+- historical image: `wwiras/q-ahbn2:k5q-formal-v2-20260929`;
+- digest: `sha256:d8ac06197962a6e42cb9e564a9c115c08b9f018df231f61cdbfbb8796422991e`;
+- historical formal Drive folder ID: `15iFp5E2NCKnewFFObLp3xvVQK3IsXjeP`.
+
+Corrected Q-AHBN2 evidence:
+- execution Git SHA: `352b90091d7c0fec255a9030a5c7d188af2d437b`;
+- image: `wwiras/q-ahbn2:s17-remediation-formal-20261003`;
+- digest: `sha256:91eaed37889678b92a6e3fa4338773fcb3d93faa285a3b1bac793610f9aa8666`;
+- Drive folder ID: `1cNZ-7ty_PkxeQHoAvvU3JZlI-Y4tewnP`.
+
+The common protocol contract hash remains:
+`5b26ed302abc57ce2816511f5257da7aca488ba7f3d6686e52483cd3f5675a7d`.
+
+**S17-8 = PASS / CLOSED.**
+
+### Next controlled gate
+
+**S17-9 — Manuscript-Side Corrected Kubernetes Integration.**
+
+S17-9 may now update the QAHBN2-Manuscript repository using the exact frozen replacement contract above. It must:
+- modify only Kubernetes-facing manuscript values/text/provenance affected by the S17 remediation;
+- preserve all non-Kubernetes frozen results and claims;
+- compile and visually/proof audit the manuscript;
+- verify no stale historical Q-AHBN2 forwarding-accounting wording/value remains.
+
+S18 remains blocked until S17-9 manuscript integration and its source/PDF consistency closure are complete.
