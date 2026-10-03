@@ -3371,3 +3371,15 @@ Removal commits:
 - bibliography-entry removal: `c339cd108b3c1dccfa9c88aea8a81fe90c6c2222`
 
 The active manuscript/reference set is now 26 cited entries, subject to post-write key parity verification.
+
+
+### S19-5 — Figure 1 Presentation Redesign Specification
+**PASS / CLOSED — 2026-10-03.**
+
+MI-04 redesign specification is frozen without modifying the active Figure 1. The current six-stage scientific cycle remains authoritative, but S19-6 may simplify its presentation into three visually grouped layers: canonical adaptation, bounded Q-AHBN refinement, and execution/learning evidence.
+
+The S19-5 contract freezes twelve semantic invariants covering AHBN-first ordering, AHBN immutability, preserved proposal identity, bounded post-AHBN intervention, same canonical EWMA state, requested-versus-realized forwarding, attributable outcomes, reward/transition semantics, Algorithm 1 authority, and prohibition of new scientific semantics.
+
+Detailed authority: `docs/stages/S19_5_FIGURE1_PRESENTATION_REDESIGN_SPECIFICATION.md`.
+
+**Next and only released gate: S19-6 — Figure 1 Presentation Implementation and Semantic-Parity Audit.**
