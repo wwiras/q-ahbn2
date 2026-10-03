@@ -47,26 +47,25 @@ Five-seed means at the single frozen ControlSim churn=0.40 benchmark:
 
 Q-AHBN2 improves AHBN delivery/delay in this bounded benchmark but does not dominate the external references across all outcomes. Exp13-Q therefore positions the learned refinement within the dissemination trade-off; it is not universal-superiority evidence.
 
-## Kubernetes interpretation
-K6-Q froze 25 validated Kubernetes coordinates. Five-seed means:
+## Kubernetes interpretation — S18 post-remediation reconciliation
+S17 supersedes only the historical Q-AHBN2 Kubernetes measurement row and associated paired statistics; the four historical comparator families remain authoritative and unchanged.
 
-| Method | Delivery | Delay (s) | Duplicates | total_forwards |
-|---|---:|---:|---:|---:|
-| Gossip | 0.886812 | 0.098913 | 3,485.4 | 3,959.2 |
-| Structured | 0.081950 | 0.003793 | 0.0 | 152.0 |
-| DC-SoC | 0.409472 | 0.105556 | 3.6 | 1,709.2 |
-| AHBN | 0.260135 | 0.025193 | 403.6 | 998.6 |
-| Q-AHBN2 | 0.392835 | 0.040161 | 665.8 | 10.0 |
+Corrected five-seed means:
 
-Paired Q-AHBN2-minus-AHBN differences:
-- delivery +0.132700, 95% CI [-0.254409,+0.519810];
-- delay +0.014968 s, 95% CI [-0.029801,+0.059737];
-- duplicates +262.2, 95% CI [-441.9,+966.3];
-- total_forwards -988.6, 95% CI [-2022.75,+45.55].
+| Method | Delivery | Delay (s) | Duplicates | F_attempt | F_success / total_forwards |
+|---|---:|---:|---:|---:|---:|
+| AHBN | 0.260135 | 0.025193 | 403.6 | 1448.0 | 998.6 |
+| Q-AHBN2 | 0.390977 | 0.038385 | 578.4 | 2251.0 | 1612.2 |
 
-All four intervals cross zero and seed-level effects change sign. Kubernetes therefore supports executable distributed realization and observability, but not an independent consistent performance-improvement claim over AHBN.
+Corrected paired Q-AHBN2-minus-AHBN differences:
+- delivery +0.130842, 95% CI [-0.243288,+0.504973];
+- delay +0.013192 s, 95% CI [-0.027568,+0.053952];
+- duplicates +174.8, 95% CI [-281.0,+630.6];
+- forwarding attempts +803.0, 95% CI [-1424.2,+3030.2];
+- successful forwards +613.6, 95% CI [-1157.7,+2384.9].
 
-The low Q-AHBN2 Kubernetes total_forwards value must not become a generic lightweight claim: mean F_attempt is 2345.4 for Q-AHBN2 versus 1448.0 for AHBN. The metric must remain in its runtime-accounting context.
+All five intervals cross zero and seed-level effects change direction. Kubernetes therefore continues to support executable distributed realization and observability, but not an independent consistent performance-improvement claim over AHBN. The corrected accounting removes the historical logging artifact; it does not establish reduced forwarding or generic low overhead.
+
 
 ## Integrated interpretation
 - Q-AHBN2 is a functioning learning meta-controller above immutable AHBN.
