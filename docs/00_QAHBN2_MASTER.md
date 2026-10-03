@@ -2449,3 +2449,34 @@ S17-2 must verify, before any Kubernetes smoke or formal rerun:
 - non-Q-AHBN2 forwarding behavior remains unchanged.
 
 No smoke run or formal Kubernetes rerun is authorized until S17-2 passes.
+
+
+### S17-2 deterministic verification preparation — 2026-10-03
+
+**Status: PREPARED / AWAITING LOCAL EXECUTION**
+
+A bounded deterministic guard suite was added at:
+
+`tests/test_s17_2_forward_instrumentation.py`
+
+Preparation commit:
+
+`185bbbd768478d31bfd56ae47425bb0423201aec`
+
+The suite performs source/AST verification only and does not execute Kubernetes, network RPCs, smoke workloads, simulations, or formal experiments. It contains five tests mapped one-to-one to the S17-2 acceptance invariants:
+
+1. decision-bound Q-AHBN2 NEW path contains exactly one generic `forward` event with inherited common fields plus `decision_id`;
+2. DUPLICATE, rejected FAILED, and exception FAILED paths contain no generic successful-forward event;
+3. one `k7_forward_attempt` is structurally emitted before delegation/outcome handling and the Q-AHBN2 success path contains only one generic success event, guarding `F_success <= F_attempt`;
+4. the Q-AHBN2 no-decision fallback delegates exactly once to `_ORIGINAL_FORWARD` and adds no local generic success event;
+5. the non-Q-AHBN2 path delegates exactly once to `_ORIGINAL_FORWARD` and adds no local generic success event; inherited `peer.py` successful-forward instrumentation remains present.
+
+Required local command from the synchronized repository root:
+
+```bash
+PYTHONPATH=. python3 -m unittest tests/test_s17_2_forward_instrumentation.py -v
+```
+
+Acceptance requires **5/5 PASS** with no test error. Until the researcher executes this deterministic suite and returns the console result for readback, **S17-2 is not closed**.
+
+No GKE smoke, formal rerun, manuscript-result replacement, or S18 work is authorized while this execution is pending.
