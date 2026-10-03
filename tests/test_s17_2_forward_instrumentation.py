@@ -39,11 +39,13 @@ class TestS172ForwardInstrumentation(unittest.TestCase):
     @classmethod
     def _logged_events(cls, node):
         events = []
-        for child in ast.walk(node):
-            if isinstance(child, ast.Call):
-                value = cls._event_value(child)
-                if value is not None:
-                    events.append(value)
+        nodes = node if isinstance(node, list) else [node]
+        for root in nodes:
+            for child in ast.walk(root):
+                if isinstance(child, ast.Call):
+                    value = cls._event_value(child)
+                    if value is not None:
+                        events.append(value)
         return events
 
     def _strategy_guard(self):
