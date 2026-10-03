@@ -3253,7 +3253,7 @@ The researcher released a bounded post-S18 manuscript-communication programme. I
 **PASS / CLOSED — 2026-10-03.**
 
 Frozen backlog:
-- MI-01: ControlSim propagation-delay unit → rounds; Kubernetes remains seconds.
+- MI-01: ControlSim propagation-delay unit → seconds; Kubernetes remains seconds.
 - MI-02: strengthen Introduction/Related Work citation density without unnecessary restructuring.
 - MI-03: clarify fixed dissemination → RO2 characterization → AHBN runtime adaptation → Q-AHBN experience-driven bounded refinement.
 - MI-04: simplify/polish Figure 1 without changing frozen semantics.
@@ -3269,7 +3269,7 @@ Detailed authority and execution freeze: `docs/stages/S19_0_MANUSCRIPT_IMPROVEME
 **PASS / CLOSED — 2026-10-03.**
 
 Implemented only MI-01, MI-05 and MI-06 in the active manuscript:
-- ControlSim propagation delay is publication-facing **rounds**; Kubernetes remains **seconds**;
+- ControlSim propagation delay is publication-facing **seconds**; Kubernetes remains **seconds**;
 - publication-facing `S5` jargon is replaced by canonical fanout terminology without changing thresholds/mapping;
 - AHBN is correctly expanded as **Adaptive Hybrid Broadcast Network (AHBN)**.
 
@@ -3278,3 +3278,7 @@ No scientific number, statistic, experiment, parameter, algorithm, evidence role
 Detailed closure authority: `docs/stages/S19_1_TERMINOLOGY_NOMENCLATURE_UNIT_REMEDIATION.md`.
 
 **Next and only released gate: S19-2 — RO2 → AHBN → Q-AHBN Progression Clarification.**
+
+
+### S19-1 MI-01 source-level corrective amendment — 2026-10-03
+A narrow source audit against canonical `wwiras/ahbn@936a79480bc1252c79b6ee01f65c88c740af2844` corrected the earlier S19 assumption that ControlSim propagation delay should be labelled rounds. Canonical metrics compute elapsed simulation-clock time (`max(first_seen_times) - created_at`), transport advances the same clock using `base_delay`, `jitter`, and condition-specific delay terms, and the authoritative AHBN Scientific Reports manuscript reports controlled-simulation propagation delay in seconds. Accordingly, MI-01 is frozen as **ControlSim delay = seconds; Kubernetes delay = seconds**. Numeric evidence and S18 claim boundaries are unchanged. S19-1 remains PASS / CLOSED after corrective re-verification.
