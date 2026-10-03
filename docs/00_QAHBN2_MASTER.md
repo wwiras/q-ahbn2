@@ -2480,3 +2480,25 @@ PYTHONPATH=. python3 -m unittest tests/test_s17_2_forward_instrumentation.py -v
 Acceptance requires **5/5 PASS** with no test error. Until the researcher executes this deterministic suite and returns the console result for readback, **S17-2 is not closed**.
 
 No GKE smoke, formal rerun, manuscript-result replacement, or S18 work is authorized while this execution is pending.
+
+
+### S17-2 first local execution — harness error / gate remains open
+
+Researcher local execution on 2026-10-03 ran all five deterministic tests. Results:
+
+- 2 tests reached their assertions and passed:
+  - non-Q-AHBN2 path pure single delegation;
+  - Q-AHBN2 fallback single delegation/no local success log.
+- 3 tests terminated with `AttributeError: 'list' object has no attribute '_fields'` before evaluating their scientific/instrumentation assertions.
+
+Root cause was isolated to the test helper `_logged_events()`: it passed AST statement lists such as `outcome_if.body` directly to `ast.walk()`, which requires an AST node. This is a **test-harness traversal defect**, not evidence that any S17-2 forwarding invariant failed.
+
+The helper was minimally corrected to normalize a list into individual AST roots before walking them.
+
+Harness-fix commit:
+
+`ef9361ee6710ec0bc661cf878388f425def3efbf`
+
+No runtime, algorithm, instrumentation, experiment, metric, or scientific evidence file was changed by this correction.
+
+**S17-2 remains OPEN / AWAITING RERUN.** Acceptance still requires 5/5 deterministic tests to PASS. S17-3, S17-4, formal reruns, manuscript-result replacement, and S18 remain blocked.
