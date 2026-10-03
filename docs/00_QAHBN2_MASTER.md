@@ -3361,3 +3361,13 @@ Detailed amendment: `docs/stages/S19_4_CITATION_DENSITY_INTEGRATION.md`.
 
 **S19-4 remains PASS / CLOSED.**
 **Next and only released gate remains S19-5 — Figure 1 Presentation Redesign Specification.**
+
+
+### Unpublished-source removal correction — 2026-10-03
+Researcher confirmed that _Characterizing Latency--Duplication Trade-off in Blockchain Dissemination: A Systematic Study of Gossip and Structured Broadcast_ is not yet published. It is therefore excluded as a publication-facing citation and bibliography entry. It may remain an internal source-map/evidence artifact, but it is not counted among manuscript references.
+
+Removal commits:
+- manuscript citation removal: `1502b9617fbd3fd7b5ab025d5d8f29d608b65fb5`
+- bibliography-entry removal: `c339cd108b3c1dccfa9c88aea8a81fe90c6c2222`
+
+The active manuscript/reference set is now 26 cited entries, subject to post-write key parity verification.
