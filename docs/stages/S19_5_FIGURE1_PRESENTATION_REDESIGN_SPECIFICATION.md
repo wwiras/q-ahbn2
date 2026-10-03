@@ -219,3 +219,11 @@ The redesign is now specified without changing the active Figure 1.
 
 ## Next permitted task
 **S19-6 — Figure 1 Presentation Implementation and Semantic-Parity Audit** is the next and only released action.
+
+
+## Vertical-layout amendment — 2026-10-03
+The researcher approved a vertical top-to-bottom Figure 1 with a central execution spine and compact side annotations. This supersedes the earlier left-to-right presentation preference; P1-P12 are unchanged. The feedback path returns to a future Q-AHBN decision and not to AHBN.
+
+Figure simplification follows an information-preservation rule: technical content removed from the visual must either remain explicit in the method/Algorithm 1, be moved or clarified in the companion explanatory paragraph, or be retained compactly in the figure. The companion paragraph preserves the same-EWMA 81-state discretization, AHBN-first proposal, five bounded refinements, requested-versus-realized distinction, directly attributable outcome basis, zero-attempt no-update case, and same-peer future transition. Text density is reduced before font size; modest resizing is permitted only if readability remains adequate.
+
+**S19-5 remains PASS / CLOSED as amended.**
