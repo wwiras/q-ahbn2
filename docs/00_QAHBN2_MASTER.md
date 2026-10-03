@@ -3473,3 +3473,26 @@ Manuscript commit:
 `61a49da97641a3be3761f06553549a1ba1c8c571`.
 
 No bibliography entry, experiment, statistic, parameter, evidence family, or claim boundary changed. S19-7 remains IN PROGRESS pending compile/visual proof.
+
+
+### S19-7 Chapter 2 citation-key synchronization — 2026-10-03
+The researcher supplied `ahbnLR26Sept2026chap2_92.bib` as the citation-key authority for overlapping publications.
+
+A DOI/title reconciliation synchronized nine manuscript/bibliography keys to the Chapter 2 naming convention:
+`shahsavari_theoretical_2022`, `mao_perigee_2020`, `tang_strategic_2023`, `li_ls-gossip_2022`, `fortino_using_2023`, `mohamed_efficient_2024`, `tran_framework_2022`, `di_perna_impact_2025`, and `koshikawa_impacts_2026`.
+
+Active manuscript commit:
+`a7d7aa9155345f9620296b4215c460f72349bcdc`.
+
+Active bibliography commit:
+`4b69e36cb546969339ff06fa036c4924410d0ef9`.
+
+Post-write parity audit:
+- distinct cited keys: 26;
+- bibliography entries: 26;
+- missing cited keys: 0;
+- uncited bibliography entries: 0.
+
+References without a verified match in the supplied 92-entry bibliography retained their current keys rather than being guessed.
+
+No scientific evidence, claim, result, parameter, figure, or table value changed. S19-7 remains IN PROGRESS pending final compile/visual proof.
