@@ -124,3 +124,38 @@ Manuscript source commit:
 `a7d7aa9155345f9620296b4215c460f72349bcdc`.
 
 No scientific claim, evidence, result, parameter, figure, or table value changed. S19-7 remains IN PROGRESS pending bibliography-entry synchronization/readback and final compile/visual proof.
+
+
+## Compile / visual-proof re-closure — 2026-10-03
+Researcher-supplied compiled artifact reviewed:
+`main03Oct2026_1910.pdf` (28 pages).
+
+### Visual/proof findings
+- Page 1 abstract renders cleanly and the revised percentage-based primary-result framing is visible.
+- Introduction/Related Work pagination and citation rendering are coherent; DC-SoC and Gossip references render correctly.
+- Figure 1 on page 5 renders without the previous overlap defect. Both the local-control feedback path and the learning feedback path are legible, and the central AHBN-first vertical flow remains visually clear.
+- Algorithm 1, gamma-sensitivity Figure 2/Table 1, primary paired Table 3, Figures 3--5, and Kubernetes Table 5 render legibly with no visible clipping or broken internal references.
+- The evidence-role separation remains visually and textually consistent through Results, Discussion, Limitations and Conclusion.
+
+### Proof corrections applied
+1. The abstract's final downstream implication was narrowed from a direct “faster consensus and reduced fork rates” claim to:
+   “supporting dissemination conditions associated with timely blockchain consensus and lower fork risk.”
+   Manuscript commit:
+   `5972e40d117580e4d00a83d5b9f6c5fe77d10a03`.
+   This correction keeps the downstream implication aligned with the measured dissemination evidence.
+
+2. Post-proof citation-key audit detected one cited bibliography key, `qiu_geography_2023`, missing from the active expanded bibliography after the Chapter 2 synchronization. The exact previously validated entry was restored from manuscript repository history.
+   Bibliography commit:
+   `b206a4ffdaeec96bf9aba894b5c03cad3562b1e3`.
+
+Post-write citation audit:
+- distinct cited keys: 27;
+- missing cited bibliography keys: 0.
+The expanded Chapter 2-synchronized bibliography intentionally contains additional uncited records; this is bibliography-source synchronization rather than a requirement that every stored record be cited.
+
+### Re-closure decision
+The supplied PDF demonstrates successful compilation of the pre-correction source and provides the required visual proof of layout, figures, tables, pagination and reference rendering. The two proof corrections above are text/bibliography-only and do not alter figure/table geometry, experiment results, statistics, algorithms or evidence families.
+
+**S19-7 = PASS / CLOSED**, subject to ordinary final pre-submission recompilation of the two source-level proof corrections.
+
+No scientific experiment, parameter, statistical result, evidence family, or frozen claim authorization was reopened.
