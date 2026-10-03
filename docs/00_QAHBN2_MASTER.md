@@ -3263,3 +3263,18 @@ Frozen backlog:
 Detailed authority and execution freeze: `docs/stages/S19_0_MANUSCRIPT_IMPROVEMENT_BACKLOG_FREEZE.md`.
 
 **Next and only released gate: S19-1 — Terminology, Nomenclature and Unit Consistency Remediation.**
+
+
+### S19-1 — Terminology, Nomenclature and Unit Consistency Remediation
+**PASS / CLOSED — 2026-10-03.**
+
+Implemented only MI-01, MI-05 and MI-06 in the active manuscript:
+- ControlSim propagation delay is publication-facing **rounds**; Kubernetes remains **seconds**;
+- publication-facing `S5` jargon is replaced by canonical fanout terminology without changing thresholds/mapping;
+- AHBN is correctly expanded as **Adaptive Hybrid Broadcast Network (AHBN)**.
+
+No scientific number, statistic, experiment, parameter, algorithm, evidence role, citation architecture or S18 claim authorization changed.
+
+Detailed closure authority: `docs/stages/S19_1_TERMINOLOGY_NOMENCLATURE_UNIT_REMEDIATION.md`.
+
+**Next and only released gate: S19-2 — RO2 → AHBN → Q-AHBN Progression Clarification.**
