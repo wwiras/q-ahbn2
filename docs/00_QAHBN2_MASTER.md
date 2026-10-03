@@ -2388,7 +2388,7 @@ S18 remains blocked until S17 closes.
 2. **S17-1 — Minimal Instrumentation Remediation** — PASS / CLOSED.
 3. **S17-2 — Deterministic Instrumentation Verification** — PASS / CLOSED.
 4. **S17-3 — Kubernetes Smoke Execution** — PASS / CLOSED.
-5. **S17-4 — Smoke Aggregation / Acceptance Audit** — NEXT / RELEASED.
+5. **S17-4 — Smoke Aggregation / Acceptance Audit** — PASS / CLOSED.
 6. Formal rerun scope may be frozen only after S17-4.
 
 ### S17-0 closure finding
@@ -2619,3 +2619,102 @@ This is runtime instrumentation validation only. It does not replace historical 
 **Next controlled gate: S17-4 — Smoke Aggregation / Acceptance Audit.**
 
 S17-4 may now determine whether the combined S17-1/S17-2/S17-3 evidence is sufficient to accept the measurement repair and, only then, freeze the scientifically justified formal rerun scope. Formal reruns, manuscript-result replacement, and S18 remain blocked until S17-4 closes.
+
+
+### S17-4 smoke aggregation / acceptance audit — PASS / CLOSED
+
+S17-4 reconciled the complete remediation chain against the authoritative scientific repository and synchronized Drive evidence.
+
+#### Evidence convergence
+
+**S17-1 — source/runtime repair**
+
+The only production change was in `gke/app/qahbn2_runtime.py`: the decision-bound Q-AHBN2 `resp.ok` branch now emits the common generic `event="forward"` after a successful RPC/ACK, with the inherited forwarding fields plus `decision_id`. No dissemination, target selection, controller, learner, reward, transition, parameter, non-Q method, or ControlSim behavior changed.
+
+Runtime blob after remediation:
+
+`1bc97905f59e7ed701058b08e42a07e30ef934c3`
+
+**S17-2 — deterministic verification**
+
+Five deterministic source/AST guards passed. They establish:
+- exactly one generic `forward` for a decision-bound NEW path;
+- no generic success on DUPLICATE or FAILED;
+- the attempt event precedes forwarding handling and successful-forward count cannot structurally exceed attempt count;
+- no double-log on the Q-AHBN2 inherited fallback;
+- non-Q-AHBN2 remains a single delegation to the inherited forwarding implementation.
+
+**S17-3 — live Kubernetes verification**
+
+Preserved smoke evidence:
+
+`output/evidence/q-ahbn-gke-03102026111913-k3q-smoke/`
+
+Drive folder ID:
+
+`1dnNThopXkvIhrit6FOEOIQ-Y90A8oNzN`
+
+Execution Git SHA:
+
+`aa91a86eb571dbd61e52a479ba9271c8ddfdcbbf`
+
+Image:
+
+`wwiras/q-ahbn2:s17-3-smoke-20261003`
+
+Digest:
+
+`sha256:91eaed37889678b92a6e3fa4338773fcb3d93faa285a3b1bac793610f9aa8666`
+
+Observed accounting:
+- F_attempt = 17;
+- F_success = 11;
+- decision-bound NEW = 11;
+- decision-bound generic forward = 11;
+- exact NEW/forward key match = true;
+- non-NEW/forward overlap = 0;
+- F_success <= F_attempt = true;
+- observed outcomes = NEW and DUPLICATE;
+- decision/outcome/reward traces remained operational.
+
+The no-failure smoke did not produce FAILED outcomes; FAILED logging semantics were already covered deterministically at S17-2.
+
+#### S17-4 acceptance decision
+
+The measurement repair is accepted.
+
+The combined source-level, deterministic, and live-GKE evidence is sufficient to establish that the historical Q-AHBN2 successful-forward accounting defect has been repaired without changing the scientific algorithm or any non-Q comparator execution path.
+
+**S17-4 = PASS / CLOSED.**
+
+#### Minimum scientifically justified formal rerun scope — FROZEN
+
+The formal rerun scope is frozen to:
+
+**Q-AHBN2 only, seeds 42–46, using the already frozen Exp13-Q-K8s protocol coordinates.**
+
+Rationale:
+
+1. the defect is located only in the decision-bound Q-AHBN2 forwarding branch;
+2. non-Q-AHBN2 forwarding behavior is unchanged and deterministically verified as inherited single delegation;
+3. the original Gossip, Structured, DC-SoC and standalone AHBN formal runs do not depend on the defective Q-AHBN2 logging branch;
+4. the affected historical field is Q-AHBN2 `F_success / total_forwards`; re-running unaffected comparator methods would not repair any known defective measurement;
+5. delivery ratio, propagation delay, duplicates, and `F_attempt` are not invalidated by this repair;
+6. the purpose of the rerun is measurement remediation, not performance optimization or outcome-driven repetition.
+
+Therefore:
+
+- **rerun:** 5 Q-AHBN2 coordinates, seeds 42, 43, 44, 45 and 46;
+- **do not rerun:** Gossip, Structured, DC-SoC or AHBN coordinates;
+- **preserve:** all historical 25-run evidence and its provenance;
+- **do not overwrite:** historical Q-AHBN2 formal artifacts or historical reported values;
+- **produce:** a separate post-remediation Q-AHBN2 formal evidence family tied to the repaired runtime/image and the same frozen protocol;
+- **later comparison:** unchanged historical comparator evidence may be joined with the post-remediation Q-AHBN2 evidence only under an explicit provenance-aware reconciliation gate.
+
+No manuscript number replacement is authorized yet. No S18 scientific interpretation is authorized yet.
+
+### Next controlled gate
+
+**S17-5 — Q-AHBN2-Only Formal Rerun Preparation / Protocol Reconciliation.**
+
+S17-5 must freeze the post-remediation image, verify the same Exp13-Q-K8s protocol coordinates for seeds 42–46, create a separate evidence namespace, and prepare fail-closed execution/validation. It must not execute formal GKE runs until the preparation gate passes.
