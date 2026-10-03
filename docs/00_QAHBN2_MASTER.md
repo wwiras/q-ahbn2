@@ -3383,3 +3383,19 @@ The S19-5 contract freezes twelve semantic invariants covering AHBN-first orderi
 Detailed authority: `docs/stages/S19_5_FIGURE1_PRESENTATION_REDESIGN_SPECIFICATION.md`.
 
 **Next and only released gate: S19-6 — Figure 1 Presentation Implementation and Semantic-Parity Audit.**
+
+
+### S19-6 — Figure 1 Presentation Implementation and Semantic-Parity Audit
+**PASS / CLOSED — 2026-10-03.**
+
+Implemented the researcher-approved compact vertical Figure 1 in the active manuscript. The central flow is now observations -> immutable AHBN -> preserved AHBN proposal -> bounded Q-AHBN refinement -> refined requested proposal -> eligible-target realization -> directly attributable outcomes -> reward/Q update, with learning feedback returning only to future Q-AHBN decisions.
+
+A companion explanatory paragraph preserves technical content removed from the visual, including the 81-state discretization, five bounded refinements, requested-versus-realized distinction, zero-attempt/no-update case, and same-peer future transition. Algorithm 1 remains unchanged and authoritative for exact ordering.
+
+Manuscript implementation commit: `97be74a444b15b143b5e72405040144856acf284`.
+S19-5 geometry amendment: `a5f6624cfed59c944f2635c6c100ea40beb809b4`.
+Detailed S19-6 audit: `docs/stages/S19_6_FIGURE1_IMPLEMENTATION_SEMANTIC_PARITY_AUDIT.md`.
+
+P1-P12 semantic parity: PASS.
+
+**Next and only released gate: S19-7 — Whole-Manuscript Consistency / Compile / Visual-Proof Re-Closure.**
