@@ -2356,3 +2356,96 @@ Explicit table-level provenance is registered in `wwiras/QAHBN2-Manuscript/docs/
 The standalone Q-AHBN paper scientific workflow is complete under the current frozen stage map. No new scientific result, experiment, parameter, comparator, claim, literature source, or analysis was introduced.
 
 **Separate thesis path:** S13-T — Chapter 6 Evidence Mapping remains PENDING / unopened.
+
+
+---
+
+## S17 — Kubernetes Forwarding-Accounting Remediation
+
+### Programme authority
+
+S17 is a bounded post-S16 remediation programme opened after the Kubernetes forwarding-accounting audit identified a method-inconsistent successful-forward event path for decision-bound Q-AHBN2 forwarding.
+
+Governing principle:
+
+> **Fix the measurement, not the scientific result.**
+
+Frozen throughout S17 unless a later gate explicitly authorizes otherwise:
+
+- canonical AHBN equations, normalization, EWMA, score, mode rule, and S5 fanout semantics;
+- Q-AHBN2 state/action/reward/transition/lifecycle contracts;
+- learning parameters;
+- ControlSim experiments/evidence;
+- frozen historical Kubernetes evidence and its provenance;
+- S12/S12A claim boundaries;
+- S16 publication artifacts except where later remediation evidence requires a separately controlled manuscript update.
+
+S18 remains blocked until S17 closes.
+
+### Controlled sequence
+
+1. **S17-0 — Kubernetes Forwarding-Accounting Root-Cause Audit** — PASS / CLOSED.
+2. **S17-1 — Minimal Instrumentation Remediation** — PASS / CLOSED.
+3. **S17-2 — Deterministic Instrumentation Verification** — NEXT / RELEASED.
+4. **S17-3 — Kubernetes Smoke Execution** — PENDING.
+5. **S17-4 — Smoke Aggregation / Acceptance Audit** — PENDING.
+6. Formal rerun scope may be frozen only after S17-4.
+
+### S17-0 closure finding
+
+The Q-AHBN2 decision-bound forwarding branch increments the internal successful-forward counter and records the Q-AHBN2 NEW outcome, but historically omitted the common generic `event="forward"` emitted by the inherited peer forwarding path. Therefore historical `F_success` / `total_forwards`, defined as the count of generic `forward` events, is method-inconsistent for Q-AHBN2. `F_attempt`, defined from `k7_forward_attempt`, is not affected by this omission.
+
+Classification: **instrumentation/accounting defect; no algorithm defect established**.
+
+### S17-1 implementation — 2026-10-03
+
+Scientific repository implementation commit:
+
+`0dfaf8c5fcbbbad15e6e62844d5f6e7cf4888583`
+
+Changed file only:
+
+`gke/app/qahbn2_runtime.py`
+
+The successful decision-bound Q-AHBN2 `resp.ok` branch now emits the same generic successful-forward event fields as inherited `PeerState.forward_to_peer()`, plus `decision_id` for traceability.
+
+No change was made to:
+
+- destination/target selection;
+- AHBN proposal generation;
+- Q-AHBN2 action selection;
+- requested or realized fanout;
+- RPC execution;
+- ACK classification;
+- reward semantics;
+- transition/update lifecycle;
+- learning parameters;
+- duplicate or failed outcome handling;
+- non-Q-AHBN2 forwarding paths;
+- ControlSim code/evidence.
+
+The fallback path where no Q decision ID is bound remains delegated to the inherited forwarding function and was not instrumented again, preventing duplicate generic-success logging.
+
+### S17-1 decision
+
+The change is a minimal measurement-semantic repair only. It restores the common meaning:
+
+`event="forward" == successful forwarding RPC`
+
+for the decision-bound Q-AHBN2 path without altering dissemination behavior.
+
+**S17-1 = PASS / CLOSED.**
+
+### Next controlled gate
+
+**S17-2 — Deterministic Instrumentation Verification.**
+
+S17-2 must verify, before any Kubernetes smoke or formal rerun:
+
+- every Q-AHBN2 decision-bound NEW outcome produces exactly one traceable generic `forward` event;
+- DUPLICATE and FAILED outcomes do not produce generic successful-forward events;
+- `F_success <= F_attempt`;
+- the inherited fallback path does not double-log;
+- non-Q-AHBN2 forwarding behavior remains unchanged.
+
+No smoke run or formal Kubernetes rerun is authorized until S17-2 passes.
