@@ -4,7 +4,7 @@
 
 ## Objective
 Implement only the three S19-0 terminology/nomenclature corrections released for S19-1:
-- MI-01 — standardize ControlSim propagation-delay reporting to **rounds** while retaining Kubernetes delay in **seconds**;
+- MI-01 — standardize ControlSim propagation-delay reporting to **seconds** while retaining Kubernetes delay in **seconds**;
 - MI-05 — remove unexplained publication-facing **S5** terminology while preserving the frozen canonical AHBN fanout semantics;
 - MI-06 — correct the AHBN expansion to **Adaptive Hybrid Broadcast Network (AHBN)**.
 
@@ -44,18 +44,14 @@ Removed publication-facing `S5` jargon and replaced it with reader-facing terms 
 No threshold, mapping, supported fanout value, AHBN proposal rule, or intervention boundary changed.
 
 ### MI-01 — ControlSim delay-unit normalization
-Replaced generic publication-facing ControlSim delay wording:
-- “units”
-
-with:
-- **rounds**
+Replaced generic publication-facing ControlSim delay wording with the source-verified unit **seconds (s)**.
 
 for the corresponding ControlSim quantities.
 
 Explicit ControlSim delay labels were added where needed, including:
-- gamma-sensitivity propagation-delay y-axis → **Delay (rounds)**;
-- primary paired-result delay and CI columns → **rounds**;
-- Exp13-Q ControlSim table delay column → **Delay (rounds)**.
+- gamma-sensitivity propagation-delay y-axis → **Delay (s)**;
+- primary paired-result delay and CI columns → **seconds**;
+- Exp13-Q ControlSim table delay column → **Delay (s)**.
 
 Kubernetes delay remains explicitly:
 - **Delay (s)**
@@ -68,7 +64,7 @@ Post-write full-source readback confirmed:
 - authoritative `Adaptive Hybrid Broadcast Network`: present;
 - publication-facing token `S5`: **0 occurrences**;
 - generic token `units`: **0 occurrences**;
-- ControlSim `rounds` labels are present;
+- ControlSim `Delay (s)` labels are present;
 - Kubernetes `Delay (s)` remains present;
 - corrected Kubernetes value `0.038385 s` remains unchanged.
 
@@ -85,3 +81,9 @@ Scientific numbers, confidence intervals, experiment names, reward/state/action/
 **S19-2 — RO2 → AHBN → Q-AHBN Progression Clarification** is the next and only released action.
 
 S19-2 is restricted to MI-03. It may improve reader-facing explanation of the frozen research progression but may not introduce new evidence, a new literature claim, a thesis-style expansion, or any stronger performance/novelty claim than the S18 contract permits.
+
+
+## MI-01 source-level verification and corrective re-closure — 2026-10-03
+MI-01 was reopened after comparison with the previous AHBN Scientific Reports manuscript. Verification traced Q-AHBN2 ControlSim to the pinned canonical AHBN implementation `wwiras/ahbn@936a79480bc1252c79b6ee01f65c88c740af2844`. `MetricsCollector.summarize_message()` computes `propagation_delay = max(first_seen_times) - created_at`; `Simulator.inject_message()` records `created_at=self.clock`; and `Simulator.send_message()` advances event time by `base_delay + uniform(0,jitter) + extra`. The canonical regression record explicitly classifies this as simulation-time propagation delay. The AHBN Scientific Reports manuscript reports the same controlled-simulation metric in seconds (for example Exp07/Exp08(sim)/Exp09 labels use `Propagation Delay (s)`).
+
+Decision: publication-facing ControlSim propagation delay is **seconds (s)**, not rounds. Kubernetes remains **seconds (s)**. The manuscript was corrected without changing any numerical value or scientific interpretation. MI-05 and MI-06 remain valid and unchanged. **S19-1 remains PASS / CLOSED after corrective re-verification.**
