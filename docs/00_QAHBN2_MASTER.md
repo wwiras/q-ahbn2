@@ -2386,8 +2386,8 @@ S18 remains blocked until S17 closes.
 
 1. **S17-0 — Kubernetes Forwarding-Accounting Root-Cause Audit** — PASS / CLOSED.
 2. **S17-1 — Minimal Instrumentation Remediation** — PASS / CLOSED.
-3. **S17-2 — Deterministic Instrumentation Verification** — NEXT / RELEASED.
-4. **S17-3 — Kubernetes Smoke Execution** — PENDING.
+3. **S17-2 — Deterministic Instrumentation Verification** — PASS / CLOSED.
+4. **S17-3 — Kubernetes Smoke Execution** — NEXT / RELEASED.
 5. **S17-4 — Smoke Aggregation / Acceptance Audit** — PENDING.
 6. Formal rerun scope may be frozen only after S17-4.
 
@@ -2502,3 +2502,31 @@ Harness-fix commit:
 No runtime, algorithm, instrumentation, experiment, metric, or scientific evidence file was changed by this correction.
 
 **S17-2 remains OPEN / AWAITING RERUN.** Acceptance still requires 5/5 deterministic tests to PASS. S17-3, S17-4, formal reruns, manuscript-result replacement, and S18 remain blocked.
+
+
+### S17-2 deterministic verification rerun — PASS / CLOSED
+
+Researcher local rerun on 2026-10-03 after pulling authoritative `main` completed:
+
+```text
+Ran 5 tests in 0.009s
+OK
+```
+
+All five predeclared S17-2 invariants reached their assertions and passed:
+
+1. decision-bound Q-AHBN2 NEW contains exactly one generic `forward` event with common inherited fields and `decision_id`;
+2. DUPLICATE and FAILED paths contain no generic successful-forward event;
+3. the runtime structure preserves one attempt event before forwarding handling and at most one Q-AHBN2 generic success event per invocation, satisfying the deterministic accounting guard for `F_success <= F_attempt`;
+4. the no-decision Q-AHBN2 fallback delegates exactly once to `_ORIGINAL_FORWARD` and does not add a local success event;
+5. non-Q-AHBN2 forwarding delegates exactly once to the unchanged inherited path, whose successful-forward instrumentation remains present.
+
+The prior first-run errors are retained in provenance as a test-harness traversal defect and were corrected only in the test helper. The production runtime remained unchanged between the first and passing S17-2 executions.
+
+**S17-2 = PASS / CLOSED.**
+
+This closes deterministic instrumentation verification only. It does not constitute Kubernetes operational validation and does not replace any historical formal result.
+
+**Next controlled gate: S17-3 — Kubernetes Smoke Execution.**
+
+S17-4, formal rerun-scope selection, formal reruns, manuscript-result replacement, and S18 remain blocked until the required smoke sequence advances through S17-3 and S17-4.
