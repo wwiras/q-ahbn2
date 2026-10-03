@@ -2718,3 +2718,95 @@ No manuscript number replacement is authorized yet. No S18 scientific interpreta
 **S17-5 — Q-AHBN2-Only Formal Rerun Preparation / Protocol Reconciliation.**
 
 S17-5 must freeze the post-remediation image, verify the same Exp13-Q-K8s protocol coordinates for seeds 42–46, create a separate evidence namespace, and prepare fail-closed execution/validation. It must not execute formal GKE runs until the preparation gate passes.
+
+
+### S17-5 Q-AHBN2-only formal rerun preparation / protocol reconciliation — 2026-10-03
+
+**Status: PREPARED / AWAITING LOCAL PREP AUDIT + FORMAL IMAGE FREEZE**
+
+S17-5 implements the S17-4 frozen minimum scope without executing any formal GKE coordinate.
+
+#### Scope freeze
+
+Exactly five post-remediation coordinates are authorized for later execution:
+
+- method: Q-AHBN2 only;
+- seeds: 42, 43, 44, 45, 46.
+
+Gossip, Structured, DC-SoC and standalone AHBN are explicitly excluded from the remediation runner.
+
+#### Protocol identity
+
+The remediation runner reuses the frozen K5/Exp13-Q-K8s base:
+
+- N=20;
+- BA(m=2);
+- inherited K7 common non-structural source policy;
+- 240 messages;
+- 0.4 s message interval;
+- churn offsets +1/+26/+51/+76 s;
+- same target-selection helper and topology generator;
+- same Q-AHBN2 algorithm/controller/learning contracts;
+- same per-coordinate K7 execution and validation path.
+
+No topology, workload, seed, churn, target-selection, controller, learner, reward, transition, or scientific metric rule is altered.
+
+#### Separate evidence namespace
+
+New remediation runner:
+
+`gke/scripts/run_s17_qahbn2_remediation.sh`
+
+Preparation commit:
+
+`cbe17553cbec1f28eea90e35714d5e026f369e33`
+
+Its default evidence root is separately namespaced:
+
+`output/evidence/q-ahbn-gke-<timestamp>-s17-qahbn2-remediation/`
+
+It refuses an existing output root, requires a clean Git worktree, records Git SHA/image/digest, and never writes into the historical K5 formal evidence family.
+
+The runner creates:
+- five Q-AHBN2-only configs/topologies;
+- a frozen S17 protocol manifest;
+- five seed-specific Q-AHBN2 run folders;
+- a post-remediation manifest;
+- fail-closed validation that `F_success <= F_attempt` for every completed coordinate.
+
+#### Static preparation audit
+
+Added:
+
+`gke/scripts/s17_5_prep_audit.py`
+
+Preparation commit:
+
+`9c0cdcd7aecce2c62a7dc0d31dd208374caa6a98`
+
+The audit verifies:
+- Q-AHBN2-only scope;
+- exact seed set 42–46;
+- absence of multi-method execution selectors;
+- reuse of the frozen K5 base;
+- N=20, BA(m=2), 240 messages, 0.4 s interval, and +1/+26/+51/+76 s churn offsets;
+- separate post-remediation evidence namespace;
+- presence of remediation protocol/accounting manifests.
+
+#### Execution boundary
+
+No formal GKE remediation run has started.
+
+Before S17-5 can close and release formal execution, the researcher must:
+
+1. synchronize latest `main`;
+2. run the local/static S17-5 prep audit;
+3. build a fresh immutable `linux/amd64` formal remediation image from the synchronized post-S17-5-preparation commit;
+4. return the image tag and registry digest for readback/freeze.
+
+Until those checks pass:
+
+- the five formal Q-AHBN2 coordinates remain **NOT RELEASED**;
+- historical evidence remains untouched;
+- manuscript-result replacement is prohibited;
+- S18 remains blocked.
