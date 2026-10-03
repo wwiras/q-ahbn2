@@ -72,7 +72,7 @@ Scientific numbers, confidence intervals, experiment names, reward/state/action/
 
 ## Manuscript commits
 - `1c391860200c1b1f9243df435f595b730b6f92af` — AHBN nomenclature, S5 terminology and primary ControlSim unit normalization.
-- `3b0a03460abac71365d44f580d036b23aa538ee4` — explicit primary paired-table ControlSim delay/CI labels in rounds.
+- `3b0a03460abac71365d44f580d036b23aa538ee4` — historical MI-01 edit that labelled primary paired-table ControlSim delay/CI in rounds; superseded by the source-verified seconds correction.
 
 ## Result
 **S19-1 = PASS / CLOSED.**
