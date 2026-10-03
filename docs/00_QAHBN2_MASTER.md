@@ -2387,8 +2387,8 @@ S18 remains blocked until S17 closes.
 1. **S17-0 — Kubernetes Forwarding-Accounting Root-Cause Audit** — PASS / CLOSED.
 2. **S17-1 — Minimal Instrumentation Remediation** — PASS / CLOSED.
 3. **S17-2 — Deterministic Instrumentation Verification** — PASS / CLOSED.
-4. **S17-3 — Kubernetes Smoke Execution** — NEXT / RELEASED.
-5. **S17-4 — Smoke Aggregation / Acceptance Audit** — PENDING.
+4. **S17-3 — Kubernetes Smoke Execution** — PASS / CLOSED.
+5. **S17-4 — Smoke Aggregation / Acceptance Audit** — NEXT / RELEASED.
 6. Formal rerun scope may be frozen only after S17-4.
 
 ### S17-0 closure finding
@@ -2563,3 +2563,59 @@ This smoke does not artificially induce FAILED outcomes. Absence of FAILED in th
 A fresh immutable image must be built from the current post-S17-3-preparation commit and pushed for `linux/amd64`; the existing K3 image predates the S17-1 runtime repair and must not be reused.
 
 **S17-3 remains OPEN pending researcher execution and artifact readback.** S17-4, formal rerun-scope selection, formal reruns, manuscript-result replacement, and S18 remain blocked.
+
+
+### S17-3 Kubernetes smoke execution — PASS / CLOSED
+
+Researcher-executed bounded GKE smoke on 2026-10-03 used the freshly built immutable image:
+
+`wwiras/q-ahbn2:s17-3-smoke-20261003`
+
+Registry digest:
+
+`sha256:91eaed37889678b92a6e3fa4338773fcb3d93faa285a3b1bac793610f9aa8666`
+
+The evidence directory is preserved in the synchronized scientific workspace:
+
+`output/evidence/q-ahbn-gke-03102026111913-k3q-smoke/`
+
+Google Drive synchronized counterpart folder ID:
+
+`1dnNThopXkvIhrit6FOEOIQ-Y90A8oNzN`
+
+Recorded execution Git SHA:
+
+`aa91a86eb571dbd61e52a479ba9271c8ddfdcbbf`
+
+Observed smoke summary:
+
+- status: PASS;
+- decision_events: 15;
+- attempt_outcome_events: 17;
+- reward_closed_events: 11;
+- outcomes: NEW and DUPLICATE;
+- F_attempt: 17;
+- F_success: 11;
+- decision_bound_NEW: 11;
+- decision_bound_forward: 11;
+- new_forward_exact_match: true;
+- nonnew_forward_overlap: 0;
+- f_success_le_f_attempt: true.
+
+Operational interpretation:
+
+1. all four Kubernetes peer pods reached Ready and the bounded smoke completed;
+2. every observed decision-bound NEW outcome had exactly one matching generic successful-forward event;
+3. no observed DUPLICATE outcome shared a key with a generic successful-forward event;
+4. successful-forward accounting respected `11 <= 17` attempts;
+5. normal Q-AHBN2 decision, outcome and reward-closure traces remained present;
+6. no FAILED outcome was observed, which is permitted for this frozen no-failure smoke and was already covered deterministically at S17-2;
+7. the runner completed with `K3-Q SMOKE PASS` and reported the preserved evidence directory.
+
+This is runtime instrumentation validation only. It does not replace historical formal Kubernetes results, establish corrected formal `total_forwards` values, change the algorithm, or justify a formal rerun scope by itself.
+
+**S17-3 = PASS / CLOSED.**
+
+**Next controlled gate: S17-4 — Smoke Aggregation / Acceptance Audit.**
+
+S17-4 may now determine whether the combined S17-1/S17-2/S17-3 evidence is sufficient to accept the measurement repair and, only then, freeze the scientifically justified formal rerun scope. Formal reruns, manuscript-result replacement, and S18 remain blocked until S17-4 closes.
