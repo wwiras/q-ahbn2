@@ -3290,3 +3290,21 @@ For future defence/documentation, the project preserves a separate rationale fro
 A specific interpretation such as `base_delay=1.0 ms`, `jitter=0.2 ms` must not be retroactively inferred from the constants alone. It requires a dimensional-consistency audit of all quantities interacting with the simulation clock before being separately frozen. Detailed rationale and audit boundary are recorded in `docs/stages/S19_1_TERMINOLOGY_NOMENCLATURE_UNIT_REMEDIATION.md`.
 
 The current publication decision remains **ControlSim propagation delay = seconds (s)**. Expressing the same consistently defined simulation clock in milliseconds in a future document would be a unit rescaling, not a change to the underlying propagation-delay definition.
+
+
+### S19-2 — RO2 → AHBN → Q-AHBN Progression Clarification
+**PASS / CLOSED — 2026-10-03.**
+
+MI-03 was implemented as a bounded publication-exposition change. The active manuscript now states the progression in reader-facing terms:
+- prior systematic characterization of fixed dissemination mechanisms exposes condition-dependent propagation-delay, delivery, and redundant-communication trade-offs;
+- canonical AHBN addresses that condition dependence through deterministic decentralized runtime adaptation from local observations;
+- Q-AHBN preserves AHBN as the immutable adaptive baseline and adds only bounded experience-driven refinement after the completed AHBN proposal.
+
+The Introduction carries the main clarification; Related Work contains one bounded reinforcement. No citation was added and no manuscript section was restructured. No scientific evidence, number, experiment, parameter, algorithm, learning contract, or S18 claim/evidence role changed.
+
+Detailed closure authority: `docs/stages/S19_2_RO2_AHBN_QAHBN_PROGRESSION_CLARIFICATION.md`.
+Manuscript source commit: `e80a2fcf516f0389e5e033bb9f3842cbbc905cc5`.
+
+**Next and only released gate: S19-3 — Introduction / Related Work Citation-Source Audit.**
+
+S19-3 is restricted to MI-02 audit/reconciliation. Citation insertion and prose integration remain reserved for S19-4.
