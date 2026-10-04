@@ -3554,11 +3554,13 @@ S19-7 is now finally re-closed against the 19:19 compiled artifact.
 
 # S19-8 — External-Critique Reconciliation and Final Claim-Boundary Audit — 2026-10-04
 
-**Current status: IN PROGRESS / NOT CLOSED.**
+**Current status: PASS / CLOSED.**
 
 The researcher authorized S19-8 after S19-7. This gate is interpretation/control only and does not reopen experiments, parameters, algorithms, frozen statistics, evidence generation, or Kubernetes execution.
 
 Registered stage record:
 `docs/stages/S19_8_EXTERNAL_CRITIQUE_CLAIM_BOUNDARY_AUDIT.md`
 
-The manuscript-side bounded corrections have been applied at commit `f51cb4164d12a5dfe304061b3af3757769b32d33`. Remaining closure requirement is a fresh authorized compile plus visual/source consistency proof, followed by final control-record readback.
+The manuscript-side bounded corrections were applied at commit `f51cb4164d12a5dfe304061b3af3757769b32d33`.
+
+Fresh closure artifact: `main04Oct2026_0834.pdf`, Drive ID `1Sa_BKh-tVWP5zkTj2HIgmPdEtW0H7e3o`, 28 pages, 511,544 bytes, local binary SHA-256 `fc542a58f195842e0ec66ca2b2d7f12b851ba2fd7447e9c59749ffcdcc11f4c3`. Source/PDF claim-boundary consistency and whole-document visual proof passed with no scientific or layout regression. S19-8 is PASS / CLOSED; historical S19-7 records remain unchanged.
