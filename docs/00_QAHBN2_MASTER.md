@@ -3548,3 +3548,17 @@ Detailed stage record:
 `docs/stages/S19_7_WHOLE_MANUSCRIPT_COHERENCE_VISUAL_RECLOSURE.md`.
 
 S19-7 is now finally re-closed against the 19:19 compiled artifact.
+
+
+---
+
+# S19-8 — External-Critique Reconciliation and Final Claim-Boundary Audit — 2026-10-04
+
+**Current status: IN PROGRESS / NOT CLOSED.**
+
+The researcher authorized S19-8 after S19-7. This gate is interpretation/control only and does not reopen experiments, parameters, algorithms, frozen statistics, evidence generation, or Kubernetes execution.
+
+Registered stage record:
+`docs/stages/S19_8_EXTERNAL_CRITIQUE_CLAIM_BOUNDARY_AUDIT.md`
+
+The manuscript-side bounded corrections have been applied at commit `f51cb4164d12a5dfe304061b3af3757769b32d33`. Remaining closure requirement is a fresh authorized compile plus visual/source consistency proof, followed by final control-record readback.
