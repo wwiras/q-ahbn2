@@ -1,6 +1,6 @@
 # S19-8 — External-Critique Reconciliation and Final Claim-Boundary Audit
 
-**Status:** IN PROGRESS — manuscript wording corrections applied; compile/visual/readback closure pending  
+**Status:** PASS / CLOSED — fresh compile, visual proof, source/PDF consistency, and control readback completed  
 **Date:** 2026-10-04  
 **Scientific repository:** `wwiras/q-ahbn2`  
 **Manuscript repository:** `wwiras/QAHBN2-Manuscript`  
@@ -60,16 +60,28 @@ The edits do not authorize or introduce:
 - changed AHBN/Q-AHBN algorithms or parameters;
 - pooling of ControlSim, Exp13, or Kubernetes evidence.
 
-## 7. Closure requirements still pending
+## 7. Fresh compile and visual/source proof
 
-S19-8 may be declared PASS / CLOSED only after:
+Researcher-supplied fresh build: `main04Oct2026_0834.pdf`.
 
-1. revised source is compiled under the authorized manuscript workflow;
-2. the resulting PDF is visually inspected;
-3. the compiled abstract and all five claim boundaries match the reviewed source;
-4. scientific master, manuscript master, and provenance are updated with the final PDF identity;
-5. all changed GitHub records are re-fetched and readback-verified.
+Verified manuscript-Drive identity:
+- Drive ID: `1Sa_BKh-tVWP5zkTj2HIgmPdEtW0H7e3o`
+- size: 511,544 bytes
+- pages: 28
+- local binary SHA-256: `fc542a58f195842e0ec66ca2b2d7f12b851ba2fd7447e9c59749ffcdcc11f4c3`
 
-Until those steps complete:
+The fresh PDF was checked against the active S19-8 source and the five criticism boundaries. The abstract ends on the demonstrated condition-dependent dissemination result and contains no consensus/fork implication. The trade-off, discretization, per-learner-table/scale, and alternative-RL boundaries are rendered in the compiled artifact. A 28-page visual proof found no new clipping, overflow, broken pagination, citation placeholder, or figure/table/algorithm regression. Figure 1's two feedback paths remain legible; Figures 2--5, Tables 1--5, Algorithm 1, and references remain intact.
 
-**S19-8 = IN PROGRESS / NOT CLOSED.**
+No numerical result, confidence interval, table/figure value, experiment, parameter, algorithm, or evidence role changed.
+
+## 8. Closure verification
+
+All S19-8 closure requirements are satisfied:
+
+1. fresh authorized compile supplied and independently identified in the manuscript Drive archive;
+2. compiled PDF visually inspected across all 28 pages;
+3. abstract and all five claim boundaries match the reviewed source;
+4. scientific master, manuscript master, and provenance updated with the final PDF identity;
+5. changed GitHub records are subject to mandatory post-write re-fetch/readback before the external status declaration.
+
+**S19-8 = PASS / CLOSED.**
