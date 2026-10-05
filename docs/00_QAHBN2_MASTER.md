@@ -3990,3 +3990,30 @@ Scientific boundary:
 - S12A/S18/S19 scientific closures remain unchanged.
 
 **Result:** the manuscript now contains explicit journal-style Funding and Competing interests declarations and no longer contains the generic Springer declaration-template checklist.
+
+
+# S20-15 — Author-Contributions Declaration Integration — 2026-10-05
+
+**Status:** PASS / CLOSED — administrative manuscript-compliance only.
+
+Trigger:
+- researcher approved the final author-contributions statement for the target journal manuscript.
+
+Correction:
+- added `\subsection*{Author contributions}` to the Declarations section of root `sn-main.tex`;
+- inserted the researcher-approved contribution statement for Samsuddin Samsuddin Wira, Chee Keong Tan, Wai Peng Wong, and Ian K.T. Tan;
+- retained the existing Funding and Competing interests declarations unchanged;
+- manuscript commit: `8aa5f05238960f18afa122307f0a3180d36fbadd`.
+
+Consistency note:
+- the manuscript front matter currently still contains `\equalcont{These authors contributed equally to this work.}` markers for Chee Keong Tan, Wai Peng Wong, and Ian K.T. Tan;
+- these markers were not changed in this gate because the researcher approved only the Author contributions declaration text;
+- they should be reviewed separately if the manuscript is intended to avoid an equal-contribution claim that is not reflected by the approved contribution statement.
+
+Scientific boundary:
+- no experiment, parameter, algorithm, result, evidence family, statistical interpretation, claim boundary, bibliography, conclusion, or scientific prose changed;
+- this gate is administrative/compliance only;
+- pinned science baseline remains `6ccc94e5df770d588a5ccfa592f603a9a8ab2c68`;
+- S12A/S18/S19 scientific closures remain unchanged.
+
+**Result:** the manuscript now contains the approved Author contributions declaration in the target-journal end matter.
