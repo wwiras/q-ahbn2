@@ -3819,3 +3819,33 @@ Scientific boundary:
 - S12A/S18/S19 scientific closures remain unchanged.
 
 **Expected result:** Figure 1 should fit more comfortably inside the two-column article block while retaining readable labels and the same visual hierarchy. Fresh Overleaf compilation is required for final visual confirmation.
+
+
+# S20-9 — Figure 1 Auxiliary-Label Overlap Remediation — 2026-10-05
+
+**Status:** PASS / CLOSED — publication-layout/readability only.
+
+Trigger:
+- fresh compiled review after S20-8 confirmed that Figure 1 now fits the article width, but the auxiliary labels overlapped or visually crowded the dashed feedback paths, especially the left canonical-state note and the two loop labels.
+
+Reconciliation:
+- current manuscript and scientific master were re-fetched before editing;
+- Figure 1 remains a native TikZ architecture figure;
+- no scientific content, architecture relation, node order, arrow direction, caption, label, or surrounding interpretation required change.
+
+Correction:
+- reduced auxiliary loop-label font from `\scriptsize` to `\tiny`;
+- reduced side-note font from `\scriptsize` to `\tiny`;
+- narrowed the side-note text box from `3.0cm` to `2.6cm`;
+- moved the canonical-state side note slightly upward and closer to the Q-AHBN block;
+- shortened the side-note wording from `same EWMA snapshot / discretized into 3^4=81 Q states` to the equivalent compact form `same EWMA snapshot / 3^4=81 Q states`;
+- moved both feedback-loop labels slightly above their dashed horizontal paths and compressed each to two visual lines;
+- retained the figure orientation, article-width fit, central block dimensions, and all feedback-arrow coordinates;
+- manuscript correction commit: `53d5bbaabddcbda6292da013166ddea442ccc4c4`.
+
+Scientific boundary:
+- no architecture semantics, state/action/reward logic, algorithm, parameter, evidence, result, claim boundary, bibliography, or scientific interpretation was changed;
+- pinned science baseline remains `6ccc94e5df770d588a5ccfa592f603a9a8ab2c68`;
+- S12A/S18/S19 scientific closures remain unchanged.
+
+**Expected result:** Figure 1 should remain upright and within article width, with the side note and feedback-loop labels visually separated from the dashed arrows. Fresh Overleaf compilation is required for final visual confirmation.
