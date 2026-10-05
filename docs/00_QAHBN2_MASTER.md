@@ -3591,3 +3591,28 @@ Current scientific authority remains unchanged:
 The manuscript repository and its Google Drive counterpart were reconciled before this update. At reconciliation, root `sn-main.tex` and root `references.bib` were present and the journal-template support files were synchronized.
 
 **Next controlled programme:** journal-specific formatting and submission-requirement adaptation may proceed from root `sn-main.tex` without changing the frozen scientific evidence or claim boundaries.
+
+
+# S20-1 — Overleaf PGFPlots Compatibility Remediation — 2026-10-05
+
+**Status:** PASS / CLOSED — publication-formatting compatibility only.
+
+Trigger:
+- Overleaf reported `Package pgfkeys Error: I do not know the key '/pgfplots/line width'` at root manuscript `sn-main.tex` line 514.
+
+Reconciliation:
+- manuscript repository `wwiras/QAHBN2-Manuscript` current root `sn-main.tex` was compared with the synchronized Drive counterpart under folder `1oQxyLENPvG-r10zuq62Au7AFyeeSpDxj`;
+- the offending option was confirmed in the shared `groupplot` axis option list as `line width=0.9pt`;
+- no Drive/GitHub divergence was identified at the affected block.
+
+Correction:
+- removed axis-level `line width=0.9pt`;
+- preserved the exact visual intent by moving `line width=0.9pt` into `every axis plot/.append style={...}`, where TikZ drawing options are valid;
+- manuscript correction commit: `b0108e0c22587e49acb3f54f4d10145601cb3b02`.
+
+Scientific boundary:
+- no experiment, parameter, algorithm, statistic, plotted value, axis limit, marker size, series color, caption, interpretation, evidence family, claim boundary, bibliography, or manuscript prose changed;
+- pinned science baseline remains `6ccc94e5df770d588a5ccfa592f603a9a8ab2c68`;
+- S12A/S18/S19 scientific closures remain unchanged.
+
+**Result:** source-level compatibility defect corrected. Researcher should recompile the synchronized Overleaf project to confirm the provider-side build no longer emits this key error.
