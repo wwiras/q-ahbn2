@@ -3874,3 +3874,35 @@ Scientific boundary:
 - S12A/S18/S19 scientific closures remain unchanged.
 
 **Expected result:** Figure 5 method labels should remain legible while sitting more clearly below the x-axis line. Fresh Overleaf compilation is required for final visual confirmation.
+
+
+# S20-11 — Target-Journal Literature Integration: Journal of Cloud Computing — 2026-10-05
+
+**Status:** PASS / CLOSED — literature/context integration only.
+
+Trigger:
+- researcher requested identification and integration of blockchain-related literature from *Journal of Cloud Computing: Advances, Systems and Applications*, preferably directly relevant to blockchain dissemination.
+
+Search and selection:
+- target-journal search identified one directly relevant open-access research article:
+  Chunhai Li, Qiyong Chen, Mingfeng Chen, Zhaoyu Su, Yong Ding, Dapeng Lan, and Amir Taherkordi, “Blockchain enabled task offloading based on edge cooperation in the digital twin vehicular edge network,” *Journal of Cloud Computing*, vol. 12, article 120, 2023, DOI `10.1186/s13677-023-00496-6`;
+- the paper explicitly models blockchain block broadcast among verifier edge servers and includes broadcast time as part of the consensus-stage communication cost, making it substantively relevant to the manuscript's dissemination/network-latency framing;
+- broader Journal of Cloud Computing blockchain/cloud review papers were identified but not forced into the dissemination argument because they are less directly aligned with propagation/broadcast.
+
+Manuscript integration:
+- added `li_blockchain_enabled_2023` to the opening Related Work citation set;
+- added one bounded sentence stating that recent cloud/edge-oriented blockchain work models block broadcasting as an explicit consensus-stage communication cost among distributed verifier nodes, reinforcing dissemination latency as a system concern beyond cryptocurrency-only settings;
+- no literature-wide priority, superiority, novelty or direct comparability claim was introduced;
+- manuscript integration commit: `577a6e212abdd8691f7ff08ced6af2e9571a5040`.
+
+Bibliography integration:
+- added BibTeX entry `li_blockchain_enabled_2023` to root `references.bib`;
+- bibliography commit: `ee7b9ace61aa33925f545fb5b3d3c3ec6f51a209`.
+
+Scientific boundary:
+- no experiment, parameter, algorithm, numerical result, statistical interpretation, evidence family, benchmark result, claim boundary, or frozen conclusion was changed;
+- literature integration strengthens contextual positioning only;
+- pinned science baseline remains `6ccc94e5df770d588a5ccfa592f603a9a8ab2c68`;
+- S12A/S18/S19 scientific closures remain unchanged.
+
+**Result:** one directly relevant target-journal blockchain broadcast/propagation citation is now integrated into the manuscript and bibliography with evidence-bounded wording.
