@@ -4234,3 +4234,41 @@ Authority clarification:
 - the research code repository is treated as internal and is not identified in the Zenodo record or the manuscript data-availability statement.
 
 **Result:** the Journal of Cloud Computing Availability of data and materials requirement is now DOI-backed and closed under S20-17E/F.
+
+
+# S20-18 — JoCC Final Compiled-Manuscript Proof Registration — 2026-10-05
+
+**Status:** PASS / CLOSED.
+
+Objective:
+- register and verify the latest Journal of Cloud Computing compiled manuscript proof supplied by the researcher after S20-17E/F data-availability closure;
+- preserve the existing scientific baseline, evidence boundaries, and manuscript claims.
+
+Reconciliation:
+- scientific repository HEAD before this gate: `eb78352de24cc4235745827d7f9f2cc3ea1b0ea1`;
+- manuscript repository HEAD before this gate: `fcb287548e7760efb422be12debf85ce8cde1faa`;
+- pinned science baseline remains `6ccc94e5df770d588a5ccfa592f603a9a8ab2c68`;
+- current `docs/00_QAHBN2_MASTER.md`, source-authority register, results register, and manuscript `sn-main.tex` were re-read before closure;
+- manuscript-side Google Drive folder ID `1oQxyLENPvG-r10zuq62Au7AFyeeSpDxj` was verified as `QAHBN2-Manuscript`;
+- latest compiled JoCC proof was verified in Google Drive as `main05Oct2026_2329.pdf`, 522,898 bytes, created 2026-10-05 15:29 UTC.
+
+Compiled-proof verification:
+- proof length: 36 pages;
+- title and author block render correctly;
+- the manuscript retains the bounded Q-AHBN architecture and frozen science;
+- primary ControlSim results, Exp13-Q bounded positioning, and corrected Kubernetes operational-realization evidence are present with their established claim boundaries;
+- the Declarations section renders the DOI-backed `Availability of data and materials` statement with Zenodo DOI `10.5281/zenodo.23165652`;
+- the statement explicitly excludes research source code, smoke/diagnostic runs, superseded runs, terminal logs, and the complete raw Kubernetes execution archive;
+- no public code-repository identifier is included in the data-availability statement.
+
+Authority / workspace note:
+- researcher-supplied local scientific workspace: `/Users/wwiras/Library/CloudStorage/GoogleDrive-samsuddin.samsuddin@monash.edu/My Drive/PhDResearch/myResearch/NewAlgorithm-AHBN/AHBNcode/q-ahbn2`;
+- researcher-supplied local manuscript workspace: `/Users/wwiras/Library/CloudStorage/GoogleDrive-samsuddin.samsuddin@monash.edu/My Drive/PhDResearch/myPaper/ClusterComputing/QAHBN2-Manuscript`;
+- local paths are recorded as synchronized researcher workspaces only; direct local-filesystem mutation is outside the current connector environment;
+- repository-local `output/` remains Git-ignored and Drive synchronization does not itself promote working artifacts to scientific evidence.
+
+Scientific boundary:
+- no experiment, parameter, algorithm, result, statistical interpretation, benchmark conclusion, or claim boundary changed;
+- this gate registers and verifies the final compiled JoCC proof only.
+
+**Result:** `main05Oct2026_2329.pdf` is the current registered JoCC compiled manuscript proof following S20-17E/F closure.
