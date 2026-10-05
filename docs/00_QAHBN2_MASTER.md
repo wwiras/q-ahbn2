@@ -3642,3 +3642,34 @@ Scientific boundary:
 - S12A/S18/S19 scientific closures remain unchanged.
 
 **Result:** unsupported pseudocode commands were removed using standard `algpseudocode` constructs. Researcher should recompile Overleaf to confirm these undefined-control-sequence errors are cleared.
+
+
+# S20-3 — Overleaf Warning Cleanup — 2026-10-05
+
+**Status:** PASS / CLOSED — preamble compatibility cleanup only.
+
+Trigger:
+- Overleaf emitted:
+  - `Package caption Warning: Unknown document class (or package), standard defaults will be used`;
+  - multiple `Font shape U/rsfs/m/n ... not available` warnings;
+  - `Size substitutions with differences`.
+
+Reconciliation and cause:
+- root `sn-main.tex` uses Springer Nature class `sn-jnl`;
+- the manuscript explicitly loaded `caption` and `subcaption`, while no `subcaption`, `subfigure`, `subfloat`, or `captionof` usage was found;
+- the manuscript explicitly loaded `mathrsfs`, while no `\mathscr` usage was found;
+- the rsfs font warnings are therefore attributable to an unused package requesting unavailable script-font sizes;
+- the caption warning is attributable to loading the generic caption package on top of the custom Springer class despite no manuscript need for that package.
+
+Correction:
+- removed unused `\usepackage{caption}`;
+- removed unused `\usepackage{subcaption}`;
+- removed unused `\usepackage{mathrsfs}`;
+- manuscript correction commit: `a3165ca5d26f4c90cceca8c55316353a5c78db6d`.
+
+Scientific boundary:
+- no manuscript prose, captions, figure content, data, algorithm, equation semantics, experiment, parameter, result, bibliography, or claim boundary changed;
+- pinned science baseline remains `6ccc94e5df770d588a5ccfa592f603a9a8ab2c68`;
+- S12A/S18/S19 scientific closures remain unchanged.
+
+**Expected result:** the listed caption and rsfs/font-size substitution warnings should clear on the next clean Overleaf compile. If any size-substitution warning remains, it should be re-evaluated from the fresh log because it may originate from a different font family in the Springer class rather than from rsfs.
