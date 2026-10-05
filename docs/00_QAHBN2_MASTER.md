@@ -3764,3 +3764,30 @@ Scientific boundary:
 - S12A/S18/S19 scientific closures remain unchanged.
 
 **Expected result:** the PDF viewer should rotate the Table 3 page itself into landscape orientation, allowing the table to be read normally without the reader turning their head. A fresh Overleaf compile is required for final visual confirmation.
+
+
+# S20-7 — Table 2 Width / Article-Block Fit Adaptation — 2026-10-05
+
+**Status:** PASS / CLOSED — publication-layout/readability only.
+
+Trigger:
+- compiled manuscript review showed Table 2 (`tab:learning-mechanism`) was readable but visually too wide, with its rules and paragraph columns spanning almost the full two-column area and appearing tight against the article block.
+
+Reconciliation:
+- current manuscript and scientific master were re-fetched before editing;
+- Table 2 used three fixed paragraph columns of `3.0cm + 6.0cm + 6.0cm`, before normal tabular inter-column padding;
+- all Table 2 wording, evidence statements, quantitative values, caption, label, and interpretation were preserved.
+
+Correction:
+- retained the `table*` environment and `\small` typography;
+- reduced the fixed paragraph widths to `2.7cm + 5.45cm + 5.45cm`;
+- set `\tabcolsep=5pt` locally for Table 2 to provide a controlled fit inside the article text block;
+- no `resizebox`, scaling, landscape rotation, or font-size reduction was introduced;
+- manuscript correction commit: `319b63010c2783a5f4ee6e5291074d7070842d54`.
+
+Scientific boundary:
+- no manuscript prose, experiment, parameter, numerical value, learning-mechanism evidence, scientific role, claim boundary, bibliography, or interpretation was changed;
+- pinned science baseline remains `6ccc94e5df770d588a5ccfa592f603a9a8ab2c68`;
+- S12A/S18/S19 scientific closures remain unchanged.
+
+**Expected result:** Table 2 should remain readable at the same font size while fitting more comfortably within the two-column article width. Fresh Overleaf compilation is required for final visual confirmation.
