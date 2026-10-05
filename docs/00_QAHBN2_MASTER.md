@@ -3736,3 +3736,31 @@ Scientific boundary:
 - S12A/S18/S19 scientific closures remain unchanged.
 
 **Expected result:** Table 3 should now occupy a rotated landscape page and be substantially more readable than the previous portrait `resizebox` rendering. A fresh Overleaf compile is required for final visual confirmation.
+
+
+# S20-6 — Table 3 True-Landscape Page Remediation — 2026-10-05
+
+**Status:** PASS / CLOSED — publication-layout/readability only.
+
+Trigger:
+- researcher visually confirmed that the S20-5 `sidewaystable` solution still required the reader to turn their head because it rotated the table content on an otherwise portrait-oriented PDF page;
+- researcher requested the same true landscape-page behavior used in the supplied thesis example, where the PDF page itself rotates 90 degrees and the content remains upright to the reader.
+
+Reconciliation:
+- current manuscript and scientific master were re-fetched before editing;
+- `pdflscape` is already loaded in the manuscript preamble, so `landscape` page rotation is available without adding packages;
+- all Table 3 values, caption wording, label, and result interpretation were preserved.
+
+Correction:
+- replaced `sidewaystable` with a `landscape` environment containing a normal `table[p]`;
+- retained `\small` text and `\tabcolsep=6pt`;
+- changed the internal table width from `\textheight` to `\linewidth` so it uses the landscape page text width naturally;
+- retained `\label{tab:primary-paired-results}` unchanged;
+- manuscript correction commit: `8f4db362034f306b99eac1d39878e8b45648a4aa`.
+
+Scientific boundary:
+- no experiment, parameter, numerical value, confidence interval, statistical interpretation, caption meaning, evidence role, claim boundary, bibliography, or manuscript prose was changed;
+- pinned science baseline remains `6ccc94e5df770d588a5ccfa592f603a9a8ab2c68`;
+- S12A/S18/S19 scientific closures remain unchanged.
+
+**Expected result:** the PDF viewer should rotate the Table 3 page itself into landscape orientation, allowing the table to be read normally without the reader turning their head. A fresh Overleaf compile is required for final visual confirmation.
