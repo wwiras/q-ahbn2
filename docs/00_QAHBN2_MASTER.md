@@ -4017,3 +4017,57 @@ Scientific boundary:
 - S12A/S18/S19 scientific closures remain unchanged.
 
 **Result:** the manuscript now contains the approved Author contributions declaration in the target-journal end matter.
+
+
+# S20-16 — Abbreviation Definition / List Compliance Audit — 2026-10-05
+
+**Status:** PASS / CLOSED — manuscript-compliance and terminology-normalization only.
+
+Trigger:
+- target-journal guidance requires abbreviations to be defined at first use and a consolidated List of abbreviations to be provided;
+- researcher supplied compiled PDF `main05Oct2026_2217.pdf` for cross-checking against source.
+
+Audit scope:
+- reconciled current manuscript repository and scientific master before editing;
+- audited root `sn-main.tex` and the 34-page compiled PDF for abbreviations appearing in narrative text, tables, figures, captions, methods, declarations, and front matter;
+- excluded bibliography-only journal/conference acronyms and algorithm action tokens that are not manuscript abbreviations requiring glossary treatment.
+
+Controlled first-use corrections:
+- `peer-to-peer (P2P)` defined in the abstract;
+- `Adaptive Hybrid Broadcast Network (AHBN)` retained at first abstract use;
+- `Q-learning Adaptive Hybrid Broadcast Network (Q-AHBN)` defined at first abstract use;
+- `Density-Clustering Socially-aware Communication (DC-SoC)` defined at first substantive use;
+- `Barabási--Albert (BA)` defined at first methodology use;
+- `Google Remote Procedure Call (gRPC)` defined at first deployment-methodology use;
+- `confidence interval (CI)` introduced in Table 3 before later abbreviated header reuse;
+- `exponentially weighted moving averages (EWMAs)` was already defined at first use;
+- JPA is expanded in the Funding declaration and retained in the consolidated list.
+
+List inserted:
+- AHBN — Adaptive Hybrid Broadcast Network
+- BA — Barabási--Albert
+- CI — Confidence interval
+- DC-SoC — Density-Clustering Socially-aware Communication
+- EWMA — Exponentially weighted moving average
+- gRPC — Google Remote Procedure Call
+- JPA — Public Service Department of Malaysia (Jabatan Perkhidmatan Awam)
+- P2P — Peer-to-peer
+- Q-AHBN — Q-learning Adaptive Hybrid Broadcast Network
+
+Placement:
+- added `\section*{List of abbreviations}` immediately before `Declarations`, using a compact two-column tabular layout consistent with the supplied journal example.
+
+Exclusions:
+- bibliography-only acronyms such as IEEE, ACM, IJACSA, PODC, NIPS, BCCA, ICBC, ISSN, DOI-like identifiers, and journal abbreviations are reference metadata rather than manuscript-defined scientific abbreviations;
+- internal control labels such as S11-A, S12A, S17, AR-1.4.4 and action tokens KEEP/FANOUT_UP/FANOUT_DOWN/SET_GOSSIP/SET_STRUCTURED are experiment/control identifiers or algorithm literals and were not added to the abbreviation glossary.
+
+Manuscript commit:
+- `be81bc7d7c6526c75f04de40f7ae60384549097b`.
+
+Scientific boundary:
+- no experiment, parameter, result, statistical interpretation, evidence family, benchmark conclusion, claim boundary, bibliography entry, or scientific conclusion changed;
+- the change is terminology/compliance only;
+- pinned science baseline remains `6ccc94e5df770d588a5ccfa592f603a9a8ab2c68`;
+- S12A/S18/S19 scientific closures remain unchanged.
+
+**Result:** the manuscript now defines the substantive abbreviations at first use and contains a consolidated journal-style List of abbreviations.
