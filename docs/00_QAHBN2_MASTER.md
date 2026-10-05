@@ -4208,3 +4208,29 @@ Scientific boundary:
 - Kubernetes remains operational-realization/observability evidence only.
 
 **Next controlled gate:** S20-17E — public archival release / DOI minting. This is an irreversible public archival action and is **HOLD pending explicit researcher approval**. After a DOI is obtained, S20-17F will integrate the final Availability of data and materials statement and close the requirement.
+
+
+# S20-17E--F — Public Data Archival Release and Manuscript Integration — 2026-10-05
+
+**Status:** S20-17E PASS / CLOSED; S20-17F PASS / CLOSED.
+
+S20-17E — public archival release:
+- researcher explicitly approved the irreversible Zenodo publication under CC BY 4.0;
+- Zenodo record is published and public: DOI `10.5281/zenodo.23165652`;
+- record title: `Q-AHBN: Curated Data Supporting Experience-Driven Adaptive Blockchain P2P Dissemination`;
+- version: `1.0`; resource type: Dataset; publication date: 2026-10-05;
+- deposited file: `QAHBN2_JoCC_curated_data_v1.0.zip`, 29,897 bytes, MD5 `821a8ca821afd1931b9cc425b90d5279`;
+- public package contains curated publication-facing data only and excludes research source code and the complete raw execution/log archive;
+- no public identifier or link to the internal research-code repository is included in the Zenodo metadata.
+
+S20-17F — manuscript integration:
+- added a Journal of Cloud Computing `Availability of data and materials` subsection under Declarations;
+- statement cites the version-specific Zenodo DOI and accurately describes included publication-facing data and excluded source-code/raw-archive material;
+- manuscript commit: `fcb287548e7760efb422be12debf85ce8cde1faa`;
+- no manuscript science, algorithm, parameter, result, statistical interpretation, benchmark conclusion, or claim boundary changed.
+
+Authority clarification:
+- the earlier S20-17A--D wording that described the scientific repository as public is superseded for publication-facing disclosure purposes;
+- the research code repository is treated as internal and is not identified in the Zenodo record or the manuscript data-availability statement.
+
+**Result:** the Journal of Cloud Computing Availability of data and materials requirement is now DOI-backed and closed under S20-17E/F.
