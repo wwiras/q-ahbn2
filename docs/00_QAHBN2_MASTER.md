@@ -3936,3 +3936,27 @@ Scientific boundary:
 - S12A/S18/S19 scientific closures remain unchanged.
 
 **Result:** the Journal of Cloud Computing citation is now consistently keyed as `li_blockchain_2023` in both `sn-main.tex` and `references.bib`, with the bibliography entry sourced directly from the attached Zotero export.
+
+
+# S20-13 — Source-Bounded Li et al. Claim Tightening — 2026-10-05
+
+**Status:** PASS / CLOSED — literature wording alignment only.
+
+Trigger:
+- direct audit of the attached Li et al. (2023) paper showed that the strongest source support is on pp. 8--9, where the blockchain consensus phase is explicitly decomposed into block production, block broadcast, block verification and block confirmation, and block-broadcast time (T_{bb}) contributes to consensus cost (U_{BC});
+- the prior manuscript sentence included the broader interpretive phrase `first-class system concern beyond cryptocurrency-only settings`, which was defensible as synthesis but not stated directly by the source.
+
+Correction:
+- replaced the broader sentence with:
+  `Recent cloud/edge-oriented blockchain work likewise models block broadcasting among verifier edge servers as an explicit component of consensus delay and cost \cite{li_blockchain_2023}.`
+- retained citation key `li_blockchain_2023`;
+- `references.bib` unchanged because S20-12 already reconciled the Zotero-authoritative record;
+- manuscript correction commit: `b4eb16bf74c1abd06a36bc2481aed8f8330aeb54`.
+
+Scientific boundary:
+- no experiment, parameter, algorithm, result, evidence family, benchmark interpretation, claim boundary, bibliography metadata, or conclusion changed;
+- the change narrows literature wording to match the attached source more directly;
+- pinned science baseline remains `6ccc94e5df770d588a5ccfa592f603a9a8ab2c68`;
+- S12A/S18/S19 scientific closures remain unchanged.
+
+**Result:** the Li et al. citation is now phrased at the strongest directly source-supported level for Q1 defensibility.
