@@ -3707,3 +3707,32 @@ Scientific boundary:
 - S12A/S18/S19 scientific closures remain unchanged.
 
 **Result:** supplied title-page requirements are satisfied by the existing title/author/affiliation structure, and the abstract is now journal-range compliant while remaining synchronized with the manuscript's established scientific narrative.
+
+
+# S20-5 — Table 3 Landscape Readability Adaptation — 2026-10-05
+
+**Status:** PASS / CLOSED — publication-layout/readability only.
+
+Trigger:
+- compiled manuscript review showed Table 3 (`tab:primary-paired-results`) was too small to read comfortably in portrait orientation because it was rendered as a `table*` and then globally shrunk with `\resizebox{\textwidth}{!}{...}`.
+- researcher requested Springer-style `sidewaystable` presentation with the table rotated 90 degrees.
+
+Reconciliation:
+- current manuscript and scientific master were re-fetched before editing;
+- `rotating` is already loaded in the manuscript preamble, so no new package was required;
+- all Table 3 values, condition labels, caption meaning, label and surrounding result interpretation were preserved exactly.
+
+Correction:
+- replaced `table*` with `sidewaystable`;
+- removed global `\resizebox{\textwidth}{!}{...}` shrinkage;
+- changed the internal table to `tabular*` over `\textheight`, following the Springer example pattern for rotated wide tables;
+- increased readable table typography from `\scriptsize` to `\small` and restored wider column spacing;
+- retained `\label{tab:primary-paired-results}` unchanged, preserving all manuscript cross-references;
+- manuscript correction commit: `e3cf938edbc677180406de1bc898268220cacd46`.
+
+Scientific boundary:
+- no experiment, parameter, numerical value, statistical result, confidence interval, caption interpretation, evidence role, claim boundary, bibliography, or manuscript prose was changed;
+- pinned science baseline remains `6ccc94e5df770d588a5ccfa592f603a9a8ab2c68`;
+- S12A/S18/S19 scientific closures remain unchanged.
+
+**Expected result:** Table 3 should now occupy a rotated landscape page and be substantially more readable than the previous portrait `resizebox` rendering. A fresh Overleaf compile is required for final visual confirmation.
