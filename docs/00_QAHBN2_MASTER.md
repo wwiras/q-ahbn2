@@ -4071,3 +4071,55 @@ Scientific boundary:
 - S12A/S18/S19 scientific closures remain unchanged.
 
 **Result:** the manuscript now defines the substantive abbreviations at first use and contains a consolidated journal-style List of abbreviations.
+
+
+# S20-16R — Combined Abbreviations + Mathematical Notation Audit — 2026-10-05
+
+**Status:** PASS / CLOSED — supersedes the abbreviation-only scope of S20-16.
+
+Trigger:
+- researcher clarified, based on target-journal examples, that the end-matter terminology aid should include not only acronym expansions but also recurring mathematical/algorithmic notation used in the manuscript;
+- researcher explicitly requested a full re-audit of root `sn-main.tex` before revision.
+
+Reconciliation and audit:
+- current `wwiras/q-ahbn2` and `wwiras/QAHBN2-Manuscript` heads were reconciled before editing;
+- the latest manuscript already contained the S20-16 abbreviation list and the researcher's subsequent removal of JPA from that list was preserved;
+- recurring notation was re-audited across the Q-AHBN method, Algorithm 1, statistical analysis, Tables 3--5, figures, and Kubernetes results;
+- one-off symbols and obvious action literals were excluded to prevent the glossary from becoming a formula dump.
+
+Retained abbreviations:
+- AHBN — Adaptive Hybrid Broadcast Network
+- BA — Barabási--Albert
+- CI — Confidence interval
+- DC-SoC — Density-Clustering Socially-aware Communication
+- EWMA — Exponentially weighted moving average
+- gRPC — Google Remote Procedure Call
+- P2P — Peer-to-peer
+- Q-AHBN — Q-learning Adaptive Hybrid Broadcast Network
+
+Recurring/interpretation-critical symbols added:
+- `d, ell, u, c` — local duplicate, latency, utilization, churn observations;
+- `hat d_t, hat ell_t, hat u_t, hat c_t` — canonical EWMA observation state;
+- `z_t`, `w_t` — canonical AHBN score and mode-selection weight;
+- `k_AHBN`, `p_AHBN`, `p_Q`, `k_Q`, `k_real`, `N_e` — canonical/refined proposal and eligible-target notation;
+- `s_t`, `a_t`, `D_t`, `F_t`, `R_t`, `Q(s,a)` — learning/attribution notation;
+- `alpha_Q`, `alpha_AHBN`, `gamma`, `epsilon`, `epsilon_min`, `lambda_epsilon` — learning/control parameters;
+- `Delta_i`, `Delta`, `n`, `df` — paired-effect/statistical notation used repeatedly in the results.
+
+Exclusions preserved:
+- action literals such as KEEP, FANOUT_DOWN, FANOUT_UP, SET_GOSSIP and SET_STRUCTURED remain algorithm vocabulary rather than glossary abbreviations;
+- internal workflow/evidence identifiers such as S11-A, S12A, S17, AR-1.4.4 remain provenance labels rather than reader-facing abbreviations;
+- bibliography-only acronyms and publisher/reference metadata remain excluded.
+
+Manuscript change:
+- renamed the section to `List of abbreviations and symbols`;
+- split it into `Abbreviations` and `Mathematical and algorithmic symbols` subsections;
+- manuscript commit: `5191dd12ba48ad39d4e431ef460dc18e2b62f1dd`.
+
+Scientific boundary:
+- no experiment, parameter value, algorithm semantics, result, confidence interval, evidence family, benchmark conclusion, claim boundary, bibliography, or scientific conclusion changed;
+- this revision is terminology/documentation only;
+- pinned science baseline remains `6ccc94e5df770d588a5ccfa592f603a9a8ab2c68`;
+- S12A/S18/S19 scientific closures remain unchanged.
+
+**Result:** S20-16 is revised into a combined abbreviation-and-notation compliance record suitable for the target journal, with recurring reader-facing mathematical notation documented alongside acronym expansions.
