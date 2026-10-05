@@ -4149,3 +4149,62 @@ Scientific boundary:
 - S12A/S18/S19 scientific closures remain unchanged.
 
 **Result:** the combined list now covers the recurring ControlSim environment name and Exp* experiment-ID convention in addition to the previously audited abbreviations and symbols.
+
+
+# S20-17A--D — Availability of Data and Materials: Curated Publication Package Staging — 2026-10-05
+
+**Status:** S20-17A PASS / CLOSED; S20-17B PASS / CLOSED; S20-17C PASS / CLOSED; S20-17D PASS / CLOSED; S20-17E HOLD FOR RESEARCHER APPROVAL.
+
+Objective:
+- satisfy the remaining Journal of Cloud Computing Availability of data and materials requirement using a curated publication-facing data package;
+- do not publish the full source-code snapshot as data and do not publish the complete raw execution/log archive;
+- preserve all frozen science, evidence boundaries, and S17 Kubernetes accounting remediation.
+
+Reconciliation:
+- scientific repository HEAD before this gate: `d2c910155915032452d3d5c2110eb00ab96f9a9f`;
+- manuscript repository HEAD: `4a5168e53452afdcc97658175a31ede7fc4ea63b`;
+- pinned science baseline remains `6ccc94e5df770d588a5ccfa592f603a9a8ab2c68`;
+- required Master, source-authority, results, S11, S13 and S16 records were re-read;
+- designated Google Drive evidence hierarchy was reconciled before package construction.
+
+S20-17A — scope/provenance freeze:
+- include S11-A primary ControlSim summary + machine-readable aggregation;
+- include S11-B Exp13-Q summary + machine-readable aggregation;
+- include the pre-formal AR-1.4.2 gamma-sensitivity CSV;
+- include a corrected publication-facing Kubernetes operational summary and Q-AHBN-minus-AHBN paired-effect summary;
+- exclude source code, smoke/diagnostic/pilot runs, terminal logs, complete raw Kubernetes archive, incidental synchronized output, and superseded pre-remediation Q-AHBN Kubernetes accounting;
+- code remains separately available through the public scientific repository and is not duplicated into the data archive.
+
+Kubernetes provenance rule:
+- Gossip, Structured, DC-SoC and AHBN retain the validated historical K5 evidence;
+- Q-AHBN uses the S17 post-remediation five-run family only;
+- the curated Kubernetes summary is therefore aligned with the final manuscript rather than copied wholesale from the superseded pre-remediation matrix.
+
+S20-17B — package construction:
+- staged package name: `QAHBN2_JoCC_curated_data_v1.0`;
+- staged ZIP: `QAHBN2_JoCC_curated_data_v1.0.zip`;
+- package contains 11 files including README, data dictionary, package manifest and SHA-256 checksum list;
+- compressed size at staging: approximately 30 KB;
+- package is local/staged only and has not been publicly archived.
+
+S20-17C — integrity/parity verification:
+- all staged JSON files parse successfully;
+- CSV data-row counts: S11-A 32; S11-B 20; gamma sensitivity 15; Kubernetes operational summary 5; Kubernetes paired summary 5;
+- all staged file SHA-256 checksums verify;
+- ZIP integrity test passes;
+- publication-facing Kubernetes values match the current authoritative manuscript table/text;
+- no new statistic, experiment, result, parameter, algorithm, evidence family or claim was created.
+
+S20-17D — archival staging:
+- README explicitly records curated scope and exclusions;
+- data dictionary documents field/evidence meaning and claim boundaries;
+- package manifest records science baseline and repository HEADs;
+- DOI and archive license remain intentionally unset pending researcher approval;
+- no Zenodo record has been published and no DOI has been minted.
+
+Scientific boundary:
+- no manuscript science, algorithm, parameter, frozen evidence, statistical interpretation, benchmark conclusion, or claim boundary changed;
+- ControlSim and Kubernetes evidence remain separate;
+- Kubernetes remains operational-realization/observability evidence only.
+
+**Next controlled gate:** S20-17E — public archival release / DOI minting. This is an irreversible public archival action and is **HOLD pending explicit researcher approval**. After a DOI is obtained, S20-17F will integrate the final Availability of data and materials statement and close the requirement.
