@@ -3906,3 +3906,33 @@ Scientific boundary:
 - S12A/S18/S19 scientific closures remain unchanged.
 
 **Result:** one directly relevant target-journal blockchain broadcast/propagation citation is now integrated into the manuscript and bibliography with evidence-bounded wording.
+
+
+# S20-12 — Zotero Citation-Key / Bibliography Authority Reconciliation — 2026-10-05
+
+**Status:** PASS / CLOSED — bibliographic authority alignment only.
+
+Trigger:
+- researcher supplied authoritative Zotero-exported `1item.bib` for the Journal of Cloud Computing paper previously integrated under S20-11 and requested `sn-main.tex` and `references.bib` be aligned, particularly the citation key.
+
+Authoritative attached item:
+- citation key: `li_blockchain_2023`;
+- title: `Blockchain enabled task offloading based on edge cooperation in the digital twin vehicular edge network`;
+- DOI: `10.1186/s13677-023-00496-6`;
+- journal field: `J Cloud Comp`;
+- year: 2023; volume: 12; number: 1; page/article: 120.
+
+Reconciliation and correction:
+- current manuscript and bibliography were re-fetched from `wwiras/QAHBN2-Manuscript` before editing;
+- replaced both manuscript citations from provisional key `li_blockchain_enabled_2023` to authoritative Zotero key `li_blockchain_2023`;
+- replaced the provisional hand-authored bibliography record with the researcher-supplied Zotero-exported record from `1item.bib`;
+- manuscript citation-key commit: `fa5ad6228ee1fe3d03e43ad1e88aa63944766c21`;
+- bibliography authority commit: `49c26cf24d270a4dcfafa2fee9336d278ae84d82`.
+
+Scientific boundary:
+- no literature interpretation, manuscript prose, experiment, parameter, numerical result, evidence role, claim boundary, or conclusion was changed;
+- this gate only aligns citation identity/metadata with the researcher's bibliography authority;
+- pinned science baseline remains `6ccc94e5df770d588a5ccfa592f603a9a8ab2c68`;
+- S12A/S18/S19 scientific closures remain unchanged.
+
+**Result:** the Journal of Cloud Computing citation is now consistently keyed as `li_blockchain_2023` in both `sn-main.tex` and `references.bib`, with the bibliography entry sourced directly from the attached Zotero export.
