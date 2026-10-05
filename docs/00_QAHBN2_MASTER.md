@@ -3960,3 +3960,33 @@ Scientific boundary:
 - S12A/S18/S19 scientific closures remain unchanged.
 
 **Result:** the Li et al. citation is now phrased at the strongest directly source-supported level for Q1 defensibility.
+
+
+# S20-14 — Funding / Competing-Interests Declaration Integration — 2026-10-05
+
+**Status:** PASS / CLOSED — administrative manuscript-compliance only.
+
+Trigger:
+- researcher supplied the final funding and competing-interests statements for the target journal manuscript;
+- researcher also supplied Journal of Cloud Computing example papers for formatting reference.
+
+Example review:
+- Journal of Cloud Computing examples use explicit end-matter declaration sections such as `Funding` and `Competing interests`, rather than retaining the Springer template instruction checklist;
+- one reviewed example states its funding under a dedicated `Funding` heading and uses the declaration wording `The authors declare no competing interests.`
+
+Correction:
+- removed the Springer template placeholder declaration instructions and checklist from root `sn-main.tex`;
+- inserted:
+  - `\subsection*{Funding}`
+  - `This research was supported by the Internal Matching Grant -- Public Service Department (JPA) of Malaysia. The funders had no role in the study design, data collection and analysis, decision to publish, or preparation of the manuscript.`
+  - `\subsection*{Competing interests}`
+  - `The authors declare that they have no competing interests.`
+- manuscript commit: `d33f2f1f3b80daef494b41f0f154f2d8b7b7c298`.
+
+Scientific boundary:
+- no experiment, parameter, algorithm, result, evidence family, statistical interpretation, claim boundary, bibliography, conclusion, or scientific prose changed;
+- this gate is administrative/compliance only;
+- pinned science baseline remains `6ccc94e5df770d588a5ccfa592f603a9a8ab2c68`;
+- S12A/S18/S19 scientific closures remain unchanged.
+
+**Result:** the manuscript now contains explicit journal-style Funding and Competing interests declarations and no longer contains the generic Springer declaration-template checklist.
