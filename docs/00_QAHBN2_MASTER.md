@@ -3673,3 +3673,37 @@ Scientific boundary:
 - S12A/S18/S19 scientific closures remain unchanged.
 
 **Expected result:** the listed caption and rsfs/font-size substitution warnings should clear on the next clean Overleaf compile. If any size-substitution warning remains, it should be re-evaluated from the fresh log because it may originate from a different font family in the Springer class rather than from rsfs.
+
+
+# S20-4 — Journal Title-Page / Abstract Compliance Adaptation — 2026-10-05
+
+**Status:** PASS / CLOSED — journal-specific manuscript adaptation only.
+
+Trigger:
+- target-journal preparation guidance requires:
+  - a title page that identifies the article appropriately, lists full author names/institutional addresses, and indicates the corresponding author;
+  - an abstract of 150--250 words with no undefined abbreviations or unspecified references;
+  - continuity between title/abstract framing and the full manuscript narrative.
+
+Reconciliation:
+- manuscript and scientific repositories were re-fetched at current HEAD before editing;
+- the existing title, author list, affiliations and corresponding-author marker already satisfy the supplied title-page requirements;
+- no collaboration-group authorship is present;
+- the current manuscript contains no LLM author attribution;
+- the existing abstract exceeded the requested 150--250-word range.
+
+Decision and correction:
+- retained the existing title unchanged because it already identifies Q-AHBN, bounded Q-learning refinement, adaptive blockchain dissemination, and dynamic network conditions;
+- retained the existing full author names, institutional addresses and corresponding-author designation unchanged;
+- replaced only the abstract with a compressed evidence-faithful version within the required 150--250-word range;
+- preserved the existing narrative spine used throughout Introduction, Discussion and Conclusion:
+  `latency--duplication trade-off -> deterministic AHBN -> bounded Q-AHBN refinement -> condition-specific delivery/delay gains -> communication-overhead cost -> bounded external positioning -> Kubernetes operational realization`;
+- no additional cross-section scientific rewrite was required because the existing Introduction, Discussion and Conclusion already use this same progression;
+- manuscript correction commit: `fbb5f699a7c6e4075948d8e4abd66d9e29d160cd`.
+
+Scientific boundary:
+- no experiment, parameter, algorithm, numerical result, evidence family, statistical interpretation, claim boundary, bibliography, or title was changed;
+- pinned science baseline remains `6ccc94e5df770d588a5ccfa592f603a9a8ab2c68`;
+- S12A/S18/S19 scientific closures remain unchanged.
+
+**Result:** supplied title-page requirements are satisfied by the existing title/author/affiliation structure, and the abstract is now journal-range compliant while remaining synchronized with the manuscript's established scientific narrative.
