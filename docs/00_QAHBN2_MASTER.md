@@ -3564,3 +3564,30 @@ Registered stage record:
 The manuscript-side bounded corrections were applied at commit `f51cb4164d12a5dfe304061b3af3757769b32d33`.
 
 Fresh closure artifact: `main04Oct2026_0834.pdf`, Drive ID `1Sa_BKh-tVWP5zkTj2HIgmPdEtW0H7e3o`, 28 pages, 511,544 bytes, local binary SHA-256 `fc542a58f195842e0ec66ca2b2d7f12b851ba2fd7447e9c59749ffcdcc11f4c3`. Source/PDF claim-boundary consistency and whole-document visual proof passed with no scientific or layout regression. S19-8 is PASS / CLOSED; historical S19-7 records remain unchanged.
+
+
+# S20-0 — Journal-Template Manuscript Architecture Reconciliation — 2026-10-05
+
+**Status:** PASS / CLOSED — administrative publication-architecture reconciliation only.
+
+Researcher-approved manuscript-source convention:
+- publication repository: `wwiras/QAHBN2-Manuscript`;
+- active journal-template source: root `sn-main.tex`;
+- shared bibliography for all manuscript/revision sources: root `references.bib`;
+- no `versions/` directory is required prospectively;
+- Git history and root-level immutable manuscript snapshots provide source history;
+- when a reviewer revision is opened, preserve the submitted source unchanged and create the next root-level source using the `sn-main<revision>.tex` convention (for example, first revision `sn-main1.0.tex`);
+- figures, diagrams and manuscript tables are authored natively in LaTeX/TikZ/PGFPlots where practical; no dedicated tracked image/table directory is required for publication artifacts generated natively;
+- journal-supplied class/style support files may remain at repository root as required by the target template;
+- `output/` remains Git-ignored working/build space; Drive synchronization alone does not promote artifacts to scientific evidence.
+
+The previous `versions/vX.Y/main.tex` convention is superseded prospectively. Historical records that mention it remain historical provenance and must not be rewritten to imply that past gates used the new path.
+
+Current scientific authority remains unchanged:
+- pinned manuscript science baseline: `6ccc94e5df770d588a5ccfa592f603a9a8ab2c68`;
+- S12A/S18/S19 claim and evidence boundaries remain in force;
+- no experiment, parameter, algorithm, statistic, result, evidence family or claim authorization is reopened.
+
+The manuscript repository and its Google Drive counterpart were reconciled before this update. At reconciliation, root `sn-main.tex` and root `references.bib` were present and the journal-template support files were synchronized.
+
+**Next controlled programme:** journal-specific formatting and submission-requirement adaptation may proceed from root `sn-main.tex` without changing the frozen scientific evidence or claim boundaries.
