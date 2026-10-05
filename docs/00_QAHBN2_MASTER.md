@@ -3616,3 +3616,29 @@ Scientific boundary:
 - S12A/S18/S19 scientific closures remain unchanged.
 
 **Result:** source-level compatibility defect corrected. Researcher should recompile the synchronized Overleaf project to confirm the provider-side build no longer emits this key error.
+
+
+# S20-2 — Overleaf algpseudocode Compatibility Remediation — 2026-10-05
+
+**Status:** PASS / CLOSED — publication-formatting compatibility only.
+
+Trigger:
+- Overleaf reported `Undefined control sequence` for `\When` at root manuscript `sn-main.tex` line 467 and `\EndWhen` at line 474.
+
+Reconciliation:
+- current manuscript repository `wwiras/QAHBN2-Manuscript` and current scientific master were re-fetched before editing;
+- the algorithm environment uses `algorithm`, `algorithmicx`, and `algpseudocode`;
+- the offending block used `\When...\EndWhen`, commands not defined by the standard `algpseudocode` vocabulary.
+
+Correction:
+- replaced `\When{all direct attempts owned by $D_t$ have terminated}` with `\While{not all direct attempts owned by $D_t$ have terminated}`;
+- replaced `\EndWhen` with `\EndWhile`;
+- manuscript correction commit: `42276cb82a9ac6ea6112ce2b7bae270b6935436e`.
+
+Scientific boundary:
+- the change is pseudocode syntax/compatibility only;
+- no experiment, parameter, algorithmic state/action/reward/transition semantics, numerical value, result, claim boundary, bibliography, or scientific interpretation was changed;
+- pinned science baseline remains `6ccc94e5df770d588a5ccfa592f603a9a8ab2c68`;
+- S12A/S18/S19 scientific closures remain unchanged.
+
+**Result:** unsupported pseudocode commands were removed using standard `algpseudocode` constructs. Researcher should recompile Overleaf to confirm these undefined-control-sequence errors are cleared.
