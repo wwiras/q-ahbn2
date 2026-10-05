@@ -3849,3 +3849,28 @@ Scientific boundary:
 - S12A/S18/S19 scientific closures remain unchanged.
 
 **Expected result:** Figure 1 should remain upright and within article width, with the side note and feedback-loop labels visually separated from the dashed arrows. Fresh Overleaf compilation is required for final visual confirmation.
+
+
+# S20-10 — Figure 5 X-Axis Label Readability Adaptation — 2026-10-05
+
+**Status:** PASS / CLOSED — publication-layout/readability only.
+
+Trigger:
+- compiled manuscript review showed Figure 5 (`fig:exp13-bounded-positioning`) x-axis method labels visually crowding the x-axis baseline in the 2x2 PGFPlots layout.
+
+Reconciliation:
+- current manuscript and scientific master were re-fetched before editing;
+- Figure 5 data, five-method order, panel dimensions, axes, error bars, caption, label and scientific interpretation were preserved.
+
+Correction:
+- changed only the shared Figure 5 x-tick label style from `font=\scriptsize` to `font=\tiny`;
+- added `yshift=-1pt` to move the rotated labels slightly farther below the x-axis;
+- retained the existing 25-degree rotation and east anchoring;
+- manuscript correction commit: `86e9232bc344a5d87e407498807de7468e9d4ea5`.
+
+Scientific boundary:
+- no plotted value, error bar, method order, axis scale, benchmark condition, statistical interpretation, caption meaning, evidence role, claim boundary, bibliography, or manuscript prose was changed;
+- pinned science baseline remains `6ccc94e5df770d588a5ccfa592f603a9a8ab2c68`;
+- S12A/S18/S19 scientific closures remain unchanged.
+
+**Expected result:** Figure 5 method labels should remain legible while sitting more clearly below the x-axis line. Fresh Overleaf compilation is required for final visual confirmation.
