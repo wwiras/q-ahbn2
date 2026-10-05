@@ -4123,3 +4123,29 @@ Scientific boundary:
 - S12A/S18/S19 scientific closures remain unchanged.
 
 **Result:** S20-16 is revised into a combined abbreviation-and-notation compliance record suitable for the target journal, with recurring reader-facing mathematical notation documented alongside acronym expansions.
+
+
+# S20-16R1 — Abbreviation Coverage Follow-up — 2026-10-05
+
+**Status:** PASS / CLOSED — follow-up correction to S20-16R.
+
+Trigger:
+- researcher identified two additional recurring reader-facing terms omitted from the combined abbreviation/symbol audit:
+  - `ControlSim`;
+  - `Exp*` experiment-identifier convention.
+
+Correction:
+- added under the `Abbreviations` subsection:
+  - `ControlSim — Controlled simulation environment`;
+  - `Exp* — Experiment identifier, where * denotes the experiment ID`;
+- preserved the researcher's earlier removal of JPA from the glossary;
+- mathematical and algorithmic symbols remain unchanged;
+- manuscript commit: `4a5168e53452afdcc97658175a31ede7fc4ea63b`.
+
+Scientific boundary:
+- no experiment, parameter, result, statistical interpretation, benchmark claim, algorithm semantics, bibliography, or conclusion changed;
+- this is reader-facing terminology documentation only;
+- pinned science baseline remains `6ccc94e5df770d588a5ccfa592f603a9a8ab2c68`;
+- S12A/S18/S19 scientific closures remain unchanged.
+
+**Result:** the combined list now covers the recurring ControlSim environment name and Exp* experiment-ID convention in addition to the previously audited abbreviations and symbols.
