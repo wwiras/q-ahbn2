@@ -3791,3 +3791,31 @@ Scientific boundary:
 - S12A/S18/S19 scientific closures remain unchanged.
 
 **Expected result:** Table 2 should remain readable at the same font size while fitting more comfortably within the two-column article width. Fresh Overleaf compilation is required for final visual confirmation.
+
+
+# S20-8 — Figure 1 Article-Width Fit Adaptation — 2026-10-05
+
+**Status:** PASS / CLOSED — publication-layout/readability only.
+
+Trigger:
+- compiled manuscript review showed Figure 1 (`fig:qahbn-cycle`) extended too broadly across the article width because the left control loop, right learning loop and side-note spacing added substantial horizontal extent around the central Q-AHBN architecture stack.
+
+Reconciliation:
+- current manuscript and scientific master were re-fetched before editing;
+- Figure 1 is native TikZ and all node text, architecture semantics, arrows, caption, label and surrounding interpretation were preserved.
+
+Correction:
+- reduced side-note width from `3.5cm` to `3.0cm`;
+- reduced the side-note offset from `1.00cm` to `0.65cm`;
+- moved the right learning-loop return path from `xshift=3.1cm` to `xshift=2.25cm`;
+- moved the left control-loop return path from `xshift=-4.5cm` to `xshift=-3.35cm`;
+- retained the central block dimensions, text sizes, arrow semantics and `figure*` environment unchanged;
+- no global scaling or font-size reduction was introduced;
+- manuscript correction commit: `d7ef115bd348412f2fe6aa4f79d8cbae0dd1eaad`.
+
+Scientific boundary:
+- no architecture meaning, algorithm, parameter, state/action/reward semantics, numerical value, result, caption interpretation, claim boundary, bibliography, or manuscript prose was changed;
+- pinned science baseline remains `6ccc94e5df770d588a5ccfa592f603a9a8ab2c68`;
+- S12A/S18/S19 scientific closures remain unchanged.
+
+**Expected result:** Figure 1 should fit more comfortably inside the two-column article block while retaining readable labels and the same visual hierarchy. Fresh Overleaf compilation is required for final visual confirmation.
