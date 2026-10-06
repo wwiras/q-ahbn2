@@ -266,3 +266,33 @@ GO FOR SUBMISSION
 ```
 
 The manuscript is released for submission to Journal of Cloud Computing: Advances, Systems and Applications, subject only to normal portal metadata entry and upload mechanics.
+
+
+## JCC-7E — Journal-guideline-only declaration scope — 2026-10-06
+
+**Status: PASS / CLOSED (source update); fresh compile required for final PDF provenance**
+
+Researcher decision:
+- follow only the explicit Journal of Cloud Computing submission requirements for manuscript declarations;
+- remove the previously added `AI-assisted manuscript preparation` subsection because the JoCC submission-guidelines page does not list an AI-usage declaration among the required manuscript/supporting-information items.
+
+Guideline basis verified on 2026-10-06:
+- JoCC requires double-line spacing and line/page numbering;
+- editable TeX/LaTeX source files are accepted and must be uploaded;
+- all manuscripts require an `Availability of data and materials` section;
+- publicly available datasets must be fully referenced in the reference list with a persistent identifier;
+- supporting information requires author information and a cover letter with journal-fit, competing-interest, author-approval, originality/concurrent-submission, and special-issue information where applicable;
+- no journal-specific AI-usage declaration is listed on the JoCC submission-guidelines page.
+
+Manuscript source change:
+- removed only the `AI-assisted manuscript preparation` subsection and its two-sentence paragraph from root `sn-main.tex`;
+- manuscript commit: `1d7b29043c5a6211bc67889a9dc02b95364d4318`;
+- no scientific content, results, algorithms, parameters, evidence, claims, author order, author-contribution wording, funding, competing interests, or data-availability text changed;
+- current active source contains zero `\equalcont` declarations;
+- Table 2 formatting correction remains intact.
+
+Controlled status:
+- manuscript source change: **PASS / CLOSED**;
+- JCC-6 final PDF proof: **HOLD for fresh compile only**, because the previously audited PDF still contains the removed declaration;
+- JCC-7 final release: **HOLD for fresh compile/visual verification only**;
+- science remains frozen at the pinned baseline `6ccc94e5df770d588a5ccfa592f603a9a8ab2c68`.
