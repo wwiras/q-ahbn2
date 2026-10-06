@@ -223,3 +223,46 @@ Controlled decision:
 - **JCC-6 fresh PDF proof: PASS / CLOSED**.
 - **JCC-7 authorship/equal-contribution item: PASS / CLOSED**.
 - **JCC-7 final submission release: HOLD only for manuscript-source synchronization of the approved short AI disclosure, then one final source/PDF provenance confirmation**.
+
+
+## JCC-7D — Manuscript-source synchronization and final release — 2026-10-06
+
+**Status: PASS / CLOSED**
+
+Reconciliation completed against:
+- authoritative operating contract: `docs/00_QAHBN2_MASTER.md`;
+- scientific repository `wwiras/q-ahbn2` on `main`;
+- manuscript repository `wwiras/QAHBN2-Manuscript` on `main`;
+- researcher-supplied scientific and manuscript Google Drive roots.
+
+Manuscript synchronization verification:
+- latest manuscript commit: `d928edfc94e0b8ba39912252f7b8964ffe9ee477` (`update AI declaration.`);
+- active root `sn-main.tex` now contains the approved short AI-assisted-manuscript-preparation wording;
+- active source contains **zero** `\equalcont` declarations;
+- the approved author order and Author contributions paragraph remain unchanged;
+- Table 2 narrow-layout correction remains in the active source.
+
+Final PDF already audited:
+- `main06Oct2026_0907_wlines.pdf`;
+- 53 pages;
+- line-numbered referee layout;
+- no blocking visual/layout defect identified in the final proof;
+- declarations, figures, tables, references and dataset citation are present.
+
+Controlled release decision:
+- **JCC-6 — PASS / CLOSED**.
+- **JCC-7A — PASS / CLOSED**.
+- **JCC-7B — PASS / CLOSED**.
+- **JCC-7C — PASS / CLOSED**.
+- **JCC-7D — PASS / CLOSED**.
+- **JCC-7 — PASS / CLOSED**.
+
+No scientific experiment, result, algorithm, parameter, frozen evidence, claim boundary, author order, affiliation or corresponding-author metadata was modified during this closure.
+
+# FINAL CONTROLLED SUBMISSION DECISION
+
+```text
+GO FOR SUBMISSION
+```
+
+The manuscript is released for submission to Journal of Cloud Computing: Advances, Systems and Applications, subject only to normal portal metadata entry and upload mechanics.
