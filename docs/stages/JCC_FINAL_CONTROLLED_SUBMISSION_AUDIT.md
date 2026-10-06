@@ -118,13 +118,14 @@ A clean recompile is required because JCC-4 changed the manuscript source after 
 
 ## JCC-7 — Submission decision
 
-**Current decision: HOLD — two administrative release checks only.**
+**Current decision: HOLD — one administrative release check only.**
 
 No scientific defect remains.
 
+Equal-contribution metadata has now been resolved by explicit researcher authorization: all three `\\equalcont` declarations were removed, while the approved Author contributions paragraph was retained unchanged.
+
 Release to **GO FOR SUBMISSION** after:
-1. researcher confirms the three equal-contribution markers are factually intended (or authorizes their removal); and
-2. a fresh clean compile of the current source is visually/build verified and used as the upload PDF.
+1. a fresh clean compile of the current source is visually/build verified and used as the upload PDF.
 
 These are administrative/proof checks only and do not reopen manuscript science.
 
@@ -137,4 +138,23 @@ These are administrative/proof checks only and do not reopen manuscript science.
 `JCC-4 PASS`  
 `JCC-5 PASS`  
 `JCC-6 CONDITIONAL PASS`  
-`JCC-7 HOLD — administrative release checks only`
+`JCC-7 HOLD — fresh compile / visual proof only`
+
+
+## JCC-7A — Equal-contribution metadata resolution — 2026-10-06
+
+**Status: PASS / CLOSED**
+
+Researcher explicitly authorized removal of all three `\\equalcont{These authors contributed equally to this work.}` declarations after reconciling them against the approved differentiated Author contributions statement.
+
+Manuscript action:
+- removed all three `\\equalcont` declarations from root `sn-main.tex`;
+- retained the approved Author contributions paragraph unchanged;
+- manuscript commit: `a46f8696db6585eab788a22ef5604a07c07cb4b7`.
+
+Verification:
+- remaining `\\equalcont` occurrences in active manuscript: **0**;
+- approved Samsuddin Samsuddin Wira contribution wording remains present;
+- no author order, affiliation, corresponding-author designation, scientific content, result, parameter, evidence family, or claim boundary changed.
+
+**JCC-7 remaining release check:** fresh clean compile and visual/build verification of the current source only.
