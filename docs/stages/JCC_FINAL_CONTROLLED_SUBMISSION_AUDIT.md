@@ -158,3 +158,33 @@ Verification:
 - no author order, affiliation, corresponding-author designation, scientific content, result, parameter, evidence family, or claim boundary changed.
 
 **JCC-7 remaining release check:** fresh clean compile and visual/build verification of the current source only.
+
+
+## JCC-7B — Table 2 referee-layout overlap correction — 2026-10-06
+
+**Status: PASS / CLOSED (source correction); visual proof pending under JCC-7 final release**
+
+Trigger:
+- researcher supplied compiled-page evidence showing Table 2 overlapping the right-side line-number column in the Springer referee/lineno layout.
+
+Scope:
+- formatting-only correction in root `sn-main.tex`;
+- no wording, evidence value, scientific interpretation, claim boundary, table row content, algorithm parameter, experiment, or result was changed.
+
+Applied correction:
+- `\tabcolsep`: 5pt -> 4pt
+- Table 2 column widths: `p{2.7cm} p{5.45cm} p{5.45cm}` -> `p{2.5cm} p{5.0cm} p{5.0cm}`
+
+Manuscript commit:
+- `7066493d1cb282d784a24e2ee2f1753f07d74980`
+
+Verification:
+- active source contains the narrowed Table 2 geometry;
+- Table 2 wording/content is unchanged;
+- JCC-7 remains **HOLD — fresh clean compile and visual/build verification only**.
+
+Required release action:
+1. researcher performs a fresh clean compile of the current manuscript source;
+2. page containing Table 2 is visually checked to confirm no overlap with `lineno`;
+3. final PDF/build is checked for submission integrity;
+4. if clean, close JCC-7 as **GO FOR SUBMISSION**.
