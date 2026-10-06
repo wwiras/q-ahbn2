@@ -188,3 +188,38 @@ Required release action:
 2. page containing Table 2 is visually checked to confirm no overlap with `lineno`;
 3. final PDF/build is checked for submission integrity;
 4. if clean, close JCC-7 as **GO FOR SUBMISSION**.
+
+
+## JCC-7C — Final PDF proof and authorship-metadata clarification — 2026-10-06
+
+**Status: PASS / CLOSED for authorship metadata; JCC-7 final release pending current-source synchronization check**
+
+Researcher supplied fresh compiled proof:
+- `main06Oct2026_0907_wlines.pdf`
+- 53 pages
+- line-numbered referee layout.
+
+Clarification of prior equal-contribution note:
+- the earlier statement that three `\equalcont` declarations remained is obsolete;
+- current authoritative manuscript source on `main` contains **zero** `\equalcont` declarations;
+- no further equal-contribution decision is required;
+- author order and the approved Author contributions paragraph remain unchanged.
+
+Fresh PDF checks:
+- title/authors/affiliations render;
+- Table 2 is readable and no longer overlaps the right-side line-number column;
+- the mathematical-symbol row `df` is present; the absence of a neighboring line number is a normal `lineno`/tabular behavior and is not missing content;
+- declarations, including the short AI-assisted-manuscript-preparation wording, render in the supplied PDF;
+- figures/tables and references are present through the 53-page proof;
+- no scientific claim or evidence change is indicated by this proof.
+
+Important source/PDF reconciliation:
+- the supplied PDF contains the approved short AI disclosure:
+  “OpenAI ChatGPT was used to assist with language, formatting, and manuscript consistency. All scientific work, data analysis, interpretation, and conclusions were conducted and verified by the authors, who take full responsibility for the manuscript.”
+- current GitHub `sn-main.tex` readback does **not yet contain** that short wording.
+- therefore the PDF and GitHub manuscript source are not yet proven synchronized.
+
+Controlled decision:
+- **JCC-6 fresh PDF proof: PASS / CLOSED**.
+- **JCC-7 authorship/equal-contribution item: PASS / CLOSED**.
+- **JCC-7 final submission release: HOLD only for manuscript-source synchronization of the approved short AI disclosure, then one final source/PDF provenance confirmation**.
