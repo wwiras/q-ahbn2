@@ -518,3 +518,58 @@ Capture real command outputs and exit statuses within the newly made timestamped
 The prior frozen 25-run (five methods × five seeds) Kubernetes evidence retains its unmodified historical/clipped-variant provenance; it is NOT retrospectively relabelled as corrected fanout 1–7. No Docker build/push, Kubernetes deployment, cloud resource spending, additional training/experiment, fresh performance result, peer-run message, or journal manuscript edit occurred under D5. Reassess matched prospective GKE evidence only after actual D5 local test readback and a separate D6/D7 authorization. Manuscript release and the 23 October 2026 internal target remain conditional, not automatic.
 
 **Final transaction:** code candidate and two test expectations implemented with GitHub readback PASS; D5 deterministic test **OPEN / AWAIT EXECUTION**; JCC-R1A **HOLD**; canonical AHBN **FROZEN**; GKE/Docker/formal runs and journal submission **HOLD**. Only the two explicitly identified files plus this changing stage are authorized to be modified in this transaction.
+
+
+
+## JCC-R1A / JCC-R2-to-Submission — Forward Gate Roadmap (planning-only; 2026-10-12)
+
+**Nature:** Project-level planning roadmap, not an authorization, test PASS, science decision, manuscript revision or journal submission. Historical D1–D5 statuses in preceding sections control. All new gate labels below are **PROPOSED** until explicitly reconciled and released under `docs/00_QAHBN2_MASTER.md` §9.5.
+
+**Reconciled on 2026-10-12:** science `wwiras/q-ahbn2@main` = `2d61081da13f44b5b3282bf970c659215b56d814`; manuscript `wwiras/QAHBN2-Manuscript@main` = `57152560860c0b7d0ac0f114b75a8caa9f11a209` with `sn-main.tex`. Historical pinned science baseline `6ccc94e5df770d588a5ccfa592f603a9a8ab2c68` and historical producing GKE image/commit stay immutable. Google Drive science corpus `1a6_WrsZL2iXbFVeMemdujYxvzEqcBFC5` exists and contains `output/`, but synced/unreviewed files are not automatically promoted evidence.
+
+### Phase A: implementation validity (existing gate D5-T1 and proposed D6–D8)
+
+| Gate | Work / exact evidence-based release condition | Current control state |
+| --- | --- | --- |
+| **JCC-R1A-C3-D5-T1** | Researcher runs targeted `tests.test_k2_kubernetes_adapter` and full local deterministic regression. Inspect producing SHA, exit status, test list/counts, 2→1/6→7 endpoint behavior, target selection, F=0, same-peer successor, reward and terminal lifecycle. Fix new defects only via newly authorized scope; verify exact outputs and GitHub readback. | **NEXT / OPEN — outputs not yet evidenced** |
+| **JCC-R1A-C3-D6 (proposed)** | After D5-T1 PASS, verify immutable candidate SHA, clean local source, prospective unique image tag, linux/amd64 digest, runtime/controller import and container preflight. No performance inference or historical image overwrite. | HOLD / not authorized |
+| **JCC-R1A-C3-D7 (proposed)** | Before cloud use, freeze corrected Q arm, exact 5-seed matched protocol, needed AHBN/comparator rerun criterion, validity/exclusion/statistical plans and cloud approval. Execute only with researcher authorization; preserve all raw artifacts under a fresh run directory and validate manifests. If only 5 corrected Q runs, prove benchmark compatibility or label results separately; if five-method contemporaneous claim requires it, run a separately authorized 25-run matrix. | HOLD / conditional |
+| **JCC-R1A-C3-D8 (proposed)** | Independently audit corrected raw → metrics → seed pairs → confidence intervals, action traces, manuscript parity, original-versus-corrected variant distinction, unexpected or null results, immutable evidence preservation and readback. No claim of benefit without paired support. | HOLD / conditional |
+
+**Fallback at D7 decision:** If corrected Kubernetes formal work is not authorized or cannot pass, retain the original deployed-clipped variant explicitly as a limited operational observation, remove/narrow 1–7 K8s parity claims, and do not treat a deterministic smoke test as corrected performance validation.
+
+### Phase B: JCC-R1A science closure (proposed C1/C2/C4/C5, after D8 or fallback)
+
+| Gate | Decision scope | Required acceptance |
+| --- | --- | --- |
+| **JCC-R1A-C1 — Parameter adequacy** | Justify fixed 81-state/5-action Q learner, \(\alpha_Q=.25\), \(\gamma=.70\) with bounded gamma sensitivity, epsilon schedule and NEW/DUP/FAIL reward; separate design choice from empirically optimized parameter. | No unsupported optimum/generalization; additional sensitivity only if a necessary retained claim requires it. |
+| **JCC-R1A-C2 — Experimental sufficiency** | Determine what 80-run primary ControlSim, 25-run Exp13-Q-Sim and bounded 20-peer GKE do and do not support. | Precisely stated BA/topology/churn and seed scope; no uncontrolled extra experiments. |
+| **JCC-R1A-C4 — External comparator and literature adequacy** | Verify current published state-of-the-art papers, DC-SoC reference, canonical AHBN predecessor provenance/status, novelty and correct citations. | No claim that AHBN Scientific Reports is published if still under review; compare like-for-like evidence. |
+| **JCC-R1A-C5 — Claims/statistics parity** | Reconcile every manuscript table/figure and claim with frozen raw/aggregation/paired statistics; distinguish stronger/weaker metrics and overhead. | Zero unsupported claims; negative/null cases retained; no data fabrication or post-hoc metric substitution. |
+| **JCC-R1A-CLOSE** | Independent scientific-adequacy signoff, open finding ledger disposition, code/evidence/manuscript revision release contract. | PASS required to unlock substantive JCC-R2 scientific text updates; scientific HOLD until completed. |
+
+### Phase C: manuscript rewrite (proposed JCC-R2 stages; manuscript repo authority)
+
+**Sequence is evidence-first, not page-order:** `wwiras/QAHBN2-Manuscript/sn-main.tex` remains original authoritative manuscript until its own change/review gates. Proposed steps:
+
+1. **JCC-R2.0 — Manuscript architecture/claim map:** supervisor Overleaf OC-01/02/03, WA comments; reduce unnecessary fragmentation without deleting scientific detail; lock section map, figures, table/citation and revision/markup policy.
+2. **JCC-R2.1 — Method rewrite:** canonical AHBN→Q boundary, 1–7 request versus realized eligible fanout, five action selection rationale, state/learning/reward/transition lifecycle, fixed parameters versus actual gamma sensitivity and any bounded implementation disclosure.
+3. **JCC-R2.2 — Experimental methodology rewrite:** precise ControlSim families, matched seeds, statistical contract, K8s corrected or restricted-variant provenance and exact comparator caveats; avoid claiming equivalence of unrelated environments.
+4. **JCC-R2.3 — Results rewrite:** learning + failure + churn + heterogeneity + primary paired comparisons; bounded five-method reference benchmark; accurate Kubernetes operational evidence; all numbers independently checked against frozen evidence, including cost trade-offs and interval crossings.
+5. **JCC-R2.4 — Discussion/limitations rewrite:** what learning adds beyond immutable AHBN, communication overhead and worse/null outcomes, small-n and topology limitations, deployed-variant historical correction and SOTA scope.
+6. **JCC-R2.5 — Related Work/Introduction/Abstract/Conclusion:** strengthen novelty, contribution and research gap without literature duplication or unsupported publication status. Harmonize all sections after results freeze.
+7. **JCC-R2.6 — Internal scientific/style audit:** compile clean, check LaTeX references/abbreviations, figures/tables/TikZ, bibliography and citations, duplicated text, source–claim matrix, reviewer-comment response, change/highlight policy, and word/page count requirements. Each rewrite section needs PASS/approved freeze before overarching closure.
+8. **JCC-R2-CLOSE — Supervisor-ready PDF package:** verified `sn-main.tex`, PDF, versioned difference/annotated changes if needed, supervisor comment-resolution register and evidence trace, GitHub postwrite readback.
+
+### Phase D: external review and submission (proposed JCC-R3/R4)
+
+| Gate | Decision | Release criteria |
+| --- | --- | --- |
+| **JCC-R3.1 — Supervisor consultation/revision** | Send supervisor-ready scientifically audited version; log feedback and reconcile scientifically material changes through new gates. | Supervisor feedback resolved or exceptions explicitly documented. |
+| **JCC-R3.2 — Journal of Cloud Computing compliance audit** | Confirm current journal scope, template and submission rules, metadata/author/affiliation/funding, data/code availability, declarations, ethics, figures and cover letter; avoid assuming template/portal requirements without verification. | Full journal checklist PASS. |
+| **JCC-R3.3 — Final evidence/PDF freeze** | Freeze submission Git commit, manuscript source, final compiled PDF, references and supplementary/data link checks, checksum/version provenance. | Reproducibility and package completeness PASS. |
+| **JCC-R4 — Submission authorization and submission** | Obtain researcher signoff and complete actual target-journal submission through researcher-controlled journal portal. Preserve confirmation/ID and deposited version; update both source controls according to authority. | **SUBMITTED** only after actual journal confirmation; otherwise HOLD. |
+
+**Internal target:** Friday **23 October 2026** for **supervisor-ready** package, not a journal deadline. It is subordinate to scientific and code/evidence integrity. Journal submission remains HOLD until JCC-R4.
+
+**Reconciliation rule:** audit each gate and edit only truly changed authoritative files; source science/evidence decisions stay in the science repo, manuscript content changes in manuscript repo, and scientific Drive output requires deliberate promotion. This planning-only roadmap is recorded solely in the scientific stage. Existing master, test statistics, results and manuscript do not change authority because of this planning note.
