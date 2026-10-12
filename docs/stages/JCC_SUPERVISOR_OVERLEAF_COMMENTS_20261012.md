@@ -105,3 +105,57 @@ Draft a complete supervisor-comment response/change map for author review, then 
 
 ### Proposed next authorized action
 **JCC-R1 — manuscript-wide audit/change inventory (not substantive rewrite yet)**. Record section-level change obligations mapped to OC/WA IDs, evidence authority, current claim, proposed revision and verification checks; then perform JCC-R2 through R5 sequentially per `docs/00_QAHBN2_MASTER.md` reconcile/write/readback procedure. No scientific re-opening, no resubmission or journal portal action is authorized by this plan.
+
+
+## 2026-10-12 reconciliation update — scientific adequacy decision before revision
+
+**Status:** PLAN UPDATED / JCC-R1A OPEN / NO SCIENTIFIC MODIFICATION APPROVED. This supersedes any interpretation of the preceding editorial plan that all Q-AHBN parameters and experiments are permanently frozen or that no new experiments could be justified. The internal target of Friday 23 October 2026 is conditional on scientific adequacy.
+
+### Corrected scientific decision boundary
+
+| Scope | Current decision |
+| --- | --- |
+| Canonical AHBN | Frozen: retain its observation semantics, normalization/EWMA, score, mode decision, and bounded fanout actuator. Do not redesign AHBN under this revision. |
+| Q-AHBN parameters, action space, reward, learning design, and experiments | Keep pinned commit `6ccc94e5df770d588a5ccfa592f603a9a8ab2c68` as the unmodified reference baseline **while adequacy is reviewed**. No unconditional freeze-or-modify decision has been made. |
+| Potential additional or corrected Q-AHBN science | Decision only after evidence audit, with targeted hypothesis, scope, source parity, controls, comparison, provenance, revalidation, and explicit approval before execution. |
+| Editorial manuscript changes | Allowed subject to audit, source accuracy and supervisor review. Not evidence that all design choices have been experimentally optimized. |
+
+**Clarification:** 'Revise the paper, not redesign the algorithm' is the default editorial strategy, not a scientific verdict. The pinned science baseline remains historically immutable as a comparison reference. Any approved scientific candidate must be separately versioned and reconciled rather than silently rewriting the original baseline. No experiment or parameter change is authorized in this stage.
+
+### JCC-R1A — Scientific Adequacy and Additional Experiment Decision Gate
+
+**Target:** During JCC-R1, 12–13 October 2026; **OPEN / NOT YET EXECUTED**.
+
+For every material Q-AHBN parameter, result, experiment and claim, identify: (1) the exact choice and manuscript statement; (2) its frozen contract, code and evidence provenance; (3) whether the existing evidence justifies precisely what is claimed; (4) whether a clear explanation or narrower claim is sufficient; (5) whether a new controlled sensitivity experiment, correction or parameter change would be scientifically necessary.
+
+| Decision | Criteria | Action |
+| --- | --- | --- |
+| A — RETAIN / EXPLAIN | Existing supporting evidence sufficient | Explain and cite accurately; no rerun. |
+| B — RETAIN / QUALIFY | Defensible inherited/fixed design choice, not necessarily optimized | Explain design intent and limitations; narrow overclaims. |
+| C — INVESTIGATE | Material unanswered scientific issue | Define targeted experiment/sensitivity test, required controls, metrics and statistical comparison; seek separate approval before execution. |
+| D — CORRECT / REVISE | Verified error, invalid assumption, or demonstrated inadequacy | Open controlled scientific correction/change gate, revalidation and evidence/claim reconciliation. |
+
+**Required JCC-R1A artifact:** parameter-and-evidence adequacy matrix containing parameter/experiment, value, source contract/code, linked run or log, evidence class, manuscript location, supported claim, A/B/C/D decision, unresolved risk, required action, authority and schedule effect. Minimum coverage: 81 state bins, five meta-actions, bounded `k_Q` derived from canonical `k_AHBN`, reward and attribution, Q-learning rate, discount gamma and sensitivity evidence, exploration schedule, primary same-seed pairs, Exp13-Q five-method comparisons, Kubernetes scope, statistical analysis and unfavorable outcomes. Record AHBN as frozen reference only.
+
+**Stop/release rule:** R2–R5 editorial work may proceed where facts are settled, but any material unresolved C/D issue blocks affected claim closure. If new experimental work becomes necessary, reassess 23 October rather than weaken the scientific standard. The need for new Q-AHBN science remains **undecided pending R1A**.
+
+### Revised supervisor revision gates (superseding narrower interpretation above)
+
+| Gate | Working target | Deliverable and acceptance |
+| --- | --- | --- |
+| JCC-R1 plus JCC-R1A | 12–13 Oct | Manuscript-wide section/comment map (OC-01–03; WA-01–07); source/evidence reconciliation; scientific adequacy decisions A/B/C/D before final science scope is declared. |
+| JCC-R2 | 14–16 Oct | Journal-oriented Introduction and Method; Q-learning novelty, self-contained frozen deterministic hybrid foundation, accurate parameter and action rationales, subject to R1A conclusions. |
+| JCC-R3 | 17–19 Oct | Verifiable SOTA hybrid/learning sources, defensible related-work distinctions, accurately described experimental protocol and baselines. |
+| JCC-R4 | 20–21 Oct | Consolidate seven Results and six Discussion subsections as appropriate, retaining identifiable failure/churn/heterogeneity, five-method benchmark, Kubernetes evidence, adverse overhead and limitations. |
+| JCC-R5 | 22–23 Oct | Diff, citations, equations, data/provenance, tables/figures, LaTeX compilation, PDF visual proof, controlled readback, supervisor-ready package; NOT automatic publication/submission approval. |
+
+**Observed editorial needs:** sharpen Introduction question/novelty; contextualize existing hybrid and learning SOTA; explain design rationales without fabricating sweeps; preserve actual AHBN/Q-AHBN study lineage; simplify Results and Discussion heading hierarchy without losing distinctions. Proposed grouping: Results (learning plus paired dynamic-condition effects; five-method reference benchmark; Kubernetes operational realization); Discussion (mechanism and trade-offs; external positioning and bounded applicability). Final layout is conditional on detailed content audit.
+
+### Authority and status
+
+- Scientific source: `wwiras/q-ahbn2`; unchanged pinned scientific baseline `6ccc94e5df770d588a5ccfa592f603a9a8ab2c68`. Manuscript source: `wwiras/QAHBN2-Manuscript/sn-main.tex`. `wwiras/MUM_FIT_ThesisWira` remains thesis-text authority only.
+- Researcher reports Q-AHBN submitted to *Journal of Cloud Computing* and under peer review, **not published and no manuscript DOI**. The existing Zenodo dataset DOI is a different artifact; do not describe it as a journal article DOI. The AHBN Scientific Reports manuscript is also not published.
+- Supporting cloud corpora: scientific Drive folder `1a6_WrsZL2iXbFVeMemdujYxvzEqcBFC5`, manuscript Drive `1oQxyLENPvG-r10zuq62Au7AFyeeSpDxj`; AHBN manuscript PDF `1_C3fJpukQ-RJWLjU5Krx5lSwCio9TSQh`. The scientific Drive root and `output/` folder were located during this administrative review; no individual result log was validated or promoted.
+- Researcher-supplied scientific Mac sync path: `/Users/wwiras/Library/CloudStorage/GoogleDrive-samsuddin.samsuddin@monash.edu/My Drive/PhDResearch/myResearch/NewAlgorithm-AHBN/AHBNcode/q-ahbn2`. Manuscript sync path: `/Users/wwiras/Library/CloudStorage/GoogleDrive-samsuddin.samsuddin@monash.edu/My Drive/PhDResearch/myPaper/ClusterComputing/QAHBN2-Manuscript`. These cannot be directly modified via cloud connector. Repository `output/` is Git-ignored; Drive syncing alone does not certify evidence.
+
+**Transaction outcome:** revision plan and science-decision protocol only; manuscript, Q-AHBN code, AHBN controller, parameters, datasets, numerical results and experimental design remain unchanged. **NEXT: JCC-R1/R1A, OPEN. JOURNAL SUBMISSION HOLD.**
