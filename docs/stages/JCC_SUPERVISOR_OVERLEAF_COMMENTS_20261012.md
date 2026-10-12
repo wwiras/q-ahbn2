@@ -573,3 +573,50 @@ The prior frozen 25-run (five methods × five seeds) Kubernetes evidence retains
 **Internal target:** Friday **23 October 2026** for **supervisor-ready** package, not a journal deadline. It is subordinate to scientific and code/evidence integrity. Journal submission remains HOLD until JCC-R4.
 
 **Reconciliation rule:** audit each gate and edit only truly changed authoritative files; source science/evidence decisions stay in the science repo, manuscript content changes in manuscript repo, and scientific Drive output requires deliberate promotion. This planning-only roadmap is recorded solely in the scientific stage. Existing master, test statistics, results and manuscript do not change authority because of this planning note.
+
+
+## JCC-R1A-C4 / JCC-R2.0 — Researcher-Approved Q-AHBN-First Manuscript Positioning (2026-10-12)
+
+**Type/status:** Researcher-approved narrative/architecture INTENT, recorded for subsequent C4/C2/C5 audits and JCC-R2.0 reconciliation. Not an adequacy PASS, experiment amendment, manuscript-edit authorization or bypass of the current JCC-R1A-C3-D5-T1 gate. The scientific JCC-R1A HOLD remains active.
+
+### A. Principal story and honest technical identity
+
+Present **Q-AHBN** as the self-contained proposed learning-assisted hybrid blockchain dissemination scheme, not chiefly as an extension-paper narrative. Explain its entire deterministic hybrid foundation as an internal controller (local observations, normalization, EWMA, score, mode choice and bounded fanout), followed by the outcome-driven bounded Q-learning refinement (81 states, five actions, attributable NEW/DUP/FAIL outcomes, Q-updates and lifecycle, realized eligible targets). Preserve canonical deterministic controller source and numerical contract without retuning.
+
+The deterministic part is technically the **frozen AHBN controller**. Identify it accurately as AHBN/deterministic hybrid baseline within the learning/no-learning experiment and reproducibility material. Do not incorrectly describe the inherited controller as newly invented in Q-AHBN, suppress disclosure of related submitted research where required, treat the AHBN Scientific Reports manuscript as published, or misattribute the component to another published SOTA scheme. The Q-AHBN paper must define the mechanism fully so readers need not find an unpublished paper; verified published hybrid/learning SOTA establishes external research context and novelty comparison.
+
+### B. Three evaluation questions using pre-existing frozen evidence
+
+| Story block | Registered data | Question, scope and caveat |
+| --- | --- | --- |
+| **A — Learning contribution (learning-component ablation)** | Exp10-Q failure, Exp11-Q churn, Exp12-Q heterogeneity: **80 primary ControlSim formal runs / 40 paired deterministic AHBN versus Q-AHBN comparisons over eight conditions** | What measurable difference is attributable to enabling the entire bounded learning refinement above the same frozen controller? Report delivery, simulation delay and increased duplicates/forwarding cost. Not evidence that the individual state bins, actions or hyperparameters are optimal. |
+| **B — Comparative dissemination performance** | Exp13-Q-Sim: **25 frozen ControlSim runs** across Gossip, Structured, DC-SoC, AHBN and Q-AHBN at churn=0.40 | How does the *complete Q-AHBN scheme* compare against the three established external dissemination methods under one fixed benchmark? Keep the AHBN arm identified in original five-method results; no artificial double counting, arm removal or blanket SOTA-win claim. |
+| **C — Cloud-native operational validation** | Historical Exp13-Q-K8s matched five-method Kubernetes/GKE N=20 matrix | What bounded operational behavior is demonstrated? Historical Q implementation clipped 1–7 learning requests back to 2–6 and is a restricted variant. Corrected cloud performance requires separate D5-T1 → proposed D6–D8 validation; do not claim independent reproduction of ControlSim gains. |
+
+These blocks are three evaluation purposes, **not three new experiment families**. The contribution framing is twofold: demonstrate what learning changes relative to the deterministic foundation; characterize the complete proposed scheme relative to established dissemination methods. Cloud-native evaluation is complementary deployment evidence.
+
+### C. Intended manuscript logic — pending JCC-R2.0 section-map audit
+
+1. Introduction — dynamic blockchain dissemination problem, integrated learning-assisted hybrid contribution and research gap.
+2. Related Work — Gossip, Structured, hybrid and learning-based dissemination SOTA with verified sources; avoid literature duplication.
+3. Q-AHBN Architecture — full deterministic controller plus bounded learner, equations, reward, actions, lifecycle, inherited base 2–6 and derived Q-request 1–7 versus realized fanout.
+4. Experimental Methodology — separate ControlSim and GKE environments, baselines, scenarios, seeds, statistics, artifacts and experiment provenance.
+5. Learning Contribution Evaluation — frozen Exp10-Q/11-Q/12-Q paired comparison and costs.
+6. Comparative Dissemination Performance — bounded Exp13-Q-Sim five-method comparator benchmark.
+7. Cloud-Native Validation — verified valid observations with documented Kubernetes restricted-variant/corrected-source distinction.
+8. Discussion and Limitations — benefits, overhead, small sample and scope, design choices versus tuned parameters, novelty and validation limits.
+9. Conclusion — only scientifically supported Q-AHBN claims.
+
+The nine items form a **logical architecture**, not a command to create nine top-level Springer LaTeX sections. At JCC-R2.0 map onto the existing manuscript template/section hierarchy and Overleaf OC/WA comments. The older Scientific Reports AHBN manuscript is an organizational reference only: do not copy/rename its claims or prose; comply with overlap/related-submission disclosures.
+
+### D. Gate dependencies, evidence and authority
+
+- **C4:** verify hybrid SOTA and genuinely comparable learning-based dissemination sources; decide whether a fair and reproducible additional learning-based numerical comparator is necessary. Preserve Gossip, Structured, DC-SoC and AHBN in the frozen Exp13-Q matrix. New competitors require separately approved prospective experiments.
+- **C2:** decide whether the frozen 80-run primary and 25-run reference benchmark are sufficient for the precise intended claims; preserve scenario and sampling limits.
+- **C1/C5:** justify design versus optimized learning settings; verify exact paired statistics, overhead and all claims/figures/tables.
+- **C3 (unchanged NEXT):** JCC-R1A-C3-D5-T1 targeted and full researcher-run deterministic regression evidence. D6–D8, formal GKE runs and substantive manuscript rewriting remain HOLD.
+- **JCC-R1A-CLOSE / JCC-R2.0:** only after scientific release may the manuscript repository map and author the approved text/sections. Manuscript GitHub stays unchanged for this transaction.
+- **Immutable firewalls:** pinned science baseline 6ccc94e5df770d588a5ccfa592f603a9a8ab2c68; original experiments, statistical contracts, historical GKE evidence, source files, image records, and Drive output unchanged. Source science repository remains authoritative for this stage.
+- **References reconciled:** Science Drive root 1a6_WrsZL2iXbFVeMemdujYxvzEqcBFC5 and manuscript cloud folder 1oQxyLENPvG-r10zuq62Au7AFyeeSpDxj listed/read; predecessor Scientific Reports PDF 1_C3fJpukQ-RJWLjU5Krx5lSwCio9TSQh read as reference (**under review, not published**). Local Mac paths are researcher-provided sync locations and were not directly accessed.
+
+**Transaction decision:** Researcher positioning APPROVED/RECORDED; scientific-adequacy C4/C2/C5 PENDING, manuscript substantive edits LOCKED, JCC-R1A-C3-D5-T1 OPEN, JCC-R1A HOLD. Only this stage file changes.
