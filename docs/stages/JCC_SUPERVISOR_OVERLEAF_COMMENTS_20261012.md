@@ -660,3 +660,29 @@ The nine items form a **logical architecture**, not a command to create nine top
 **Decision:** D5-T1 deterministic-test execution and original-artifact preservation/readback **PASS / CLOSED**. This is a code-level, researcher-run local deterministic result only; it does **not** establish Docker/image parity, corrected GKE operation, performance impact, network reliability, or scientific adequacy of claims. Historical restricted Kubernetes evidence remains frozen and unchanged. ControlSim remains a separate evidence family.
 
 **Forward control:** D5-T1 is closed; **JCC-R1A-C3-D6 — Docker/image validation planning and separately authorized execution** is the next candidate technical gate (RELEASE CANDIDATE / NOT EXECUTED). D7/D8, corrected cloud formal experiments, substantive manuscript rewriting, and journal submission remain HOLD pending their own release criteria. C1/C2/C4/C5 scientific adequacy checks remain PENDING; JCC-R1A overall HOLD. No changes to canonical AHBN, learner settings, datasets, measured results, image records, or `QAHBN2-Manuscript` are authorized by this transaction.
+
+
+## JCC-R1A-C3-D6 — Docker/Image Configuration and Test-Plan Reconciliation (2026-10-12)
+
+**Status: PRE-BUILD REVIEW / CONDITIONAL HOLD.** D5-T1 was previously closed using independently read-back Google Drive logs; this D6 entry does not assert any Docker build, push, runtime test, registry digest, or GKE deployment has occurred.
+
+**Reconciled authority:** `docs/00_QAHBN2_MASTER.md`; prior D5-T1 stage closure; scientific repo `wwiras/q-ahbn2`; pinned science baseline `6ccc94e5df770d588a5ccfa592f603a9a8ab2c68` unchanged. Manuscript `wwiras/QAHBN2-Manuscript` remains untouched.
+
+### Inspected source paths and risk
+
+- `gke/app/Dockerfile.qahbn2` uses `python:3.11-slim`, installs `gke/app/requirements.txt`, generates gRPC bindings, copies inherited peer/controller files, `gke/app/qahbn2_runtime.py`, and **`COPY qahbn2 qahbn2`**. The corrected adapter is thus included by the recipe when the build context is the current repo root; image contents still require verification.
+- `gke/app/qahbn2_runtime.py` imports `KubernetesQAHBN2Adapter` and `QAHBN2Learner`, obtains canonical S5 proposal and records `k_ahbn`, `k_q`, and realized targets. It is a wrapper around inherited runtime; do not conflate requested fanout with actual realized target count.
+- `gke/scripts/build_k3_q_image.sh` and `build_k5_q_formal_image.sh` build `linux/amd64` using `docker buildx build ... --push` **before** image verification. Running either is a registry mutation and is not authorized by this pre-build review.
+- `gke/scripts/verify_k3_q_image.sh` checks registry pull for `linux/amd64`, image OS/architecture and prints available repo digest. `gke/scripts/preflight_k3_q_image.sh` checks Python module imports, but **does not directly test corrected 2→1 and 6→7 fanout endpoints inside the image**.
+- `gke/PROVENANCE.md` pins inherited GKE source `wwiras/ahbn2_gke@cc7ce17ca489ed4a0eaf8c7bb2ebfa0c9780b689`. Historical image tags/digests are not evidence for a newly built corrected image.
+
+### D6 proposed researcher-run acceptance sequence (NOT EXECUTED)
+
+1. Record current clean Git SHA, `git status --short`, Docker/Buildx version, target `linux/amd64`, Dockerfile and dependency hashes, exact image reference and whether build is local-only or registry-pushed. Use a **new immutable image tag**; never overwrite historical formal-image references.
+2. Prefer an initial **local-only** Buildx build with explicit `--load` and a fresh local tag; do not run existing push scripts as an initial test. Save full stdout/stderr, exit code and image ID.
+3. Inspect image OS/architecture and package provenance. Within the container run Python import preflight, then execute an explicit behavioral check that calls the packaged adapter/learner for frozen boundary cases AHBN `k=2` with `FANOUT_DOWN` → Q request `1`, and AHBN `k=6` with `FANOUT_UP` → Q request `7`. Include no hidden learner-side 2–6 clipping and preserve separate realized-neighbor constraints. Test action/mode semantics without altering frozen scientific source.
+4. Verify that the container actually uses the intended corrected source, not a stale layer or previously pushed tag. Record SHA-256 file parity for `qahbn2/kubernetes_adapter.py` between repository and container, plus image ID and, only if later pushed, immutable registry digest.
+5. Preserve build, architecture, import, behavioral and parity logs with producing SHA and exit codes in a fresh `output/evidence/JCC-R1A-C3-D6-<UTC>` directory; verify original files from the connected scientific Drive corpus before any PASS/CLOSED decision. Record skipped checks as limitations.
+6. Only after local D6 evidence passes and researcher explicitly approves registry publication should a new registry image be pushed and independently pulled/verified. Any D7/D8 GKE validation remains a separately released researcher-run gate; D6 is not a performance result.
+
+**Pre-build finding:** Dockerfile appears to package the corrected source from the root build context, but the existing preflight lacks an in-image 1–7 boundary assertion; the existing build scripts publish images before behavioral validation. D6 execution therefore remains **HOLD until a non-pushing test command and evidence contract are accepted**. No source, Dockerfile, image, frozen AHBN controller, experiment, or manuscript modifications in this transaction.
