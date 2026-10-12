@@ -358,3 +358,42 @@ The formal logs record actual clipped-variant decisions and attempts. They do no
 **23 October decision:** date remains an internal supervisor-ready *target*, not scientific closure. If the formal rerun cannot be validated by then, either disclose the historical K8s variant and narrow/remove canonical K8s parity claims in the manuscript, or keep the manuscript release on HOLD. Never mask the inconsistency to meet the date.
 
 **Current state:** JCC-R1A-C3-D2 SOURCE AUDIT PASS / PERFORMANCE IMPACT UNDETERMINED / JCC-R1A HOLD / SCIENTIFIC CODE CHANGES HOLD / JOURNAL SUBMISSION HOLD. **Next gate:** JCC-R1A-C3-D3 — point-in-time peer-role and candidate-set evidence reconciliation, followed by explicit scientific change/validation authorization decision. No direct access to the supplied Mac synchronized paths was claimed, and Drive synchronization alone is not evidence promotion.
+
+
+## JCC-R1A-C3-D3 — Point-in-Time Peer-Role and Candidate-Set Evidence Reconciliation (2026-10-12)
+
+**Gate verdict: POINT-IN-TIME SELECTION-IMPACT RECONCILIATION PASS / PERFORMANCE IMPACT UNDETERMINED. JCC-R1A stays HOLD.** This gate used read-only GitHub/Drive evidence; it has not executed a corrected Q-AHBN run and does not authorize code or result modification.
+
+### Authority and audit method
+
+- Applied `docs/00_QAHBN2_MASTER.md` §9.5: fetch → reconcile controlling gate → audit evidence → adjudicate → update only changed stage → post-write readback. Pinned science reference `6ccc94e5df770d588a5ccfa592f603a9a8ab2c68` untouched; AHBN canonical controller frozen.
+- Source authority: formal image-producing repository revision `7ad474c3a249fde58223f2abd5d54918b4bcbb9f`, code `gke/app/peer.py` `cluster_targets`, `gke/app/qahbn2_runtime.py` selector delegation, `qahbn2/kubernetes_integration.py`, and `qahbn2/kubernetes_adapter.py`. Image tag `wwiras/q-ahbn2:k5q-formal-v2-20260929`; registered image digest `sha256:d8ac06197962a6e42cb9e564a9c115c08b9f018df231f61cdbfbb8796422991e`.
+- Original Drive evidence per seed: `runs/seed{42..46}/qahbn2/logs.jsonl` and `topology_role_mapping.json`, under `output/evidence/K8s-VAL-Q_Exp13-Q-K8s/q-ahbn-gke-29092026155435-k5q-formal/`. Log file IDs by seed: 42 `1memXnCGv2l76Wtf9k-jfCktvxtfaT-5n`, 43 `1MGe6Jx6iCnJi3kfDu0M4cuZYSq9hm5Sz`, 44 `1k5Eb-ldT8BTSoa6RbxB2_ZUrF6CP-F_X`, 45 `1K5SW2cG38ooJV336iX14Hw6NFRtaPo8e`, 46 `1x-BTVeJ20eRaHR5MQS62mZBROW_bLcEC`. Topology mapping IDs: 42 `1mKhjTlr9HAGtN6ZW4gLWLtsiQzcBVbri`, 43 `1AtsVwv4C8IiuuJAxxxCGgKltma4P2x01`, 44 `16Hln6FiMSrJ4pkY9G5rOY-KlxZehCejI`, 45 `17Zg1fO-6BcXq0SG0WIg3b8uRDAO4XEhz`, 46 `11LPWsbdRYe86B4w62KZKvdF5_PVjNva2`.
+- For each affected `qahbn2_decision` (`k_ahbn=2`, `action=FANOUT_DOWN`, logged `k_q=2`, `mode_q=structured`), join `peer_id` to the same-seed topology `nodes[peer_id].is_cluster_head`. Verify every recorded `peer_started` event's `is_cluster_head` agrees with that topology (40 startup/restart events per seed, zero role mismatches in the audit). Then inspect the recorded **point-in-time `realized_targets`** and source selector. The logs' structured `eligible_targets` records are the returned structural target list, **not an independently reconstructed full candidate pool**.
+- Read full preserved JSONL data using repeated JSON decoding per physical line to handle adjacent objects. This reconciles the D1 17,134 decision total. No raw evidence was rewritten, reordered, or promoted; analysis was independent of live Kubernetes.
+
+### Audited results: immediate target selection under budget 1 vs logged clipped budget 2
+
+| Seed | Q decisions | Restricted 2→1 requests prevented | CH decisions with exactly two selected targets: **one omitted** under budget 1 | Non-CH decisions: **same targets** under budget 1 |
+| --- | ---: | ---: | ---: | ---: |
+| 42 | 3,218 | 75 | 13 | 62 |
+| 43 | 1,065 | 28 | 4 | 24 |
+| 44 | 2,494 | 81 | 33 | 48 |
+| 45 | 4,774 | 201 | 11 | 190 |
+| 46 | 5,583 | 338 | 90 | 248 |
+| **Total** | **17,134** | **723** | **151** | **572** |
+
+- All **151** affected CH records had `len(realized_targets)=2` (and two listed structured `eligible_targets`). In `gke/app/peer.py` the CH selector deterministically orders first available gateway, then members, then remaining gateways, and returns the first `max(1, fanout)` targets. Therefore **the first target remains and exactly the second recorded target is omitted** in a same-instant, otherwise identical 2→1 counterfactual. Example seed 42 CH peer 0 decision `gke:0:m2:2`: recorded targets `[5,2]`; counterfactual budget 1 selects `[5]`.
+- The other **572** restricted decisions came from ordinary cluster members. Their selector returns the single eligible parent CH or no target without consulting the `fanout` argument; at the same instant a budget of 1 produces the **same selected-target list**. Across those 572 records, 216 had one parent target and 356 had none.
+- No restricted decision was classified as CH with 0 or 1 realized target in these five runs. Per-seed topology had CH IDs `[0,5,10,15]`, and all observed `peer_started` role fields matched role mapping; the frozen Q-AHBN runtime did not emit a role-reassignment/reclustering event in these logs. Cluster-peer availability may change with churn but the **logged selected targets already reflect availability at selection time**, so this classification does not assume all peers stayed available.
+- Fractions: 151/723 = **20.9%** of clipped decision records were selection-sensitive; 151/17,134 = **0.88%** of all logged Q decisions. These are **decision-level counterfactual selections**, not 151 guaranteed additional network sends or independent messages. Multiple decisions can pertain to one message; actual send attempts, ACKs, later paths, Q rewards and dynamic feedback require a genuinely corrected run for causal effect.
+
+### Evidence limitations and release decision
+
+**Completed scope:** selected-target counterfactual is identifiable exactly from source selector + preserved role mapping + two-target lists for each recorded lower-bound case. No external full pre-selection candidate list is needed for the first-two-versus-first-one conclusion. Source/trace alignment is established at the role and target-selection level; no executed forward/ACK causal replay, delivery recomputation, code build or corrected GKE deployment occurred.
+
+**Scientific conclusion:** The Kubernetes clip is **operationally material for the forwarding decision mechanism** in 151 observed CH decisions, even though the downstream performance delta is unknown. The other 572 lower-bound violations are logged Q-action violations but have no immediate selection effect in Structured mode. Therefore do not dismiss the clip as universally harmless, nor portray 151 as corrected performance or corrected-send totals. In particular historical cloud results remain evidence of the deployed *clipped variant* only. ControlSim and canonical AHBN remain unchanged.
+
+**Decision:** JCC-R1A-C3-D3 targeted evidence gate **PASS**; overall JCC-R1A **HOLD** pending a separate science-change/validation authorization decision. Recommendation is to prepare a minimal versioned Q-Kubernetes adapter + boundary-test correction, preserve the historical formal run set, and authorize matched revalidation only if the manuscript retains canonical Kubernetes realization claims. If revalidation cannot be completed defensibly by **23 October 2026**, either explicitly identify the historical restricted variant and narrow/remove unsupported parity claims, or hold supervisor release. No retroactive alteration of frozen results, baseline or citations.
+
+**NEXT CONTROLLED GATE: JCC-R1A-C3-D4 — Controlled Correction and Validation Authorization Decision.** Prepare exact diff scope, deterministic tests (CH budget 1/2; non-CH; ±1 at endpoints; F=0/reward lifecycle), producing-image provenance and matched-run comparison plan; request researcher authorization before code writes or cloud execution. JCC-R2 affected scientific prose remains locked; journal submission HOLD. User Mac-synced paths cannot be directly mutated by this connector transaction.
