@@ -204,6 +204,9 @@ Execution order is an operational reproducibility rule, not a scientific carry-o
 
 ## 9. Provenance and output requirements
 
+**Prospective evidence-name gate EVID-TIME-20261012:** For new runs only, use the actual Malaysia-local (MYT, UTC+08:00) creation timestamp in `YYYYMMDDHHmmss` (14 digits, 24-hour clock). Preserve all historical directories, manifests, recorded Drive IDs, and evidence paths unchanged. Before writing, verify the designated `output/evidence/` location, unique name, and actual time; record the directory and time zone in the run metadata. The authority is `docs/00_QAHBN2_MASTER.md` Section 11. This naming rule has no effect on scientific scope, frozen methods, or evidence-admissibility requirements.
+
+
 Local generated-output root:
 
 ```text
@@ -213,13 +216,13 @@ output/
 All generated experiment, smoke, regression, diagnostic, pilot, formal, and analysis artifacts MUST be written under this gitignored root. The standard formal run path is:
 
 ```text
-output/evidence/q-ahbn-<DDMMYYYYHHmmss>-<experiment>-formal/
+output/evidence/q-ahbn-<YYYYMMDDHHmmss>-<experiment>-formal/
 ```
 
 Analysis derived from a formal run must also remain under `output/`, for example:
 
 ```text
-output/evidence/q-ahbn-<DDMMYYYYHHmmss>-<experiment>-formal-analysis/
+output/evidence/q-ahbn-<YYYYMMDDHHmmss>-<experiment>-formal-analysis/
 ```
 
 No generated run directory may be created at repository root. `output/` is execution/evidence working storage only and is excluded from Git by `.gitignore`.
