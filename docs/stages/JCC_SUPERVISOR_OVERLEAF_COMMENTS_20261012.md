@@ -159,3 +159,73 @@ For every material Q-AHBN parameter, result, experiment and claim, identify: (1)
 - Researcher-supplied scientific Mac sync path: `/Users/wwiras/Library/CloudStorage/GoogleDrive-samsuddin.samsuddin@monash.edu/My Drive/PhDResearch/myResearch/NewAlgorithm-AHBN/AHBNcode/q-ahbn2`. Manuscript sync path: `/Users/wwiras/Library/CloudStorage/GoogleDrive-samsuddin.samsuddin@monash.edu/My Drive/PhDResearch/myPaper/ClusterComputing/QAHBN2-Manuscript`. These cannot be directly modified via cloud connector. Repository `output/` is Git-ignored; Drive syncing alone does not certify evidence.
 
 **Transaction outcome:** revision plan and science-decision protocol only; manuscript, Q-AHBN code, AHBN controller, parameters, datasets, numerical results and experimental design remain unchanged. **NEXT: JCC-R1/R1A, OPEN. JOURNAL SUBMISSION HOLD.**
+
+
+## JCC-R1 / R1A — Initial Evidence-Backed Audit and Conditional Decision (2026-10-12)
+
+**Gate verdict: CONDITIONAL PASS for repository/manuscript mapping and bounded evidence screening; HOLD for full scientific adequacy closure.** The initial paper-to-contract-to-registered-evidence audit is completed below. This is *not* approval to change Q-AHBN science, an independent rerun of statistics, exhaustive code-level verification, a completed SOTA literature review, or supervisor sign-off. JCC-R1A remains OPEN for the stated C cases and source/code checks.
+
+### 1. Inputs actually inspected and authority reconciliation
+
+| Source | Verified use |
+| --- | --- |
+| Scientific `docs/00_QAHBN2_MASTER.md` §9.5 | GitHub fetch → reconcile → bounded audit → recorded decision → update only changed stage → GitHub post-write readback. |
+| Scientific `docs/01_CANONICAL_AHBN_CONTRACT.md`, `docs/02_QAHBN2_DESIGN_FREEZE.md`, `docs/03_EXPERIMENT_CONTRACT.md`, `docs/04_STATISTICAL_CONTRACT.md`, `docs/06_RESULTS_REGISTER.md`, `docs/07_CLAIM_EVIDENCE_MATRIX.md` | Checked normative AHBN boundary, Q design/provenance, run matrix, analysis role, reported claims and restrictions. |
+| Manuscript `wwiras/QAHBN2-Manuscript/sn-main.tex` on current `main` | Inspected exact method lines ~312–437, experimental protocol ~594–666, Results ~670–1245, Discussion ~1246–1300, Limitations ~1302–1319; headings enumerated. |
+| Scientific Drive `output/evidence/` | Located preserved AR-1.4.2 gamma CSV, S11-A primary aggregation CSV and S11-B Exp13-Q CSV; opened and spot-checked their reported content and provenance; did not reaggregate raw data, audit every underlying run, or independently recompute hashes. |
+| AHBN Scientific Reports PDF, Drive `1_C3fJpukQ-RJWLjU5Krx5lSwCio9TSQh` | Fetched readable paper text for background/provenance, not treated as a published or peer-reviewed method reference. |
+
+**Current manuscript structural audit:** 7 Results subsections (learning, failure, churn, heterogeneity, cross-condition, benchmark, Kubernetes); 6 Discussion subsections (primary evidence, learning mechanism, overhead, external positioning, Kubernetes, contribution/scope). Targeted condensation is justified editorially; no table deletion or result alteration authorized.
+
+### 2. JCC-R1A parameter/evidence adequacy matrix — preliminary classification
+
+**Interpretation:** A means retained/adequately supported within the stated scope; B means retained as a disclosed fixed or inherited design choice without claiming optimization; C is a specific follow-up audit question that may merit targeted testing depending on how strong a claim the paper seeks to make; D means demonstrated scientific error. **No D is established by this screening.** All Q-AHBN values remain the historical frozen *reference implementation* pending controlled decision; A/B are provisional adequacy assessments, not retrospective parameter retuning.
+
+| Item | Evidence and manuscript location | Initial class | Decision / unresolved issue |
+| --- | --- | --- | --- |
+| Canonical AHBN observations, EWMA 0.30, score/mode and `k_AHBN` 2–6 | Immutable `01_CANONICAL_AHBN_CONTRACT.md`; manuscript ~315–335; OC-01 | A (inherited freeze) | Retain AHBN unchanged; explain RO2-informed bounded fanout, do not pretend its endpoints were independently tuned by Q-learning. AHBN numerical provenance may require RO2 paper/source cross-check. |
+| Q state: 3 bins per each of four signals, 81 states | `02_QAHBN2_DESIGN_FREEZE.md`; manuscript ~340–359 and ~1319 | B; C only if stronger robustness claim requested | Compact architectural representation; bins at 1/3 and 2/3 not evaluated against alternatives. Keep limitation; no optimization claim. An alternative-bin sensitivity test is optional unless claimed robustness becomes essential. |
+| Five meta-actions / 405 Q values | Design freeze; manuscript ~361–380 and ~412–437; OC-03 | B | Five interpretable single-axis actions, KEEP, ±1 fanout, either mode. No action-set ablation reported; justify architecture without claiming minimal/optimal action set. |
+| Derived Q fanout `k_Q` 1–7 and eligible realization | Design freeze; manuscript ~382–390; OC-02 | A (algebraic contract) | Bounds follow canonical 2–6 plus at most ±1; distinguish request from realized targets. Confirm no historical upper Q cap leaks into current code at targeted parity check. |
+| Attribution reward `(NEW−DUPLICATE−FAILED)/F` with F=0 no update | Design freeze and manuscript ~392–407 | B | Decision-owned outcome semantics documented; no alternative reward-weight sensitivity claimed. Do not assert universally optimal reward shaping. |
+| Q learning rate `alpha_Q=0.25` | Design freeze, manuscript ~416–429 | B; C if sensitivity is needed for a stronger parameter-robustness claim | Fixed not gamma-tuned; distinguish from frozen AHBN EWMA alpha=0.30. Explain rationale/limitation; test only if material to review conclusions. |
+| Q discount `gamma=0.70` | Results register 15/15 gamma validation, seeds 42–46, candidates .70/.80/.90; Drive gamma CSV; manuscript ~482–582 | A (bounded selection) | Selected within predeclared stationary sensitivity; retain lower-forward trade-off at gamma=.90. Neither global optimum nor convergence demonstrated. |
+| Exploration epsilon 0.30→floor 0.03, decay 0.995 | Design freeze and manuscript ~431–437 | B; C if robustness-to-exploration is claimed | Fixed schedule with no recorded parameter sweep; be explicit and avoid global optimality. |
+| Primary Exp10-Q/11-Q/12-Q, 80 runs / 40 paired seeds | Results register, predeclared experiment/statistical contracts, Drive S11-A CSV, manuscript ~599–637, ~719–1078 | A within tested scenario; C for external generalization | Predeclared 8 condition cells and five seeds, Student-t paired CI; no pseudo-replication, no pooled condition-wide causal effect, no general robustness/universal winner claim. |
+| Exp13-Q five-method comparison | Results register / S11-B CSV; manuscript ~639–644 and ~1079–1209 | A (bounded comparison) | One predeclared high-churn condition and five methods; do not claim overall SOTA superiority. |
+| Kubernetes 20-peer operational realization | Claim matrix / experimental contract; manuscript ~646–657 and ~1210–1245 | A (implementation); C for confirmatory improvement | Current manuscript correctly states paired performance CIs cross zero; Kubernetes supports execution/observability, not consistent performance gains or simulator replication. |
+| Statistical claims and overhead | `04_STATISTICAL_CONTRACT.md`, `07_CLAIM_EVIDENCE_MATRIX.md`, S11-A CSV, manuscript ~1249–1319 | A for bounded claims | Delivery/delay gains in tested ControlSim conditions coexist with higher duplicates/forwards; five seeded runs per cell, not proof of broad statistical robustness. |
+
+### 3. Material follow-up questions (not decisions to rerun)
+
+**R1A-C1 — Selection robustness:** Do the paper's *actual* novelty claims require sensitivity for state-bin count/thresholds, action set, Q learning rate, exploration schedule or reward choice, beyond honest architectural justification and limitations? **No such sweeps were present in the inspected evidence.** If claims remain bounded, B may suffice; otherwise design a *prospective* minimal controlled sensitivity before changing science.
+
+**R1A-C2 — Generality and scope:** Existing primary evidence uses BA(100,m=3), five seeds, fixed workloads; Kubernetes uses 20 peers and materially different pacing. Decide if current bounded scope is sufficient for Journal of Cloud Computing positioning without claims of topology-size robustness, realistic network latency or independent deployment superiority. Any new scalability/topology stress test requires a separate hypothesis/experiment gate.
+
+**R1A-C3 — Implementation/parity spot checks:** Before R2 method closure, trace five action transformations, reward F=0 and next-decision transition, derived k=7 possibility, gamma/exploration constants and realized-neighbour constraint against active code and at least representative stored traces. The normative documents and prose are internally aligned, but full implementation readback was not performed in this initial pass.
+
+**R1A-C4 — Comparator framing:** Related Work should explicitly compare verified published hybrid algorithms such as DC-SoC, yet must not substitute them for the actual AHBN controller underneath Q-AHBN. Check primary reference accuracy and discuss novelty as bounded outcome-attributed refinement rather than saying AHBN is already published.
+
+**R1A-C5 — Scope-risk observation:** The inspected S11-B CSV indicates that some standalone benchmark methods can outperform Q-AHBN on specific outcomes at churn 0.40; current manuscript recognizes this and does not claim an omnibus ranking. Verify exact table/CSV parity when drafting. Do not defend weaker benchmark rankings with exaggerated novelty or altered baselines.
+
+### 4. Section-level supervisor comment-to-change inventory
+
+| Manuscript section / current lines | Supervisor controls | Required revision | Audit/acceptance check |
+| --- | --- | --- | --- |
+| Title, Abstract, Introduction ~202–221 | WA-01, WA-02 | Journal question, testable learning contribution, no thesis chronology, less repeated unpublished AHBN branding | Scientific dependency still accurately disclosed; no generic performance/scalability claims. |
+| Related Work ~222–258 | WA-01, WA-02, WA-07 | Verify SOTA hybrid/learning mechanisms and explicit comparison gap; distinguish citations from actual experimental comparators | Credible primary citations; no literature method falsely described as Q-AHBN's base controller. |
+| Q-AHBN Method ~259–593 | OC-01–03, WA-01, WA-03, WA-06 | Justify inherited 2–6 range and frozen thresholds, five actions and derived 1–7 range; evidence-grade 81 states, reward and hyperparameters | Frozen canonical-first ordering, traceability and no false parameter sweeps or convergence claims; R1A-C3 verification. |
+| Experimental Methodology ~594–669 | WA-03, WA-06 | Make seed/run units, sensitivity versus fixed settings, comparator roles and reproducibility concise | Exact 80 primary runs and 40 pairs; separate Exp13-Q 25 and K8s 25; no pooled evidence or altered baselines. |
+| Results ~670–1245 | WA-04, WA-06 | Reduce seven subsection headings where clear; keep individual failure/churn/heterogeneity and benchmark/K8s roles visible | Values/tables/CI and communication overhead unchanged; no removal of weak or null findings. |
+| Discussion ~1246–1301 | WA-02, WA-04, WA-06 | Consolidate six headings and explain why bounded attribution learning is novel relative to deterministic baseline | Express condition-dependent advantage and cost, Kubernetes uncertainty and external competitor results. |
+| Limitations, Conclusion ~1302–1337 and Declarations | WA-02, WA-05, WA-06 | Tighten scope and journal significance; preserve data DOI as dataset only and manuscript under-review status | No unsupported universal, optimality, lightweight-overhead, convergence or DOI-publication assertions. |
+
+### 5. Decision and release conditions
+
+- **JCC-R1 mapping/inventory: PASS for structural/comment/evidence-source inventory**, based on current GitHub and selected Drive CSVs, not exhaustive numerical/code audit.
+- **JCC-R1A scientific adequacy: CONDITIONAL / OPEN**. Several A/B bounded conclusions are provisionally defensible; C1–C5 must be addressed or consciously scoped with explicit evidence before declaring the entire gate PASS. No demonstrated D at this point.
+- **Q-AHBN parameter/experiment change decision: NOT MADE**. No new experiment, design change, retune, result rewrite, code action, citation insertion, Overleaf resolution or journal submission authorized.
+- **Canonical AHBN:** frozen unchanged. **23 October 2026:** supervisor-ready editorial target only, to be reconsidered if C findings justify new science.
+- **Next bounded gate:** JCC-R1A-C3 targeted code/trace parity plus R1A C1–C5 scientific sufficiency resolution, followed by R2 editorial rewrite *only if its dependent claims are evidence-safe*. Record explicit PASS/HOLD outcomes in this stage and read back every authoritative change.
+
+**Git/Drive transaction boundary:** the only planned write in this audit is this controlled stage record in `wwiras/q-ahbn2`; thesis and manuscript repositories unchanged. User-provided Mac-local synced directories cannot be written through the remote connectors. Drive `output/` is storage, not automatic evidence promotion.
