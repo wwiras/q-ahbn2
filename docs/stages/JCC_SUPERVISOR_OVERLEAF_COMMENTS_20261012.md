@@ -620,3 +620,22 @@ The nine items form a **logical architecture**, not a command to create nine top
 - **References reconciled:** Science Drive root 1a6_WrsZL2iXbFVeMemdujYxvzEqcBFC5 and manuscript cloud folder 1oQxyLENPvG-r10zuq62Au7AFyeeSpDxj listed/read; predecessor Scientific Reports PDF 1_C3fJpukQ-RJWLjU5Krx5lSwCio9TSQh read as reference (**under review, not published**). Local Mac paths are researcher-provided sync locations and were not directly accessed.
 
 **Transaction decision:** Researcher positioning APPROVED/RECORDED; scientific-adequacy C4/C2/C5 PENDING, manuscript substantive edits LOCKED, JCC-R1A-C3-D5-T1 OPEN, JCC-R1A HOLD. Only this stage file changes.
+
+
+## JCC-R1A — Revision-History and Manuscript-Archive Policy Review (2026-10-12)
+
+**Record type:** Researcher-requested repository organization review and minimal planning decision. This is NOT a new scientific experiment gate, amendment to the frozen design, manuscript rewrite, archival upload, or change to current JCC-R1A-C3-D5-T1 HOLD.
+
+**Reconciled sources:** scientific main at 154b64fc67173e6daad0f8767d208a7d09bef009; manuscript main at 57152560860c0b7d0ac0f114b75a8caa9f11a209; scientific Master section on revision naming and section 9.5; both GitHub root trees; science Drive root 1a6_WrsZL2iXbFVeMemdujYxvzEqcBFC5; manuscript Drive root 1oQxyLENPvG-r10zuq62Au7AFyeeSpDxj (contains an existing archives directory). Local researcher paths were not directly accessed.
+
+### Decision: Git history for ordinary revisions; immutable packages for publication milestones
+
+1. **No new general historical version folder** in the science or manuscript GitHub repositories. Avoid reinstating versions/vX.Y or copying the entire source tree on every edit. GitHub source commit SHA and controlled stage/register are authoritative for routine history; preserve all prior commits and pinned science baseline.
+2. **Respect existing manuscript convention:** active source is root sn-main.tex; the scientific Master records root-level next-revision source names such as sn-main1.0.tex when a reviewer revision is opened. Do not create or rename a revision-specific source until the relevant manuscript revision gate authorizes it.
+3. **Use milestone archives selectively:** at supervisor-ready freeze, journal submission, revision submission and acceptance/final release, register immutable manuscript source reference and exact compiled PDF, bibliography/supplementary package and associated review/response/decision documents as applicable. Archives are frozen records, not alternative live manuscripts. Prefer the existing manuscript Drive archives location after its contents and policy are audited; do not create a duplicate folder by assumption.
+4. **Record provenance metadata** for every frozen milestone: milestone type/date, repository, branch, exact commit SHA, source filename, PDF/source artifact filenames, optional checksums, bibliography/assets, reviewer-response references, journal status and manuscript ID if actually issued, archive Drive path/IDs, verification/readback and supersession relation. An optional compact register in existing manuscript docs can point to these snapshots; avoid duplicate registers unless JCC-R2.0 reconciliation demonstrates need.
+5. **No false evidence promotion:** Git-ignored output, synchronized Drive copies and generated PDFs remain unverified until deliberately checked, preserved and read back. Existing timestamped research evidence/run folders and immutable experiment outputs remain governed by Master sections 9.5 and 10-12.
+6. **Resilience:** GitHub commit history is excellent for text diffs but is not an independent off-site backup or a guarantee against branch-history rewriting; milestone packages in Drive provide an independently recoverable publication record. Any future Git tags should be immutable pointers to verified milestones, not substitutes for verified PDFs/submission records.
+7. **Scope:** This stage-note addition is the only present file update. Do not modify the manuscript repository, move its existing archives, create PDF artifacts, retag repositories or amend gitignore under this gate. Decide exact archive content and any optional lightweight register in the later manuscript architecture/freeze gate.
+
+**Next operational gate unchanged:** JCC-R1A-C3-D5-T1 — verify researcher-run deterministic tests. JCC-R1A overall HOLD; proposed D6-D8 and manuscript JCC-R2 remain locked.
