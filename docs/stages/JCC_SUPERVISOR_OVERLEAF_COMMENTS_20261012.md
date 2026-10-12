@@ -229,3 +229,34 @@ For every material Q-AHBN parameter, result, experiment and claim, identify: (1)
 - **Next bounded gate:** JCC-R1A-C3 targeted code/trace parity plus R1A C1–C5 scientific sufficiency resolution, followed by R2 editorial rewrite *only if its dependent claims are evidence-safe*. Record explicit PASS/HOLD outcomes in this stage and read back every authoritative change.
 
 **Git/Drive transaction boundary:** the only planned write in this audit is this controlled stage record in `wwiras/q-ahbn2`; thesis and manuscript repositories unchanged. User-provided Mac-local synced directories cannot be written through the remote connectors. Drive `output/` is storage, not automatic evidence promotion.
+
+
+## JCC-R1A-C3 — Code-level parity finding and scientific HOLD (2026-10-12)
+
+**Gate decision: FAIL for cross-environment Q-fanout contract parity; JCC-R1A HOLD / NOT CLOSED.** The targeted source audit uncovered a concrete contradiction requiring controlled investigation, rather than another unsupported assurance that existing implementation and manuscript match.
+
+### Confirmed source contradiction
+
+- Frozen contract `docs/02_QAHBN2_DESIGN_FREEZE.md` and manuscript `wwiras/QAHBN2-Manuscript/sn-main.tex` lines approximately 382–390 permit post-controller requested `k_Q` in {1,...,7}, derived from canonical AHBN {2,...,6} and one unit `FANOUT_DOWN`/`FANOUT_UP`. Historical Q-layer clipping to 6 is explicitly prohibited. Keep canonical AHBN unchanged.
+- `qahbn2/learning.py`, lines 74–86, implements the correct five actions and permits 2→1 / 6→7. `qahbn2/controlsim_adapter.py`, lines 34–49, retains this output; `qahbn2/event_bridge.py`, lines 35–48, bounds realized forwarding by eligible targets, not an artificial learner cap.
+- **Contradiction:** `qahbn2/kubernetes_adapter.py` lines **68–73** calls the same learner but then executes `k_q = max(2, min(6, int(k_q)))`. Thus learned `FANOUT_DOWN` on canonical 2 is reported as 2 instead of 1, and `FANOUT_UP` on canonical 6 is reported as 6 instead of 7, before eligible-target realization. This violates Q-layer action semantics independent of topology.
+- `tests/test_k2_kubernetes_adapter.py`, lines approximately 37–48, currently *asserts* those clipped boundary outputs as expected, and therefore guards the noncanonical behavior rather than catching it. The same test checks only interior action cases at canonical k=3.
+- Other inspected learner semantics appear aligned at source level: `learning.py` lines 17–25 action names/alpha/gamma/epsilon values, lines 45–55 3-bin state, lines 57–72 epsilon schedule, lines 97–111 reward and F=0 closure, lines 122–133 Q update; `transition.py` lines 70–99 same-peer successor, lines 112–118 F=0, lines 120–133 terminal/update consumption. These observations do not constitute an executed test pass.
+
+### Scientific significance and required next action
+
+**This is a verified implementation inconsistency, not evidence that the observed Kubernetes results must be recalculated or that a particular result is false.** Determine which code revision and image actually produced frozen Kubernetes formal data; inspect corresponding source/image provenance and representative trace boundary cases; identify how often k=1 or 7 was selected versus clipped, and whether observed results/claims were affected. Do not silently edit historical evidence or equate current GitHub main with an already-deployed image.
+
+**Required controlled resolution:** (1) retrieve K8s producing commit/image digest and its adapter version; (2) audit method/decision/eligibility traces for boundary actions; (3) assess materiality and scope of any correction; (4) propose minimal future fix/test changes, including changing incorrect boundary assertions, only after scientific approval; (5) if evidence was affected, re-evaluate or rerun only under explicit protocol and preserve original outputs. No changes to frozen AHBN.
+
+### C1/C2/C4/C5 disposition at this checkpoint
+
+| Question | Decision | Rationale |
+| --- | --- | --- |
+| C1 parameter robustness | B / CONDITIONAL | Existing gamma sweep is direct bounded selection evidence; 81-state binning, action set, alpha, reward and epsilon are declared fixed designs, with untested alternatives disclosed in manuscript. No necessity for a sweep is established merely by absence; the supervisor's parameter rationale concern remains an editorial obligation. |
+| C2 generality | B / CONDITIONAL | Existing 80-run ControlSim, one-condition Exp13-Q, and 20-peer Kubernetes support explicitly bounded claims; they do not justify network-size or cross-platform improvement claims. Additional scenario tests contingent on any intended stronger claim. |
+| C3 source parity | **FAIL / BLOCKER** | Hard learner-side fanout clipping in Kubernetes adapter contradicts frozen Q-AHBN request boundary; deployment impact remains unknown. |
+| C4 SOTA framing | OPEN / R3 dependency | DC-SoC exists in registered Exp13-Q reference comparator and manuscript citations, but a verified full SOTA literature comparison is not completed in this code audit. |
+| C5 external benchmark | B / CONDITIONAL | S11-B registered evidence and manuscript distinguish one-condition benchmark from primary pairs and do not claim omnibus superiority; table-by-table final publication parity is still a release check. |
+
+**Overall decision:** JCC-R1A remains **HOLD**, and science-change authorization remains **HOLD** pending deployment provenance/impact. Do not mark R2 Method or the manuscript's cross-platform algorithm-parity statement scientifically reconciled yet. Reassess the 23 October supervisor-ready date if evidence revalidation is needed. The pinned scientific baseline is a retained historical reference, not carte blanche to overwrite it. The present transaction is an audit/control-record update only.
