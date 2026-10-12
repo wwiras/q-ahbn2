@@ -460,3 +460,61 @@ The original 25-run evidence is never erased, pooled naively with prospective re
 5. **Master reconciliation:** \`docs/00_QAHBN2_MASTER.md\` §9.5 says update only records whose authoritative states change. D4 creates a new *stage-local conditional correction plan*, so update this stage only, keeping project-wide Master, experiment/statistical/results/claim registers, manuscript, code, Drive evidence and researcher Mac synced directories unmodified until subsequent authorized decisions.
 
 **Final D4 status:** **PLAN/FINDING PASS; Q-AHBN CODE CORRECTION NOT AUTHORIZED; NEW K8s EVIDENCE NOT AUTHORIZED; JCC-R1A HOLD; JOURNAL SUBMISSION HOLD.** **Next controlled gate: JCC-R1A-C3-D5 — Authorize prospective minimal adapter/test candidate and local deterministic verification, or formally select restricted-variant manuscript treatment.**
+
+
+
+## JCC-R1A-C3-D5 — Authorized Minimal Kubernetes Adapter Correction and Local Deterministic Test Release (2026-10-12)
+
+**Decision:** RESEARCHER AUTHORIZATION TO CORRECT Q-KUBERNETES ADAPTER AND BOUNDARY TESTS ACCEPTED; **PATCH READBACK PASS; LOCAL DETERMINISTIC EXECUTION RELEASED / NOT EXECUTED; D5 GATE HOLD PENDING TEST EVIDENCE**. The user explicitly instructed pursuit of the D5 minimal correction and local deterministic tests, while reserving Docker build, GKE deployment and all cloud/formal runs for separate future gates. Nothing in this action reopens immutable canonical AHBN.
+
+### 1. Repository-first reconciliation and exact code change
+
+Controlling workflow: \`docs/00_QAHBN2_MASTER.md\` §9.5 GitHub-first gate process and §9.5.2 test-record grammar. Latest pre-change GitHub main: \`94be77dd45fb95d26b198ab9280772509696ec4f\`; latest GitHub files independently read before edits. Science pinned historical baseline remains \`6ccc94e5df770d588a5ccfa592f603a9a8ab2c68\`, with formal historical GKE producer \`7ad474c3a249fde58223f2abd5d54918b4bcbb9f\`.
+
+Authorized edits implemented on the repository's existing \`main\` branch (researcher preference for minimal branches):
+
+| GitHub change | Minimal diff and purpose | Commit/readback |
+| --- | --- | --- |
+| \`qahbn2/kubernetes_adapter.py\` | Removed only the incorrect “after refinement remains within 2..6” comment and \`k_q = max(2, min(6, int(k_q)))\`. The existing \`mode_q, k_q = self.learner.refine(...)\` output now propagates directly to \`KubernetesQDecision\`. | \`7343b137fd8b37af3b40331fae16ee36ce861e23\`; exact-content and Git blob SHA readback PASS |
+| \`tests/test_k2_kubernetes_adapter.py\` | Corrected exactly two endpoint assertions: AHBN 2 + \`FANOUT_DOWN\` must request 1; AHBN 6 + \`FANOUT_UP\` must request 7. The existing interior action, ACK/new/duplicate/failure, F=0, successor, terminal and selector delegation tests remain intact. | \`e9b4e6eb7e9bd54be55caf4da8e97639fc639da7\`; exact-content and Git blob SHA readback PASS |
+
+**No** code change to \`qahbn2/learning.py\`, \`qahbn2/transition.py\`, ControlSim, \`gke/app/peer.py\`, inherited selector, GKE harness/configuration, frozen canonical AHBN, experiment/statistics/claim/results contracts, manuscript, raw logs or Drive contents. No unapproved Q retuning, action-set changes, extra range caps or scientific result modifications.
+
+The corrected source has **not yet been executed or integration-tested**. Repository readback verifies text and exact diff scope only; it does not establish runtime PASS or prove an image contains this code.
+
+### 2. Released deterministic test contract — researcher executes locally
+
+**TEST / GATE:** JCC-R1A-C3-D5 deterministic correction verification.  
+**OBJECTIVE:** Verify Q fanout request 2→1 and 6→7, unchanged interior five-action behavior and learning attribution, and absence of regressions.  
+**AUTHORITATIVE GITHUB COMMIT:** \`e9b4e6eb7e9bd54be55caf4da8e97639fc639da7\` (code commit \`7343b137fd8b37af3b40331fae16ee36ce861e23\` is its parent). After the stage bookkeeping commit, local researcher must pull current HEAD and record actual SHA; no unverified hash should be substituted.  
+**AUTHORITATIVE CONTRACT:** \`docs/01_CANONICAL_AHBN_CONTRACT.md\`; \`docs/02_QAHBN2_DESIGN_FREEZE.md\`; D1–D4 source/trace findings; this D5 record.  
+**EXECUTION ENVIRONMENT:** Researcher's supplied Mac Google Drive-synchronized scientific workspace, local Python and relevant installed dependencies. No GKE or Docker.  
+**RUN DIRECTORY:** New \`output/evidence/JCC-R1A-C3-D5-<UTC timestamp>/\` per new local test session; \`output/\` remains ignored/unpromoted until deliberate artifact validity and preservation.  
+**EVENT TYPE:** Python unittest deterministic Q-adapter endpoint/ledger and cross-module integration test events; no network workload.  
+**PARAMETERS:** Inherited canonical fanout 2–6 (unchanged); Q requested fanout 1–7; unchanged 81 states, five actions, reward/discount/learning/exploration.  
+**SEEDS / REPETITIONS:** Deterministic local tests, no extra research seeds or K8s formal runs.  
+**EXPECTED OUTPUTS:** Full command transcript, unittest test counts/results, exact Git HEAD and working-tree status, focused endpoint proof, identified test failures/dependency errors if any; preserve exit codes.  
+**USER EXECUTION COMMAND:**
+\`\`\`bash
+cd "/Users/wwiras/Library/CloudStorage/GoogleDrive-samsuddin.samsuddin@monash.edu/My Drive/PhDResearch/myResearch/NewAlgorithm-AHBN/AHBNcode/q-ahbn2"
+git pull --ff-only
+git rev-parse HEAD
+git status --short
+mkdir -p "output/evidence/JCC-R1A-C3-D5-$(date -u +%Y%m%dT%H%M%SZ)"
+PYTHONPATH=. python3 -m unittest -v tests.test_k2_kubernetes_adapter
+PYTHONPATH=. python3 -m unittest discover -s tests -p 'test_*.py'
+\`\`\`
+Capture real command outputs and exit statuses within the newly made timestamped D5 directory using the researcher's usual local transcript tooling before treating evidence as frozen. A shell command simply printed in GitHub does **not** count as performed.  
+**EVIDENCE LOCATION:** Designated timestamped local \`output/evidence/\` directory; promotion to scientific Drive requires later explicit validation, upload/preservation and readback.  
+**COMPLETENESS CHECK:** Current SHA must contain both patched files, full test list/result counts and clean expected source status. Inspect endpoints 2→1, 6→7 and existing actions/attribution/F=0/same-peer successor/terminal tests; additional CH selection edge-case tests may be added under separately reconciled scope if focused tests reveal gaps.  
+**VALIDITY CHECK:** No canonical AHBN changes; learner output not reclipped; eligible realization constraints preserved; no old assertion accepting 2 and 6 at Q endpoints; no regression test suppression.  
+**RESULT:** Source + test-oracle correction COMMITTED/READBACK PASS; tests **NOT RUN / AWAIT RESEARCHER**.  
+**SCIENTIFIC INTERPRETATION:** Source correction removes the known invalid cap. It does not establish corrected Kubernetes deployment metrics or downstream performance.  
+**GITHUB STATUS UPDATE:** D5 patch prepared; formal D5 PASS withheld until actual local output and evidence verified.  
+**NEXT CONTROLLED GATE:** JCC-R1A-C3-D5-T1 — inspect local deterministic regression output and source/trace proof; if PASS, release separate D6 container/image preflight proposal, **not** direct cloud execution.
+
+### 3. Experimental firewall and publication boundary
+
+The prior frozen 25-run (five methods × five seeds) Kubernetes evidence retains its unmodified historical/clipped-variant provenance; it is NOT retrospectively relabelled as corrected fanout 1–7. No Docker build/push, Kubernetes deployment, cloud resource spending, additional training/experiment, fresh performance result, peer-run message, or journal manuscript edit occurred under D5. Reassess matched prospective GKE evidence only after actual D5 local test readback and a separate D6/D7 authorization. Manuscript release and the 23 October 2026 internal target remain conditional, not automatic.
+
+**Final transaction:** code candidate and two test expectations implemented with GitHub readback PASS; D5 deterministic test **OPEN / AWAIT EXECUTION**; JCC-R1A **HOLD**; canonical AHBN **FROZEN**; GKE/Docker/formal runs and journal submission **HOLD**. Only the two explicitly identified files plus this changing stage are authorized to be modified in this transaction.
