@@ -703,3 +703,27 @@ The nine items form a **logical architecture**, not a command to create nine top
 **Acceptance:** Linux/amd64 architecture PASS, build/loader PASS, container imports PASS, lower and upper bounded requests PASS, realization semantics PASS, exact source-hash parity PASS, clean producing Git SHA documented and original Drive evidence independently readable. Skips, missing Docker Desktop, engine resource/architecture errors or sync delays remain HOLD with actual logs. This establishes only local Linux image packaging and deterministic behavior, not registry immutability, GKE correctness or corrected formal performance.
 
 **Next:** Researcher sends the resulting manifest and test log/evidence directory. Assistant performs original Drive artifact readback, then GitHub closure transaction only if all mandatory conditions pass. The manuscript, frozen AHBN, original experiments and historical restricted image digest are not modified. JCC-R1A overall remains HOLD.
+
+
+## JCC-R1A-C3-D6-P2 — Linux/AMD64 Local Image Evidence Readback and Closure (2026-10-12)
+
+**Decision: LOCAL D6 PASS / CLOSED.** Researcher executed local, non-pushing Docker build and image/container deterministic validation on 2026-10-12. Assistant independently enumerated the scientific Google Drive corpus \`1a6_WrsZL2iXbFVeMemdujYxvzEqcBFC5\`, located the original synchronized evidence at \`output/evidence/JCC-R1A-C3-D6-20261012T125047Z\` (Drive folder ID \`1h5Gh0S-s2KFyHYds5CqAq4TxL40--elt\`), and fetched/read all eight original artifacts.
+
+**Producing scientific source:** \`280855900e89b1db5269ace73b4aabf6c7afae88\`; manifest UTC end \`2026-10-12T12:51:42Z\`; source tree clean at build according to original provenance. Pinned scientific baseline remains \`6ccc94e5df770d588a5ccfa592f603a9a8ab2c68\` (unchanged). Docker \`29.8.1\`; Buildx \`0.37.1\`.
+
+| Original evidence artifact | Drive file ID | Readback finding |
+| --- | --- | --- |
+| \`run_manifest.txt\` | \`11IziuGoPBl4WpJ8LkJLA9ERjNCVw_GZZ\` | \`local_validation=PASS\`, platform \`linux/amd64\`, all four exit statuses 0, push and GKE NOT_PERFORMED |
+| \`source_parity.log\` | \`1dvSaM71SQNrzFekZTHO-yEnLD-U7rSg-\` | host and container adapter SHA-256 identical \`045396d4bd58962852b403aac9f9f8fedd2c43c41636aae85ecb29bc8de9e355\` |
+| \`step_results.txt\` | \`1ZUrOAhXckyCxsTfWZkrUz8i89bjg5bzm\` | build/import/parity/source-parity exits all 0 |
+| \`fanout_parity.log\` | \`1jLyn6K7T_KZ0-V7INk0813akcXlSKI9S\` | AHBN 2→Q 1, AHBN 6→Q 7, five actions and requested 7/realized 3 all PASS |
+| \`import_test.log\` | \`1-ZWCKF-3YMJJTnyWT1-hE2IQEAbcfi6V\` | \`CONTAINER IMPORT PASS\` |
+| \`image_inspect.log\` | \`1FgizCKVATJxWa0wopCeCYHI9ZhSZZfBq\` | exact \`linux/amd64\`, local image ID recorded |
+| \`build.log\` | \`1mCxRBRepAYeCgKz72oQaMBWxXhYwOENe\` | successful Docker Buildx copy and image export; Python package installation warning regarding root is not a failed step |
+| \`provenance.log\` | \`1325lDZJKaMtYBZpqf_2SNhnHv_HCEsQw\` | producing commit SHA, clean checkout, platform, Docker/Buildx versions and source/Dockerfile/dependency hashes |
+
+**Exact built image:** \`qahbn2-d6-local:20261012T125047Z-280855900e89\`. Local image ID: \`sha256:d90d8ca1439056ba578b6aaa19122548219d80ce6c0b39766a861c2dfdc07d8d\`. This is a LOCAL Docker image ID, not an immutable remote registry digest. The existing historic restricted Kubernetes image digest is not overwritten.
+
+**Interpretation/firewalls:** Evidence supports Linux/AMD64 local packaging, container imports, corrected learner/adaptor bounded fanout action parity, local source parity and eligible-target realization. Does NOT demonstrate cloud deployment, registry publication/pullability, corrected formal GKE results, comparative throughput, delivery, latency, duplication, or a scientific adequacy judgment. Existing ControlSim and historical K8s families remain untouched. No Docker push and no GKE execution occurred.
+
+**Next gate:** D6 local closure is complete. Any registry publication and remote image-digest attestation, then separate D7/D8 GKE validation, require individual researcher authorization and their own evidence gates. JCC-R1A-C1/C2/C4/C5 pending, JCC-R1A overall HOLD; manuscript substantive modifications and journal submission remain locked.
