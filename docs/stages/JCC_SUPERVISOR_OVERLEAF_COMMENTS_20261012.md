@@ -273,3 +273,43 @@ For every material Q-AHBN parameter, result, experiment and claim, identify: (1)
 **Recommended controlled next gate — JCC-R1A-C3-D1:** audit the other four preserved Q-AHBN Kubernetes run logs for boundary-action frequency and classify original metrics explicitly as deployed clipped-variant evidence; inspect image/build digest provenance. Then prepare, but do **not** execute without approval, a minimal code-and-unit-test correction restoring learned 1–7 requests while leaving canonical AHBN untouched; design controlled validation, and determine whether a new Kubernetes run set and manuscript scope change are required. Existing ControlSim evidence and results are not invalidated by this identified Kubernetes-only clip, but still require ordinary parity/evidence checks.
 
 **Gate status remains JCC-R1A HOLD / scientific modification HOLD / journal submission HOLD.** This is an audit-only stage transaction; no algorithm, test, frozen evidence, manuscript or data was modified.
+
+
+## JCC-R1A-C3-D1 — Five-seed Kubernetes trace-impact assessment (2026-10-12)
+
+**Gate:** JCC-R1A-C3-D1. **Execution:** read-only forensic audit of all five formally preserved Q-AHBN Kubernetes `logs.jsonl` objects, production code and contracts. **Decision:** `TRACE-EXTENT PASS / SCIENTIFIC PARITY FAIL / REVALIDATION DECISION: TARGETED CORRECTION AND VALIDATION SCIENTIFICALLY REQUIRED IF K8s IS RETAINED AS CANONICAL Q-AHBN EVIDENCE`. JCC-R1A overall remains HOLD; no new experiment executed or science changed.
+
+### Authority and raw evidence
+
+- Scientific repo `wwiras/q-ahbn2`; immutable science reference `6ccc94e5df770d588a5ccfa592f603a9a8ab2c68`. Canonical AHBN contract `docs/01_CANONICAL_AHBN_CONTRACT.md` remains FROZEN; Q design contract `docs/02_QAHBN2_DESIGN_FREEZE.md` expressly forbids the historical Q-layer `2..6` clipping and permits derived requested `1..7`.
+- Preserved evidence Drive root `1a6_WrsZL2iXbFVeMemdujYxvzEqcBFC5` / `output/evidence/K8s-VAL-Q_Exp13-Q-K8s/q-ahbn-gke-29092026155435-k5q-formal/runs/seed{42..46}/qahbn2/logs.jsonl`. Original Drive file IDs: seed 42 `1memXnCGv2l76Wtf9k-jfCktvxtfaT-5n`, 43 `1MGe6Jx6iCnJi3kfDu0M4cuZYSq9hm5Sz`, 44 `1k5Eb-ldT8BTSoa6RbxB2_ZUrF6CP-F_X`, 45 `1K5SW2cG38ooJV336iX14Hw6NFRtaPo8e`, 46 `1x-BTVeJ20eRaHR5MQS62mZBROW_bLcEC`.
+- Formal run `git_commit.txt`: `7ad474c3a249fde58223f2abd5d54918b4bcbb9f`. Image `wwiras/q-ahbn2:k5q-formal-v2-20260929`; results-register digest `sha256:d8ac06197962a6e42cb9e564a9c115c08b9f018df231f61cdbfbb8796422991e`. Checked `qahbn2/kubernetes_adapter.py` at the producing Git SHA; line 72 executes `k_q = max(2, min(6, int(k_q)))`. No image rebuild or registry-digest recomputation was attempted here.
+- **Parser note:** formal `logs.jsonl` includes occasional adjacent JSON objects concatenated on a physical line. Read each file in full and parse successive JSON objects with `json.JSONDecoder.raw_decode` instead of trusting one-JSON-record-per-line. The earlier 3,214 seed-42 count was a preliminary undercount: corrected to **3,218** complete decision objects. Four additional objects do not change the previously reported **75** clipped decisions. Parser reported zero malformed remainder lines for all five audited logs.
+
+### All five preserved Q-AHBN run traces: observed clipped requests
+
+| Seed | Parsed `qahbn2_decision` records | `k_AHBN=2` / `FANOUT_DOWN` / logged `k_Q=2`, expected 1 | Of clipped: nonempty eligible/realized targets | Of clipped: empty eligible/realized targets |
+| --- | ---: | ---: | ---: | ---: |
+| 42 | 3,218 | 75 | 33 | 42 |
+| 43 | 1,065 | 28 | 14 | 14 |
+| 44 | 2,494 | 81 | 57 | 24 |
+| 45 | 4,774 | 201 | 37 | 164 |
+| 46 | 5,583 | 338 | 226 | 112 |
+| **TOTAL** | **17,134** | **723 (4.22%)** | **367** | **356** |
+
+Every identified mismatch was exactly the *lower* clipping combination `k_AHBN=2`, action `FANOUT_DOWN`, observed `k_Q=2` instead of contract request 1, and all were logged in `mode_q=structured`. No canonical `k_AHBN=6` appeared in these five logs, therefore an **upper-bound action 6→7 is not empirically assessed** by this evidence (although code would clip it). These counts refer to **decision records, not independent delivered messages, and not measured performance impact**.
+
+### Interpretation and impact boundary
+
+1. **Observed request deviation is PROVEN and repeated in all five formal runs.** The producing Git commit includes the clip, and the preserved formal traces show affected decisions. Therefore the frozen 25-run Kubernetes family cannot be characterized as fully implementing the canonical Q-AHBN `1..7` requested-fanout contract.
+2. **Transmission/metric effect is NOT measured here.** For 367 affected decisions eligible/realized targets were nonempty; for 356, none were present. Some Structured-mode realizations may be topology/cluster constrained or insensitive to budget. The imported inherited selector must be independently traced with budget 1 versus 2 before inferring any change to actual sends, delivery, duplicates or delay. Never treat 723 decisions as 723 changed transmissions.
+3. **Original Kubernetes metrics remain valid observations of the deployed clipped variant**, subject to their existing metric caveats, not confirmatory performance evidence for the canonical 1–7 variant. Their quantitative counterfactual cannot be derived by simply subtracting sends or adjusting aggregates.
+4. **ControlSim evidence remains a separate primary family** and is not invalidated by this Kubernetes adapter defect. Maintain existing n=5 scope and overhead limitations. AHBN controller/source/frozen outputs must not change.
+
+### Decision, options and next controlled gate
+
+**Decision D1:** It is scientifically necessary to correct the Q-layer clipping and validate the intended boundary **before claiming full cross-environment implementation parity**. This is not an approval to edit code or rerun GKE yet. If the manuscript retains Kubernetes as implementation evidence for the *canonical* Q-AHBN scheme, recommend an authorized minimal adapter + incorrect-test-assertion fix and formal controlled revalidation. The historical clipped results stay immutable and labelled historical. An alternative editorial choice is to describe the deployed variant explicitly as clipped and limit or remove cross-environment parity/operational generalization claims, but this does not satisfy a claim that the complete frozen Q-AHBN contract was deployed.
+
+**NEXT: JCC-R1A-C3-D2 — Structured target-selector semantic/impact audit and controlled correction/revalidation proposal.** Inspect producing commit's inherited `structured_selector` behavior under budgets 1 vs 2, review actual eligible sets and trace realization, then prepare a narrow source/test patch in a distinct future version and a minimal deterministic/K8s validation contract for researcher execution, including effect on claims and 23 October internal target. No modification, rerun, result promotion or submission authorization has been issued by D1.
+
+**Transaction:** stage-document-only GitHub update. `docs/00_QAHBN2_MASTER.md` §9.5 requires source reconciliation, scope-bounded audit, explicit verdict, minimum file sync, and postwrite readback. Do not edit Master, results/statistics contracts, manuscript or experiment code merely to restate a HOLD. Mac local Google Drive paths are references only; no direct local modification. **JCC-R1A HOLD; SCIENCE CHANGES HOLD; JOURNAL SUBMISSION HOLD.**
