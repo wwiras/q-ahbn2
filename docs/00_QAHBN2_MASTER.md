@@ -716,27 +716,31 @@ Every important scientific claim should ultimately be traceable to an artifact.
 
 ---
 
-# 11. Immutable Experiment Outputs
+# 11. Immutable Experiment Outputs — Prospective Timestamp Contract
 
-Every execution receives a new timestamped directory.
+**Control gate: EVID-TIME-20261012 — approved administrative naming contract.** Applies to new AHBN thesis evidence folders for Chapters 5–7 and to future Q-AHBN2 evidence folders governed by this repository. This is a prospective change only, not a scientific-stage reopening.
+
+Every new execution/evidence directory MUST use the human-readable, fixed-width **`YYYYMMDDHHmmss`** timestamp (year, month, day, 24-hour hour, minute, second), taken from its actual creation time in **Malaysia time (MYT, UTC+08:00)**. The timestamp is exactly 14 numeric characters, with no separators. Record the time zone and corresponding ISO-8601 time in `RUN.md` or `manifest.json` when applicable.
 
 Simulation:
 
 ```text
-q-ahbn-<DDMMYYYYHHmmss>-<experiment>-<event>/
+output/evidence/q-ahbn-<YYYYMMDDHHmmss>-<experiment>-<event>/
 ```
 
 GKE:
 
 ```text
-q-ahbn-gke-<DDMMYYYYHHmmss>-<experiment>-<event>/
+output/evidence/q-ahbn-gke-<YYYYMMDDHHmmss>-<experiment>-<event>/
 ```
 
-Never overwrite previous experiment directories.
+Other Chapter 5–7 gate evidence folders follow `<gate-or-evidence-id>_<YYYYMMDDHHmmss>/` inside their existing designated evidence root. Do not create new root-level evidence directories merely to apply the name. The timestamp must be generated at folder creation, never copied from an illustrative example.
 
-Preserve successful runs, failed runs, diagnostics, smoke tests, regression runs, formal runs, excluded runs, and reruns.
+**Non-retroactivity:** Do not rename, delete, relocate, overwrite, or re-date existing evidence folders, archived run paths, manifests, registered Drive IDs, or historical document examples. Their original names remain valid provenance. Older `DDMMYYYYHHmmss` references are historical only and MUST NOT be reused for new runs. No changes to frozen scientific contracts, code, parameters, results, claims, journal status, or the pinned science baseline are authorized by this naming gate.
 
-Scientific admissibility is documented, not implemented by deletion.
+**Creation gate (future actions):** Before creating new evidence, confirm (1) designated output/Drive authority and gate ID, (2) actual MYT creation timestamp and 14-digit format, (3) unique new directory with no overwrite, and (4) complete run metadata. After creation, verify the directory name and record its exact path/Drive ID in the relevant stage record. Evidence promotion still requires existing validity, completeness, deliberate preservation, and readback checks. A naming PASS does not imply scientific evidence PASS.
+
+Preserve successful runs, failed runs, diagnostics, smoke tests, regression runs, formal runs, excluded runs, and reruns. Scientific admissibility is documented, not implemented by deletion.
 
 ---
 
