@@ -39,13 +39,13 @@ class TestKubernetesQAHBN2Adapter(unittest.TestCase):
         q=KubernetesQAHBN2Adapter(learner).decide(
             peer_id=1,message_id="low",d_hat=0,l_hat=0,u_hat=0,c_hat=0,
             mode_ahbn="gossip",k_ahbn=2)
-        self.assertEqual(q.k_q,2)
+        self.assertEqual(q.k_q,1)
         learner=QAHBN2Learner(seed=1,epsilon=0.0,epsilon_min=0.0)
         learner.q_table[s]["FANOUT_UP"]=1.0
         q=KubernetesQAHBN2Adapter(learner).decide(
             peer_id=1,message_id="high",d_hat=0,l_hat=0,u_hat=0,c_hat=0,
             mode_ahbn="gossip",k_ahbn=6)
-        self.assertEqual(q.k_q,6)
+        self.assertEqual(q.k_q,7)
 
     def test_ack_semantics_new_duplicate_failed_and_reward(self):
         learner=QAHBN2Learner(seed=1,epsilon=0.0,epsilon_min=0.0)
