@@ -68,8 +68,6 @@ class KubernetesQAHBN2Adapter:
         state = self.learner.discretize(d_hat, l_hat, u_hat, c_hat)
         action = self.learner.choose_action(state)
         mode_q, k_q = self.learner.refine(mode_ahbn, int(k_ahbn), action)
-        # Frozen actuator support after refinement remains within 2..6.
-        k_q = max(2, min(6, int(k_q)))
         self._serial += 1
         decision_id = f"gke:{peer_id}:{message_id}:{self._serial}"
         self.learner.begin(
