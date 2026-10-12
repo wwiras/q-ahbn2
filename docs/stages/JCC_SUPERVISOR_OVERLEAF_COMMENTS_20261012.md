@@ -639,3 +639,24 @@ The nine items form a **logical architecture**, not a command to create nine top
 7. **Scope:** This stage-note addition is the only present file update. Do not modify the manuscript repository, move its existing archives, create PDF artifacts, retag repositories or amend gitignore under this gate. Decide exact archive content and any optional lightweight register in the later manuscript architecture/freeze gate.
 
 **Next operational gate unchanged:** JCC-R1A-C3-D5-T1 — verify researcher-run deterministic tests. JCC-R1A overall HOLD; proposed D6-D8 and manuscript JCC-R2 remain locked.
+
+
+## JCC-R1A-C3-D5-T1 — Local Deterministic Evidence Preservation and Readback (2026-10-12)
+
+**Gate outcome: PASS / CLOSED — deterministic local tests only.**
+
+**Reconciliation:** Scientific GitHub main before this evidence transaction: `969d1362355c9bd2b1afbbb04ff76fafebca6441`. Pinned frozen scientific baseline: `6ccc94e5df770d588a5ccfa592f603a9a8ab2c68` (unchanged). Researcher executed tests on a clean working tree after `git pull --ff-only`. No source changes were authorized or performed under this verification.
+
+**Readback provenance:** The assistant enumerated the specified scientific Google Drive corpus root and directly located `output/evidence/JCC-R1A-C3-D5-20261012T122839Z`, folder ID `1wd2BEZPc2oqBV_K0h6VgV5fdAzP0sAmj`. All three original files were independently fetched from Google Drive (not merely inferred from local sync or terminal narration):
+
+| Artifact | Google Drive file ID | Original readback |
+| --- | --- | --- |
+| `run_manifest.txt` | `1GXxOV4nXWMMPqzAVbKZRm7oLEwwI_u51` | `UTC=2026-10-12T12:28:41Z`; producing SHA `969d1362355c9bd2b1afbbb04ff76fafebca6441`; empty git status; `targeted_exit=0`; `full_exit=0` |
+| `targeted_tests.log` | `1pDp_xy9uWxWPgi0Gsbw32TWe5a7Z01QU` | `Ran 9 tests in 0.001s`; `OK`; each of nine verbose adapter tests reports `ok` |
+| `full_regression.log` | `1LcrrynxB02ZeHNK_61EP9k7nBXr0v2VK` | `Ran 103 tests in 0.138s`; `OK (skipped=3)`; zero failures |
+
+**Verification and limitation:** Targeted unit tests cover five learning actions, lower/upper requested fanout endpoints (AHBN 2→Q 1, AHBN 6→Q 7), attribution of NEW/DUPLICATE/FAILED outcomes, F=0 no update, next state on the same peer, delayed reward, terminal update, attempt-ledger guards, inherited gossip target realization/registration and structured selector delegation. Full-regression output is a concise unittest dot transcript: three skips are visible but individual skip reasons are not recorded in this original log; do not claim their specific causes. The original files existed in the designated Google Drive corpus and passed content readback. No checksum was recorded, so do not claim cryptographic artifact attestation.
+
+**Decision:** D5-T1 deterministic-test execution and original-artifact preservation/readback **PASS / CLOSED**. This is a code-level, researcher-run local deterministic result only; it does **not** establish Docker/image parity, corrected GKE operation, performance impact, network reliability, or scientific adequacy of claims. Historical restricted Kubernetes evidence remains frozen and unchanged. ControlSim remains a separate evidence family.
+
+**Forward control:** D5-T1 is closed; **JCC-R1A-C3-D6 — Docker/image validation planning and separately authorized execution** is the next candidate technical gate (RELEASE CANDIDATE / NOT EXECUTED). D7/D8, corrected cloud formal experiments, substantive manuscript rewriting, and journal submission remain HOLD pending their own release criteria. C1/C2/C4/C5 scientific adequacy checks remain PENDING; JCC-R1A overall HOLD. No changes to canonical AHBN, learner settings, datasets, measured results, image records, or `QAHBN2-Manuscript` are authorized by this transaction.
