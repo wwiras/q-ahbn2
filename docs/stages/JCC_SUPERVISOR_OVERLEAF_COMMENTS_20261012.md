@@ -313,3 +313,48 @@ Every identified mismatch was exactly the *lower* clipping combination `k_AHBN=2
 **NEXT: JCC-R1A-C3-D2 — Structured target-selector semantic/impact audit and controlled correction/revalidation proposal.** Inspect producing commit's inherited `structured_selector` behavior under budgets 1 vs 2, review actual eligible sets and trace realization, then prepare a narrow source/test patch in a distinct future version and a minimal deterministic/K8s validation contract for researcher execution, including effect on claims and 23 October internal target. No modification, rerun, result promotion or submission authorization has been issued by D1.
 
 **Transaction:** stage-document-only GitHub update. `docs/00_QAHBN2_MASTER.md` §9.5 requires source reconciliation, scope-bounded audit, explicit verdict, minimum file sync, and postwrite readback. Do not edit Master, results/statistics contracts, manuscript or experiment code merely to restate a HOLD. Mac local Google Drive paths are references only; no direct local modification. **JCC-R1A HOLD; SCIENCE CHANGES HOLD; JOURNAL SUBMISSION HOLD.**
+
+
+## JCC-R1A-C3-D2 — Structured Target-Selector Semantic and Impact Audit (12 October 2026)
+
+**Gate outcome:** SOURCE-SEMANTIC AUDIT PASS; IMPACT IDENTIFIABILITY PARTIAL; SCIENTIFIC PARITY HOLD. This controlled action makes no algorithm, experiment, result, manuscript, or canonical AHBN changes.
+
+### 1. Authority and exact deployed code
+
+- Repository-first audit follows `docs/00_QAHBN2_MASTER.md` §9.5. Scientific reference baseline remains `6ccc94e5df770d588a5ccfa592f603a9a8ab2c68`; AHBN stays frozen.
+- Formal Kubernetes evidence identifies producing Git revision `7ad474c3a249fde58223f2abd5d54918b4bcbb9f`, image `wwiras/q-ahbn2:k5q-formal-v2-20260929` and registered digest `sha256:d8ac06197962a6e42cb9e564a9c115c08b9f018df231f61cdbfbb8796422991e`.
+- At the producing revision, `qahbn2/kubernetes_adapter.py` lines 68–73 clips `k_q` to 2–6 **before target selection**.
+- At that revision, `gke/app/qahbn2_runtime.py` lines 104–110 calls `realize_inherited_targets` and passes `structured_selector=lambda s, budget: self.cluster_targets(s, fanout=budget)`. `qahbn2/kubernetes_integration.py` lines 30–36 invokes that structured selector with `q.k_q`; it does not independently apply a cap.
+- At that revision, `gke/app/peer.py` lines 370–398 implements the actual `cluster_targets(sender_id, fanout)` semantics. These exact sources, not a hypothetical generic fanout sampler, govern the frozen Kubernetes observations.
+
+### 2. Deterministic selector semantics: requested budget 2 versus 1
+
+| Sender role and inherited candidate condition | Existing clipped request `k_Q=2` | Contract request `k_Q=1` | Difference |
+| --- | --- | --- | --- |
+| Cluster head, >=2 ordered eligible candidates | first 2 candidates | first 1 candidate | **One target omitted**; first target unchanged |
+| Cluster head, exactly 1 ordered candidate | same 1 candidate | same 1 candidate | No target difference |
+| Cluster head, 0 ordered candidates | none | none | No target difference |
+| Non-cluster-head with available parent CH other than sender/self | single parent CH | single parent CH | No target difference; branch does not depend on fanout |
+| Non-cluster-head with unavailable/ineligible CH | none | none | No target difference |
+
+For cluster heads, `cluster_targets` builds a deterministic ordered list: first available gateway (if any), then available cluster members, then remaining gateways. It returns `selected[:max(1, int(fanout))]`. A 2→1 request can therefore remove **exactly one** target only when at least two such structural candidates exist. Non-CH senders return either their single parent CH or an empty list, regardless of requested fanout. This is a source-semantic counterfactual, *not* a replay of observed propagation or learned Q trajectories.
+
+### 3. Five-seed formal trace reconciliation and limits
+
+JCC-R1A-C3-D1 established **723** logged lower-bound mismatches among **17,134** Q decisions over seeds 42–46: 75, 28, 81, 201, 338 respectively (4.22% pooled). All were Structured-mode `k_AHBN=2`, action `FANOUT_DOWN`, recorded `k_Q=2` rather than expected 1; upper 6→7 was not exercised in those formal logs. Of these, 367 had nonempty reported realized targets and 356 none.
+
+**Important correction to impact reasoning:** Nonempty realized targets is **not enough** to prove a transmission would disappear under 1: the non-CH branch ignores the budget, and CH senders with one candidate are unchanged. Precise affected-selection frequency requires correlating decision `peer_id` and point-in-time CH role/topology/availability with the *ordered inherited candidate list* and selected targets. Do **not** call the 367 cases changed transmissions; do not use a speculative number as the outcome.
+
+The formal logs record actual clipped-variant decisions and attempts. They do not contain an independently executed corrected 1–7 learning trajectory. An isolated deterministic selector counterfactual cannot supply corrected delivery, propagation delay, duplicates, rewards, or learning evolution: changing one target can change later peer observations, Q updates, and message histories.
+
+### 4. Decision and narrow correction/validation proposal (NOT authorized execution)
+
+**Scientific finding:** the selector is **budget-sensitive for cluster heads with >=2 candidates**, but budget-insensitive for non-cluster-head senders and CHs with <=1 candidate. Hence the code-level clipping is materially capable of altering network transmissions; it cannot be dismissed as operationally inert, but no quantitative delivery/performance effect is established.
+
+**Recommended proposed code correction**, only following a separately authorized change gate: remove the noncanonical `max(2, min(6, ...))` clip from `qahbn2/kubernetes_adapter.py`, preserving `learner.refine` output; correct `tests/test_k2_kubernetes_adapter.py` boundary expectations to 2→1 and 6→7, add deterministic CH selector cases for >=2, exactly 1, zero candidates and non-CH cases, and verify `k_real <= min(k_Q, |N_e|)` without altering canonical AHBN. No broad learner retuning or ControlSim rewrite.
+
+**Proposed validation sequence:** (1) review producing-image and test provenance; (2) targeted deterministic tests + full relevant K8s regression, including action/transition/reward contracts; (3) explicit independent candidate image/digest; (4) controlled matched Kubernetes formal rerun only if intended canonical Q-AHBN operational/performance claim is retained, preserving the historical clipped 25-run results and comparators unchanged; (5) new statistical/provenance audit and manuscript wording harmonization. A reduced smoke test cannot by itself replace matched formal evidence for a performance claim. Actual execution remains with researcher after scope approval.
+
+**23 October decision:** date remains an internal supervisor-ready *target*, not scientific closure. If the formal rerun cannot be validated by then, either disclose the historical K8s variant and narrow/remove canonical K8s parity claims in the manuscript, or keep the manuscript release on HOLD. Never mask the inconsistency to meet the date.
+
+**Current state:** JCC-R1A-C3-D2 SOURCE AUDIT PASS / PERFORMANCE IMPACT UNDETERMINED / JCC-R1A HOLD / SCIENTIFIC CODE CHANGES HOLD / JOURNAL SUBMISSION HOLD. **Next gate:** JCC-R1A-C3-D3 — point-in-time peer-role and candidate-set evidence reconciliation, followed by explicit scientific change/validation authorization decision. No direct access to the supplied Mac synchronized paths was claimed, and Drive synchronization alone is not evidence promotion.
