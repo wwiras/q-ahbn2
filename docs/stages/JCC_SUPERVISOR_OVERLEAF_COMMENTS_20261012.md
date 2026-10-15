@@ -810,3 +810,60 @@ The nine items form a **logical architecture**, not a command to create nine top
 ## JCC-R1A-C3-D6-R1-P8 — Temporary-engine cleanup and closure (2026-10-12)
 
 **PASS / CLOSED (bounded D6-R1 scope).** Researcher executed `docker rm -f qahbn2-d6r1-diag-20261012215940`; terminal returned the exact container name, confirming successful removal of the isolated Docker-in-Docker verification container. This completes administrative cleanup following verified Google Drive archival/readback of manifest config digest, fresh pull, image metadata, Python imports and adapter SHA-256. Published digest-pinned image configuration matches original tested D6 image ID. Scope: fresh isolated-engine retrieval and source/identity verification, with original D6 behavioral evidence inherited, **not independently rerun**. Independent physical host validation **NOT PERFORMED**; GKE **NOT PERFORMED**; D7/D8 remain HOLD. No rebuild, republish, algorithm or manuscript change. Gate D6-R1 PASS/CLOSED; do not generalize this to subsequent deployment gates.
+
+
+## JCC-R1A-C3 — Unified GKE Revalidation and Manuscript Revision Master Gate Plan (2026-10-15)
+
+**Record type:** Researcher-approved planning reconciliation; **not** authorization to spend GKE resources, execute experiments, modify scientific algorithms, or submit a journal revision. Existing historical audits and stage decisions above are preserved. GitHub science/master controls remain authoritative; Google Drive is evidence. This entry replaces the earlier *proposed 10-run / historical five-AHBN reuse pathway* with the researcher-selected full, fresh five-method GKE comparison.
+
+### A. Fixed scientific boundaries and rationale
+
+- **Canonical AHBN is FROZEN:** canonical S5 requested fanout remains `k_AHBN ∈ {2,3,4,5,6}`. The corrected Q-AHBN2 post-controller one-step refinement permits `k_Q ∈ {1,2,3,4,5,6,7}`, without altering canonical AHBN. Realized forwarding remains `0 ≤ k_real ≤ min(k_Q, |N_e|)`.
+- Historical five-seed Kubernetes Q-AHBN2 evidence is retained intact and accurately labeled *previously deployed clipped 2–6 variant*; it is not promoted to corrected-Q evidence or combined as a contemporary comparator.
+- Corrected Q source has already passed D5-T1 local deterministic checks (nine targeted tests and 103 regression tests, three skipped). D6-R1 passed bounded image/registry identity/source verification; the separate engine did **not** independently rerun the full action-behavior suite and inherited prior D6 tests of the identical image. Do not repeat completed D5/D6 needlessly.
+- **Pinned corrected candidate image:** `docker.io/wwiras/q-ahbn2@sha256:8a47cedb378d9387b87e7e2d5924a4aa2f87053e71da757509b1f19667332466`; producing source `280855900e89b1db5269ace73b4aabf6c7afae88`; local config/image ID `sha256:d90d8ca1439056ba578b6aaa19122548219d80ce6c0b39766a861c2dfdc07d8d`; adapter SHA256 `045396d4bd58962852b403aac9f9f8fedd2c43c41636aae85ecb29bc8de9e355`. Container identity is not proof of GKE runtime behavior.
+- Existing ControlSim Exp10-Q/11-Q/12-Q and Exp13-Q remain distinct evidence families; do **not** re-run ControlSim or pool ControlSim and GKE results under this programme.
+- The purpose of the GKE rerun is **bounded comparison/verification**, not proof of Q-AHBN2 superiority. Retain null, weak, negative, and overhead trade-off outcomes.
+
+### B. New contemporaneous full GKE matrix
+
+Use existing `gke/app/k5_q_formal_contract.py` coordinates: methods `gossip,structured,dcsoc,ahbn,qahbn2`; seeds `42,43,44,45,46` = **25 unique full formal runs**. Current declared setup: BA `m=2`, `N=20`, `240` messages per run at `0.4 s` intervals, inherited common seed-based source policy, churn offsets `+1,+26,+51,+76 s`. Lock the exact configuration, event targets/durations, versioned scripts, node/pod resources, trace/metric definitions, and equality/comparability checks in D7-P2 **before** cloud spending. Do not silently assert current harness parameters beyond what preflight verifies.
+
+**Mandatory preliminary smoke test:** five separate GKE smoke runs (one per algorithm at seed 42), with documented abbreviated versus full-workload choice and PASS criteria frozen in D7-P2. Verify operational deployment, injected workload, churn, trace/metric collection, no silent truncation, cleanup and evidence; for Q-AHBN2 verify digest-pinned image and distinguish AHBN proposal, Q proposal, and realized target traces. Deterministically exercise 2→1 and 6→7 boundary rules separately, rather than expecting random smoke runs to select extremes. Smoke runs are nonformal and excluded from the 25-run statistics. **Formal D7-F HOLD unless D7-SM PASS plus explicit researcher authorization**.
+
+### C. Unified controlled gate list and dependency/status (as of 2026-10-15)
+
+| Programme | Gate | Work / mandatory decision | Status |
+|---|---|---|---|
+| Scientific adequacy | JCC-R1 / JCC-R1A | Supervisor comments OC-01–03 / WA-01–07 inventoried; C1–C5 scientific adequacy not fully closed | OPEN / PARTIAL |
+| Correction | JCC-R1A-C3-D1–D4 | Audit historical K8s source/trace issue and authorize bounded fix path | COMPLETED HISTORICAL CONTROL SERIES |
+| Correction | JCC-R1A-C3-D5-T1 | Local deterministic regression and 1–7 boundary tests | PASS / CLOSED |
+| Image validation | JCC-R1A-C3-D6-R1 | Image build, immutable registry identity, fresh engine source/identity verification | PASS / CLOSED (bounded scope) |
+| Historical-compatibility path | JCC-R1A-C3-D7-P1 | Earlier reuse/compatibility examination; no reuse for new final comparison | SUPERSEDED AS EXECUTION PATH (retain audit evidence) |
+| Experimental freeze | **JCC-R1A-C3-D7-P2** | Freeze five algorithms, five seeds, exact matched workload, event schedule, scripts, source/image/config hashes, metrics, error/exclusion/rerun/cost rules, smoke protocol | **NEXT / PLAN NOT FROZEN** |
+| Image/deployment parity | D7-P3 | Reuse D5/D6; verify corrected image and fanout semantics within actual intended GKE run path; do not conflate requested and realized fanout | HOLD |
+| Operational preflight | D7-P4 | Config generation, Kubernetes access/readiness, workload/churn script timing, logging, evidence folder, cleanup and budget approval | HOLD |
+| Smoke test | **D7-SM** | Researcher-executed 5-method smoke matrix, manifest/artifact readback, pass/fail and release decision | HOLD / MANDATORY BEFORE FORMAL |
+| Formal cloud experiment | **D7-F** | Researcher-authorized 25 GKE runs, contemporaneous five-method matrix, preserved original run artifacts | HOLD |
+| Evidence audit | D8-A | 25-cell completeness, integrity, provenance, event/trace coverage and metric validity, reproducible exclusions | HOLD |
+| Statistics/claims | D8-B | Seed-matched comparisons, mean/SD/95% t-CI (n=5), four primary outcomes, recovery/learning diagnostics, transparent trade-offs; no post-hoc tuning or unsupported superiority | HOLD |
+| Adequacy close | JCC-R1A-CLOSE | Resolve C1–C5 and any remaining supervisor-scientific objections, grade A/B/C/D, authorize evidence-constrained manuscript claim scope | HOLD |
+| Manuscript | JCC-R2 | Novelty and self-contained deterministic/learning method, OC-01–03, WA-01–03, fanout 2–6 → 1–7 provenance, parameters | HOLD FOR SUBSTANTIVE REVISION; preliminary editorial preparation allowed |
+| Manuscript | JCC-R3 | Literature, WA-07 SOTA, benchmark positioning, correct ControlSim versus GKE experimental reporting, methodology | HOLD FOR FINAL EVIDENCE-DEPENDENT TEXT |
+| Manuscript | JCC-R4 | Revise results, discussion, figures/tables, limitations and conclusions from verified evidence; WA-04 restructuring | HOLD |
+| Manuscript proof | JCC-R5 | OC/WA closure matrix, scientific and numerical claims, bibliography and citations, reproducible visuals, LaTeX/PDF build/proof, GitHub/Drive readback, supervisor-ready package | HOLD |
+| Journal action | JCC-JOURNAL | Separate researcher/editorial-status authorization for any formal journal revision/resubmission or correspondence | HOLD |
+
+The original **23 October 2026** date remains an **internal, conditional supervisor-ready target**, not a science-release or journal-submission date. Editorial-only preparation may overlap D7/D8 with accurate provisional wording, but **no final evidence-dependent manuscript claims are frozen before D8-B and scientific adequacy closure**. Re-plan the target openly if checks take longer.
+
+### D. Stage release criteria, provenance and stop rules
+
+1. **D7-P2:** exact scientifically comparable all-method test matrix; preregistered smoke pass/fail, deployment commands and GKE spending estimate/budget guard; explicit methods/seeds, exclusions/restarts and evidence paths; human sign-off before any execution.
+2. **D7-P3/P4:** corrected immutable image hash and 1–7 semantics verified with the GKE path; operational configuration and metrics independent of formal results; fail closed on config/image mismatches. Do not infer fanout extremes from stochastic action-selection absence.
+3. **D7-SM:** at least one complete, verified per-method smoke with preserved deployment/churn/metrics/cleanup evidence. Scientific performance thresholds must be predeclared where applied; no arbitrary post-hoc pass condition. Smoke evidence excluded from statistics; a smoke defect forces HOLD and targeted repair/re-smoke.
+4. **D7-F:** exactly 25 valid method×seed run coordinates or full accounting of invalid attempts/approved reruns. Historical original artifacts never deleted/replaced. Same-seed pairing and scenario equality verified; preserve unfavorable performance.
+5. **D8-A/B:** metric completeness, comparable observation windows, provenance, paired n=5 statistical unit, uncertainty, multiple-comparison disclosures as applicable, trade-offs and learning/attempt traces. Claims only as strong as actual data. No ControlSim/GKE statistical pooling.
+6. **JCC-R1A-CLOSE / R2–R5:** explicit reconciliation with supervisor OC/WA comments, graded evidence strength, transparent fixed-versus-tuned parameter justification, accurate publication status and approved manuscript diffs; reproducibility/LaTeX proof before internal release.
+7. Every gate uses **PASS / HOLD / FAIL / SUPERSEDED** with original evidence pointers, producing Git SHA, manifest/time identifier, scoped limitations and post-write readback. GitHub `docs/00_QAHBN2_MASTER.md` and existing stage/register remain authoritative; avoid a competing control document. Store new raw GKE evidence under the existing scientific Drive corpus `1a6_WrsZL2iXbFVeMemdujYxvzEqcBFC5` with the approved MYT timestamp convention and independently read back before PASS.
+8. Manuscript-facing method name remains **Q-AHBN**, code/repository **q-ahbn2**. Manuscript `wwiras/QAHBN2-Manuscript/sn-main.tex` stays unchanged at this planning gate. The researcher reports the paper as **under peer review at Journal of Cloud Computing, unpublished, no manuscript DOI**; do not represent it as published or perform journal portal actions without separate approval. The thesis repo `wwiras/MUM_FIT_ThesisWira` governs thesis text, not this experiment's scientific code.
+9. **Next gate:** `JCC-R1A-C3-D7-P2 — Full GKE Rerun Protocol and Smoke-Test Contract Freeze`. D7-P3/D7-P4/D7-SM/D7-F/D8 and manuscript/journal release are still HOLD. This planning transaction alone authorizes **no GKE spending, code modifications, source overwrites, manuscript rewriting or journal action**.
