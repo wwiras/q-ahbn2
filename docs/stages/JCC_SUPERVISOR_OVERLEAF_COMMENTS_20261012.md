@@ -983,3 +983,24 @@ A full formal attempt must use a fresh evidence root separate from diagnostic sm
 **D7-P2 = PASS / FROZEN (documentation contract only).** No unresolved ambiguity requires a change to the scientifically selected 25-run matrix. **Execution readiness remains HOLD.** The unresolved implementation/operations preconditions must pass their separately authorized gates. No actual GKE run, cloud-spending approval, performance validation, deployment parity or journal action is implied.
 
 **Single NEXT controlled action: \`JCC-R1A-C3-D7-P3 — GKE fanout/image parity verification\` (HOLD until researcher separately authorizes entry; read-only planning is not execution authorization).** Thereafter D7-P4, five smoke tests, formal D7-F, and all D8/manuscript/journal gates remain HOLD.
+
+
+## JCC-R1A-C3-D7-P3 — GKE Fanout/Image Parity Verification (2026-10-16)
+
+**Entry authorization:** Researcher explicitly authorized D7-P3 on 2026-10-16. **Decision: HOLD / PARTIAL READ-ONLY INSPECTION; NOT A PARITY PASS.** This entry records the bounded source/evidence audit; there has been no GKE deployment, registry pull, cloud cost, experiment, source-code edit, or new runtime result.
+
+### Read-only observations (GitHub main and Drive)
+
+- Frozen D7-P2 protocol remains the authority. Candidate corrected image: `docker.io/wwiras/q-ahbn2@sha256:8a47cedb378d9387b87e7e2d5924a4aa2f87053e71da757509b1f19667332466`; source-producing commit `280855900e89b1db5269ace73b4aabf6c7afae88`. These are **contractual references, not presently re-verified live image identity**.
+- `gke/app/qahbn2_runtime.py` calls canonical `requested_fanout("S5", score)` for AHBN, then passes `mode_ahbn,k_ahbn` into `KubernetesQAHBN2Adapter.decide`; it uses `realize_inherited_targets`, `register_realized_targets`, and logs `qahbn2_decision` with `decision_id,action,mode_ahbn,k_ahbn,mode_q,k_q,eligible_targets,realized_targets`. This establishes the *visible source-level call path only*.
+- `gke/app/peer.py` exposes controller fanout and target/attempt mechanics. `gke/scripts/verify_k3_q_image.sh` requires a platform-specific Docker pull and confirms `linux/amd64`, but its printed repo digest and success alone are not proof of the **running GKE pod imageID**. `gke/scripts/run_k5_q_formal.sh` requires `IMAGE` and a 64-hex `EXPECTED_IMAGE_DIGEST`, calls the image verifier, and is explicitly a 25-cell **formal** runner, not an approved P3 diagnostic or smoke runner.
+- Google Drive experiment corpus `output/evidence` was listed; existing D5/D6 and historical K5 evidence folders were present. The listing did not supply a newly executed D7-P3 parity artifact, and old clipped GKE runs are not substitutes.
+
+### Acceptance still missing — HOLD
+
+1. Independently attest the deterministic same-codepath boundary pairs `k_AHBN=2 + FANOUT_DOWN => k_Q=1` and `k_AHBN=6 + FANOUT_UP => k_Q=7`, with eligible/realized upper bounds, referencing reproducible D5/D6 outputs and exact corrected source hashes. Historical PASS is not silently relabelled as fresh P3 PASS.
+2. Independently confirm the **corrected candidate image** contains and actually imports that implementation (exact image digest, `linux/amd64`, source/build provenance, entrypoint/import trace) by a reproducible bounded image-inspection path; registry digest is not a substitute for an inspected artifact.
+3. Verify a *real deployed* GKE pod spec and running status `imageID` agree with the pinned expected digest, and record context/project/cluster, namespace, pod UID, inspection timestamps and evidence. This is distinct from a script/static-text review and requires cloud access and applicable cost controls. Do not mark live parity PASS based on previous K5 runs.
+4. Check evidence integrity, independent readback, and full gate-entry/exit signoff; record any contrary traces as FAIL/correction rather than defending them.
+
+**Release boundary:** D7-P3 remains **HOLD**. D7-P4 operations/cost/cleanup, D7-SM five full workload nonformal smoke runs, D7-F 25 formal runs, D8 analysis, manuscript edits and journal actions are **not** authorized by this entry. Canonical AHBN and manuscript are unchanged. Journal of Cloud Computing manuscript remains **under peer review; unpublished; no DOI**.
