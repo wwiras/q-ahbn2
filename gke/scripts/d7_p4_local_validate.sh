@@ -14,7 +14,7 @@ finalize() {
   local rc=$?
   trap - EXIT
   printf '%s\n' "${STATUS}" > "${OUT}/decision.txt"
-  (cd "${OUT}" && find . -type f ! -name SHA256SUMS -print0 | sort -z | xargs -0 shasum -a 256 > SHA256SUMS) || true
+  (cd "${OUT}" && find . -type f ! -name SHA256SUMS -print0 | xargs -0 shasum -a 256 > SHA256SUMS) || true
   echo "D7-P4 local evidence: ${OUT}"
   exit "${rc}"
 }
