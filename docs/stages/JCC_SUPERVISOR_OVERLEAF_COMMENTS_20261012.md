@@ -1149,3 +1149,25 @@ Google Drive experiment corpus `output/evidence/20261016T145837Z-D7-P3-single-po
 **Evidence:** Google Drive `output/evidence/20261016T145837Z-D7-P3-single-pod`, https://drive.google.com/drive/folders/12kPEWriD1uqUG7r91Ow6tEFIq3GcYdDz . Archived `pod.json`, `pod.yaml`, `SHA256SUMS`, decision, logs, creation, wait, deletion, cleanup and metadata files were observed. Independent readback hash verification matched archived SHA256SUMS for `pod.json` (7d9f89f7c932b601f2acc758602615e41c8414340834d468400d72e0a59c3f7b) and `pod.yaml` (e2fcd77749b1c4adc954d508eda33a941e5ebb9f798ebc225fd689c3e0f17532). This verifies only identity/startup and cleanup; the probe deliberately overrode the runtime to idle Python and did **not** exercise dissemination or live fanout behavior. No performance claims permitted.
 
 **Next:** D7-P4 operational preflight HOLD, D7-SM 0/5 HOLD, D7-F 0/25 HOLD, D8 HOLD; D7-P2 PASS/FROZEN. Do not initiate cloud testing without the subsequent gate release. The manuscript remains under peer review at *Journal of Cloud Computing*, unpublished, without DOI; canonical AHBN remains frozen.
+
+
+### D7-P4 source-level operational preflight — 2026-10-16
+
+**Status: D7-P4 HOLD / REMEDIATION REQUIRED; read-only GitHub inspection only.** D7-P2 PASS/FROZEN and D7-P3 PASS/FROZEN remain unchanged. No GKE deployment, smoke, or formal execution was performed or authorized.
+
+Verified in current GitHub source:
+- `gke/app/k5_q_formal_contract.py` fixes five methods (gossip, structured, dcsoc, ahbn, qahbn2), five seeds 42–46, 20 nodes, BA m=2, 240 messages spaced 0.4 seconds, churn leave offsets +1,+26,+51,+76 seconds. `gke/experiments/k5_q_formal.yaml` contains these workload/topology/schedule values.
+- `gke/app/k7_exp11_tools.py` produces seed-specific, method-matched configuration and target selection, validates topologies, planned 240-message timing, four churn cycles, and per-run artifacts.
+- `gke/scripts/run_k5_q_formal.sh` generates configs/topologies before launching, checks context, expected image and local Git state, and verifies the formal 25-coordinate manifest. `gke/scripts/run_k7_experiment.sh` checks 20 deployed pod images and runtime imageID, collects peer/controller logs, starts the controller Job and waits for completion. These are code paths, not validated full GKE execution.
+- `gke/helm/ahbn/templates/statefulset.yaml` deploys peers and `job-controller.yaml` starts the controller. The prior idle D7-P3 image probe did not exercise this path.
+
+**Open blockers:**
+1. A **separate five-method smoke-only runner** with frozen per-method pass/fail, abbreviated/full workload declaration and no formal dataset contamination has not been verified. Never use the 25-run formal launcher as a surrogate.
+2. The per-run script `run_k7_experiment.sh` traps evidence collection on exit but does not prove release/namespace cleanup on interrupted execution; `run_k5_q_formal.sh` deletes the namespace only on successful full completion. Safe failure/interrupt rollback must be validated before executing a smoke.
+3. Live workload injection, absolute 0.4-second grid, four churn leave/unavailable/rejoin cycles, trace completeness, controller events, source parity and per-run metrics have **not** been verified under the corrected image.
+4. GKE Helm rendering/dry-run, namespace/permissions, schedulability and lifecycle isolation for the smoke plan remain unverified.
+5. Formal runner's older day-month-year evidence naming should be aligned prospectively with approved UTC timestamped evidence convention.
+
+**Prepared read-only operator tool:** `gke/scripts/d7_p4_preflight.py` (introduced in commit `bbc73a13aa9e6d2f41faec750d830edba08343f5`). It checks frozen source tokens, matrix, validators, image checks, and logging; writes `output/evidence/<UTC>-D7-P4-readonly/preflight.json` and `SHA256SUMS`. It does NOT call kubectl/helm or run experiments. Any positive result is **static-contract only**, not D7-P4 release.
+
+**Next permitted action:** Researcher executes the local read-only preflight. Review generated evidence, repair only necessary operational orchestration defects in versioned GitHub scripts with source-level proof, then repeat D7-P4 admission audit. Do not alter canonical AHBN or existing scientific parameters. **D7-SM 0/5 HOLD; D7-F 0/25 HOLD; D8 HOLD.** Manuscript at *Journal of Cloud Computing* remains under peer review, unpublished, without DOI.
