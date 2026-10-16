@@ -7,8 +7,8 @@ EXPECTED_IMAGE_DIGEST="${EXPECTED_IMAGE_DIGEST:-}"
 EXPECTED_CONTEXT="${EXPECTED_CONTEXT:-gke_stoked-cosine-415611_us-central1-a_bcgossip-cluster}"
 NAMESPACE="${NAMESPACE:-qahbn2-k5-formal}"
 RELEASE="${RELEASE:-qahbn2}"
-STAMP="$(date +%d%m%Y%H%M%S)"
-RESULT_ROOT="${RESULT_ROOT:-${ROOT_DIR}/output/evidence/q-ahbn-gke-${STAMP}-k5q-formal}"
+STAMP="$(date -u +%Y%m%dT%H%M%SZ)"
+RESULT_ROOT="${RESULT_ROOT:-${ROOT_DIR}/output/evidence/${STAMP}-K5Q-formal}"
 RESUME="${RESUME:-0}"
 FORMAL_SEED="${FORMAL_SEED:-}"
 fail(){ echo "ERROR: $*" >&2; exit 1; }
@@ -118,7 +118,6 @@ PY
 
 PYTHONPATH="${ROOT_DIR}" "${PYTHON}" gke/scripts/validate_k5_q_artifacts.py "${RESULT_ROOT}"
 date -u +%FT%TZ >"${RESULT_ROOT}/completed_utc.txt"
-kubectl delete namespace "${NAMESPACE}" --wait=true >/dev/null 2>&1 || true
 trap - EXIT; restore
 echo "K5-Q FORMAL 25/25 PASS"
 echo "Evidence: ${RESULT_ROOT}"
