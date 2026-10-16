@@ -13,6 +13,9 @@ IMAGE="${IMAGE:-docker.io/wwiras/q-ahbn2@sha256:8a47cedb378d9387b87e7e2d5924a4aa
 EXPECTED_IMAGE_DIGEST="sha256:8a47cedb378d9387b87e7e2d5924a4aa2f87053e71da757509b1f19667332466"
 EXPECTED_CONTEXT="gke_stoked-cosine-415611_us-central1-a_bcgossip-cluster"
 METHODS=(gossip structured dcsoc ahbn qahbn2)
+MODE="${SMOKE_MODE:-canary}"
+if [ "${MODE}" = canary ]; then METHODS=(gossip); elif [ "${MODE}" != five ]; then echo "HOLD: invalid SMOKE_MODE" >&2; exit 1; fi
+[ "${MODE}" != five ] || [ "${SMOKE_FIVE_AUTHORIZED:-}" = YES ] || { echo "HOLD: five-run release requires separate approval" >&2; exit 1; }
 SEED=42
 [ "${IMAGE}" = "docker.io/wwiras/q-ahbn2@${EXPECTED_IMAGE_DIGEST}" ] || {
   echo "HOLD: wrong image" >&2; exit 1;
@@ -26,7 +29,7 @@ done
 [ -z "$(git status --porcelain)" ] || {
   echo "HOLD: git worktree must be clean" >&2; exit 1;
 }
-ROOT_OUT="${RESULT_ROOT:-${ROOT}/output/evidence/$(date -u +%Y%m%dT%H%M%SZ)-D7-SM-five-method}"
+ROOT_OUT="${RESULT_ROOT:-${ROOT}/output/evidence/$(date -u +%Y%m%dT%H%M%SZ)-D7-SM-${MODE}}"
 [ ! -e "${ROOT_OUT}" ] || { echo "HOLD: evidence directory exists" >&2; exit 1; }
 mkdir -p "${ROOT_OUT}"/{configs,generated,runs,raw}
 cp gke/helm/ahbn/topology.json "${ROOT_OUT}/raw/topology_before.json"
@@ -62,10 +65,14 @@ for method in "${METHODS[@]}"; do
     IMAGE="${IMAGE}" EXPECTED_IMAGE_DIGEST="${EXPECTED_IMAGE_DIGEST}" \
     EXPECTED_CONTEXT="${EXPECTED_CONTEXT}" PYTHON="${PYTHON}" \
     bash gke/scripts/run_k7_experiment.sh "${rel}"
+  remaining="$(kubectl get namespace "${ns}" --ignore-not-found -o name)"
+  [ -z "${remaining}" ] || { echo "HOLD: post-run namespace remains: ${ns}" >&2; exit 1; }
+  [ "$(cat "${run}/cleanup_status.txt")" = PASS ] || { echo "HOLD: cleanup not confirmed" >&2; exit 1; }
   cp "${ROOT_OUT}/generated/${method}_seed42.json" "${run}/topology_role_mapping.json"
   PYTHONPATH=gke/app "${PYTHON}" gke/app/k7_exp11_tools.py run --run-dir "${run}" \
     > "${run}/validation.txt"
+  (cd "${run}" && find . -type f ! -name SHA256SUMS -print0 | xargs -0 shasum -a 256 > SHA256SUMS)
   echo "D7-SM validation PASS: ${method}"
 done
-printf '%s\n' "FIVE NONFORMAL SMOKE RUNS COMPLETED; awaiting independent evidence review" > "${ROOT_OUT}/status.txt"
+printf '%s\n' "${MODE} NONFORMAL SMOKE RUNS COMPLETED; awaiting independent evidence review" > "${ROOT_OUT}/status.txt"
 echo "D7-SM results: ${ROOT_OUT}"
