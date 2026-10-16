@@ -1180,3 +1180,18 @@ Verified in current GitHub source:
 **Seven outstanding items recorded by executed script:** (1) live Helm/controller/pod and workload/churn behavior unverified; (2) separate five-method smoke runner not demonstrated; (3) abort/failed-run cleanup not reliable; (4) interrupted-run trace/metric preservation unproved; (5) four-cycle churn and injection-grid timing not exercised; (6) prospective timestamp naming of formal runner requires alignment; (7) namespace/RBAC/safe rollback checks not completed. Repair orchestration before a separately authorized deployment; do not change frozen experimental science.
 
 **Adjudication:** D7-P4 **STATIC CHECKS 25/25 PASS; OVERALL HOLD / REMEDIATION REQUIRED**. D7-P2 and D7-P3 remain PASS/FROZEN. D7-SM 0/5 HOLD, D7-F 0/25 HOLD, D8 HOLD. Next permitted action: inspect and remedy operational scripts, then local non-deploying validation and operator review. Manuscript at *Journal of Cloud Computing* is under peer review, unpublished, without a manuscript DOI.
+
+
+### D7-P4 operational code remediation — 2026-10-16 (prepared, awaiting local validation)
+
+**Scope:** Versioned operational scripts only. Frozen controller, Q-learning parameters, experiment constants, 25 formal coordinates and submitted manuscript are untouched. No GKE smoke or formal run has been executed.
+
+Changes on `wwiras/q-ahbn2` main:
+- `gke/scripts/run_k7_experiment.sh`: rejects unexpected cluster context or non-digest image; refuses preexisting namespaces; restricts runs to dedicated D7 smoke or K5 formal namespace patterns; retains logs and uses an EXIT/signal handler that attempts Helm uninstall and namespace deletion, then checks namespace absence. Non-zero exit or unconfirmed deletion is surfaced. This improves cleanup design but **does not yet demonstrate cleanup under real GKE failure**.
+- `gke/scripts/run_k5_q_formal.sh`: prospective UTC evidence folder naming; removes redundant final namespace deletion since per-run runner owns cleanup. Formal launch remains restricted, not authorized.
+- `gke/scripts/run_d7_smoke.sh`: separate, explicitly authorized `SMOKE_AUTHORIZED=YES` launcher, five methods at seed 42 in five isolated namespaces, using the complete frozen 240-message/0.4-second workload and four churn events for compatibility with existing validators. Smoke evidence has a NONFORMAL classification and is not counted in the 25-run formal matrix. **Script creation does not authorize smoke execution.**
+- `gke/scripts/d7_p4_local_validate.sh`: no-cloud validation of Bash syntax, frozen 25 config/topology coordinates, contract checks and rendered Helm 20-peer StatefulSet/controller Job. Only `helm template` is used; it does not contact Kubernetes. Records UTC evidence, SHA256 checksums and source revision.
+
+**Local validation NOT YET OPERATOR-EXECUTED.** The source updates were committed/read back but full Bash execution, Helm rendering, mock-failure teardown behavior and actual GKE permissions/scheduling remain to be checked. A static code review does not establish complete cleanup/metric durability. Previously archived D7-P4 25/25 checks remain historically valid only for the prior script revision; rerun checks against this updated revision.
+
+**Decision:** D7-P4 HOLD; D7-SM 0/5 HOLD; D7-F 0/25 HOLD; D8 HOLD. D7-P2 and D7-P3 PASS/FROZEN. Next: researcher `git pull origin main`, run `bash -n gke/scripts/d7_p4_local_validate.sh` then `bash gke/scripts/d7_p4_local_validate.sh` only; return output and newly preserved evidence for independent review. Manuscript remains under peer review at *Journal of Cloud Computing*, unpublished, without a DOI.
