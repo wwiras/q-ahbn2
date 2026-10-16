@@ -28,9 +28,17 @@ case "$1" in
   config)
     if [[ "$MOCK_CASE" == wrong_context ]]; then echo wrong-context; else echo "$EXPECTED_CONTEXT"; fi
     exit 0;;
+  create)
+    [[ "$2" == namespace ]] && { touch "$MOCK_STATE"; exit 0; };;
+  label)
+    [[ "$2" == namespace ]] && { echo "$RUN_OWNER" > "$MOCK_OWNER"; exit 0; };;
   get)
     if [[ "$2" == namespace ]]; then
-      if [[ -f "$MOCK_STATE" ]]; then echo "namespace/$3"; fi
+      if [[ "$*" == *jsonpath* ]]; then
+        if [[ -f "$MOCK_STATE" ]]; then
+          if [[ "$*" == *qahbn2-run-owner* ]]; then cat "$MOCK_OWNER" 2>/dev/null || true; else echo mock-namespace-uid; fi
+        fi
+      elif [[ -f "$MOCK_STATE" ]]; then echo "namespace/$3"; fi
       exit 0
     fi
     if [[ "$*" == *"get pods"* ]]; then echo '{"items":[]}'; fi
@@ -89,10 +97,12 @@ def run_case(case: str, *, preexisting: bool=False) -> dict:
         for name, code in (("kubectl",KUBECTL),("helm",HELM),("mockpython",PYTHON)):
             put(t/"mockbin"/name,code)
         state, log = t/"namespace_state", t/"mock_calls.txt"
+        owner = t/"namespace_owner"
         if preexisting:
             state.write_text('PREEXISTING\n')
         env = dict(os.environ, PATH=str(t/"mockbin")+os.pathsep+"/usr/bin:/bin",
-                   MOCK_STATE=str(state), MOCK_LOG=str(log), MOCK_CASE=case,
+                   MOCK_STATE=str(state), MOCK_OWNER=str(owner), MOCK_LOG=str(log), MOCK_CASE=case,
+                   RUN_OWNER="d7-smoke-qahbn2-d7-smoke-gossip",
                    EXPECTED_CONTEXT=CONTEXT, OUTDIR=str(t/"results"),
                    NAMESPACE="qahbn2-d7-smoke-gossip", RELEASE="qahbn2",
                    IMAGE=IMAGE, EXPECTED_IMAGE_DIGEST=IMAGE.partition('@')[2],
@@ -105,7 +115,7 @@ def run_case(case: str, *, preexisting: bool=False) -> dict:
         namespace_exists=state.exists()
         result=t/"results/experiment_exit_status.txt"
         code_recorded=result.read_text().strip() if result.exists() else None
-        mutated=any(e.startswith(("helm install","helm uninstall","kubectl delete")) for e in events)
+        mutated=any(e.startswith(("helm install","helm uninstall","kubectl delete","kubectl create","kubectl label")) for e in events)
         if case in ("install_failure","rollout_failure"):
             ok = (proc.returncode!=0 and not namespace_exists
                   and any(e.startswith("helm uninstall") for e in events)
