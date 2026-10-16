@@ -1113,3 +1113,12 @@ Operator reported the read-only command `gcloud billing projects describe stoked
 **Next controlled action:** **D7-P3 GKE deployed-image parity verification**. Compare an actual GKE pod's `spec.containers[].image` and `status.containerStatuses[].imageID` against the pinned immutable reference `docker.io/wwiras/q-ahbn2@sha256:8a47cedb378d9387b87e7e2d5924a4aa2f87053e71da757509b1f19667332466`, with platform `linux/amd64`, pod UID, namespace, UTC timestamp, readiness/restart state and source commit provenance. Previous read-only inventory showed **no Q-AHBN2 application pod**, so parity is currently **NOT VERIFIED**. Start with read-only pod image/status inspection. If no target pod exists, a *separately authorized* minimal single-pod verification and cleanup plan is required before creating resources; this direction is not itself deployment approval. No dissemination experiments or 25-run formal runner.
 
 **Status:** D7-P3 HOLD pending actual deployed imageID parity, D7-P4 HOLD, D7-SM 0/5, D7-F 0/25, D8 HOLD. Canonical AHBN and manuscript unchanged; submitted Journal of Cloud Computing manuscript under peer review, unpublished, no DOI.
+
+
+### D7-P3 current operative gate instruction — 2026-10-16
+
+Researcher confirmed: **exclude existing cluster charge measurement and diagnostic monetary ceiling approval from the D7-P3 scientific gate**; do not request further billing-account reports as prerequisites. Previous audit observations are preserved solely for provenance, and any earlier language requiring a numeric budget for D7-P3 is **superseded** by this direction. Ordinary cloud resource safeguards remain appropriate, without recasting cost review as a research requirement.
+
+**Immediate next action (read-only):** record cluster context and inspect actual Q-AHBN2 pod spec-image, runtime `status.containerStatuses[].imageID`, namespace, pod UID, readiness/restarts and timestamps. If no Q-AHBN2 application pod exists (as in earlier snapshot), report **NOT OBSERVABLE / HOLD**; do not claim parity from the local Docker image or infer a deployed image. A temporary, single-pod, zero-experiment verification would be a separate cloud mutation requiring an explicit operator go-ahead and cleanup plan. Do not run the formal Helm/experiment scripts.
+
+**Only research blocker for this subgate:** deployed image parity and archival of adequate provenance. **D7-P3 HOLD, D7-P4 HOLD, D7-SM 0/5, D7-F 0/25, D8 HOLD.** Manuscript under peer review at Journal of Cloud Computing, unpublished, no DOI; canonical AHBN frozen.
