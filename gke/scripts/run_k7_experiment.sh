@@ -1,7 +1,9 @@
 #!/usr/bin/env bash
 set -Eeuo pipefail
 CONFIG="$1"; ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"; OUTDIR="${OUTDIR:?}"; NAMESPACE="${NAMESPACE:?}"; RELEASE="${RELEASE:-ahbn}"; IMAGE="${IMAGE:?}"; EXPECTED_IMAGE_DIGEST="${EXPECTED_IMAGE_DIGEST:?}"; PYTHON="${PYTHON:?}"
-mkdir -p "${OUTDIR}"; LOG_FOLLOW_PID=""; OWN_NAMESPACE=0
+mkdir -p "${OUTDIR}"; LOG_FOLLOW_PID=""; OWN_NAMESPACE=0; NS_UID=""
+RUN_OWNER="${RUN_OWNER:-d7-smoke-${NAMESPACE}}"
+[[ "${RUN_OWNER}" =~ ^[a-z0-9-]+$ ]] || { echo "HOLD: invalid owner" >&2; exit 1; }
 # Only an absent, dedicated namespace is allowed; never uninstall unrelated workloads.
 [[ "${NAMESPACE}" =~ ^qahbn2-(k5-formal|d7-smoke-[a-z0-9-]+)$ ]] || {
   echo "HOLD: unsafe namespace ${NAMESPACE}" >&2; exit 1;
@@ -28,6 +30,15 @@ finalize() {
   trap - EXIT INT TERM
   collect || true
   if [ "${OWN_NAMESPACE}" = 1 ]; then
+    local current_uid current_owner
+    current_uid="$(kubectl get namespace "${NAMESPACE}" --ignore-not-found -o jsonpath='{.metadata.uid}' 2>/dev/null)" || current_uid=""
+    current_owner="$(kubectl get namespace "${NAMESPACE}" --ignore-not-found -o jsonpath='{.metadata.labels.qahbn2-run-owner}' 2>/dev/null)" || current_owner=""
+    if [ -z "${NS_UID}" ] || [ "${current_uid}" != "${NS_UID}" ] || [ "${current_owner}" != "${RUN_OWNER}" ]; then
+      echo "HOLD: namespace ownership mismatch; refusing deletion" >&2
+      printf "OWNERSHIP_MISMATCH\n" > "${OUTDIR}/cleanup_status.txt"
+      printf "1\n" > "${OUTDIR}/experiment_exit_status.txt"
+      exit 1
+    fi
     helm uninstall "${RELEASE}" -n "${NAMESPACE}" >"${OUTDIR}/helm_cleanup.txt" 2>&1 || true
     kubectl delete namespace "${NAMESPACE}" --wait=true --timeout=180s >"${OUTDIR}/namespace_cleanup.txt" 2>&1 || true
     local remaining
@@ -38,6 +49,7 @@ finalize() {
       echo "HOLD: namespace remains: ${NAMESPACE}" >&2
       status=1
     fi
+    if [ "${status}" -eq 0 ]; then printf "PASS\n" > "${OUTDIR}/cleanup_status.txt"; else printf "HOLD\n" > "${OUTDIR}/cleanup_status.txt"; fi
   fi
   printf '%s\n' "${status}" > "${OUTDIR}/experiment_exit_status.txt"
   exit "${status}"
@@ -48,8 +60,12 @@ trap 'exit 143' TERM
 "${PYTHON}" "${ROOT_DIR}/gke/app/k7_gen_topology.py" --config "${ROOT_DIR}/${CONFIG}" --out "${OUTDIR}/topology.json"
 cp "${OUTDIR}/topology.json" "${ROOT_DIR}/gke/helm/ahbn/topology.json"; cp "${ROOT_DIR}/${CONFIG}" "${OUTDIR}/generated_config.yaml"
 NUM_NODES="$("${PYTHON}" -c 'import json,sys; print(json.load(open(sys.argv[1]))["num_nodes"])' "${OUTDIR}/topology.json")"
+kubectl create namespace "${NAMESPACE}"
+NS_UID="$(kubectl get namespace "${NAMESPACE}" -o jsonpath='{.metadata.uid}')"
+[ -n "${NS_UID}" ] || { echo "HOLD: missing namespace UID" >&2; exit 1; }
 OWN_NAMESPACE=1
-helm install "${RELEASE}" "${ROOT_DIR}/gke/helm/ahbn" --namespace "${NAMESPACE}" --create-namespace --set namespace="${NAMESPACE}" --set image="${IMAGE}" --set numNodes="${NUM_NODES}" --set podManagementPolicy=Parallel --set controller.enabled=false
+kubectl label namespace "${NAMESPACE}" "qahbn2-run-owner=${RUN_OWNER}" --overwrite
+helm install "${RELEASE}" "${ROOT_DIR}/gke/helm/ahbn" --namespace "${NAMESPACE}" --set namespace="${NAMESPACE}" --set image="${IMAGE}" --set numNodes="${NUM_NODES}" --set podManagementPolicy=Parallel --set controller.enabled=false
 kubectl -n "${NAMESPACE}" rollout status statefulset/peer --timeout=600s
 kubectl -n "${NAMESPACE}" wait --for=condition=ready pod -l app=ahbn-peer --timeout=600s
 kubectl -n "${NAMESPACE}" get pods -l app=ahbn-peer -o json >"${OUTDIR}/pods.json"
