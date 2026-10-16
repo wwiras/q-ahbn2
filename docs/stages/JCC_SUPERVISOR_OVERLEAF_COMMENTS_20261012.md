@@ -1004,3 +1004,16 @@ A full formal attempt must use a fresh evidence root separate from diagnostic sm
 4. Check evidence integrity, independent readback, and full gate-entry/exit signoff; record any contrary traces as FAIL/correction rather than defending them.
 
 **Release boundary:** D7-P3 remains **HOLD**. D7-P4 operations/cost/cleanup, D7-SM five full workload nonformal smoke runs, D7-F 25 formal runs, D8 analysis, manuscript edits and journal actions are **not** authorized by this entry. Canonical AHBN and manuscript are unchanged. Journal of Cloud Computing manuscript remains **under peer review; unpublished; no DOI**.
+
+
+### D7-P3 follow-up — Docker image and live GKE identity verification (2026-10-16)
+
+**Researcher instruction:** Verify the corrected Docker image and GKE deployment before any D7-P4 release. **Result: NOT VERIFIED / HOLD**, because the currently connected GitHub/Google Drive tools provide repository content and stored evidence, not Docker registry inspection, a running Kubernetes context, or a live `kubectl` pod status. No commands were executed against Docker or GKE and no new deployment was created.
+
+- Re-read GitHub `main` control record and `gke/scripts/verify_k3_q_image.sh`. The verifier pulls `IMAGE` for `linux/amd64`, checks local OS/architecture, and prints repo digests. **It does not verify the running GKE pod spec or status `imageID`, and has no assertion that a supplied source commit is present in the image.** A script's existence is not evidence it ran.
+- Re-listed the canonical Google Drive `output/evidence` folder. It contains historical D5/D6/K5 directories, but no specifically identified, fresh D7-P3 Docker-image inspection or live GKE pod imageID artifact. Folder listing alone is not exhaustive artifact validation.
+- Expected reference remains `docker.io/wwiras/q-ahbn2@sha256:8a47cedb378d9387b87e7e2d5924a4aa2f87053e71da757509b1f19667332466` (source-producing commit `280855900e89b1db5269ace73b4aabf6c7afae88`); not independently attested by live registry/pod inspection in this follow-up.
+
+**Minimum reproducible, read-only operator evidence still needed (no deployment or experiments):** (1) `docker pull --platform linux/amd64 <pinned-image>` and local `docker image inspect` architecture/repo digest, plus bounded entrypoint/import/source-path proof; (2) `kubectl config current-context`, authenticated project/cluster identity, `kubectl get pods -A -o json` capturing spec image, status `containerStatuses[].imageID`, namespace/pod UID/timestamp, with explicit evidence if **no corrected image pod currently exists**; (3) imageID/digest comparison and independently readable, timestamped evidence under a new D7-P3-specific evidence folder; (4) deterministic fanout boundary-harness provenance/readback and researcher signoff. For a nonexistent corrected-image deployment, **do not start one implicitly**: keep deployed-parity HOLD and request a separate bounded deployment/budget decision.
+
+**Decision:** D7-P3 HOLD; D7-P4, D7-SM (0/5), D7-F (0/25) and D8 remain HOLD. Canonical AHBN, experimental parameters, code and manuscript unchanged. Manuscript remains under peer review at Journal of Cloud Computing, unpublished, no DOI.
