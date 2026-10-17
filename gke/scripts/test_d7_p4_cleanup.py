@@ -34,7 +34,7 @@ case "$1" in
     [[ "$2" == namespace ]] && { echo "$RUN_OWNER" > "$MOCK_OWNER"; exit 0; };;
   get)
     if [[ "$2" == namespace ]]; then
-      if [[ "$*" == *jsonpath* ]]; then
+      if [[ "$*" == *jsonpath* || "$*" == *go-template* ]]; then
         if [[ -f "$MOCK_STATE" ]]; then
           if [[ "$*" == *qahbn2-run-owner* ]]; then cat "$MOCK_OWNER" 2>/dev/null || true; else echo mock-namespace-uid; fi
         fi
