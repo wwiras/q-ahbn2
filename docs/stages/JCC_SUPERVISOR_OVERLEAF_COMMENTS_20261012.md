@@ -1308,3 +1308,12 @@ Patched `gke/scripts/d7_sm_canary_readonly_admission.sh` at commit `b5e2f652fbd3
 ### D7-SM researcher cost/deployment consent — 2026-10-17
 
 Researcher explicitly stated: **"accept the GKE usage and potential charges."** This satisfies the separate human consent requirement **for one nonformal Gossip seed-42 canary only**, not any additional smoke or formal runs. Operational release is still subject to final code-path and point-of-execution safety checks; no cloud command was executed by the assistant. Operator must use `SMOKE_MODE=canary` and `SMOKE_AUTHORIZED=YES` only after verifying the intended cluster and dedicated namespace absence; never set `SMOKE_FIVE_AUTHORIZED=YES`. Record complete evidence and independently confirm cleanup before considering the canary PASS. Other four smoke methods, D7-F 0/25 and D8 remain HOLD.
+
+
+### JCC-R1A-C3-D7-SM-V1 — exact-commit local regression, partial (2026-10-17)
+
+**Source commit tested:** `fb264810a545ce26114bbd4608f24bef93deb89e`. Verified exact Git blob identities for both Bash operational scripts; `bash -n` 2/2 PASS; isolated runner fault-injection mocks 16/16 PASS; launcher early-rejection controls 4/4 PASS; local SHA256 evidence verification PASS. The local evidence set is `D7-SM-V1-exact-commit` (regression, launcher negative tests, verification summary, checksum manifest); it is **not yet independently archived in the canonical Drive output/evidence corpus**.
+
+**Limits:** The Python experiment contract module was inspected at the GitHub revision but exact-source Python syntax and full topology-contract integration have **not** been run; the repository's existing five-case D7-P4 test file was not replaced by the separate expanded mock harness. No GKE was contacted, and mocks do not demonstrate GKE scheduling or actual cleanup. Unknown-ownership namespace failures intentionally retain resources and require manual verification.
+
+**Decision: PARTIAL VERIFICATION / HOLD**, not a gate PASS and not an execution release. Gossip NONFORMAL 0/1 HOLD; remaining four smoke tests 0/4 HOLD; formal D7-F 0/25 HOLD; D8 HOLD. Frozen scientific methods unchanged. Manuscript under peer review at *Journal of Cloud Computing*, not published and no DOI. See `docs/stages/JCC_R1A_C3_D7_SM_SAFETY_CORRECTION_20261017.md`.
