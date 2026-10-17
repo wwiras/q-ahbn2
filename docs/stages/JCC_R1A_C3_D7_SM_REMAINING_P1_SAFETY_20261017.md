@@ -21,3 +21,10 @@ Use the committed `gke/scripts/test_d7_p4_cleanup.py`, which copies the **actual
 - Gossip live canary PASS 1/1: https://drive.google.com/drive/folders/1drKb5LsU9CxGAeB34r-TvZrNiu-c5CN_
 - Remaining four smoke 0/4 HOLD; D7-F 0/25 HOLD; D8 HOLD.
 - Q-AHBN manuscript remains **under peer review at Journal of Cloud Computing**, unpublished, no DOI. No NONFORMAL run establishes scientific comparative results.
+
+## 2026-10-17 extended mock preparation
+Researcher confirmed the corrected baseline **5/5 PASS** on commit `c8c1fd1207190f8bd4cbf288dc019930236e50e9`, with local evidence `output/evidence/20261017T121948Z-D7-P4-cleanup-mock`. Earlier 2/5 was a mock incompatibility with production `go-template` label query; production runner remained unchanged.
+
+Prepared four additional local-only cases in `gke/scripts/test_d7_p4_cleanup.py`: UID substitution, owner-label substitution, SIGTERM and SIGINT during mocked rollout. Each run also checks essential local evidence artifacts. Mock subprocesses use temporary sandboxes and fake `kubectl`/`helm`; no cloud deployment. **These four additional tests have not yet been executed/verified by the researcher.** The new matrix is expected 9/9; this is a target, not an observed result.
+
+The original five-case PASS remains valid independently, but the new exact-source runner/harness matrix must be rerun. Launcher-level stop-on-first-failure, topology restoration, SHA256SUMS on abnormal exit, correct placement of RESULT_ROOT, and remaining negative contract checks are still pending. P1-SAFETY remains OPEN / HOLD. No algorithm, shared production runner or manuscript results were changed.
