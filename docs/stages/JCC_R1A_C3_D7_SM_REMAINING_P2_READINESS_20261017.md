@@ -36,3 +36,13 @@ Remaining smoke **0/4 HOLD**; formal D7-F **0/25 HOLD**; D8 **HOLD**. Frozen AHB
 
 ## Researcher scope correction — 2026-10-17
 Researcher directed that **cost must not be considered in Q-AHBN2 gate decisions**. The research workflow is restricted to smoke and formal experiment technical readiness, execution, cleanup and evidence validation, using prior Q-AHBN scripts as guidance. Any earlier cost-ceiling requirements in this review are superseded and must not block progression. No live execution has been authorized by this scope clarification alone.
+
+## P2 technical preflight prepared — 2026-10-17
+
+Read-only preflight script: `gke/scripts/run_d7_smoke_p2_preflight_readonly.sh` (commit `1e88c733`). It performs no namespace create/delete, no Helm deployment, and no experiment run. It inspects installed tools, Git status and remote-main equality, GKE context and reachability, four dedicated namespace absences, pinned image identity, source hashes, and Bash/Python syntax. Evidence outputs: `technical_preflight.txt`, `preflight_status.txt`, `preflight_exit_code.txt`, and `SHA256SUMS` under `output/evidence/<UTC>-D7-SM-P2-readonly`.
+
+Run on researcher's Mac only after syncing latest `main`: `bash gke/scripts/run_d7_smoke_p2_preflight_readonly.sh`. **PREPARED / NOT EXECUTED / LIVE FOUR-METHOD HOLD**. If preflight fails, inspect and resolve technically, do not run the launcher.
+
+References: thesis authority `wwiras/MUM_FIT_ThesisWira`; thesis corpus `1MbsZ9nnndGBKo0ciAx54bFOD9sx_RgDR`; RO4 manuscript `wwiras/QAHBN2-Manuscript`; RO4 manuscript Drive `1oQxyLENPvG-r10zuq62Au7AFyeeSpDxj`; experiments `wwiras/q-ahbn2`; experiments Drive `1a6_WrsZL2iXbFVeMemdujYxvzEqcBFC5`. Q-AHBN manuscript submitted to Journal of Cloud Computing, **under review, not published, no DOI**. No scientific claims, manuscript or frozen controllers altered.
+
+Current status: P1 PASS/CLOSED; P2 READ-ONLY PREFLIGHT PREPARED / NOT YET VERIFIED; NONFORMAL remaining 0/4 HOLD; formal D7-F 0/25 HOLD; D8 HOLD.
