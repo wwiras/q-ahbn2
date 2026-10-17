@@ -47,9 +47,11 @@ for entry in "create namespaces" "get namespaces" "patch namespaces" "delete nam
   set -- $entry
   resource="$2"
   verb="$1"
-  scope=()
-  case "$resource" in namespaces) ;; *) scope=(-n "$NS");; esac
-  answer="$(kubectl auth can-i "$verb" "$resource" "${scope[@]}")" || { echo "HOLD: RBAC query failed: $verb $resource" >&2; exit 1; }
+  if [ "$resource" = namespaces ]; then
+    answer="$(kubectl auth can-i "$verb" "$resource")" || { echo "HOLD: RBAC query failed: $verb $resource" >&2; exit 1; }
+  else
+    answer="$(kubectl auth can-i "$verb" "$resource" -n "$NS")" || { echo "HOLD: RBAC query failed: $verb $resource" >&2; exit 1; }
+  fi
   printf '%s %s: %s\n' "$verb" "$resource" "$answer" >> "$OUT/rbac.txt"
   [ "$answer" = yes ] || { echo "HOLD: missing permission $verb $resource" >&2; exit 1; }
 done
