@@ -41,3 +41,22 @@ Why did dissemination remain low despite 20 ready pods? Explicitly test three co
 The Q-AHBN manuscript *Q-AHBN as a Bounded Q-Learning Refinement for Adaptive Blockchain Dissemination under Dynamic Network Conditions* is **under peer review at Journal of Cloud Computing, not published, no DOI**. Do not make a publication claim or update the manuscript's efficacy interpretation from this NONFORMAL smoke.
 
 Thesis code/text authority: https://github.com/wwiras/MUM_FIT_ThesisWira ; corpus: https://drive.google.com/drive/folders/1MbsZ9nnndGBKo0ciAx54bFOD9sx_RgDR ; manuscript: https://github.com/wwiras/QAHBN2-Manuscript ; manuscript corpus: https://drive.google.com/drive/folders/1oQxyLENPvG-r10zuq62Au7AFyeeSpDxj ; experiment code: https://github.com/wwiras/q-ahbn2 ; experiment corpus: https://drive.google.com/drive/folders/1a6_WrsZL2iXbFVeMemdujYxvzEqcBFC5 . Frozen AHBN and Q-AHBN2 remain unchanged. No evidence for scientific release. **D7-F 0/25 HOLD; D8 HOLD.**
+
+## P3 detailed reconstruction script prepared — 2026-10-17
+- Exact experimental checkout `68aa0830873b9d8cb231d9a27bff1bbc19477128`: fetched `gke/app/peer.py` (blob `2433404c55d0df5e1e341f6e6ffcb22660db1d74`) and `gke/app/qahbn2_runtime.py` (blob `1bc97905f59e7ed701058b08e42a07e30ef934c3`); these agree with the previously inspected current-main blobs for those paths. This verifies **those two source-file identities** at the original checkout; it does not independently extract and attest complete container bytes.
+- Prepared new read-only local script: `gke/scripts/audit_d7_sm_causal_p3_readonly.py` (commit `6e69385cd71c32c54b8a476f35e95dfce10534d8`). Reads each method's existing `peer_stream.jsonl` with streaming JSON object decoding and immutable `churn_events.json`, reconstructs m1–m240 chronological event lists, joins recorded source decisions, target fields, forwarding attempts and terminal observations, attaches validated delivery opportunities, and reports maintenance events where present.
+- Writes only a researcher-designated **separate, initially empty** output directory outside the source corpus with `p3_message_trace.json` and `SHA256SUMS`. Script never uses kubectl, Helm, Docker, gcloud or cloud APIs. Code prepared in GitHub; **not yet researcher-executed, tested against local raw evidence or promoted as verified scientific results**. Avoid interpreting an absent event field as zero.
+- Exact researcher local invocation from clean checkout:
+
+```bash
+ git fetch origin main
+ git merge --ff-only origin/main
+ python3 -m py_compile gke/scripts/audit_d7_sm_causal_p3_readonly.py
+ python3 gke/scripts/audit_d7_sm_causal_p3_readonly.py \\
+   output/evidence/20261017T133327Z-D7-SM-remaining \\
+   --output-dir output/evidence/20261017-D7-SM-CAUSAL-P3-readonly
+ cd output/evidence/20261017-D7-SM-CAUSAL-P3-readonly && shasum -a 256 -c SHA256SUMS
+```
+
+- **Important audit limitation:** first-pass event correlation uses `message_id`; cross-peer clock order and ambiguous action-to-ACK identity require manual validation. Maintenance events lack message IDs and are retained separately. The structured diagnostic row establishes a forwarding exclusion pathway; **no method's intrinsic design defect is yet proven**.
+- Gate: P3 script PREPARED / LOCAL EXECUTION NEXT; P3 causal completeness HOLD; D7-F 0/25 HOLD; D8 HOLD. No GKE activity, algorithm parameter adjustment, original evidence modification or manuscript result change.
