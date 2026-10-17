@@ -67,3 +67,11 @@ The current launcher now rejects symlink components in evidence destination path
 New `gke/scripts/test_d7_smoke_topology_negative.py` (commit `65dea95`) exercises the **real** `k7_exp11_tools.py` validator using locally generated four seed-42 topologies: positive ordered four, wrong seed, five paths, three paths, and wrong order. Target **5/5**, not yet observed. This script creates only local temp files and `output/evidence` metadata, no cloud commands.
 
 Run after fast-forward: `bash -n gke/scripts/run_d7_smoke_remaining.sh`; `python3 -m py_compile gke/scripts/test_d7_smoke_remaining_launcher.py gke/scripts/test_d7_smoke_topology_negative.py`; `python3 gke/scripts/test_d7_smoke_remaining_launcher.py`; `python3 gke/scripts/test_d7_smoke_topology_negative.py`. Preserve and verify JSON and SHA256SUMS for both; independently read canonical Drive evidence before closing P1. **P1 OPEN / LIVE HOLD.** No formal evidence or manuscript claims changed.
+
+## 2026-10-17 researcher final-negative execution — 20/20 LOCAL PASS
+Researcher fast-forwarded to GitHub `9024d7df3080c195826da08a2469825df87edbca`, then completed `bash -n` on launcher, `python3 -m py_compile` on both test scripts, and executed both isolated local suites. Reported results:
+- Launcher mock **15/15 PASS**, `MOCK PASS / LIVE HOLD`, no failures. Local evidence `output/evidence/JCC-R1A-C3-D7-SM-P1-LAUNCHER_20261017210504`.
+- Actual topology-contract validator **5/5 PASS**, `LOCAL PASS / LIVE HOLD`, no failures. Local evidence `output/evidence/JCC-R1A-C3-D7-SM-P1-TOPOLOGY_20261017210511`.
+- Total **20/20** final-negative cases. These supersede the narrower 11/11 suite but do not replace separately verified shared-runner 9/9.
+
+Google Drive search for `JCC-R1A-C3-D7-SM-P1` returned no indexed matching evidence; no canonical Drive JSON/checksum readback is yet possible. Terminal summaries alone do not independently establish the contents of the evidence files or Drive preservation. **P1 remains OPEN / LIVE GKE HOLD** pending checksum and per-case readback plus canonical Drive location confirmation. P2 authorization remains separate and not granted.
