@@ -22,6 +22,11 @@ for method in "${METHODS[@]}"; do
   [[ -z "$(kubectl get namespace "${ns}" --ignore-not-found -o name)" ]] || { echo "HOLD: namespace exists: ${ns}" >&2; exit 1; }
 done
 OUT="${RESULT_ROOT:-${ROOT}/output/evidence/$(date -u +%Y%m%dT%H%M%SZ)-D7-SM-remaining}"
+[[ "${OUT}" == "${ROOT}/output/evidence/"* ]] || { echo "HOLD: RESULT_ROOT outside repository output/evidence" >&2; exit 1; }
+case "${OUT#${ROOT}/output/evidence/}" in
+  ""|/*|../*|*/../*|*/..|./*|*/./*|*/.|*//*)
+    echo "HOLD: unsafe evidence path" >&2; exit 1;;
+esac
 [[ ! -e "${OUT}" ]] || { echo "HOLD: evidence path exists" >&2; exit 1; }
 mkdir -p "${OUT}"/{configs,generated,runs,raw}
 cp gke/helm/ahbn/topology.json "${OUT}/raw/topology_before.json"
