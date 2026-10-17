@@ -34,3 +34,8 @@ Status: **REVIEWED / NOT RELEASED — LIVE GKE HOLD**. This is a read-only revie
 **NOT READY FOR RELEASE / LIVE GKE HOLD** until the researcher supplies an explicit cost and duration ceiling and authorizes read-only current-cluster admission checks. A subsequent review must assess those checks and obtain a separate affirmative approval **before** invoking the real launcher. Do not set `SMOKE_REMAINING_AUTHORIZED=YES` or execute `run_d7_smoke_remaining.sh` as part of this gate.
 
 Remaining smoke **0/4 HOLD**; formal D7-F **0/25 HOLD**; D8 **HOLD**. Frozen AHBN/Q-AHBN2 scientific logic and manuscript unchanged.
+
+## Researcher budget decision — 2026-10-17
+The researcher specified **RM2 maximum additional GKE spend for all four NONFORMAL methods combined**, not per method. Record this as a strict proposed budget ceiling, **not deployment authorization**. No runtime duration, current project billing rate, remaining budget, cost estimate, or cost-enforcement mechanism has been verified. The launcher currently does not implement a monetary budget cutoff; Kubernetes wait timeouts do not constitute cost controls. A run must not start on the assumption that `240 × 0.4 s` is the total billable duration.
+
+**Required before release:** read-only live cluster/project inventory and billing estimate; researcher-approved maximum wall-clock duration and explicit stop/cleanup plan; credible cost bound within RM2 including potential residual resources; and a separate explicit deployment approval. If these cannot be established, choose HOLD or redesign the smoke to fit the ceiling. **LIVE GKE HOLD.**
