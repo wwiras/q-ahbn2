@@ -7,6 +7,8 @@ from __future__ import annotations
 import hashlib
 import json
 import os
+import signal
+import time
 from pathlib import Path
 import shutil
 import subprocess
@@ -36,7 +38,13 @@ case "$1" in
     if [[ "$2" == namespace ]]; then
       if [[ "$*" == *jsonpath* || "$*" == *go-template* ]]; then
         if [[ -f "$MOCK_STATE" ]]; then
-          if [[ "$*" == *qahbn2-run-owner* ]]; then cat "$MOCK_OWNER" 2>/dev/null || true; else echo mock-namespace-uid; fi
+          if [[ "$*" == *qahbn2-run-owner* ]]; then
+            if [[ "$MOCK_CASE" == owner_mismatch && -f "$MOCK_ARMED" ]]; then echo other-owner
+            else cat "$MOCK_OWNER" 2>/dev/null || true; fi
+          else
+            if [[ "$MOCK_CASE" == uid_mismatch && -f "$MOCK_ARMED" ]]; then echo substituted-uid
+            else echo mock-namespace-uid; fi
+          fi
         fi
       elif [[ -f "$MOCK_STATE" ]]; then echo "namespace/$3"; fi
       exit 0
@@ -49,7 +57,14 @@ case "$1" in
       rm -f "$MOCK_STATE"; echo 'namespace deleted'; exit 0
     fi;;
   -n)
-    if [[ "$*" == *"rollout status"* ]]; then echo 'mock rollout failure' >&2; exit 43; fi
+    if [[ "$*" == *"rollout status"* ]]; then
+      touch "$MOCK_ARMED"
+      if [[ "$MOCK_CASE" == term_interrupt || "$MOCK_CASE" == int_interrupt ]]; then
+        echo "mock rollout waiting" >&2
+        while :; do sleep 0.1; done
+      fi
+      echo 'mock rollout failure' >&2; exit 43
+    fi
     exit 0;;
   logs) exit 0;;
   *) exit 0;;
@@ -97,11 +112,12 @@ def run_case(case: str, *, preexisting: bool=False) -> dict:
         for name, code in (("kubectl",KUBECTL),("helm",HELM),("mockpython",PYTHON)):
             put(t/"mockbin"/name,code)
         state, log = t/"namespace_state", t/"mock_calls.txt"
+        armed = t/"rollout_armed"
         owner = t/"namespace_owner"
         if preexisting:
             state.write_text('PREEXISTING\n')
         env = dict(os.environ, PATH=str(t/"mockbin")+os.pathsep+"/usr/bin:/bin",
-                   MOCK_STATE=str(state), MOCK_OWNER=str(owner), MOCK_LOG=str(log), MOCK_CASE=case,
+                   MOCK_STATE=str(state), MOCK_OWNER=str(owner), MOCK_ARMED=str(armed), MOCK_LOG=str(log), MOCK_CASE=case,
                    RUN_OWNER="d7-smoke-qahbn2-d7-smoke-gossip",
                    EXPECTED_CONTEXT=CONTEXT, OUTDIR=str(t/"results"),
                    NAMESPACE="qahbn2-d7-smoke-gossip", RELEASE="qahbn2",
