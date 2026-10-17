@@ -62,3 +62,21 @@ Traversed RO4 Drive corpus `1a6_WrsZL2iXbFVeMemdujYxvzEqcBFC5` to `output/eviden
 
 ## Explicit researcher authorization — 2026-10-17
 Researcher explicitly authorized the **remaining four-method NONFORMAL GKE smoke**, in order: Structured, DC-SoC, AHBN, Q-AHBN2, all seed 42. Authorization is limited to the established D7-SM launcher and excludes formal D7-F and D8. The earlier P2 read-only preflight reported PASS and its Drive evidence was independently verified against SHA256SUMS. **Decision: D7-SM FOUR-METHOD LIVE EXECUTION AUTHORIZED, NOT YET EXECUTED.** The launcher retains all fail-closed admission, runtime digest, cleanup, and evidence requirements. No scientific logic or formal test authorization changed.
+
+## D7-SM remaining four-method live execution and evidence audit — 2026-10-17
+
+Researcher executed authorized NONFORMAL launcher on synchronized `main` at `68aa0830873b9d8cb231d9a27bff1bbc19477128`. Canonical RO4 evidence folder: [20261017T133327Z-D7-SM-remaining](https://drive.google.com/drive/folders/1ol3d0N5lOg1k_KFyvPI93qm5-7o2hM_s). The drive folder contains outer SHA256SUMS, smoke_exit_status.txt, status.txt, prep audit, topology contract, generated configs/topologies, and four per-method run directories.
+
+**Observed operational results:** outer `smoke_exit_status.txt=0`; `status.txt` states independent audit required; all four per-method `validation.txt=PASS`, `experiment_exit_status.txt=0`, `cleanup_status.txt=PASS`, `cleanup_exit_status.txt=0`, and namespace deletion exit statuses `0`. Independently read each of four `pods.json` files: 20/20 pods ready per method (80/80 total); all pod spec images and runtime container imageIDs are exactly the pinned `docker.io/wwiras/q-ahbn2@sha256:8a47cedb378d9387b87e7e2d5924a4aa2f87053e71da757509b1f19667332466`. Per-run and outer SHA256SUMS are present in Drive, but exhaustive checksum verification of the full corpus is **not yet complete**. Historical run-local cleanup reports are PASS; no fresh independent kubectl namespace inventory was executed after the run.
+
+**Scientific caution — NONFORMAL metrics, seed 42 only:**
+| Method | Delivery ratio | Duplicates | Propagation delay (recorded metric) | Recovered / churn events |
+|---|---:|---:|---:|---:|
+| Structured | 0.08127 | 0 | 0.004112 | 1/4 |
+| DC-SoC | 0.08887 | 0 | 0.012833 | 0/4 |
+| AHBN | 0.13075 | 129 | 0.009638 | 0/4 |
+| Q-AHBN2 | 0.34127 | 461 | 0.035115 | 0/4 |
+
+These delivery values are **far below the researcher's historical ≥80% K8s delivery acceptance criterion** and require investigation of metric semantics, generated experiment configuration, run logs, and any differing prior-script conditions *before formal adequacy claims*. A four-method smoke passing its structural validator does not demonstrate effective dissemination or superiority. Do not infer from this single-seed NONFORMAL exercise that Q-AHBN2 is scientifically validated. Zero duplication for Structured/DC-SoC and higher Q-AHBN2 overhead must not be selectively defended.
+
+**Gate decision:** `D7-SM remaining four methods: OPERATIONAL SMOKE 4/4 PASS (runtime/cleanup/validator); SCIENTIFIC ADEQUACY HOLD / FULL EVIDENCE AUDIT PENDING`. Formal `D7-F 0/25 HOLD`; `D8 HOLD`. Next controlled action: `JCC-R1A-C3-D7-SM-POSTRUN-AUDIT-P1` — independently inspect all checksum records, configurations, metrics denominators, logs, and expected-vs-observed behavior; document an evidence-based release or hold decision. No reruns or formal executions authorized by this audit.
