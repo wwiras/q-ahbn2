@@ -60,3 +60,10 @@ Next: rerun launcher 11-case mock on exact new GitHub main; test rejection of ex
 
 ## 2026-10-17 researcher exact-commit rerun after path guard
 Researcher fast-forwarded main to `5481bfbad55d03a31326c7b2c67e85254352b3e2`, ran `bash -n gke/scripts/run_d7_smoke_remaining.sh` without errors, and reran `python3 gke/scripts/test_d7_smoke_remaining_launcher.py`: **11/11 PASS**, `MOCK PASS / LIVE HOLD`, no failed cases. Local evidence: `output/evidence/JCC-R1A-C3-D7-SM-P1-LAUNCHER_20261017210204`. This regression checks the existing 11 cases against the hardened launcher, **not** new outside-path, traversal or symlink-specific negatives. Per-case evidence and canonical Drive readback remain pending. No GKE runs authorized; P1-SAFETY OPEN / HOLD.
+
+## P1-FINAL-NEGATIVE — Prepared, awaiting researcher execution
+The current launcher now rejects symlink components in evidence destination paths (safety-only commit `b677a44`). The isolated launcher mock has four new path-negative cases: outside `output/evidence`, parent traversal, symlink escape, and preexisting evidence directory (test commit `2bdece9`). Its target is **15/15**, not yet observed.
+
+New `gke/scripts/test_d7_smoke_topology_negative.py` (commit `65dea95`) exercises the **real** `k7_exp11_tools.py` validator using locally generated four seed-42 topologies: positive ordered four, wrong seed, five paths, three paths, and wrong order. Target **5/5**, not yet observed. This script creates only local temp files and `output/evidence` metadata, no cloud commands.
+
+Run after fast-forward: `bash -n gke/scripts/run_d7_smoke_remaining.sh`; `python3 -m py_compile gke/scripts/test_d7_smoke_remaining_launcher.py gke/scripts/test_d7_smoke_topology_negative.py`; `python3 gke/scripts/test_d7_smoke_remaining_launcher.py`; `python3 gke/scripts/test_d7_smoke_topology_negative.py`. Preserve and verify JSON and SHA256SUMS for both; independently read canonical Drive evidence before closing P1. **P1 OPEN / LIVE HOLD.** No formal evidence or manuscript claims changed.
