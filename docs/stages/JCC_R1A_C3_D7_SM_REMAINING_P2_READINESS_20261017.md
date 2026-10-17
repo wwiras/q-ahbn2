@@ -59,3 +59,6 @@ Traversed RO4 Drive corpus `1a6_WrsZL2iXbFVeMemdujYxvzEqcBFC5` to `output/eviden
 - `technical_preflight.txt`: recorded exact context, all four namespaces ABSENT, Git HEAD=remote main `02133b1ea0ad335db66f663a5d6bfd5ce77c3dad`, and expected launcher/runner/validator hashes; SHA256 `22de17e42c8d4b612f31c11876cb720ce23cecabd70106653a9166c39e07b2a1` — MATCH.
 
 **Decision: P2 READ-ONLY TECHNICAL PREFLIGHT PASS / EVIDENCE VERIFIED.** This does not establish runtime parity or authorize the remaining live smoke. Separate explicit researcher approval is required before setting `SMOKE_REMAINING_AUTHORIZED=YES` and running the launcher. NONFORMAL 0/4 HOLD; D7-F 0/25 HOLD; D8 HOLD.
+
+## Explicit researcher authorization — 2026-10-17
+Researcher explicitly authorized the **remaining four-method NONFORMAL GKE smoke**, in order: Structured, DC-SoC, AHBN, Q-AHBN2, all seed 42. Authorization is limited to the established D7-SM launcher and excludes formal D7-F and D8. The earlier P2 read-only preflight reported PASS and its Drive evidence was independently verified against SHA256SUMS. **Decision: D7-SM FOUR-METHOD LIVE EXECUTION AUTHORIZED, NOT YET EXECUTED.** The launcher retains all fail-closed admission, runtime digest, cleanup, and evidence requirements. No scientific logic or formal test authorization changed.
