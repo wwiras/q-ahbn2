@@ -4276,3 +4276,7 @@ Scientific boundary:
 - this gate registers and verifies the final compiled JoCC proof only.
 
 **Result:** `main05Oct2026_2329.pdf` is the current registered JoCC compiled manuscript proof following S20-17E/F closure.
+
+
+### JCC-R1A-C3-D7-SM operational correction (2026-10-17)
+Safety-only code patch staged in `gke/scripts/run_d7_smoke.sh`, `gke/scripts/run_k7_experiment.sh`, and `gke/app/k7_exp11_tools.py`; see `docs/stages/JCC_R1A_C3_D7_SM_SAFETY_CORRECTION_20261017.md`. A separate local prototype completed 13/13 mock failure checks, but **exact committed-source regression and evidence reconciliation are not yet complete**; the gate is **HOLD**. Gossip canary 0/1 HOLD; other smoke 0/4 HOLD; D7-F 0/25 HOLD; D8 HOLD. No GKE executions permitted. Scientific design frozen. Manuscript: under peer review at *Journal of Cloud Computing*, unpublished, no DOI.
