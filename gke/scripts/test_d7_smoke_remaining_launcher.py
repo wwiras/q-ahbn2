@@ -46,7 +46,7 @@ case "$1" in
      shift 3
      [[ "$#" -eq 4 ]] || exit 85
      for m in structured dcsoc ahbn qahbn2; do
-       [[ "$1" == *"/\${m}_seed42.json" && -s "$1" ]] || exit 86
+       [[ "$1" == *"/${m}_seed42.json" && -s "$1" ]] || exit 86
        shift
      done
      echo 'MOCK CONTRACT PASS'
@@ -59,8 +59,8 @@ esac
 '''
 FAKE_RUNNER=r'''#!/bin/bash
 set -Eeuo pipefail
-[[ "\${MOCK_RUNNER_OK:-}" == YES ]] || exit 90
-method="\${NAMESPACE#qahbn2-d7-smoke-}"
+[[ "${MOCK_RUNNER_OK:-}" == YES ]] || exit 90
+method="${NAMESPACE#qahbn2-d7-smoke-}"
 printf 'runner %s\n' "$method" >> "$MOCK_LOG"
 printf '{"changed":"%s"}\n' "$method" > "$(dirname "$0")/../helm/ahbn/topology.json"
 echo 'mock log' > "$OUTDIR/experiment.log"
