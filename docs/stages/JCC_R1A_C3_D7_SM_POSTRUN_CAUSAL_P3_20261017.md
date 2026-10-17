@@ -60,3 +60,21 @@ Thesis code/text authority: https://github.com/wwiras/MUM_FIT_ThesisWira ; corpu
 
 - **Important audit limitation:** first-pass event correlation uses `message_id`; cross-peer clock order and ambiguous action-to-ACK identity require manual validation. Maintenance events lack message IDs and are retained separately. The structured diagnostic row establishes a forwarding exclusion pathway; **no method's intrinsic design defect is yet proven**.
 - Gate: P3 script PREPARED / LOCAL EXECUTION NEXT; P3 causal completeness HOLD; D7-F 0/25 HOLD; D8 HOLD. No GKE activity, algorithm parameter adjustment, original evidence modification or manuscript result change.
+
+## P3 detailed read-only trace script availability and execution gate — 2026-10-17
+
+A P3 local-only script already exists on main at `gke/scripts/audit_d7_sm_causal_p3_readonly.py` (readback blob `2d293bb69864804e0850e9c68c91d038e786a69d`). It reconstructs 240 message records per method, records original event-stream SHA256, includes source decisions and first-pass hop events and DC-SoC maintenance, and writes a separate `p3_message_trace.json` and `SHA256SUMS` to `--output-dir`. Script inspection PASS for absence of live GKE calls; per-message and method scientific classification remain UNVERIFIED until researcher executes and shares hashed output. Guardrails: choose a fresh output directory outside original evidence; confirm 240 records per method; validate output SHA256; distinguish intermediate terminal/event totals from reconciled ACK outcomes. Original Drive evidence hierarchy was rechecked and contains all four method `peer_stream.jsonl` and `churn_events.json` files. Direct inline Drive text fetch of large peer streams yielded no readable content, so no independent message-by-message execution or root-cause closure is claimed here.
+
+Researcher local command:
+
+```bash
+git fetch origin main
+git merge --ff-only origin/main
+python3 gke/scripts/audit_d7_sm_causal_p3_readonly.py \
+  output/evidence/20261017T133327Z-D7-SM-remaining \
+  --output-dir output/evidence/20261017-D7-SM-CAUSAL-P3-readonly
+cd output/evidence/20261017-D7-SM-CAUSAL-P3-readonly
+shasum -a 256 -c SHA256SUMS
+```
+
+Stop without overwriting an existing nonempty output directory; no GKE or experimental rerun. The script's `first_pass_trace` represents an observed event sequence, not an independently proven time-ordered causal graph. **P3 detailed reconstruction execution PENDING; D7-F and D8 HOLD.**
