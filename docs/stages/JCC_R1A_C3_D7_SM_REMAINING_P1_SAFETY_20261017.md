@@ -57,3 +57,6 @@ Source review found `run_d7_smoke_remaining.sh` previously accepted arbitrary `R
 Independent Drive search for `JCC-R1A-C3-D7-SM-P1-LAUNCHER_20261017205812` returned no result. The local evidence path was reported by the researcher but canonical Drive preservation/readback is **not verified**. Do not promote local output to authoritative evidence on this basis.
 
 Next: rerun launcher 11-case mock on exact new GitHub main; test rejection of external and traversal RESULT_ROOT, and wrong seed/five topologies using the actual validator; inspect SHA256SUMS and Drive evidence. **LIVE RELEASE HOLD.**
+
+## 2026-10-17 researcher exact-commit rerun after path guard
+Researcher fast-forwarded main to `5481bfbad55d03a31326c7b2c67e85254352b3e2`, ran `bash -n gke/scripts/run_d7_smoke_remaining.sh` without errors, and reran `python3 gke/scripts/test_d7_smoke_remaining_launcher.py`: **11/11 PASS**, `MOCK PASS / LIVE HOLD`, no failed cases. Local evidence: `output/evidence/JCC-R1A-C3-D7-SM-P1-LAUNCHER_20261017210204`. This regression checks the existing 11 cases against the hardened launcher, **not** new outside-path, traversal or symlink-specific negatives. Per-case evidence and canonical Drive readback remain pending. No GKE runs authorized; P1-SAFETY OPEN / HOLD.
