@@ -82,3 +82,11 @@ Researcher executed `shasum -a 256 -c SHA256SUMS` separately in both final-negat
 - `output/evidence/JCC-R1A-C3-D7-SM-P1-TOPOLOGY_20261017210511`: `topology_negative.json: OK`.
 
 This confirms researcher-reported **local SHA256 integrity PASS 2/2**, in addition to test summaries 15/15 and 5/5. It does **not** independently verify canonical Google Drive preservation or per-case JSON readback from Drive. P1 OPEN / LIVE GKE HOLD; P2 not authorized.
+
+## 2026-10-17 canonical Drive readback — P1 local safety CLOSED / PASS
+Independently traversed canonical RO4 Drive corpus `1a6_WrsZL2iXbFVeMemdujYxvzEqcBFC5` → `output/evidence` folder `1bONTh6_TvcZ1oNL13zT_ktKw1h1rzCa0`. Located and fetched:
+- Launcher folder `1pJ2wTOgk_JrTjmzUHo-YDJyAOULcbzeh`, `launcher_mock.json` and `SHA256SUMS`. Parsed JSON: **15/15 PASS**, no failed cases, commit `9024d7df3080c195826da08a2469825df87edbca`. Calculated SHA256 `7110e77ee35737a64f2e71d37543b3b0f453191747b213c1593e030f3c858bae`, matching Drive checksum record.
+- Topology folder `14w4sLInnddiAwa_NYaGpk8VIiayYRsiY`, `topology_negative.json` and `SHA256SUMS`. Parsed JSON: **5/5 PASS**, no failed cases, same commit. Calculated SHA256 `755c0e0c31c80d1ef23bffc3d522f47675d2da09962747b65e17c64c490513ff`, matching Drive checksum record.
+- Earlier researcher local checksum verification: 2/2 PASS. Shared runner separate 9/9 local PASS, as previously recorded.
+
+**Decision: JCC-R1A-C3-D7-SM-REMAINING-P1-SAFETY — PASS / CLOSED for local-only admission and regression evidence.** This does not validate actual GKE execution, deployed image parity, Kubernetes cleanup under live conditions, or scientific comparative outcomes. **P2 LIVE AUTHORIZATION — NOT GRANTED / HOLD**; four-method smoke 0/4 HOLD; D7-F 0/25 HOLD; D8 HOLD. P2 must be separately reviewed and explicitly approved by researcher before any cloud spending. Safety-only code modifications occurred after tested source commit; the P1 evidence remains pinned to `9024d7d`.
