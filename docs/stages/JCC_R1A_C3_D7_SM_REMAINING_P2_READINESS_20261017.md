@@ -19,7 +19,7 @@ Status: **TECHNICAL READINESS REVIEW / LIVE GKE HOLD**. This is a read-only revi
 | Cleanup | MOCK PASS; live unverified | Dedicated namespace owner UID/label verified; delete only owned namespace; cleanup PASS and namespace absence after each run |
 | Failure and interruption | MOCK PASS for tested signals | Stop on any error; inspect orphaned resources manually on ownership mismatch; SIGKILL cannot guarantee cleanup |
 | Evidence | P1 Drive PASS; P2 pending | Per-method run artifacts, exit statuses, namespace cleanup, runtime parity, SHA256SUMS and independent Drive readback |
-| Researcher approval | NOT GIVEN | Explicit separate authorization specifying this NONFORMAL four-method run and cost/time ceiling |
+| Researcher approval | NOT GIVEN | Explicit authorization specifying the NONFORMAL four-method run only |
 
 ## Source observations and risks
 1. The launcher checks authorization `SMOKE_REMAINING_AUTHORIZED=YES`, rejects legacy `SMOKE_AUTHORIZED=YES`, requires exact context, clean Git and remote-main equality, pinned image, namespace absence, and safe output/evidence path.
@@ -33,11 +33,6 @@ Status: **TECHNICAL READINESS REVIEW / LIVE GKE HOLD**. This is a read-only revi
 **TECHNICAL ADMISSION PENDING / LIVE GKE HOLD** until read-only current-cluster checks verify context, dedicated namespace absence, image readiness and code provenance. Following those checks, obtain explicit researcher approval for the NONFORMAL four-method smoke **before** invoking the real launcher. Cost and budget decisions belong exclusively to the researcher and are not a release criterion for this gate. Do not set `SMOKE_REMAINING_AUTHORIZED=YES` or execute `run_d7_smoke_remaining.sh` as part of this gate.
 
 Remaining smoke **0/4 HOLD**; formal D7-F **0/25 HOLD**; D8 **HOLD**. Frozen AHBN/Q-AHBN2 scientific logic and manuscript unchanged.
-
-## Researcher budget decision — 2026-10-17
-The researcher specified **RM2 maximum additional GKE spend for all four NONFORMAL methods combined**, not per method. Record this as a strict proposed budget ceiling, **not deployment authorization**. No runtime duration, current project billing rate, remaining budget, cost estimate, or cost-enforcement mechanism has been verified. The launcher currently does not implement a monetary budget cutoff; Kubernetes wait timeouts do not constitute cost controls. A run must not start on the assumption that `240 × 0.4 s` is the total billable duration.
-
-**Required before release:** read-only live cluster/project inventory and billing estimate; researcher-approved maximum wall-clock duration and explicit stop/cleanup plan; credible cost bound within RM2 including potential residual resources; and a separate explicit deployment approval. If these cannot be established, choose HOLD or redesign the smoke to fit the ceiling. **LIVE GKE HOLD.**
 
 ## Researcher scope correction — 2026-10-17
 Researcher directed that **cost must not be considered in Q-AHBN2 gate decisions**. The research workflow is restricted to smoke and formal experiment technical readiness, execution, cleanup and evidence validation, using prior Q-AHBN scripts as guidance. Any earlier cost-ceiling requirements in this review are superseded and must not block progression. No live execution has been authorized by this scope clarification alone.
