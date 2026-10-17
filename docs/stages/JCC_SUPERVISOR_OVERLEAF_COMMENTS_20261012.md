@@ -1246,3 +1246,14 @@ Operational-only changes on `main`: `run_k7_experiment.sh` now creates the names
 **Validation not yet established:** source updates are committed, but the updated mock test and local validation must be executed by the researcher; previous 5/5 mock result applied to the prior runner and cannot be reused. Conservative limitation: if namespace creation succeeds but UID retrieval/labeling fails before verified ownership, the script may leave an orphaned namespace rather than delete an unverified resource. An operator must inspect and resolve it before proceeding. SIGKILL/host crash cannot guarantee cleanup. No GKE execution or cloud expenditure was authorized.
 
 **Decision:** D7-P4 updated code PENDING LOCAL VALIDATION / LIVE HOLD; D7-SM 0/5 HOLD; D7-F 0/25 HOLD; D8 HOLD. Next researcher actions: `git pull origin main`; `bash gke/scripts/d7_p4_local_validate.sh`; `python3 gke/scripts/test_d7_p4_cleanup.py`. Inspect terminal outputs and archived evidence before any separately authorized Gossip canary. Frozen science and submitted manuscript unchanged; manuscript under review at *Journal of Cloud Computing*, unpublished and without DOI.
+
+
+### D7-P4 revised ownership/canary scripts — operator local rerun (2026-10-17)
+
+The researcher executed `bash gke/scripts/d7_p4_local_validate.sh` and `python3 gke/scripts/test_d7_p4_cleanup.py`. Terminal evidence reports all 25 frozen method×seed topologies generated, chart render of 20-peer StatefulSet and controller Job with pinned digest, and `STATIC AND HELM TEMPLATE PASS; D7-P4 LIVE OPERATIONS STILL HOLD`. Revised cleanup mock reports 5/5 PASS with `MOCK PASS / LIVE GKE HOLD`.
+
+Evidence was found in connected canonical Q-AHBN2 Drive:
+- Static/Helm run: https://drive.google.com/drive/folders/1bk96DGsH7lmB_KoGv8jpi8sSqefrcYPG (timestamp `20261017T081755Z`); `decision.txt` confirmed; `git_commit.txt` = `20a4a786293442ee13fed2c1401096987950050f`.
+- Revised mock run: https://drive.google.com/drive/folders/1MInLVjEZc6xIzicnRFitDEjxL5Wn3H1G (timestamp `20261017T081921Z`); `mock_cleanup.json` and `SHA256SUMS` archived. Five-case PASS based on researcher terminal; full JSON/checksum content not independently recalculated in this review.
+
+**Bounded adjudication:** D7-P4 revised local/static and mock tests **PASS in their stated scope**. No real GKE namespace ownership, RBAC, scheduling, churn, metrics, or cleanup was observed. The mock does not prove that owner-label failures or abrupt process termination leave no orphan. **D7-P4 live admission stays HOLD**. One seed-42 Gossip canary is the next *candidate* release, requiring an explicit separate researcher authorization and live safeguards; do not run automatically. D7-SM 0/5 HOLD; D7-F 0/25 HOLD; D8 HOLD. Scientific parameters unchanged. Manuscript remains under peer review at *Journal of Cloud Computing*, unpublished, no DOI.
