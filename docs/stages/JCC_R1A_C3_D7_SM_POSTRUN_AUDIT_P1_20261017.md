@@ -52,3 +52,26 @@ The prior Gossip canary delivered ~85.15% under the documented seed-42 K7 worklo
 **P1 causal audit: root-cause candidate for Structured is strongly evidenced; other methods require further mechanism audit. Full evidence integrity verification PENDING.** Operational four-method smoke **4/4 PASS** for scripted validator and recorded cleanup, but **scientific adequacy HOLD**. `D7-F 0/25 HOLD`; `D8 HOLD`. No algorithm, actuator, RL, metric, experiment or publication changes authorized.
 
 Researcher next executes ONLY the read-only audit script against existing evidence, preserves its JSON output separately, and reports checksum status. Next technical gate should inspect post-churn neighbor re-eligibility and AHBN/Q-AHBN2 realized-target propagation without changing frozen designs or running GKE until an explicitly reviewed correction and new smoke plan exists.
+
+
+## 7. Researcher execution of exhaustive read-only integrity audit — 2026-10-17
+
+Researcher executed on their Mac after fast-forward synchronization of GitHub `main` from experiment/source checkpoint `68aa083` to `4888b99`:
+
+```bash
+python3 gke/scripts/audit_d7_sm_postrun_readonly.py output/evidence/20261017T133327Z-D7-SM-remaining
+```
+
+The complete terminal JSON was provided directly in the controlled chat, reporting `integrity_decision: PASS` without errors:
+
+- Outer SHA256SUMS: **108 / 108 entries PASS** (the script also checks complete file inventory, absence of symlinks, safe relative paths and duplicate entries).
+- Method manifests: **23 / 23 per method PASS**, for Structured, DC-SoC, AHBN, Q-AHBN2.
+- Ready pods: **20 / 20 per method**, with pinned spec/runtime image identity.
+- Delivery opportunity counts: **240 / 240 per method**, with computed ratios exactly agreeing with `metrics.json`: Structured **388 / 4774 = 0.08127356514453289**; DC-SoC **423 / 4760 = 0.0888655462184874**; AHBN **623 / 4765 = 0.13074501573976915**; Q-AHBN2 **1633 / 4785 = 0.3412748171368861**.
+- Operational validation and recorded cleanup statuses satisfy the audit script. The original local evidence tree was read, not rewritten; no live GKE activity was requested or executed by this step.
+
+**Verification scope:** This is the researcher's reported local read-only verification against its local evidence corpus, corroborating the earlier selected independent Google Drive byte/hash checks. The terminal output was provided in chat; a separate SHA256-stamped audit-result file has **not** yet been verified in canonical Drive. A new independent cloud inventory of cleanup/namespace absence was **not** performed in this step. These limitations must not be turned into a contradictory checksum HOLD.
+
+**Updated decision: P1 EVIDENCE-INTEGRITY AUDIT PASS / CLOSED (local corpus). Scientific adequacy remains HOLD** because dissemination coverage is low and mechanism diagnosis is incomplete for DC-SoC, AHBN and Q-AHBN2. Structured forwarding/neighbor eligibility failure is supported but does not establish sole cause across methods. NONFORMAL smoke: **4/4 operational PASS**. Formal **D7-F 0/25 HOLD; D8 HOLD**. No modifications to frozen scientific parameters, manuscripts, metric definitions or experimental results.
+
+**Next controlled gate candidate:** `JCC-R1A-C3-D7-SM-POSTRUN-CAUSAL-P2` — read-only method-specific forwarding, failed/recovered neighbor eligibility, and Q-AHBN2 decision/realization reconstruction from intact seed42 logs, including separate proposed corrections only after provenance and effect are established. No GKE execution or science modification is released by this P1 closeout.
