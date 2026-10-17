@@ -99,6 +99,14 @@ def test(case):
         if case=="no_auth":env.pop("SMOKE_REMAINING_AUTHORIZED",None)
         if case=="legacy_auth":env["SMOKE_AUTHORIZED"]="YES"
         if case=="wrong_image":env["IMAGE"]="unapproved-image"
+        if case=="outside_evidence":env["RESULT_ROOT"]=str(t/"outside"/"mock-run")
+        if case=="path_traversal":env["RESULT_ROOT"]=str(t/"output/evidence/../escape")
+        if case=="symlink_escape":
+            (t/"output/evidence/link").symlink_to(t/"outside",target_is_directory=True)
+            env["RESULT_ROOT"]=str(t/"output/evidence/link/mock-run")
+        if case=="existing_evidence":
+            dest.mkdir(parents=True)
+            (dest/"marker.txt").write_text("PRESERVE")
         p=subprocess.run(["/bin/bash",str(t/"gke/scripts/run_d7_smoke_remaining.sh")],
                          cwd=t,env=env,capture_output=True,text=True,timeout=20)
         calls=log.read_text().splitlines() if log.exists() else []
@@ -128,7 +136,11 @@ def test(case):
             if case=="cleanup_hold":
                 ok=ok and (dest/"runs/structured/cleanup_status.txt").read_text().strip()=="HOLD"
         else:
-            ok=p.returncode!=0 and not dest.exists() and restored and not methods
+            ok=p.returncode!=0 and restored and not methods
+            if case=="existing_evidence":
+                ok=ok and (dest/"marker.txt").read_text()=="PRESERVE" and not (dest/"SHA256SUMS").exists()
+            else:
+                ok=ok and not dest.exists()
         return {"case":case,"pass":bool(ok),"exit_code":p.returncode,"runner_methods":methods,
                 "topology_restored":restored,"evidence_created":dest.exists(),
                 "checksum_verified":hashes_ok,"stderr":p.stderr[-700:]}
@@ -137,7 +149,8 @@ def main():
     assert SRC.is_file() and RUNNER.is_file()
     OUT.mkdir(parents=True,exist_ok=False)
     cases=("no_auth","legacy_auth","wrong_context","dirty_git","wrong_remote",
-           "namespace_exists","wrong_image","runner_failure","cleanup_hold",
+           "namespace_exists","wrong_image","outside_evidence","path_traversal",
+           "symlink_escape","existing_evidence","runner_failure","cleanup_hold",
            "validation_failure","success_all")
     rows=[test(x) for x in cases]
     commit=subprocess.run(["git","rev-parse","HEAD"],cwd=ROOT,capture_output=True,text=True)
