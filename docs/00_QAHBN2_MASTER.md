@@ -4280,3 +4280,7 @@ Scientific boundary:
 
 ### JCC-R1A-C3-D7-SM operational correction (2026-10-17)
 Safety-only code patch staged in `gke/scripts/run_d7_smoke.sh`, `gke/scripts/run_k7_experiment.sh`, and `gke/app/k7_exp11_tools.py`; see `docs/stages/JCC_R1A_C3_D7_SM_SAFETY_CORRECTION_20261017.md`. A separate local prototype completed 13/13 mock failure checks, but **exact committed-source regression and evidence reconciliation are not yet complete**; the gate is **HOLD**. Gossip canary 0/1 HOLD; other smoke 0/4 HOLD; D7-F 0/25 HOLD; D8 HOLD. No GKE executions permitted. Scientific design frozen. Manuscript: under peer review at *Journal of Cloud Computing*, unpublished, no DOI.
+
+
+### JCC-R1A-C3-D7-SM-V1 exact-commit regression (2026-10-17)
+Source revision `fb264810a545ce26114bbd4608f24bef93deb89e`: Git blob SHA1 matched for both operational Bash scripts, `bash -n` 2/2 PASS, experiment runner local fault injections 16/16 PASS, and smoke-launcher early-rejection mocks 4/4 PASS. SHA256 evidence manifest verified. These are **local mocks**, not GKE or scientific data. Full exact-source Python syntax, end-to-end canary topology-contract integration, and Google Drive evidence registration remain unverified. **Decision: D7-SM-V1 PARTIAL VERIFICATION / HOLD.** Gossip 0/1 HOLD; other smoke 0/4 HOLD; D7-F 0/25 HOLD; D8 HOLD. See `docs/stages/JCC_R1A_C3_D7_SM_SAFETY_CORRECTION_20261017.md`. Q-AHBN manuscript under peer review at *Journal of Cloud Computing*, unpublished, no DOI.
