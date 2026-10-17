@@ -414,7 +414,7 @@ def main():
     p=argparse.ArgumentParser(); s=p.add_subparsers(dest="cmd",required=True)
     c=s.add_parser("config"); c.add_argument("--base",type=Path,required=True); c.add_argument("--out",type=Path,required=True); c.add_argument("--algorithm",choices=ALGORITHMS,required=True); c.add_argument("--seed",type=int,required=True); c.add_argument("--feasibility-dcsoc",action="store_true")
     e=s.add_parser("enrich"); e.add_argument("--topology",type=Path,required=True); e.add_argument("--config",type=Path,required=True)
-    v=s.add_parser("contract"); v.add_argument("paths",nargs="+",type=Path); v.add_argument("--canary-gossip-seed42",action="store_true")
+    v=s.add_parser("contract"); v.add_argument("paths",nargs="+",type=Path); v.add_argument("--canary-gossip-seed42",action="store_true"); v.add_argument("--remaining-four-seed42",action="store_true")
     r=s.add_parser("run"); r.add_argument("--run-dir",type=Path,required=True)
     f=s.add_parser("feasibility-contract"); f.add_argument("path",type=Path)
     t=s.add_parser("target-selection"); t.add_argument("--base",type=Path,required=True); t.add_argument("--out",type=Path,required=True); t.add_argument("--seed",type=int,required=True)
@@ -423,7 +423,12 @@ def main():
     if a.cmd=="config": write_config(a.base,a.out,a.algorithm,a.seed,a.feasibility_dcsoc)
     elif a.cmd=="enrich": enrich_topology(a.topology,a.config)
     elif a.cmd=="contract":
-        if a.canary_gossip_seed42:
+        if a.canary_gossip_seed42 and a.remaining_four_seed42: raise ValueError("mutually exclusive smoke contract modes")
+        if a.remaining_four_seed42:
+            if len(a.paths)!=4: raise ValueError("remaining smoke requires exactly four topologies")
+            if any(json.loads(p.read_text()).get("k7_exp11",{}).get("seed")!=42 for p in a.paths): raise ValueError("remaining smoke seed must be 42")
+            validate_topologies(a.paths,expected=("structured","dcsoc","ahbn","qahbn2"))
+        elif a.canary_gossip_seed42:
             if len(a.paths)!=1: raise ValueError("canary requires exactly one topology")
             if json.loads(a.paths[0].read_text()).get("k7_exp11",{}).get("seed")!=42: raise ValueError("canary seed must be 42")
             validate_topologies(a.paths,expected=("gossip",))
