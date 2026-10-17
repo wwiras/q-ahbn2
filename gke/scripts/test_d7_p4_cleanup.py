@@ -135,7 +135,7 @@ def run_case(case: str, *, preexisting: bool=False) -> dict:
                         break
                     time.sleep(0.05)
                 assert armed.exists(), "mock runner did not reach rollout"
-                os.kill(p.pid,signal.SIGTERM if case=="term_interrupt" else signal.SIGINT)
+                os.killpg(p.pid,signal.SIGTERM if case=="term_interrupt" else signal.SIGINT)
                 stdout,stderr=p.communicate(timeout=12)
             finally:
                 if p.poll() is None:
