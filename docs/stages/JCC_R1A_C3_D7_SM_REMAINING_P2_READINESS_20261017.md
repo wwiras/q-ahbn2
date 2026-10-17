@@ -51,3 +51,11 @@ Current status: P1 PASS/CLOSED; P2 READ-ONLY PREFLIGHT PREPARED / NOT YET VERIFI
 Researcher fast-forwarded to `02133b1ea0ad335db66f663a5d6bfd5ce77c3dad` (local HEAD = remote main) and executed `bash gke/scripts/run_d7_smoke_p2_preflight_readonly.sh`. Terminal reports `decision=PASS_READ_ONLY`. Correct context `gke_stoked-cosine-415611_us-central1-a_bcgossip-cluster`; four method namespaces ABSENT; cluster-info succeeded; pinned image reference as contracted. SHA256 source fingerprints: launcher `d878ce3ba76a5d4e8863abf1132c431bb7b9d419dc3204d18746f0634f2f7407`, runner `ec0f54068ceec9e06fa8fea56f286dce4d4d8e8b91606f0e82b325131be5d132`, validator `2862f8b6dfce5ae9f43808ae05e486d0a3d8c64ab9f557df0dda32d93a5f49e7`. Local evidence `output/evidence/20261017T132927Z-D7-SM-P2-readonly`.
 
 This is a researcher-reported terminal result; local SHA256SUMS verification and independent Drive readback of preflight files remain pending. **P2 READ-ONLY TECHNICAL PREFLIGHT REPORTED PASS / EVIDENCE AUDIT PENDING. LIVE FOUR-METHOD SMOKE HOLD**, formal D7-F and D8 HOLD. Do not treat this as deployed image parity.
+
+## P2 independent canonical Drive evidence readback — PASS
+Traversed RO4 Drive corpus `1a6_WrsZL2iXbFVeMemdujYxvzEqcBFC5` to `output/evidence/20261017T132927Z-D7-SM-P2-readonly` (folder ID `1ObIFtAwmC-rY5DoHObF2Cj0Y1Tfo-bok`). Fetched all four files and compared SHA256SUMS against downloaded bytes:
+- `preflight_exit_code.txt`: `0`; SHA256 `9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa` — MATCH.
+- `preflight_status.txt`: `PASS_READ_ONLY`; SHA256 `f344a82801f4e2d741ec1c730476a3b3e66e9de1a0a5e645c3adae5fbd16a2da` — MATCH.
+- `technical_preflight.txt`: recorded exact context, all four namespaces ABSENT, Git HEAD=remote main `02133b1ea0ad335db66f663a5d6bfd5ce77c3dad`, and expected launcher/runner/validator hashes; SHA256 `22de17e42c8d4b612f31c11876cb720ce23cecabd70106653a9166c39e07b2a1` — MATCH.
+
+**Decision: P2 READ-ONLY TECHNICAL PREFLIGHT PASS / EVIDENCE VERIFIED.** This does not establish runtime parity or authorize the remaining live smoke. Separate explicit researcher approval is required before setting `SMOKE_REMAINING_AUTHORIZED=YES` and running the launcher. NONFORMAL 0/4 HOLD; D7-F 0/25 HOLD; D8 HOLD.
