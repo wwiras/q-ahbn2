@@ -29,3 +29,12 @@ The archive already existed in Drive; no duplicate copy was needed or claimed. C
 **Drive evidence archival: PASS. Final safety review: COMPLETE WITH CONDITIONS / LIVE EXECUTION HOLD.** The single Gossip seed-42 canary is **NOT RELEASED** at this point. Next action: researcher performs a fresh READ-ONLY point-of-execution admission and exact GitHub revision reconciliation; independent review must explicitly release exactly one NONFORMAL Gossip canary. Assistant did not contact GKE or incur charges.
 
 Gate states: D7-SM-V1 LOCAL PASS; D7-SM-CANARY HOLD (0/1); remaining smoke HOLD (0/4); D7-F HOLD (0/25); D8 HOLD. The Q-AHBN manuscript is under peer review at *Journal of Cloud Computing*, not published, no DOI.
+
+
+## P1 — Exact GitHub revision and fresh GKE read-only admission (2026-10-17)
+
+**Read-only GitHub verification:** `wwiras/q-ahbn2` main was checked at `8856c7158768250ae240b20d48aee9086057a3d1`. The pinned launcher Git blob remains `5e9d7611f6118bf4b6484db919b0dce44ea2f891`; it limits execution to a single seed-42 Gossip canary, verifies pinned image and expected context, and requires a clean working tree. A clean worktree **does not** establish parity with GitHub remote HEAD. The current launcher does not itself enforce local HEAD = remote `origin/main`; preserve this limitation and require explicit operator read-only check.
+
+**GKE admission:** No live GKE connectivity from the assistant. Prior seven-Ready-node / 11-permission / namespace-absent record is historical, and **must not be counted as fresh**. Fresh kubectl context, cluster nodes, capacity, namespace absence, and effective RBAC are **NOT VERIFIED**. The researcher must execute read-only checks on their own GKE-authenticated machine and save their unedited outputs and SHA256 evidence to the canonical `q-ahbn2/output/evidence` corpus. Do not use `SMOKE_AUTHORIZED=YES` during this step.
+
+**Decision:** `JCC-R1A-C3-D7-SM-CANARY-P1` remains **HOLD / awaiting operator read-only evidence**. Gossip 0/1 HOLD, other smoke 0/4 HOLD, D7-F 0/25 HOLD, D8 HOLD. No GKE deployment or billing action was performed by assistant. Frozen scientific design unchanged; Q-AHBN manuscript under peer review at *Journal of Cloud Computing*, unpublished and no DOI.
