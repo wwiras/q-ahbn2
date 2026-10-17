@@ -125,8 +125,25 @@ def run_case(case: str, *, preexisting: bool=False) -> dict:
                    PYTHON=str(t/"mockbin/mockpython"))
         assert shutil.which('kubectl',path=env['PATH']) == str(t/"mockbin/kubectl")
         assert shutil.which('helm',path=env['PATH']) == str(t/"mockbin/helm")
-        proc = subprocess.run(["/bin/bash",str(t/"gke/scripts/run_k7_experiment.sh"),"configs/input.yaml"],
-                              env=env,cwd=t,capture_output=True,text=True,timeout=25)
+        command=["/bin/bash",str(t/"gke/scripts/run_k7_experiment.sh"),"configs/input.yaml"]
+        if case in ("term_interrupt","int_interrupt"):
+            p=subprocess.Popen(command,env=env,cwd=t,stdout=subprocess.PIPE,stderr=subprocess.PIPE,
+                               text=True,start_new_session=True)
+            try:
+                for _ in range(100):
+                    if armed.exists() or p.poll() is not None:
+                        break
+                    time.sleep(0.05)
+                assert armed.exists(), "mock runner did not reach rollout"
+                os.kill(p.pid,signal.SIGTERM if case=="term_interrupt" else signal.SIGINT)
+                stdout,stderr=p.communicate(timeout=12)
+            finally:
+                if p.poll() is None:
+                    os.killpg(p.pid,signal.SIGKILL)
+                    p.communicate()
+            proc=subprocess.CompletedProcess(command,p.returncode,stdout,stderr)
+        else:
+            proc=subprocess.run(command,env=env,cwd=t,capture_output=True,text=True,timeout=25)
         events=log.read_text().splitlines() if log.exists() else []
         namespace_exists=state.exists()
         result=t/"results/experiment_exit_status.txt"
@@ -137,6 +154,18 @@ def run_case(case: str, *, preexisting: bool=False) -> dict:
                   and any(e.startswith("helm uninstall") for e in events)
                   and any(e.startswith("kubectl delete namespace") for e in events)
                   and code_recorded not in (None,"0"))
+        elif case in ("uid_mismatch","owner_mismatch"):
+            cleanup=t/"results/cleanup_status.txt"
+            ok=(proc.returncode!=0 and namespace_exists and armed.exists()
+                and cleanup.is_file() and cleanup.read_text().strip()=="OWNERSHIP_MISMATCH"
+                and "namespace ownership mismatch" in proc.stderr
+                and not any(e.startswith(("helm uninstall","kubectl delete namespace")) for e in events))
+        elif case in ("term_interrupt","int_interrupt"):
+            cleanup=t/"results/cleanup_status.txt"
+            ok=(proc.returncode==(143 if case=="term_interrupt" else 130)
+                and not namespace_exists and armed.exists()
+                and cleanup.is_file() and cleanup.read_text().strip()=="PASS"
+                and any(e.startswith("kubectl delete namespace") for e in events))
         elif case=="delete_failure":
             ok=(proc.returncode!=0 and namespace_exists
                 and "HOLD: namespace remains" in proc.stderr
@@ -146,7 +175,13 @@ def run_case(case: str, *, preexisting: bool=False) -> dict:
                 and namespace_exists==preexisting and code_recorded is None)
         else:
             raise AssertionError(case)
-        return {"case":case,"pass":ok,"exit_code":proc.returncode,
+        saved=t/"results"
+        evidence={name:(saved/name).is_file() for name in (
+            "experiment_exit_status.txt","cleanup_status.txt","cleanup_exit_status.txt",
+            "logs.jsonl","pods.json","generated_config.yaml","topology.json")}
+        if case not in ("preexisting","wrong_context"):
+            ok=ok and all(evidence.values())
+        return {"case":case,"pass":ok,"evidence_files":evidence,"exit_code":proc.returncode,
                 "recorded_exit":code_recorded,"namespace_remains":namespace_exists,
                 "mock_calls":events,"stderr":proc.stderr[-1200:]}
 
@@ -156,12 +191,15 @@ def main():
     OUT.mkdir(parents=True,exist_ok=False)
     cases=[run_case("install_failure"),run_case("rollout_failure"),
            run_case("delete_failure"),run_case("preexisting",preexisting=True),
-           run_case("wrong_context")]
+           run_case("wrong_context"),run_case("uid_mismatch"),
+           run_case("owner_mismatch"),run_case("term_interrupt"),
+           run_case("int_interrupt")]
     git=subprocess.run(["git","rev-parse","HEAD"],cwd=ROOT,capture_output=True,text=True)
-    result={"gate":"D7-P4 MOCK CLEANUP","scope":"LOCAL MOCKS ONLY; NO GKE CALLS",
+    result={"gate":"JCC-R1A-C3-D7-SM-REMAINING-P1-SAFETY EXTENDED MOCK","scope":"LOCAL MOCKS ONLY; NO GKE CALLS",
             "timestamp_utc":datetime.now(timezone.utc).isoformat(),
             "git_commit":git.stdout.strip() if git.returncode==0 else "UNKNOWN",
             "runner_sha256":hashlib.sha256(RUNNER.read_bytes()).hexdigest(),
+            "test_script_sha256":hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
             "cases":cases,"passed":sum(bool(c["pass"]) for c in cases),
             "total":len(cases),
             "decision":"MOCK PASS / LIVE GKE HOLD" if all(c["pass"] for c in cases) else "MOCK FAIL / HOLD",
