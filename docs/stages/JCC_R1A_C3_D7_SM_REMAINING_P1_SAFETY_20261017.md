@@ -75,3 +75,10 @@ Researcher fast-forwarded to GitHub `9024d7df3080c195826da08a2469825df87edbca`, 
 - Total **20/20** final-negative cases. These supersede the narrower 11/11 suite but do not replace separately verified shared-runner 9/9.
 
 Google Drive search for `JCC-R1A-C3-D7-SM-P1` returned no indexed matching evidence; no canonical Drive JSON/checksum readback is yet possible. Terminal summaries alone do not independently establish the contents of the evidence files or Drive preservation. **P1 remains OPEN / LIVE GKE HOLD** pending checksum and per-case readback plus canonical Drive location confirmation. P2 authorization remains separate and not granted.
+
+## 2026-10-17 researcher checksum readback — PASS
+Researcher executed `shasum -a 256 -c SHA256SUMS` separately in both final-negative local evidence directories:
+- `output/evidence/JCC-R1A-C3-D7-SM-P1-LAUNCHER_20261017210504`: `launcher_mock.json: OK`.
+- `output/evidence/JCC-R1A-C3-D7-SM-P1-TOPOLOGY_20261017210511`: `topology_negative.json: OK`.
+
+This confirms researcher-reported **local SHA256 integrity PASS 2/2**, in addition to test summaries 15/15 and 5/5. It does **not** independently verify canonical Google Drive preservation or per-case JSON readback from Drive. P1 OPEN / LIVE GKE HOLD; P2 not authorized.
