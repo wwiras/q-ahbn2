@@ -14,8 +14,8 @@ EXPECTED_IMAGE_DIGEST="sha256:8a47cedb378d9387b87e7e2d5924a4aa2f87053e71da757509
 EXPECTED_CONTEXT="gke_stoked-cosine-415611_us-central1-a_bcgossip-cluster"
 METHODS=(gossip structured dcsoc ahbn qahbn2)
 MODE="${SMOKE_MODE:-canary}"
-if [ "${MODE}" = canary ]; then METHODS=(gossip); elif [ "${MODE}" != five ]; then echo "HOLD: invalid SMOKE_MODE" >&2; exit 1; fi
-[ "${MODE}" != five ] || [ "${SMOKE_FIVE_AUTHORIZED:-}" = YES ] || { echo "HOLD: five-run release requires separate approval" >&2; exit 1; }
+[ "${MODE}" = canary ] || { echo "HOLD: only the single Gossip canary is permitted" >&2; exit 1; }
+METHODS=(gossip)
 SEED=42
 [ "${IMAGE}" = "docker.io/wwiras/q-ahbn2@${EXPECTED_IMAGE_DIGEST}" ] || {
   echo "HOLD: wrong image" >&2; exit 1;
@@ -34,7 +34,19 @@ ROOT_OUT="${RESULT_ROOT:-${ROOT}/output/evidence/$(date -u +%Y%m%dT%H%M%SZ)-D7-S
 mkdir -p "${ROOT_OUT}"/{configs,generated,runs,raw}
 cp gke/helm/ahbn/topology.json "${ROOT_OUT}/raw/topology_before.json"
 restore() { cp "${ROOT_OUT}/raw/topology_before.json" gke/helm/ahbn/topology.json; }
-trap restore EXIT
+finish_smoke() {
+  local status=$?
+  trap - EXIT INT TERM
+  restore || status=1
+  if [ -d "${ROOT_OUT}" ]; then
+    printf '%s\n' "${status}" > "${ROOT_OUT}/smoke_exit_status.txt"
+    (cd "${ROOT_OUT}" && find . -type f ! -name SHA256SUMS -print0 | sort -z | xargs -0 shasum -a 256 > SHA256SUMS) || status=1
+  fi
+  exit "${status}"
+}
+trap finish_smoke EXIT
+trap 'exit 130' INT
+trap 'exit 143' TERM
 printf '%s\n' "$(git rev-parse HEAD)" > "${ROOT_OUT}/git_commit.txt"
 printf '%s\n' "${IMAGE}" > "${ROOT_OUT}/image.txt"
 printf '%s\n' "D7-SM NONFORMAL; SEED=42; FULL WORKLOAD 240x0.4s" > "${ROOT_OUT}/evidence_class.txt"
@@ -52,7 +64,7 @@ topos=()
 for method in "${METHODS[@]}"; do
   topos+=("${ROOT_OUT}/generated/${method}_seed42.json")
 done
-PYTHONPATH=gke/app "${PYTHON}" gke/app/k7_exp11_tools.py contract "${topos[@]}" > "${ROOT_OUT}/topology_contract.txt"
+PYTHONPATH=gke/app "${PYTHON}" gke/app/k7_exp11_tools.py contract --canary-gossip-seed42 "${topos[@]}" > "${ROOT_OUT}/topology_contract.txt"
 # Each method uses an independently created and deleted namespace.
 for method in "${METHODS[@]}"; do
   run="${ROOT_OUT}/runs/${method}"
