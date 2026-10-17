@@ -27,6 +27,14 @@ case "${OUT#${ROOT}/output/evidence/}" in
   ""|/*|../*|*/../*|*/..|./*|*/./*|*/.|*//*)
     echo "HOLD: unsafe evidence path" >&2; exit 1;;
 esac
+probe="${ROOT}/output"
+while [[ "${probe}" != "${OUT}" ]]; do
+  [[ ! -L "${probe}" ]] || { echo "HOLD: symlink in evidence path" >&2; exit 1; }
+  remaining="${OUT#${probe}/}"
+  [[ "${remaining}" != "${OUT}" ]] || { echo "HOLD: invalid evidence path" >&2; exit 1; }
+  probe="${probe}/${remaining%%/*}"
+done
+[[ ! -L "${OUT}" ]] || { echo "HOLD: symlink evidence path" >&2; exit 1; }
 [[ ! -e "${OUT}" ]] || { echo "HOLD: evidence path exists" >&2; exit 1; }
 mkdir -p "${OUT}"/{configs,generated,runs,raw}
 cp gke/helm/ahbn/topology.json "${OUT}/raw/topology_before.json"
