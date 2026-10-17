@@ -28,3 +28,12 @@ Researcher confirmed the corrected baseline **5/5 PASS** on commit `c8c1fd120719
 Prepared four additional local-only cases in `gke/scripts/test_d7_p4_cleanup.py`: UID substitution, owner-label substitution, SIGTERM and SIGINT during mocked rollout. Each run also checks essential local evidence artifacts. Mock subprocesses use temporary sandboxes and fake `kubectl`/`helm`; no cloud deployment. **These four additional tests have not yet been executed/verified by the researcher.** The new matrix is expected 9/9; this is a target, not an observed result.
 
 The original five-case PASS remains valid independently, but the new exact-source runner/harness matrix must be rerun. Launcher-level stop-on-first-failure, topology restoration, SHA256SUMS on abnormal exit, correct placement of RESULT_ROOT, and remaining negative contract checks are still pending. P1-SAFETY remains OPEN / HOLD. No algorithm, shared production runner or manuscript results were changed.
+
+## 2026-10-17 researcher execution — extended mock PASS
+Researcher terminal after fast-forward to `f05fab6ca607c0618f3a5f9af75903404bf75852`:
+- `python3 -m py_compile gke/scripts/test_d7_p4_cleanup.py` — no syntax error.
+- `python3 gke/scripts/test_d7_p4_cleanup.py` — **9/9 PASS**, decision `MOCK PASS / LIVE GKE HOLD`.
+- Evidence: `output/evidence/20261017T122648Z-D7-P4-cleanup-mock` (researcher local/Drive-sync path). Per-case JSON and checksum validation not independently read in this update.
+- Coverage: original five shared-runner failure checks; UID and owner-label mismatch; SIGTERM and SIGINT; required evidence-file existence assertions.
+- This is **shared runner mock verification**, not proof of four-method launcher stop-on-first-failure or live GKE safety.
+- **Next:** exact-source four-method launcher mock: fail-stop, topology restoration, checksum integrity, no subsequent methods, authorization and environment fail-closed. Then P2 review. **P1-SAFETY remains OPEN / LIVE HOLD.**
