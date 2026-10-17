@@ -72,7 +72,7 @@ def audit_run(root: Path, method: str) -> dict:
         and p["status"]["containerStatuses"][0].get("ready") is True for p in pods
     ):
         raise ValueError(f"pod/runtime image identity mismatch: {method}")
-    if (path / "validation.txt").read_text().strip() != "PASS" or (path / "cleanup_status.txt").read_text().strip() != "PASS":
+    if not (path / "validation.txt").read_text().strip().endswith("K7 RESULT VALIDATION PASS") or (path / "cleanup_status.txt").read_text().strip() != "PASS":
         raise ValueError(f"validation/cleanup not PASS: {method}")
     for name in ("experiment_exit_status.txt", "cleanup_exit_status.txt", "namespace_cleanup_exit_status.txt"):
         if (path / name).read_text().strip() != "0":
