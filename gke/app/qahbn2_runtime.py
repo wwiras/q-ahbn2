@@ -35,6 +35,8 @@ def _init(self):
     self.ahbn_controller = peer.CanonicalAHBNController(self.ahbn_params)
     self.ahbn_state = peer.AHBNState(fanout=self.ahbn_params.default_fanout)
     self.observations = peer.KubernetesObservationAdapter(latency_max_seconds=1.0)
+    # Recovery observations must reach the inherited canonical AHBN sink.
+    self.recovery.observations = self.observations
     self.mode = "gossip"
     self.fanout = self.default_fanout
     seed = int(getattr(self, "h2_seed", 42))
@@ -163,9 +165,7 @@ def _forward(self, dst_peer, envelope):
             resp = stub.Forward(envelope, timeout=3)
             if resp.ok:
                 self.forward_count += 1
-                if dst_peer in self.unavailable_neighbors:
-                    self.unavailable_neighbors.remove(dst_peer)
-                    self.observations.record_join()
+                self.recovery.ack(dst_peer)
                 self.qahbn2_adapter.record_ack(decision_id, dst_peer, ack_ok=True)
                 peer.log_event(
                     event="forward",
@@ -186,15 +186,11 @@ def _forward(self, dst_peer, envelope):
                 )
                 outcome = "NEW"
             elif resp.message == "duplicate":
-                if dst_peer in self.unavailable_neighbors:
-                    self.unavailable_neighbors.remove(dst_peer)
-                    self.observations.record_join()
+                self.recovery.ack(dst_peer)
                 self.qahbn2_adapter.record_ack(decision_id, dst_peer, ack_ok=False)
                 outcome = "DUPLICATE"
             else:
-                if dst_peer not in self.unavailable_neighbors:
-                    self.unavailable_neighbors.add(dst_peer)
-                    self.observations.record_leave()
+                self.recovery.failure(dst_peer)
                 self.qahbn2_adapter.record_failure(decision_id, dst_peer)
                 outcome = "FAILED"
             peer.log_event(
@@ -203,9 +199,7 @@ def _forward(self, dst_peer, envelope):
                 decision_id=decision_id, dst_peer=dst_peer, outcome=outcome,
             )
     except Exception as exc:
-        if dst_peer not in self.unavailable_neighbors:
-            self.unavailable_neighbors.add(dst_peer)
-            self.observations.record_leave()
+        self.recovery.failure(dst_peer)
         self.qahbn2_adapter.record_failure(decision_id, dst_peer)
         peer.log_event(
             event="qahbn2_attempt_outcome", run_id=self.run_id,
