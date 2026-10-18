@@ -3,6 +3,11 @@ set -Eeuo pipefail
 CONFIG="$1"; ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"; OUTDIR="${OUTDIR:?}"; NAMESPACE="${NAMESPACE:?}"; RELEASE="${RELEASE:-ahbn}"; IMAGE="${IMAGE:?}"; EXPECTED_IMAGE_DIGEST="${EXPECTED_IMAGE_DIGEST:?}"; PYTHON="${PYTHON:?}"
 mkdir -p "${OUTDIR}"; LOG_FOLLOW_PID=""; OWN_NAMESPACE=0; NS_UID=""; CREATE_ATTEMPTED=0
 RUN_OWNER="${RUN_OWNER:-d7-smoke-${NAMESPACE}}"
+P3G_RECOVERY_ENABLED="${P3G_RECOVERY_ENABLED:-0}"
+[[ "${P3G_RECOVERY_ENABLED}" == "0" || "${P3G_RECOVERY_ENABLED}" == "1" ]] || { echo "HOLD: recovery flag must be 0 or 1" >&2; exit 1; }
+if [ "${P3G_RECOVERY_ENABLED}" = "1" ]; then
+  [[ "${NAMESPACE}" =~ ^qahbn2-d7-smoke-p3g-[a-z0-9-]+$ ]] || { echo "HOLD: recovery requires a P3G-specific namespace" >&2; exit 1; }
+fi
 [[ "${RUN_OWNER}" =~ ^[a-z0-9-]+$ ]] || { echo "HOLD: invalid owner" >&2; exit 1; }
 # Only an absent, dedicated namespace is allowed; never uninstall unrelated workloads.
 [[ "${NAMESPACE}" =~ ^qahbn2-(k5-formal|d7-smoke-[a-z0-9-]+)$ ]] || {
@@ -79,13 +84,15 @@ NS_UID="$(kubectl get namespace "${NAMESPACE}" -o jsonpath='{.metadata.uid}')"
 OWN_NAMESPACE=1
 kubectl label namespace "${NAMESPACE}" "qahbn2-run-owner=${RUN_OWNER}" --overwrite
 [ "$(kubectl get namespace "${NAMESPACE}" -o go-template='{{index .metadata.labels "qahbn2-run-owner"}}')" = "${RUN_OWNER}" ] || { echo "HOLD: owner label unverified" >&2; exit 1; }
-helm install "${RELEASE}" "${ROOT_DIR}/gke/helm/ahbn" --namespace "${NAMESPACE}" --set namespace="${NAMESPACE}" --set image="${IMAGE}" --set numNodes="${NUM_NODES}" --set podManagementPolicy=Parallel --set controller.enabled=false
+helm install "${RELEASE}" "${ROOT_DIR}/gke/helm/ahbn" --namespace "${NAMESPACE}" --set namespace="${NAMESPACE}" --set image="${IMAGE}" --set numNodes="${NUM_NODES}" --set podManagementPolicy=Parallel --set controller.enabled=false --set-string "recovery.enabled=${P3G_RECOVERY_ENABLED}"
+kubectl -n "${NAMESPACE}" get statefulset peer -o json >"${OUTDIR}/statefulset.json"
+"${PYTHON}" -c 'import json,sys; d=json.load(open(sys.argv[1])); c=d["spec"]["template"]["spec"]["containers"][0]; e=[x.get("value") for x in c.get("env",[]) if x["name"]=="P3G_RECOVERY_ENABLED"]; assert e==[sys.argv[2]], "recovery flag mismatch"' "${OUTDIR}/statefulset.json" "${P3G_RECOVERY_ENABLED}"
 kubectl -n "${NAMESPACE}" rollout status statefulset/peer --timeout=600s
 kubectl -n "${NAMESPACE}" wait --for=condition=ready pod -l app=ahbn-peer --timeout=600s
 kubectl -n "${NAMESPACE}" get pods -l app=ahbn-peer -o json >"${OUTDIR}/pods.json"
 "${PYTHON}" -c 'import json,sys; p=json.load(open(sys.argv[1])); image=sys.argv[2]; digest=sys.argv[3]; items=p.get("items",[]); assert len(items)==20, f"expected 20 pods, got {len(items)}"; assert all(x["spec"]["containers"][0]["image"]==image for x in items), "pod image reference mismatch"; ids=[x["status"]["containerStatuses"][0]["imageID"] for x in items]; assert all(digest in value for value in ids), f"pod image digest mismatch: {sorted(set(ids))}"' "${OUTDIR}/pods.json" "${IMAGE}" "${EXPECTED_IMAGE_DIGEST}"
 sleep 5
 kubectl -n "${NAMESPACE}" logs -f -l app=ahbn-peer --all-containers=true --max-log-requests=20 --tail=-1 >"${OUTDIR}/peer_stream.jsonl" 2>"${OUTDIR}/peer_stream.err" & LOG_FOLLOW_PID=$!
-helm upgrade "${RELEASE}" "${ROOT_DIR}/gke/helm/ahbn" --namespace "${NAMESPACE}" --reuse-values --set controller.enabled=true
+helm upgrade "${RELEASE}" "${ROOT_DIR}/gke/helm/ahbn" --namespace "${NAMESPACE}" --reuse-values --set controller.enabled=true --set-string "recovery.enabled=${P3G_RECOVERY_ENABLED}"
 kubectl -n "${NAMESPACE}" wait --for=condition=complete job/ahbn-controller --timeout=900s
 # EXIT trap preserves separate experiment/cleanup status and cleanup evidence.
