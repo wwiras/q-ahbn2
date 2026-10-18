@@ -73,7 +73,7 @@ ready=[n for n in nodes if any(c.get('type')=='Ready' and c.get('status')=='True
 amd=[n for n in ready if n.get('metadata',{}).get('labels',{}).get('kubernetes.io/arch')=='amd64']
 print('ready=',len(ready),'ready_amd64=',len(amd))
 assert amd,'HOLD: no ready amd64 node'
-print('Capacity for N=20, cleanup provenance, and runtime pod imageID still require independent verification.')
+print('Live runtime pod imageID and cleanup provenance still require independent verification.')
 PY
 DECISION='READ-ONLY PRELIMINARY CHECKS PASS; SEPARATE CANARY APPROVAL STILL REQUIRED'
 echo "$DECISION"
