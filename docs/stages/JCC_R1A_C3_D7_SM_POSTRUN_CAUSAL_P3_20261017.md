@@ -136,3 +136,23 @@ Stop without overwriting an existing nonempty output directory; no GKE or experi
 **Next narrow audit:** From the original immutable DC-SoC peer log, extract complete maintenance/action/parent/availability transitions around the first source timeout; separately repair only the P3 analysis attribution/report (not scientific controller or original evidence) for AHBN source decision fields. Verify exact frozen DC-SoC K3.4 spec and deployed-checkout code correspondences. Produce a new independent hashed diagnostic, compare against this P3 readback, then reconsider classification. No new GKE runs, no changes to frozen AHBN/Q-AHBN2, and no paper claims.
 
 **Controlled decision:** **P3 DESIGN CONTRACT INTERPRETATION PARTIAL PASS; DEPLOYED-CODE ELIGIBILITY PATH PASS; RECOVERY CAUSAL CONFORMANCE HOLD; D7-F 0/25 HOLD; D8 HOLD.** Q-AHBN manuscript stays *under peer review* at Journal of Cloud Computing, **not published**, **no DOI**.
+
+## P3B — DC-SoC maintenance and AHBN source-decision attribution (2026-10-18)
+
+**Target:** Exp11-style churn, seed 42, NONFORMAL D7-SM; no GKE rerun. New independently generated diagnostic: `gke/scripts/audit_d7_sm_causal_p3b_readonly.py` (GitHub commit `f6f816178e816cecc9b071f788d5b056afee3901`). It reads original immutable `runs/dcsoc/peer_stream.jsonl` and `runs/ahbn/peer_stream.jsonl` using multi-object JSON decoding, extracts all maintenance fields and exact source peer1 failures/successes, and attributes AHBN decisions with the **actual `sender` field** (rather than incorrectly using `peer_id`). It does **not** modify the original P3 script or original evidence. It writes a separate JSON report and SHA256 manifest.
+
+**Direct code-level verification:** pinned deployed `gke/app/peer.py` emits `ahbn_forwarding_decision` with `sender=self.peer_id`, `incoming_sender=sender_id`, `eligible_neighbors`, `selected_peers` and `unavailable_neighbors`; it does not emit `peer_id` on that event. P3's AHBN source_decisions extraction used `peer_id==1`; empty results are therefore an extraction issue, not proof of absent AHBN decisions. Pinned `gke/app/dcsoc_maintenance.py` emits event-driven leave/rejoin/recluster actions; the gRPC `ApplyDCSOCMaintenance` logs `maintenance.events[-1]` and cumulative counters, but `sync_peer` only copies the local peer object's structural configuration, while `PeerState.unavailable_neighbors` is a separately managed set. **Whether maintenance leads to successful forwarding remains unverified.**
+
+Researcher local execution (from repository root, only after fast-forward updating main):
+```bash
+git fetch origin main
+git merge --ff-only origin/main
+python3 -m py_compile gke/scripts/audit_d7_sm_causal_p3b_readonly.py
+python3 gke/scripts/audit_d7_sm_causal_p3b_readonly.py \
+  output/evidence/20261017T133327Z-D7-SM-remaining \
+  --output-dir output/evidence/20261018-D7-SM-P3B-readonly
+cd output/evidence/20261018-D7-SM-P3B-readonly
+shasum -a 256 -c SHA256SUMS
+```
+
+**Execution status:** script committed; local P3B trace and checksum **PENDING**. Retain all hypotheses H-I/H-D/H-B open. Do not label maintenance as successful merely because events exist, nor infer an AHBN mode failure without source attribution. Original evidence and algorithms remain untouched. **P3 root-cause HOLD, D7-F 0/25 HOLD, D8 HOLD.** Manuscript under peer review at Journal of Cloud Computing, not published, no DOI.
