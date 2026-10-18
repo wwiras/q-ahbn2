@@ -11,6 +11,7 @@ on:
       - 'gke/app/Dockerfile.qahbn2'
       - 'tests/test_p3g_recovery.py'
       - 'tests/test_p3g_peerstate_integration.py'
+      - 'tests/test_p3g_v3_notification.py'
       - '.github/workflows/p3g-offline.yml'
   workflow_dispatch:
 
@@ -29,10 +30,10 @@ jobs:
       - name: Record exact commit and source SHA256
         run: |
           git rev-parse HEAD
-          sha256sum gke/app/peer.py gke/app/peer.proto gke/app/recovery_availability.py gke/app/qahbn2_runtime.py gke/app/controller_shared.py gke/app/k7_controller.py tests/test_p3g_recovery.py tests/test_p3g_peerstate_integration.py
+          sha256sum gke/app/peer.py gke/app/peer.proto gke/app/recovery_availability.py gke/app/qahbn2_runtime.py gke/app/controller_shared.py gke/app/k7_controller.py tests/test_p3g_recovery.py tests/test_p3g_peerstate_integration.py tests/test_p3g_v3_notification.py
       - name: Verify Python syntax
-        run: python -m compileall -q gke/app tests/test_p3g_recovery.py tests/test_p3g_peerstate_integration.py
+        run: python -m compileall -q gke/app tests/test_p3g_recovery.py tests/test_p3g_peerstate_integration.py tests/test_p3g_v3_notification.py
       - name: Run P3G T01–T18 and PeerState integration
-        run: PYTHONPATH=gke/app python -m unittest tests.test_p3g_recovery tests.test_p3g_peerstate_integration -v
+        run: PYTHONPATH=gke/app python -m unittest tests.test_p3g_recovery tests.test_p3g_peerstate_integration tests.test_p3g_v3_notification -v
       - name: Frozen AHBN and Q-AHBN2 regression parity
         run: PYTHONPATH=gke/app python -m unittest tests.test_k2_kubernetes_adapter tests.test_transition_bookkeeping tests.test_learning_schedule tests.test_s03_2a_trace_provenance tests.test_controlsim_event_bridge -v
