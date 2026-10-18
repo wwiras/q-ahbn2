@@ -12,6 +12,10 @@ on:
       - 'tests/test_p3g_recovery.py'
       - 'tests/test_p3g_peerstate_integration.py'
       - 'tests/test_p3g_v3_notification.py'
+      - 'tests/test_p3g_cap3_launcher.py'
+      - 'gke/scripts/run_k7_experiment.sh'
+      - 'gke/helm/ahbn/values.yaml'
+      - 'gke/helm/ahbn/templates/statefulset.yaml'
       - '.github/workflows/p3g-offline.yml'
   workflow_dispatch:
 
@@ -35,5 +39,9 @@ jobs:
         run: python -m compileall -q gke/app tests/test_p3g_recovery.py tests/test_p3g_peerstate_integration.py tests/test_p3g_v3_notification.py
       - name: Run P3G T01–T18 and PeerState integration
         run: PYTHONPATH=gke/app python -m unittest tests.test_p3g_recovery tests.test_p3g_peerstate_integration tests.test_p3g_v3_notification -v
+      - name: P3G CAP3 launcher offline contract and negative guards
+        run: |
+          bash -n gke/scripts/run_k7_experiment.sh
+          python -m unittest tests.test_p3g_cap3_launcher -v
       - name: Frozen AHBN and Q-AHBN2 regression parity
         run: PYTHONPATH=gke/app python -m unittest tests.test_k2_kubernetes_adapter tests.test_transition_bookkeeping tests.test_learning_schedule tests.test_s03_2a_trace_provenance tests.test_controlsim_event_bridge -v
