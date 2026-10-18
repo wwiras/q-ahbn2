@@ -156,3 +156,13 @@ shasum -a 256 -c SHA256SUMS
 ```
 
 **Execution status:** script committed; local P3B trace and checksum **PENDING**. Retain all hypotheses H-I/H-D/H-B open. Do not label maintenance as successful merely because events exist, nor infer an AHBN mode failure without source attribution. Original evidence and algorithms remain untouched. **P3 root-cause HOLD, D7-F 0/25 HOLD, D8 HOLD.** Manuscript under peer review at Journal of Cloud Computing, not published, no DOI.
+
+## P3B local execution and checksum reconciliation — 2026-10-18
+
+**Researcher-reported execution:** `python3 -m py_compile gke/scripts/audit_d7_sm_causal_p3b_readonly.py` returned without error; `audit_d7_sm_causal_p3b_readonly.py` ran against immutable original `output/evidence/20261017T133327Z-D7-SM-remaining`, writing a separate report `output/evidence/20261018-D7-SM-P3B-readonly/p3b_recovery_attribution.json`. Researcher terminal reported SHA256 `fa735635c7cb8655a450ad1d1cf503864528b59ea2b2a629d144373efeddf0b4`; local `shasum -a 256 -c SHA256SUMS` returned `p3b_recovery_attribution.json: OK`. These are researcher-provided results; **the complete JSON report has not yet been independently read back from Google Drive**.
+
+**P3B report summary:** DC-SoC 140 maintenance events: 70 `leave`, 70 `rejoin`; source peer1 eight maintenance events. AHBN 614 forwarding decisions across peers; 240 source peer1 decisions, covering all 240 messages; 177 source decisions with `eligible_neighbors=[]`. This corrects P3's AHBN decision-attribution omission caused by use of `peer_id` rather than `sender` on `ahbn_forwarding_decision`.
+
+**Scientific interpretation:** Maintenance activity is verified at summary level, **not** actual parent reattachment or restoration of source forwarding. The 177 empty AHBN eligible sets establish target-exclusion observations, **not** their causes, exact mode composition, or restored availability. Need full `source_maintenance_events`, source failures/successes, and per-message AHBN decision fields in the hashed report before classifying design-vs-implementation root cause.
+
+**Decision:** P3B local execution **PASS**; local checksum **PASS**; source-decision attribution **PASS**; recovery conformance **HOLD**; formal D7-F **0/25 HOLD**; D8 **HOLD**. No new GKE or algorithm changes. Q-AHBN manuscript remains under peer review at Journal of Cloud Computing, unpublished/no DOI.
