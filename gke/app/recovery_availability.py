@@ -19,9 +19,9 @@ class ProbeTicket:
 class RecoveryAvailability:
     """Generation-guarded exclusion and single in-flight recovery probes."""
 
-    def __init__(self) -> None:
+    def __init__(self, excluded: set[int] | None = None) -> None:
         self._lock = threading.RLock()
-        self._excluded: set[int] = set()
+        self._excluded: set[int] = excluded if excluded is not None else set()
         self._generation: dict[int, int] = {}
         self._inflight: set[int] = set()
 
@@ -35,6 +35,15 @@ class RecoveryAvailability:
             changed = peer_id not in self._excluded
             self._excluded.add(peer_id)
             return changed
+
+    def mark_recovered(self, peer_id: int) -> bool:
+        """Remove exclusion after successful ordinary Forward/duplicate ACK."""
+        with self._lock:
+            self._generation[peer_id] = self._generation.get(peer_id, 0) + 1
+            if peer_id not in self._excluded:
+                return False
+            self._excluded.remove(peer_id)
+            return True
 
     def begin_probe(self, peer_id: int) -> ProbeTicket | None:
         with self._lock:
@@ -55,6 +64,9 @@ class RecoveryAvailability:
     ) -> bool:
         """Return True only for a verified, current exclusion-to-eligible change."""
         with self._lock:
+            # A stale ticket must not cancel a newer probe.
+            if ticket.peer_id not in self._inflight:
+                return False
             self._inflight.discard(ticket.peer_id)
             if (
                 ticket.generation != self._generation.get(ticket.peer_id, 0)
@@ -67,6 +79,7 @@ class RecoveryAvailability:
             ):
                 return False
             self._excluded.remove(ticket.peer_id)
+            self._generation[ticket.peer_id] = ticket.generation + 1
             return True
 
 
