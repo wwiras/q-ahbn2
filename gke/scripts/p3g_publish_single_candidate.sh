@@ -6,22 +6,26 @@ cd "$ROOT"
 EXPECTED_SHA="${P3G_SOURCE_SHA:?HOLD: exact source SHA required}"
 REPO="docker.io/wwiras/q-ahbn2"
 [[ "${P3G_DOCKERHUB_UPLOAD_APPROVED:-}" == "YES" ]] || { echo "HOLD: publication approval environment gate missing"; exit 1; }
-for bin in docker git sha256sum; do command -v "$bin" >/dev/null || { echo "HOLD: missing $bin"; exit 1; }; done
+for bin in docker git; do command -v "$bin" >/dev/null || { echo "HOLD: missing $bin"; exit 1; }; done
 [[ "$EXPECTED_SHA" =~ ^[0-9a-f]{40}$ ]] || { echo "HOLD: invalid source SHA"; exit 1; }
 ACTUAL_SHA="$(git rev-parse HEAD)"
 [[ "$ACTUAL_SHA" == "$EXPECTED_SHA" ]] || { echo "HOLD: checkout SHA differs from nominated source; set P3G_SOURCE_SHA only for reviewed exact commit"; exit 1; }
 [[ -z "$(git status --porcelain)" ]] || { echo "HOLD: dirty worktree"; exit 1; }
 [[ -n "${DOCKERHUB_USERNAME:-}" && "$DOCKERHUB_USERNAME" == "wwiras" ]] || { echo "HOLD: Docker Hub username must be wwiras"; exit 1; }
-[[ -n "${DOCKERHUB_TOKEN:-}" ]] || { echo "HOLD: DOCKERHUB_TOKEN must be set securely; do not put token in command history"; exit 1; }
+if [[ -n "${DOCKERHUB_TOKEN:-}" ]]; then
+  printf "%s" "$DOCKERHUB_TOKEN" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin >/dev/null
+  unset DOCKERHUB_TOKEN
+else
+  echo "Using existing Docker credential store; docker push will verify write authorization."
+fi
 TAG="p3g-recovery-${EXPECTED_SHA}"
 IMAGE="${REPO}:${TAG}"
 OUT="${P3G_RECEIPT_DIR:-output/evidence/p3g-dockerhub-candidate-${EXPECTED_SHA:0:12}}"
 [[ ! -e "$OUT" ]] || { echo "HOLD: receipt folder already exists; do not overwrite"; exit 1; }
 mkdir -p "$OUT"
 printf "%s\n" "$EXPECTED_SHA" > "$OUT/source_commit.txt"
-sha256sum gke/app/Dockerfile.qahbn2 gke/app/peer.proto gke/app/peer.py gke/app/recovery_availability.py gke/app/qahbn2_runtime.py gke/app/controller_shared.py gke/app/k7_controller.py > "$OUT/source_sha256.txt"
-printf "%s" "$DOCKERHUB_TOKEN" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin >/dev/null
-unset DOCKERHUB_TOKEN
+if command -v sha256sum >/dev/null 2>&1; then HASH_CMD=(sha256sum); elif command -v shasum >/dev/null 2>&1; then HASH_CMD=(shasum -a 256); else echo "HOLD: no SHA256 utility"; exit 1; fi
+"${HASH_CMD[@]}" gke/app/Dockerfile.qahbn2 gke/app/peer.proto gke/app/peer.py gke/app/recovery_availability.py gke/app/qahbn2_runtime.py gke/app/controller_shared.py gke/app/k7_controller.py > "$OUT/source_sha256.txt"
 docker buildx build --platform linux/amd64 -f gke/app/Dockerfile.qahbn2 --label "org.opencontainers.image.revision=${EXPECTED_SHA}" -t "$IMAGE" --load . > "$OUT/build.log" 2>&1
 docker run --rm --entrypoint python "$IMAGE" -c 'import recovery_availability,peer,qahbn2_runtime,controller; assert "NotifyRecoveryRejoin" in peer.peer_pb2.DESCRIPTOR.services_by_name["PeerService"].methods_by_name; assert hasattr(peer.PeerService,"NotifyRecoveryRejoin"); assert hasattr(peer.PeerState,"notify_recovery_rejoin"); assert callable(controller.run_k7_churn); print("P3G_IMAGE_IMPORTS_PASS")' > "$OUT/imports.txt"
 docker image inspect "$IMAGE" --format "{{.Id}}" > "$OUT/local_config_digest.txt"
@@ -36,7 +40,7 @@ grep -F "$DIGEST" "$OUT/immutable_registry_inspect.txt" >/dev/null || { echo "HO
 printf "%s\n" "$IMAGE" > "$OUT/candidate_tag.txt"
 printf "%s\n" "$IMMUTABLE" > "$OUT/immutable_image.txt"
 printf "%s\n" "REGISTRY CANDIDATE PUBLISHED / GKE HOLD / D7-F HOLD / D8 HOLD" > "$OUT/release_status.txt"
-(cd "$OUT" && find . -type f ! -name SHA256SUMS -print0 | sort -z | xargs -0 -r sha256sum > SHA256SUMS)
+(cd "$OUT" && find . -type f ! -name SHA256SUMS -print0 | sort -z | xargs -0 "${HASH_CMD[@]}" > SHA256SUMS)
 echo "P3G REGISTRY RECEIPT: $OUT"
 echo "IMMUTABLE IMAGE: $IMMUTABLE"
 echo "NO GKE DEPLOYMENT AUTHORIZED"
