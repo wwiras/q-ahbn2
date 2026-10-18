@@ -1,0 +1,66 @@
+name: P3G exact-source image preflight
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/p3g-image-preflight.yml'
+      - 'gke/app/Dockerfile.qahbn2'
+      - 'gke/app/peer.py'
+      - 'gke/app/peer.proto'
+      - 'gke/app/recovery_availability.py'
+      - 'gke/app/qahbn2_runtime.py'
+      - 'gke/app/controller_shared.py'
+      - 'gke/app/k7_controller.py'
+jobs:
+  image-preflight:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - name: Record exact source and file hashes
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p image-evidence
+          git rev-parse HEAD | tee image-evidence/source_commit.txt
+          git status --porcelain > image-evidence/worktree_status.txt
+          test ! -s image-evidence/worktree_status.txt
+          sha256sum gke/app/Dockerfile.qahbn2 gke/app/peer.proto gke/app/peer.py gke/app/recovery_availability.py gke/app/qahbn2_runtime.py gke/app/controller_shared.py gke/app/k7_controller.py > image-evidence/source_sha256.txt
+      - name: Build local image (no push, no GKE)
+        shell: bash
+        run: |
+          set -euo pipefail
+          SOURCE_SHA="$(cat image-evidence/source_commit.txt)"
+          docker build --platform linux/amd64 --label "org.opencontainers.image.revision=$SOURCE_SHA" -f gke/app/Dockerfile.qahbn2 -t p3g-preflight:local . 2>&1 | tee image-evidence/build.log
+          docker inspect p3g-preflight:local > image-evidence/local_image_inspect.json
+          docker image inspect p3g-preflight:local --format '{{.Id}}' > image-evidence/local_config_id.txt
+          docker image inspect p3g-preflight:local --format '{{index .Config.Labels "org.opencontainers.image.revision"}}' | grep -Fx "$SOURCE_SHA"
+          test "$(docker image inspect p3g-preflight:local --format '{{.Os}}/{{.Architecture}}')" = linux/amd64
+      - name: Verify actual peer and controller image imports
+        shell: bash
+        run: |
+          set -euo pipefail
+          docker run --rm --entrypoint python p3g-preflight:local -c '
+          import recovery_availability, peer, qahbn2_runtime
+          import controller
+          from peer_pb2_grpc import PeerServiceStub
+          assert hasattr(PeerServiceStub, "NotifyRecoveryRejoin")
+          assert hasattr(peer.PeerService, "NotifyRecoveryRejoin")
+          assert hasattr(peer.PeerState, "notify_recovery_rejoin")
+          assert callable(controller.run_churn)
+          print("P3G_IMAGE_IMPORTS_PASS")
+          ' | tee image-evidence/imports.txt
+      - name: Record local evidence and checksum manifest
+        if: always()
+        shell: bash
+        run: |
+          cd image-evidence
+          find . -maxdepth 1 -type f ! -name SHA256SUMS -print0 | sort -z | xargs -0 -r sha256sum > SHA256SUMS
+          printf '%s\n' 'LOCAL_BUILD_ONLY; REGISTRY_DIGEST_NOT_ESTABLISHED; GKE_DEPLOYMENT_NOT_AUTHORIZED' > RELEASE_STATUS.txt
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: p3g-image-preflight-evidence
+          path: image-evidence/
+          retention-days: 30
