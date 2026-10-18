@@ -3,7 +3,7 @@
 set -Eeuo pipefail
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 cd "$ROOT"
-EXPECTED_SHA="433a6cc3ee3939504c04b4c68570b67358acfe5f"
+EXPECTED_SHA="458ad70533c1b2f74fbc0b76ec61ea1ed6575730"
 REPO="docker.io/wwiras/q-ahbn2"
 [[ "${P3G_DOCKERHUB_UPLOAD_APPROVED:-}" == "YES" ]] || { echo "HOLD: publication approval environment gate missing"; exit 1; }
 for bin in docker git sha256sum; do command -v "$bin" >/dev/null || { echo "HOLD: missing $bin"; exit 1; }; done
