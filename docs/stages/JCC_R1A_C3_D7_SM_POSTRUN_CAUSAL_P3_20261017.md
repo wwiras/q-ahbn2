@@ -166,3 +166,29 @@ shasum -a 256 -c SHA256SUMS
 **Scientific interpretation:** Maintenance activity is verified at summary level, **not** actual parent reattachment or restoration of source forwarding. The 177 empty AHBN eligible sets establish target-exclusion observations, **not** their causes, exact mode composition, or restored availability. Need full `source_maintenance_events`, source failures/successes, and per-message AHBN decision fields in the hashed report before classifying design-vs-implementation root cause.
 
 **Decision:** P3B local execution **PASS**; local checksum **PASS**; source-decision attribution **PASS**; recovery conformance **HOLD**; formal D7-F **0/25 HOLD**; D8 **HOLD**. No new GKE or algorithm changes. Q-AHBN manuscript remains under peer review at Journal of Cloud Computing, unpublished/no DOI.
+
+## P3C — Independent readback: structural forwarding versus availability (2026-10-18)
+
+**Scope:** NONFORMAL GKE Exp11-style churn smoke, seed42, 240 injected messages. **Read-only.** Full P3B report independently inspected from user-supplied `p3b_recovery_attribution.json`, SHA256 independently computed as `fa735635c7cb8655a450ad1d1cf503864528b59ea2b2a629d144373efeddf0b4`, matching the researcher-provided checksum. P3B input peer-stream hashes are retained in the report. Scientific algorithms and original evidence unchanged.
+
+### DC-SoC structural maintenance versus actual source forwarding
+
+- Across peer records: 140 maintenance events, 70 leave and 70 rejoin. Source peer 1 has eight events (leave/rejoin for nodes 0,5,10,15).
+- For node0 leave, peer1 recorded replacement core **4** (`maintenance_action=leave`, structural generation G1). For node0 rejoin peer1 recorded `rejoined_node=0` and `new_cluster=0` (G2). These are maintenance-model observations, not proof of forward-path restoration.
+- Source forwarding succeeded to peer0 for m1–m8, then to replacement peer4 for **m9 and m10**. Subsequently m11–m18 failed when targeting peer0, each `DEADLINE_EXCEEDED`. No later source forward-success event exists for m19–m240 in this report.
+- **Nuance:** the logged source m11–m18 failures occurred after node0 rejoin maintenance, so a transient or logically restored topology alone cannot establish a live RPC path. Source-target return to peer0 after using replacement core4 is *observed*. Exact configured `dcsoc_parent` at each instant and whether peer0 was still marked in `unavailable_neighbors` are *not directly recorded* in P3B: a stronger implementation-defect verdict requires those state observations or trustworthy reconstruction from the original peer stream and code.
+
+### AHBN source controller and eligibility
+
+- All 240 injected messages have one source peer1 forwarding-decision record; modes: **cluster 185, gossip 55**.
+- **177 / 240** source decisions have `eligible_neighbors=[]` and `selected_peers=[]`; **all 177 are cluster mode**. The other eight cluster-mode decisions select peer0 before the first source failure; one gossip decision includes peer0 before failure.
+- Source `unavailable_neighbors` was `[]` for m1–m9, and **[0] for m10–m240 (231 messages)**. The 177 empty cluster-target decisions occur with peer0 excluded; gossip decisions can select other peers (3,4,6,7,8,15,17).
+- This identifies an **eligibility-path explanation** for many source-only messages, not proof that the frozen AHBN mode decision is incorrect or that Kubernetes itself kept peer0 unavailable. No universal re-eligibility deadline appears in the reviewed frozen contract.
+
+### Evidence distinctions and controlled decision
+
+**Supported:** (1) DC-SoC maintenance ran and source briefly forwarded to replacement peer4; (2) after source again targeted peer0, RPC deadlines followed; (3) AHBN's 177 zero-eligible decisions are all cluster-mode with peer0 recorded unavailable.
+
+**Still unknown:** exact live source `dcsoc_parent` and `unavailable_neighbors` snapshots at each DC-SoC transition, precise RPC failure mechanism, whether a contract required peer0 re-eligibility, and whether explicit recovery should reset availability. Thus do not claim confirmed bug, failed design, or algorithm superiority from this single nonformal run.
+
+**P3C gate:** independent report readback/sha **PASS**; DC-SoC structural-target chronology **PASS**; AHBN decision/availability attribution **PASS**; recovery design-versus-implementation **HOLD**. **Formal D7-F 0/25 HOLD; D8 HOLD.** Next narrowed step: inspect the original pinned logging and synchronization paths for `dcsoc_parent` and `unavailable_neighbors` transition visibility; if fields are absent, declare that observational limit rather than fabricate them. No GKE rerun authorized. Manuscript remains under review at *Journal of Cloud Computing*, unpublished/no DOI.
