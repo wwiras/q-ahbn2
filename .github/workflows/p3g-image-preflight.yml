@@ -48,7 +48,7 @@ jobs:
           assert hasattr(PeerServiceStub, "NotifyRecoveryRejoin")
           assert hasattr(peer.PeerService, "NotifyRecoveryRejoin")
           assert hasattr(peer.PeerState, "notify_recovery_rejoin")
-          assert callable(controller.run_churn)
+          assert hasattr(controller, "run_churn") and callable(controller.run_churn)
           print("P3G_IMAGE_IMPORTS_PASS")
           ' | tee image-evidence/imports.txt
       - name: Record local evidence and checksum manifest
