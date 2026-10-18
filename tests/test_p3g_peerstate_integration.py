@@ -96,6 +96,44 @@ class P3GPeerStateIntegration(unittest.TestCase):
     def exclude(self):
         self.state.recovery.failure(4)
 
+    def test_churn_rejoin_notification_calls_production_peerstate(self):
+        self.exclude()
+        a, b = self.rpc()
+        with a, b:
+            self.assertTrue(self.state.notify_recovery_rejoin(4))
+        self.assertEqual(self.state.target_peers(sender_id=0), [4])
+        self.assertEqual(self.calls, [("GetStatus", 2.0)])
+
+    def test_churn_rejoin_notification_rejects_non_neighbor(self):
+        self.state.recovery.failure(7)
+        a, b = self.rpc()
+        with a, b:
+            self.assertFalse(self.state.notify_recovery_rejoin(7))
+        self.assertEqual(self.calls, [])
+
+    def test_churn_rejoin_notification_noop_when_disabled(self):
+        self.exclude()
+        self.state.recovery.disable()
+        a, b = self.rpc()
+        with a, b:
+            self.assertFalse(self.state.notify_recovery_rejoin(4))
+        self.assertIn(4, self.state.unavailable_neighbors)
+        self.assertEqual(self.calls, [])
+
+    def test_service_rejoin_rpc_invokes_real_recovery(self):
+        from peer import PeerService
+        from peer import peer_pb2
+        self.exclude()
+        request = peer_pb2.DCSOCMaintenanceRequest(
+            node_id=4, available=True, reason="k7_churn_rejoin"
+        )
+        a, b = self.rpc()
+        with a, b:
+            reply = PeerService(self.state).NotifyRecoveryRejoin(request, None)
+        self.assertTrue(reply.ok)
+        self.assertEqual(reply.message, "recovered")
+        self.assertEqual(self.observations.joins, 1)
+
     def test_real_target_excluded_then_restored_after_verified_status(self):
         self.assertEqual(self.state.target_peers(sender_id=0), [4])
         self.exclude()
