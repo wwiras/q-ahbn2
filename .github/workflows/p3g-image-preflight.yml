@@ -46,10 +46,10 @@ jobs:
           import controller
           from peer_pb2_grpc import PeerServiceStub
           checks = {
-              "grpc_stub": hasattr(PeerServiceStub, "NotifyRecoveryRejoin"),
+              "grpc_stub": "NotifyRecoveryRejoin" in PeerServiceStub.__dict__,
               "peer_service": hasattr(peer.PeerService, "NotifyRecoveryRejoin"),
               "peer_state": hasattr(peer.PeerState, "notify_recovery_rejoin"),
-              "controller_churn": hasattr(controller, "run_churn") and callable(controller.run_churn),
+              "controller_churn": hasattr(controller, "run_k7_churn") and callable(controller.run_k7_churn),
           }
           print(checks, flush=True)
           assert all(checks.values()), checks
