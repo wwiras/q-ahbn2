@@ -78,3 +78,29 @@ shasum -a 256 -c SHA256SUMS
 ```
 
 Stop without overwriting an existing nonempty output directory; no GKE or experimental rerun. The script's `first_pass_trace` represents an observed event sequence, not an independently proven time-ordered causal graph. **P3 detailed reconstruction execution PENDING; D7-F and D8 HOLD.**
+
+## P3 researcher execution and independent Drive readback — 2026-10-18
+
+**Researcher-reported run:** synced `origin/main` through `d06fdc0` and executed the existing P3 read-only script against `output/evidence/20261017T133327Z-D7-SM-remaining`. It produced `output/evidence/20261017-D7-SM-CAUSAL-P3-readonly/p3_message_trace.json`, SHA256 `5cbf0d737b60dbc9c8a0d6d449ec9b1933cd160cde7953246d9ef218e0702cf2`; local `shasum -a 256 -c SHA256SUMS` reported `p3_message_trace.json: OK`.
+
+**Independent evidence retrieval:** The corresponding Google Drive evidence folder was located at https://drive.google.com/drive/folders/1vF-E1Ib0O3vkchGCN7gV4OQij0xOw46L ; it contains the reported report and SHA256SUMS. The full report file was fetched for local analysis and independently recomputed to have exactly the reported SHA256 digest. No original logs were edited, no cloud/GKE execution was performed by this audit. The hashed report contains 240 reconstructed message records for each of four methods (960 message records total). The report is a first-pass event reconstruction, **not** independently verified complete causal attribution.
+
+| Method | Messages | Messages reaching only source | Exact message-level observed pattern |
+|---|---:|---:|---|
+| Structured | 240 | 232 | Source forwards successfully m1–m8; m9 has failed source forward; m10–m240 have no source forward success |
+| DC-SoC | 240 | 230 | Source forwards successfully m1–m10; m11–m18 have failed source forward; m19–m240 do not record source forward success |
+| AHBN | 240 | 178 | Source forwarding successes occur across dispersed message IDs, including m10–m19 and m235–m238; no global permanent halt proven |
+| Q-AHBN2 | 240 | 63 | 62 source decisions have empty realized targets, **all in structured mode**; remaining source-only message is m9 where target peer0 was selected and recorded Q-attributed outcome `FAILED` with `StatusCode.UNAVAILABLE` |
+
+### Q-AHBN2 specific attribution — readback supported
+
+- Of the 63 source-only messages, **62 have empty realized target sets** and **one (m9) selected target peer0 but failed at the RPC outcome**. No zero-target decision in the report is associated with multi-peer delivery. This partition holds within the retrieved message trace; it does **not** prove what would happen under another topology, seed or rerun.
+- Source Q actions paired with prior canonical mode: **145** instances `mode_ahbn=structured` and `SET_GOSSIP` lead to `mode_q=gossip`; another **22** `SET_GOSSIP` occur when `mode_ahbn=gossip`. These are observed choices, not a causal measurement of improvement due to learning.
+- At m10 the source makes `SET_STRUCTURED` with `eligible_targets=[]` and `realized_targets=[]`, producing source-only delivery. At m21 `FANOUT_UP` likewise has empty eligible/realized targets; a requested fanout increase does not create eligible peers. At m63 the source makes `SET_GOSSIP` after canonical `structured`, realizes two targets and reports 11 delivered peers. These are examples from a single seed only.
+- The P3 event trace explicitly records a Q `FAILED` attempt outcome for m9 even though the aggregate has no `forward_failed` event for Q-AHBN2. Thus interpreting absence of `forward_failed` as zero transport failures is **incorrect**.
+
+### Discriminating causal conclusion and limits
+
+**Verified operational behavior:** Under this smoke configuration, Structured and DC-SoC source paths stop propagating after head/parent RPC failures. AHBN source occasionally forwards later; Q-AHBN2 frequently realizes Gossip forwarding after canonical Structured selection, but also suffers numerous Structured zero-target decisions. These observations strengthen eligibility/recovery failure as a *possible* cause, yet do not isolate algorithmic design failure versus implementation deviation. In particular, exact successful Kubernetes recovery, re-eligibility requirements under frozen contracts, DC-SoC maintenance state, and downstream hop/ACK closure remain unproven. Poor dissemination is real and must not be defended away.
+
+**Decision:** P3 **LOCAL EXECUTION PASS; REPORT SHA256 AND GOOGLE DRIVE READBACK PASS; INITIAL MESSAGE-LEVEL PARTIAL PASS; ROOT-CAUSE / DESIGN-vs-IMPLEMENTATION SCIENTIFIC CLOSURE HOLD.** Next subgate must reconcile normative design expectations with logged application unavailable-set transitions and DC-SoC maintenance before recommending code repair or any algorithm change. D7-F 0/25 HOLD, D8 HOLD. Q-AHBN manuscript remains under peer review at Journal of Cloud Computing, not published, no DOI.
