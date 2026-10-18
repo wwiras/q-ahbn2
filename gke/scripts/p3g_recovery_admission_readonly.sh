@@ -29,7 +29,7 @@ printf '%s\n' "$STRATEGY" > "$OUT/strategy.txt"
 git status --porcelain --untracked-files=no > "$OUT/git_status.txt"
 [[ ! -s "$OUT/git_status.txt" ]] || { echo 'HOLD: modified tracked files'; exit 1; }
 # Local Helm rendering never connects to GKE. Both components must use exactly the same digest.
-helm template p3g-readonly gke/helm/ahbn --namespace "$NS" --set namespace="$NS" --set image="$IMAGE" --set controller.enabled=true --set numNodes=20 > "$OUT/rendered.yaml"
+helm template p3g-readonly gke/helm/ahbn --namespace "$NS" --set namespace="$NS" --set image="$IMAGE" --set controller.enabled=true --set numNodes=20 --set-string recovery.enabled=1 > "$OUT/rendered.yaml"
 python3 - "$OUT/rendered.yaml" "$IMAGE" > "$OUT/manifest_check.txt" <<'PY'
 import sys
 try:
