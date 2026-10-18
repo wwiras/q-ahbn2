@@ -57,3 +57,9 @@ Branch-only code updates:
 **Evidence limitation:** 12/12 earlier helper tests were reported by the researcher *before* these changes. The expanded 15-test suite and updated `peer.py` have **not yet been executed**. Atomicity is established for state *transitions via the manager*, but legacy unlocked membership reads and runtime scheduling require separate concurrency/behavioural audit. `GetStatus` peer membership check is not full strategy-specific eligibility validation. Probe trigger authority, frequency and timing remain unresolved. This is not a completed recovery fix or GKE release.
 
 **Required offline checks:** syntax, 15 unit tests, integrated fake-gRPC lifecycle and metrics invariance, frozen parity, concurrency/stale-response tests, exact commit and hashes. All GKE/D7-F/D8 remain HOLD.
+
+## Researcher local verification — 2026-10-18
+
+Researcher supplied terminal output after `git pull --ff-only origin work/p3g-recovery-offline` fast-forwarding `7d56bdc..5aebfa5`. The commands `python3 -m py_compile gke/app/peer.py gke/app/recovery_availability.py gke/app/test_recovery_availability_p3g.py` returned without reported error; `PYTHONPATH=gke/app python3 -m unittest -v test_recovery_availability_p3g` reported **Ran 15 tests in 0.000s / OK**.
+
+**Decision:** isolated P3G unit suite PASS (researcher-reported terminal evidence). Integrated runtime fake-gRPC/lifecycle/metric-invariance tests NOT RUN. Do not infer successful actual peer rejoin or restored dissemination from these unit tests. Runtime adapter remains feature-disabled by default; no lifecycle trigger is connected. GKE, D7-F, D8 HOLD. Logs and SHA256 archival remain pending.
