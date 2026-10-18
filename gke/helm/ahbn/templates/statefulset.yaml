@@ -23,6 +23,8 @@ spec:
           ports:
             - containerPort: {{ .Values.grpcPort }}
           env:
+            - name: P3G_RECOVERY_ENABLED
+              value: {{ .Values.recovery.enabled | quote }}
             - name: TOPOLOGY_PATH
               value: /config/topology.json
             - name: GRPC_PORT
