@@ -7,7 +7,7 @@ EXPECTED_CONTEXT="gke_stoked-cosine-415611_us-central1-a_bcgossip-cluster"
 IMAGE="docker.io/wwiras/q-ahbn2@sha256:7e5a3d385e9dcd5c051505ef1fdcccab581539780db3e228cd1575dde1c1488f"
 STRATEGY="${P3G_STRATEGY:-ahbn}"
 [[ "$STRATEGY" == ahbn || "$STRATEGY" == qahbn2 ]] || { echo 'HOLD: only AHBN or Q-AHBN2'; exit 1; }
-NS="qahbn2-d7-smoke-${STRATEGY}"
+NS="qahbn2-d7-smoke-p3g-${STRATEGY}"
 for cmd in kubectl helm git python3 shasum; do command -v "$cmd" >/dev/null || { echo "HOLD: missing $cmd"; exit 1; }; done
 OUT="${P3G_ADMISSION_OUT:-$ROOT/output/evidence/$(date -u +%Y%m%dT%H%M%SZ)-P3G-${STRATEGY}-READONLY-ADMISSION}"
 [[ ! -e "$OUT" ]] || { echo 'HOLD: evidence folder exists'; exit 1; }
