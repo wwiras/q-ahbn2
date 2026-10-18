@@ -35,3 +35,13 @@ Then perform P3E T01–T12 and P3F T13–T18 against integrated code, including 
 - D7-F: 0/25 HOLD; D8: HOLD.
 - No GKE use, cloud spending, manuscript modification, or change to frozen scientific contracts.
 - Original P3 evidence is immutable.
+
+## 2026-10-18 — User local helper test report and staged runtime adapter
+
+Researcher terminal reported successful `py_compile` and **12/12 isolated unittest PASS** on branch `work/p3g-recovery-offline`. This is user-supplied terminal evidence, not independently rerun by the assistant; full stdout/checksum archive pending.
+
+A subsequent branch-only change stages `PeerState.request_recovery_check()` in `gke/app/peer.py` using existing `GetStatus`. `P3G_RECOVERY_ENABLED` defaults to off. The method is **not called by any lifecycle hook** and intentionally does **not** clear the runtime `unavailable_neighbors` set. Therefore **recovery is not fixed**, and this code is not ready for a smoke test.
+
+Important outstanding defects/limitations of this staging adapter: the helper state is not yet atomically synchronized with the existing runtime set; each explicit call currently marks failure in helper state and thus must not be interpreted as final generation discipline; the membership check is only a necessary topology check, not full strategy-specific authorization; no production trigger exists. This must be corrected before enablement, and the real adapter requires offline fake-gRPC tests.
+
+After pulling the latest branch, repeat syntax and unittest checks, then complete integrated T01–T18, concurrency and metric-invariance tests. **No live enablement, main merge, formal trials, or GKE spending authorized.**
