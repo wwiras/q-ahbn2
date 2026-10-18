@@ -8,6 +8,7 @@ COPY gke/app/peer.proto peer.proto
 RUN python -m grpc_tools.protoc -I. --python_out=. --grpc_python_out=. peer.proto
 
 COPY gke/app/peer.py peer.py
+COPY gke/app/recovery_availability.py recovery_availability.py
 COPY gke/app/ahbn_controller.py ahbn_controller.py
 COPY gke/app/observations.py observations.py
 COPY gke/app/dcsoc_maintenance.py dcsoc_maintenance.py
