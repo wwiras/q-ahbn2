@@ -1,5 +1,8 @@
 """P3G-V3 controller-to-peer fake-gRPC verification. No cluster access."""
 import unittest
+import sys
+import k7_exp11_tools
+sys.modules.setdefault('k5_exp10_tools', k7_exp11_tools)
 from types import SimpleNamespace
 from unittest.mock import patch
 
