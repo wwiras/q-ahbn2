@@ -72,6 +72,34 @@ class RecoveryTests(unittest.TestCase):
         self.assertEqual(verify_get_status(ticket, status_call=failure, timeout_s=0.5),
                          (False, None, False, False))
 
+    def test_shared_exclusion_set_and_forward_ack(self):
+        legacy = set()
+        state = RecoveryAvailability(legacy)
+        self.assertTrue(state.mark_failed(7))
+        self.assertEqual(legacy, {7})
+        self.assertFalse(state.mark_failed(7))
+        self.assertTrue(state.mark_recovered(7))
+        self.assertEqual(legacy, set())
+        self.assertFalse(state.mark_recovered(7))
+
+    def test_ack_invalidates_inflight_probe(self):
+        state = RecoveryAvailability()
+        state.mark_failed(7)
+        ticket = state.begin_probe(7)
+        self.assertTrue(state.mark_recovered(7))
+        self.assertTrue(state.mark_failed(7))
+        self.assertFalse(state.finish_probe(
+            ticket, rpc_ok=True, returned_peer_id=7,
+            ready=True, alive=True, topology_permits=True,
+        ))
+        self.assertTrue(state.is_excluded(7))
+
+    def test_failed_probe_preserves_eligibility_exclusion(self):
+        ticket = self.state.begin_probe(5)
+        self.assertFalse(self.confirm(ticket, rpc_ok=False))
+        self.assertTrue(self.state.is_excluded(5))
+        self.assertIsNotNone(self.state.begin_probe(5))
+
     def test_invalid_timeout(self):
         ticket = self.state.begin_probe(5)
         with self.assertRaises(ValueError):
