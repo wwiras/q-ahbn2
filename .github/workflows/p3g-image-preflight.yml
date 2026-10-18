@@ -45,10 +45,14 @@ jobs:
           import recovery_availability, peer, qahbn2_runtime
           import controller
           from peer_pb2_grpc import PeerServiceStub
-          assert hasattr(PeerServiceStub, "NotifyRecoveryRejoin")
-          assert hasattr(peer.PeerService, "NotifyRecoveryRejoin")
-          assert hasattr(peer.PeerState, "notify_recovery_rejoin")
-          assert hasattr(controller, "run_churn") and callable(controller.run_churn)
+          checks = {
+              "grpc_stub": hasattr(PeerServiceStub, "NotifyRecoveryRejoin"),
+              "peer_service": hasattr(peer.PeerService, "NotifyRecoveryRejoin"),
+              "peer_state": hasattr(peer.PeerState, "notify_recovery_rejoin"),
+              "controller_churn": hasattr(controller, "run_churn") and callable(controller.run_churn),
+          }
+          print(checks, flush=True)
+          assert all(checks.values()), checks
           print("P3G_IMAGE_IMPORTS_PASS")
           ' | tee image-evidence/imports.txt
       - name: Record local evidence and checksum manifest
