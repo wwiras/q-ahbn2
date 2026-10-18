@@ -16,6 +16,10 @@ fi
 [[ "${IMAGE}" == *@sha256:* && "${IMAGE#*@}" == "${EXPECTED_IMAGE_DIGEST}" ]] || {
   echo "HOLD: image/digest mismatch" >&2; exit 1;
 }
+if [ "${P3G_RECOVERY_ENABLED}" = "1" ]; then
+  APPROVED_P3G_DIGEST="sha256:7e5a3d385e9dcd5c051505ef1fdcccab581539780db3e228cd1575dde1c1488f"
+  [[ "${EXPECTED_IMAGE_DIGEST}" = "${APPROVED_P3G_DIGEST}" && "${IMAGE}" = "docker.io/wwiras/q-ahbn2@${APPROVED_P3G_DIGEST}" ]] || { echo "HOLD: not approved P3G image" >&2; exit 1; }
+fi
 [ "$(kubectl config current-context)" = "${EXPECTED_CONTEXT:-gke_stoked-cosine-415611_us-central1-a_bcgossip-cluster}" ] || {
   echo "HOLD: unexpected kubectl context" >&2; exit 1;
 }
@@ -77,6 +81,9 @@ trap 'exit 143' TERM
 "${PYTHON}" "${ROOT_DIR}/gke/app/k7_gen_topology.py" --config "${ROOT_DIR}/${CONFIG}" --out "${OUTDIR}/topology.json"
 cp "${OUTDIR}/topology.json" "${ROOT_DIR}/gke/helm/ahbn/topology.json"; cp "${ROOT_DIR}/${CONFIG}" "${OUTDIR}/generated_config.yaml"
 NUM_NODES="$("${PYTHON}" -c 'import json,sys; print(json.load(open(sys.argv[1]))["num_nodes"])' "${OUTDIR}/topology.json")"
+if [ "${P3G_RECOVERY_ENABLED}" = "1" ]; then
+  [[ "${NUM_NODES}" = "20" ]] || { echo "HOLD: P3G requires exactly 20 peers" >&2; exit 1; }
+fi
 CREATE_ATTEMPTED=1
 kubectl create namespace "${NAMESPACE}"
 NS_UID="$(kubectl get namespace "${NAMESPACE}" -o jsonpath='{.metadata.uid}')"
@@ -94,5 +101,7 @@ kubectl -n "${NAMESPACE}" get pods -l app=ahbn-peer -o json >"${OUTDIR}/pods.jso
 sleep 5
 kubectl -n "${NAMESPACE}" logs -f -l app=ahbn-peer --all-containers=true --max-log-requests=20 --tail=-1 >"${OUTDIR}/peer_stream.jsonl" 2>"${OUTDIR}/peer_stream.err" & LOG_FOLLOW_PID=$!
 helm upgrade "${RELEASE}" "${ROOT_DIR}/gke/helm/ahbn" --namespace "${NAMESPACE}" --reuse-values --set controller.enabled=true --set-string "recovery.enabled=${P3G_RECOVERY_ENABLED}"
+kubectl -n "${NAMESPACE}" get job ahbn-controller -o json >"${OUTDIR}/controller_job.json"
+"${PYTHON}" -c 'import json,sys; d=json.load(open(sys.argv[1])); cs=d["spec"]["template"]["spec"]["containers"]; assert len(cs)==1 and cs[0]["image"]==sys.argv[2], "controller image mismatch"' "${OUTDIR}/controller_job.json" "${IMAGE}"
 kubectl -n "${NAMESPACE}" wait --for=condition=complete job/ahbn-controller --timeout=900s
 # EXIT trap preserves separate experiment/cleanup status and cleanup evidence.
