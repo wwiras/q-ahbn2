@@ -4333,3 +4333,7 @@ Independent inspection of user-provided complete P3B report, SHA256 `fa735635c7c
 ## 2026-10-18 — P3D pinned-code recovery synchronization audit
 
 Read-only review at deployed commit `68aa0830873b9d8cb231d9a27bff1bbc19477128` confirmed that forwarding errors add destinations to `unavailable_neighbors`; both AHBN structured and DC-SoC forwarding exclude them before RPC. DC-SoC `sync_peer` updates structural parent/children but does not synchronize the independent forwarding-exclusion set. **Code-level synchronization gap confirmed; complete runtime recovery root cause remains HOLD.** Details in `docs/stages/JCC_R1A_C3_D7_SM_POSTRUN_CAUSAL_P3_20261017.md`. No GKE rerun or frozen algorithm change. D7-F 0/25 HOLD; D8 HOLD. Manuscript under peer review, no DOI.
+
+## 2026-10-18 — P3E recovery-state requirement and offline regression proposal
+
+Design-only proposal in `docs/stages/JCC_R1A_C3_D7_SM_RECOVERY_REQUIREMENT_P3E_20261018.md` (commit `3453009ff63d6f5d9054cce485d65ef9d19ebc1f`). RR-01–RR-05 distinguish verified transport reachability from structural rejoin, require ordered/idempotent availability transitions, retain frozen AHBN/Q-AHBN2/eligibility semantics, and specify evidence logging. T01–T12 offline regression acceptance matrix proposed; no implementation or tests authorized or run. Recovery confirmation mechanism and protocol compatibility require approval. P3E proposal PASS/APPROVAL PENDING; observed root cause HOLD; formal D7-F 0/25 HOLD; D8 HOLD. No GKE spending. Manuscript under review at Journal of Cloud Computing, not published, no DOI.
