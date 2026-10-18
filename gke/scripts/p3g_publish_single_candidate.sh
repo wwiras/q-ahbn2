@@ -3,11 +3,11 @@
 set -Eeuo pipefail
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 cd "$ROOT"
-EXPECTED_SHA="458ad70533c1b2f74fbc0b76ec61ea1ed6575730"
+EXPECTED_SHA="932034b4d672e9043ee235362e5e7d68db0949f"
 REPO="docker.io/wwiras/q-ahbn2"
 [[ "${P3G_DOCKERHUB_UPLOAD_APPROVED:-}" == "YES" ]] || { echo "HOLD: publication approval environment gate missing"; exit 1; }
 for bin in docker git sha256sum; do command -v "$bin" >/dev/null || { echo "HOLD: missing $bin"; exit 1; }; done
-[[ "$(git rev-parse HEAD)" == "$EXPECTED_SHA" ]] || { echo "HOLD: checkout SHA does not match approved source"; exit 1; }
+[[ "$(git rev-parse HEAD)" == "$EXPECTED_SHA" ]] || { echo "HOLD: checkout SHA does not match tested build source"; exit 1; }
 [[ -z "$(git status --porcelain)" ]] || { echo "HOLD: dirty worktree"; exit 1; }
 [[ -n "${DOCKERHUB_USERNAME:-}" && "$DOCKERHUB_USERNAME" == "wwiras" ]] || { echo "HOLD: Docker Hub username must be wwiras"; exit 1; }
 [[ -n "${DOCKERHUB_TOKEN:-}" ]] || { echo "HOLD: DOCKERHUB_TOKEN must be set securely; do not put token in command history"; exit 1; }
