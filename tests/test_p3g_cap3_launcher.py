@@ -78,6 +78,10 @@ class P3GCap3Tests(unittest.TestCase):
                       'cleanup_exit_status.txt', 'kubectl delete namespace'):
             self.assertIn(guard, self.code)
 
+    def test_12_controller_runtime_digest_evidence(self):
+        self.assertIn('get pods -l app=ahbn-controller -o json', self.code)
+        self.assertIn('controller runtime imageID mismatch', self.code)
+
     def test_11_no_explicit_resource_change(self):
         self.assertNotIn('resources:', self.code)
 
