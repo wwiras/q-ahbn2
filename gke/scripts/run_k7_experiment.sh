@@ -30,6 +30,7 @@ collect(){
   if [ -n "${LOG_FOLLOW_PID}" ]; then kill "${LOG_FOLLOW_PID}" 2>/dev/null || true; wait "${LOG_FOLLOW_PID}" 2>/dev/null || true; LOG_FOLLOW_PID=""; fi
   kubectl -n "${NAMESPACE}" get pods -l app=ahbn-peer -o json >"${OUTDIR}/pods.json" 2>/dev/null || true
   kubectl -n "${NAMESPACE}" get events --sort-by=.metadata.creationTimestamp >"${OUTDIR}/pod_readiness_evidence.txt" 2>/dev/null || true
+  kubectl -n "${NAMESPACE}" get pods -l app=ahbn-controller -o json >"${OUTDIR}/controller_pods.json" 2>/dev/null || true
   kubectl -n "${NAMESPACE}" logs job/ahbn-controller >"${OUTDIR}/controller.log" 2>/dev/null || true
   kubectl -n "${NAMESPACE}" logs -l app=ahbn-peer --all-containers=true --max-log-requests=20 --tail=-1 >"${OUTDIR}/final_snapshot.jsonl" 2>/dev/null || true
   { [ -s "${OUTDIR}/peer_stream.jsonl" ] && cat "${OUTDIR}/peer_stream.jsonl"; cat "${OUTDIR}/final_snapshot.jsonl" 2>/dev/null || true; cat "${OUTDIR}/controller.log" 2>/dev/null || true; } >"${OUTDIR}/logs.jsonl"
@@ -104,4 +105,6 @@ helm upgrade "${RELEASE}" "${ROOT_DIR}/gke/helm/ahbn" --namespace "${NAMESPACE}"
 kubectl -n "${NAMESPACE}" get job ahbn-controller -o json >"${OUTDIR}/controller_job.json"
 "${PYTHON}" -c 'import json,sys; d=json.load(open(sys.argv[1])); cs=d["spec"]["template"]["spec"]["containers"]; assert len(cs)==1 and cs[0]["image"]==sys.argv[2], "controller image mismatch"' "${OUTDIR}/controller_job.json" "${IMAGE}"
 kubectl -n "${NAMESPACE}" wait --for=condition=complete job/ahbn-controller --timeout=900s
+kubectl -n "${NAMESPACE}" get pods -l app=ahbn-controller -o json >"${OUTDIR}/controller_pods.json"
+"${PYTHON}" -c 'import json,sys; d=json.load(open(sys.argv[1])); pods=d.get("items",[]); assert len(pods)==1, f"expected one controller pod, got {len(pods)}"; p=pods[0]; assert p["spec"]["containers"][0]["image"]==sys.argv[2], "controller pod image mismatch"; c=p["status"].get("containerStatuses",[]); assert len(c)==1 and sys.argv[3] in c[0].get("imageID",""), "controller runtime imageID mismatch"' "${OUTDIR}/controller_pods.json" "${IMAGE}" "${EXPECTED_IMAGE_DIGEST}"
 # EXIT trap preserves separate experiment/cleanup status and cleanup evidence.
