@@ -4321,3 +4321,7 @@ Read-only frozen-contract vs experimental-checkout source comparison and P3 repo
 ## 2026-10-18 — P3B audit script prepared
 
 Controlled next action is the local-only Exp11-style churn P3B DC-SoC maintenance and AHBN source-decision attribution audit. Script `gke/scripts/audit_d7_sm_causal_p3b_readonly.py` committed as `f6f816178e816cecc9b071f788d5b056afee3901`; gate instructions and limitations in `docs/stages/JCC_R1A_C3_D7_SM_POSTRUN_CAUSAL_P3_20261017.md` (`a0547e780f592e6eac34d79927d48bf29960bd7d`). P3B output/hash pending researcher execution. AHBN trace `sender` is the actual decision-making peer; P3 extraction using `peer_id` was incomplete. DC-SoC maintenance count does not prove restored parent/forwarding. No original evidence changes, GKE reruns, algorithm changes or publication claim. D7-F 0/25 HOLD; D8 HOLD.
+
+## 2026-10-18 — P3B local execution PASS
+
+Researcher executed read-only `gke/scripts/audit_d7_sm_causal_p3b_readonly.py`; local SHA256 verification PASS for `p3b_recovery_attribution.json` (`fa735635c7cb8655a450ad1d1cf503864528b59ea2b2a629d144373efeddf0b4`). Summary: DC-SoC 140 maintenance events (70 leave/70 rejoin), eight at source peer1; AHBN 614 decisions, 240 source decisions for all 240 messages, 177 with zero eligible neighbors. Original evidence unchanged. Full report independent readback pending; maintenance/forwarding recovery causation HOLD; D7-F 0/25 HOLD, D8 HOLD. Details in `docs/stages/JCC_R1A_C3_D7_SM_POSTRUN_CAUSAL_P3_20261017.md`.
