@@ -17,6 +17,7 @@ import peer_pb2_grpc
 from ahbn_controller import AHBNParams, AHBNState, CanonicalAHBNController
 from observations import KubernetesObservationAdapter
 from dcsoc_maintenance import DCSOCMaintenance
+from recovery_availability import RecoveryAvailability
 
 
 def now() -> float:
@@ -250,6 +251,13 @@ class PeerState:
         )
         self.controller_lock = threading.Lock()
         self.unavailable_neighbors: set[int] = set()
+        self.recovery = RecoveryAvailability(
+            self.unavailable_neighbors, self.observations,
+            enabled=os.environ.get("P3G_RECOVERY_ENABLED", "0") == "1",
+            logger=lambda **fields: log_event(
+                run_id=self.run_id, peer_id=self.peer_id, **fields
+            ),
+        )
         self.dcsoc_maintenance = (
             DCSOCMaintenance(topo)
             if self.strategy == "dcsoc"
@@ -604,9 +612,7 @@ class PeerState:
 
                 if resp.ok:
                     self.forward_count += 1
-                    if dst_peer in self.unavailable_neighbors:
-                        self.unavailable_neighbors.remove(dst_peer)
-                        self.observations.record_join()
+                    self.recovery.ack(dst_peer)
 
                     log_event(
                         event="forward",
@@ -626,9 +632,7 @@ class PeerState:
                     )
 
                 elif resp.message == "duplicate":
-                    if dst_peer in self.unavailable_neighbors:
-                        self.unavailable_neighbors.remove(dst_peer)
-                        self.observations.record_join()
+                    self.recovery.ack(dst_peer)
                     log_event(
                         event="forward_duplicate_ack",
                         run_id=self.run_id,
@@ -642,9 +646,7 @@ class PeerState:
                     self.trigger_failure_reaction(
                         reason="forward_rejected"
                     )
-                    if dst_peer not in self.unavailable_neighbors:
-                        self.unavailable_neighbors.add(dst_peer)
-                        self.observations.record_leave()
+                    self.recovery.failure(dst_peer)
 
                     log_event(
                         event="forward_rejected",
@@ -659,9 +661,7 @@ class PeerState:
             self.trigger_failure_reaction(
                 reason="forward_failed"
             )
-            if dst_peer not in self.unavailable_neighbors:
-                self.unavailable_neighbors.add(dst_peer)
-                self.observations.record_leave()
+            self.recovery.failure(dst_peer)
 
             log_event(
                 event="forward_failed",
@@ -672,6 +672,26 @@ class PeerState:
                 message_id=envelope.message_id,
                 error=str(e),
             )
+
+    def probe_recovery(self, target: int, *, trigger: str = "rejoin") -> bool:
+        """Verify transport availability without forwarding a message."""
+        def rpc(peer_id: int, timeout: float):
+            with grpc.insecure_channel(self.peer_dns(peer_id)) as channel:
+                stub = peer_pb2_grpc.PeerServiceStub(channel)
+                return stub.GetStatus(peer_pb2.Empty(), timeout=timeout)
+
+        def permitted(peer_id: int) -> bool:
+            if peer_id not in self.neighbors:
+                return False
+            maintenance = self.dcsoc_maintenance
+            if maintenance is not None:
+                with maintenance.lock:
+                    return bool(maintenance.active.get(peer_id, False))
+            return True
+
+        return self.recovery.probe(
+            target, rpc=rpc, permitted=permitted, timeout=2.0, trigger=trigger
+        )
 
     def process_envelope(
         self,
@@ -961,6 +981,15 @@ class PeerService(
                 reason=request.reason or "availability",
             )
         maintenance.sync_peer(self.state)
+        # A rejoin requests verification; it is never itself proof of RPC reachability.
+        if (changed and not request.explicit_du and bool(request.available)
+                and self.state.recovery.enabled):
+            target = int(request.node_id)
+            threading.Thread(
+                target=self.state.probe_recovery,
+                args=(target,), kwargs={"trigger": "dcsoc_rejoin"},
+                daemon=True,
+            ).start()
         if maintenance.events and changed:
             log_event(
                 event="dcsoc_maintenance",
