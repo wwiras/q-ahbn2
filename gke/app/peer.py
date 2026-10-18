@@ -693,6 +693,19 @@ class PeerState:
             target, rpc=rpc, permitted=permitted, timeout=2.0, trigger=trigger
         )
 
+    def notify_recovery_rejoin(self, target: int, *, trigger: str = "churn_rejoin") -> bool:
+        """Bounded rejoin notification; the GetStatus probe is still authoritative.
+
+        The caller must have observed a matching, Ready replacement pod.
+        A notification alone never clears unavailable_neighbors.
+        """
+        target = int(target)
+        if not self.recovery.enabled:
+            return False
+        if target not in self.neighbors or target == self.peer_id:
+            return False
+        return self.probe_recovery(target, trigger=trigger)
+
     def process_envelope(
         self,
         envelope: peer_pb2.Envelope,
@@ -966,6 +979,23 @@ class PeerService(
             seen_count=len(
                 self.state.seen_messages
             ),
+        )
+
+    def NotifyRecoveryRejoin(self, request, context):
+        """Controller-authorized notification, followed by peer-local GetStatus."""
+        target = int(request.node_id)
+        if not self.state.recovery.enabled:
+            return peer_pb2.Ack(ok=True, message="recovery disabled")
+        if target not in self.state.neighbors or target == self.state.peer_id:
+            return peer_pb2.Ack(ok=False, message="non-neighbor recovery request")
+        # Only the scheduled churn controller sends this RPC after it verified
+        # the replacement incarnation and gRPC readiness. No new Forward call.
+        changed = self.state.notify_recovery_rejoin(
+            target, trigger=request.reason or "churn_rejoin"
+        )
+        return peer_pb2.Ack(
+            ok=True,
+            message="recovered" if changed else "recovery not confirmed",
         )
 
     def ApplyDCSOCMaintenance(self, request, context):
