@@ -24,7 +24,7 @@ jobs:
           set -euo pipefail
           mkdir -p image-evidence
           git rev-parse HEAD | tee image-evidence/source_commit.txt
-          git status --porcelain > image-evidence/worktree_status.txt
+          git status --porcelain --untracked-files=no > image-evidence/worktree_status.txt
           test ! -s image-evidence/worktree_status.txt
           sha256sum gke/app/Dockerfile.qahbn2 gke/app/peer.proto gke/app/peer.py gke/app/recovery_availability.py gke/app/qahbn2_runtime.py gke/app/controller_shared.py gke/app/k7_controller.py > image-evidence/source_sha256.txt
       - name: Build local image (no push, no GKE)
