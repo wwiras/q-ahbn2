@@ -260,6 +260,41 @@ def broadcast_dcsoc_maintenance(
                       affected_node=node_id, reason=reason, error=str(error))
 
 
+def notify_recovery_rejoin(topo: dict, target: int, svc: str, ns: str,
+                           port: int, *, reason: str = "churn_rejoin") -> dict:
+    """Notify only graph neighbors after replacement gRPC readiness.
+
+    Notification is not evidence of successful transport recovery.
+    Receiver independently confirms the peer through its own GetStatus RPC.
+    Disabled recovery is an inert baseline and no forwarding is performed.
+    """
+    if topo.get("strategy") not in {"ahbn", "qahbn2"}:
+        return {"attempted": 0, "acknowledged": 0, "errors": []}
+    affected = sorted(int(i) for i, node in topo["nodes"].items()
+                      if int(i) != int(target)
+                      and int(target) in [int(n) for n in node["neighbors"]])
+    acknowledged = 0
+    errors = []
+    for peer_id in affected:
+        try:
+            with grpc.insecure_channel(peer_addr(peer_id, svc, ns, port)) as channel:
+                ack = peer_pb2_grpc.PeerServiceStub(channel).NotifyRecoveryRejoin(
+                    peer_pb2.DCSOCMaintenanceRequest(
+                        node_id=int(target), available=True, reason=reason
+                    ), timeout=3)
+            if ack.ok:
+                acknowledged += 1
+            else:
+                errors.append({"peer_id": peer_id, "error": ack.message})
+        except Exception as exc:
+            errors.append({"peer_id": peer_id, "error": type(exc).__name__})
+    result = {"attempted": len(affected), "acknowledged": acknowledged,
+              "errors": errors}
+    log_event(event="p3g_rejoin_notification", target_peer=int(target),
+              strategy=topo["strategy"], **result)
+    return result
+
+
 def delete_peer_pod(peer_id: int, ns: str) -> None:
     config.load_incluster_config()
     v1 = client.CoreV1Api()
@@ -425,6 +460,10 @@ def run_churn(topo: dict, peer_svc: str, namespace: str, grpc_port: int) -> None
             available=False, reason="churn_leave",
         )
         wait_for_peer_ready(target, peer_svc, namespace, grpc_port)
+        notify_recovery_rejoin(
+            topo, target, peer_svc, namespace, grpc_port,
+            reason="churn_rejoin",
+        )
         # The recreated pod starts from the static topology and did not receive
         # the leave broadcast while it was absent. Replay that transition;
         # surviving peers treat it idempotently, while the returning peer then
