@@ -45,3 +45,15 @@ A subsequent branch-only change stages `PeerState.request_recovery_check()` in `
 Important outstanding defects/limitations of this staging adapter: the helper state is not yet atomically synchronized with the existing runtime set; each explicit call currently marks failure in helper state and thus must not be interpreted as final generation discipline; the membership check is only a necessary topology check, not full strategy-specific authorization; no production trigger exists. This must be corrected before enablement, and the real adapter requires offline fake-gRPC tests.
 
 After pulling the latest branch, repeat syntax and unittest checks, then complete integrated T01–T18, concurrency and metric-invariance tests. **No live enablement, main merge, formal trials, or GKE spending authorized.**
+
+## 2026-10-18 — Atomic transition staging
+
+Branch-only code updates:
+- `RecoveryAvailability` now accepts the existing unavailable-neighbor set as its shared backing store; transition methods hold an internal RLock and increment per-peer generation.
+- `PeerState.forward_to_peer` routes successful/duplicate acknowledgements through `mark_neighbor_recovered`, and failed/rejected forwarding through `mark_neighbor_failed`, with one observation on actual set membership change.
+- `request_recovery_check` no longer creates a synthetic failure generation; a successful, identity-matched, ready/alive, current-ticket GetStatus result removes the same shared exclusion and records a join observation. Default feature flag is off; no lifecycle trigger is wired.
+- Three more unit cases staged: shared-set/ACK, stale in-flight check after ACK/new failure, failed probe preserving exclusion.
+
+**Evidence limitation:** 12/12 earlier helper tests were reported by the researcher *before* these changes. The expanded 15-test suite and updated `peer.py` have **not yet been executed**. Atomicity is established for state *transitions via the manager*, but legacy unlocked membership reads and runtime scheduling require separate concurrency/behavioural audit. `GetStatus` peer membership check is not full strategy-specific eligibility validation. Probe trigger authority, frequency and timing remain unresolved. This is not a completed recovery fix or GKE release.
+
+**Required offline checks:** syntax, 15 unit tests, integrated fake-gRPC lifecycle and metrics invariance, frozen parity, concurrency/stale-response tests, exact commit and hashes. All GKE/D7-F/D8 remain HOLD.
