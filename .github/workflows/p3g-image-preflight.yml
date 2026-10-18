@@ -46,7 +46,7 @@ jobs:
           import controller
           from peer_pb2_grpc import PeerServiceStub
           checks = {
-              "grpc_stub": "NotifyRecoveryRejoin" in PeerServiceStub.__dict__,
+              "grpc_stub": "NotifyRecoveryRejoin" in peer.peer_pb2.DESCRIPTOR.services_by_name["PeerService"].methods_by_name,
               "peer_service": hasattr(peer.PeerService, "NotifyRecoveryRejoin"),
               "peer_state": hasattr(peer.PeerState, "notify_recovery_rejoin"),
               "controller_churn": hasattr(controller, "run_k7_churn") and callable(controller.run_k7_churn),
