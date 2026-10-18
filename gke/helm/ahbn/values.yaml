@@ -3,6 +3,10 @@ namespace: ahbn-exp10
 image: ""
 imagePullPolicy: Always
 
+# P3G recovery is opt-in; historical experiments remain unchanged.
+recovery:
+  enabled: "0"
+
 numNodes: 20
 podManagementPolicy: OrderedReady
 grpcPort: 50051
