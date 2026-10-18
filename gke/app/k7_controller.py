@@ -156,6 +156,10 @@ def _run_k7_event(topo,event,svc,namespace,port,experiment_start):
             phases.append(_maintenance_phase(topo,target,i,"leave",svc,namespace,port,replacement_ip,node_id=target,available=False))
             phases.append(_maintenance_phase(topo,target,i,"rejoin",svc,namespace,port,replacement_ip,node_id=target,available=True))
             phases.append(_maintenance_phase(topo,target,i,"explicit_du",svc,namespace,port,replacement_ip,explicit_du=True))
+        if topo["strategy"] in {"ahbn", "qahbn2"}:
+            controller.notify_recovery_rejoin(
+                topo, target, svc, namespace, port, reason="k7_churn_rejoin"
+            )
         rejoined=controller.now()
         if not feasibility:
             controller.log_event(event="churn_rejoined",run_id=topo["run_id"],event_id=i,event_index=i,target_peer=target,target_role=event["target_role"],planned_churn_ts=planned,planned_leave_time=planned,actual_churn_start_ts=actual_start,churn_lateness_ms=max(0.0,(actual_start-planned)*1000),actual_delete_time=actual_delete,unavailable_ts=down,unavailable_time=down,ready_ts=ready,recovery_ready_time=ready,grpc_alive_ts=grpc_alive,grpc_alive_time=grpc_alive,rejoin_availability_time=rejoined,replacement_pod_uid=replacement_uid,T_infra=grpc_alive-down,T_ready=ready-down,event_status="COMPLETE",downtime_duration=rejoined-down)
