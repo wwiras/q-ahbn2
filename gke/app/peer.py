@@ -17,6 +17,7 @@ import peer_pb2_grpc
 from ahbn_controller import AHBNParams, AHBNState, CanonicalAHBNController
 from observations import KubernetesObservationAdapter
 from dcsoc_maintenance import DCSOCMaintenance
+from recovery_availability import RecoveryAvailability, verify_get_status
 
 
 def now() -> float:
@@ -250,6 +251,10 @@ class PeerState:
         )
         self.controller_lock = threading.Lock()
         self.unavailable_neighbors: set[int] = set()
+        # Experimental adapter disabled by default; no forwarding changes.
+        self.recovery_enabled = os.environ.get("P3G_RECOVERY_ENABLED", "0") == "1"
+        self.recovery_state = RecoveryAvailability()
+        self.recovery_timeout_s = 0.5
         self.dcsoc_maintenance = (
             DCSOCMaintenance(topo)
             if self.strategy == "dcsoc"
@@ -300,6 +305,43 @@ class PeerState:
             f"{self.namespace}.svc.cluster.local:"
             f"{self.grpc_port}"
         )
+
+    def request_recovery_check(self, dst_peer: int) -> bool:
+        """Explicit bounded GetStatus probe; does not alter forwarding state.
+
+        Trigger wiring and atomic synchronization remain separate review gates.
+        """
+        if not self.recovery_enabled or dst_peer not in self.unavailable_neighbors:
+            return False
+        # The helper state must track the existing exclusion before probing.
+        self.recovery_state.mark_failed(dst_peer)
+        ticket = self.recovery_state.begin_probe(dst_peer)
+        if ticket is None:
+            return False
+
+        def status_call(peer_id: int, timeout: float):
+            with grpc.insecure_channel(self.peer_dns(peer_id)) as channel:
+                stub = peer_pb2_grpc.PeerServiceStub(channel)
+                return stub.GetStatus(peer_pb2.Empty(), timeout=timeout)
+
+        rpc_ok, identity, ready, alive = verify_get_status(
+            ticket, status_call=status_call, timeout_s=self.recovery_timeout_s
+        )
+        # Current neighbor membership is necessary, not sufficient, for
+        # strategy-specific forwarding eligibility.
+        permitted = dst_peer in self.neighbors
+        confirmed = self.recovery_state.finish_probe(
+            ticket, rpc_ok=rpc_ok, returned_peer_id=identity,
+            ready=ready, alive=alive, topology_permits=permitted,
+        )
+        log_event(
+            event="p3g_recovery_probe", run_id=self.run_id,
+            peer_id=self.peer_id, dst_peer=dst_peer,
+            rpc_ok=rpc_ok, identity=identity, ready=ready, alive=alive,
+            topology_permits=permitted, confirmed=confirmed,
+            eligibility_changed=False,
+        )
+        return confirmed
 
     def adaptive_update(self) -> None:
         if self.strategy != "ahbn":
