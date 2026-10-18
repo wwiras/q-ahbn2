@@ -253,7 +253,7 @@ class PeerState:
         self.unavailable_neighbors: set[int] = set()
         # Experimental adapter disabled by default; no forwarding changes.
         self.recovery_enabled = os.environ.get("P3G_RECOVERY_ENABLED", "0") == "1"
-        self.recovery_state = RecoveryAvailability()
+        self.recovery_state = RecoveryAvailability(self.unavailable_neighbors)
         self.recovery_timeout_s = 0.5
         self.dcsoc_maintenance = (
             DCSOCMaintenance(topo)
@@ -313,8 +313,6 @@ class PeerState:
         """
         if not self.recovery_enabled or dst_peer not in self.unavailable_neighbors:
             return False
-        # The helper state must track the existing exclusion before probing.
-        self.recovery_state.mark_failed(dst_peer)
         ticket = self.recovery_state.begin_probe(dst_peer)
         if ticket is None:
             return False
@@ -339,9 +337,19 @@ class PeerState:
             peer_id=self.peer_id, dst_peer=dst_peer,
             rpc_ok=rpc_ok, identity=identity, ready=ready, alive=alive,
             topology_permits=permitted, confirmed=confirmed,
-            eligibility_changed=False,
+            eligibility_changed=confirmed,
         )
+        if confirmed:
+            self.observations.record_join()
         return confirmed
+
+    def mark_neighbor_failed(self, dst_peer: int) -> None:
+        if self.recovery_state.mark_failed(dst_peer):
+            self.observations.record_leave()
+
+    def mark_neighbor_recovered(self, dst_peer: int) -> None:
+        if self.recovery_state.mark_recovered(dst_peer):
+            self.observations.record_join()
 
     def adaptive_update(self) -> None:
         if self.strategy != "ahbn":
@@ -646,9 +654,7 @@ class PeerState:
 
                 if resp.ok:
                     self.forward_count += 1
-                    if dst_peer in self.unavailable_neighbors:
-                        self.unavailable_neighbors.remove(dst_peer)
-                        self.observations.record_join()
+                    self.mark_neighbor_recovered(dst_peer)
 
                     log_event(
                         event="forward",
@@ -668,9 +674,7 @@ class PeerState:
                     )
 
                 elif resp.message == "duplicate":
-                    if dst_peer in self.unavailable_neighbors:
-                        self.unavailable_neighbors.remove(dst_peer)
-                        self.observations.record_join()
+                    self.mark_neighbor_recovered(dst_peer)
                     log_event(
                         event="forward_duplicate_ack",
                         run_id=self.run_id,
@@ -684,9 +688,7 @@ class PeerState:
                     self.trigger_failure_reaction(
                         reason="forward_rejected"
                     )
-                    if dst_peer not in self.unavailable_neighbors:
-                        self.unavailable_neighbors.add(dst_peer)
-                        self.observations.record_leave()
+                    self.mark_neighbor_failed(dst_peer)
 
                     log_event(
                         event="forward_rejected",
@@ -701,9 +703,7 @@ class PeerState:
             self.trigger_failure_reaction(
                 reason="forward_failed"
             )
-            if dst_peer not in self.unavailable_neighbors:
-                self.unavailable_neighbors.add(dst_peer)
-                self.observations.record_leave()
+            self.mark_neighbor_failed(dst_peer)
 
             log_event(
                 event="forward_failed",
