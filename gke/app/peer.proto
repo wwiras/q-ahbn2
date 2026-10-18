@@ -53,4 +53,5 @@ service PeerService {
   rpc FailStop(Empty) returns (Ack);
   rpc ApplyDCSOCMaintenance(DCSOCMaintenanceRequest) returns (Ack);
   rpc GetStatus(Empty) returns (StatusReply);
+  rpc NotifyRecoveryRejoin(DCSOCMaintenanceRequest) returns (Ack);
 }
