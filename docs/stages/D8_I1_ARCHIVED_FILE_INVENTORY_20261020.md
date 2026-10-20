@@ -64,3 +64,12 @@ The one `READ_ERROR` has no hash. The 919 `BASELINE_UNAVAILABLE` files have curr
 This integrity audit does not close D8 scientific validation. Protocol, timing, and statistical checks remain separate. All 25 observations remain in scope; no performance-based exclusion is permitted.
 
 The RO4 manuscript remains under peer review at *Journal of Cloud Computing*; it has no DOI and is not described as accepted or published.
+
+## Post-hydration follow-up — 20 October 2026
+
+The operator reran the local audit at 2026-10-20 07:10:44 UTC after hydrating seed44/AHBN `pod_readiness_evidence.txt`. The reported scan SHA256-hashed all 600 expected primary files and all 320 known supporting artifacts with zero missing paths or read errors. It also found three `.DS_Store` Finder metadata files under the seed44 archive root, `runs/`, and `runs/seed44/`. These are non-experimental macOS artifacts, not additions to the scientific evidence corpus. The unmodified script recorded 923 hashed files and `AUDIT INCOMPLETE` because it classified those metadata files as `EXTRA`.
+
+The audit script has now been updated to exclude regular files named `.DS_Store` from evidence hash/comparison counts and record their paths/count separately. A focused regression test was added. **The revised script has not yet been executed against the operator's synced Drive corpus in this session.** Pending local rerun, the target interpretation is 920/920 research evidence files hashed, 3 Finder metadata files noted separately, and zero `EXTRA` research artifacts. Do not state the final baseline is complete until the revised run and tests confirm it.
+
+Historical integrity remains **unverified**: zero trusted execution-time reference hashes were found. Three same-day Drive comparisons matched but do not prove unchanged bytes since original execution. No original experimental files, experiments, algorithms, or scientific outcome claims have been changed. D8 protocol/timing/statistical validation remains open. The RO4 manuscript is under peer review at *Journal of Cloud Computing*, without DOI; it is not published.
+
