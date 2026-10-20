@@ -61,3 +61,7 @@ Paired mean delivery differences and two-sided 95% paired t-CIs; report as suppl
 **Environment separation:** GKE K8s-VAL-Q/Exp13-Q-K8s is an implementation-valid counterpart, **not** a literal numerical replication of ControlSim.
 
 **Editorial status:** *Q-AHBN as a Bounded Q-Learning Refinement for Adaptive Blockchain Dissemination under Dynamic Network Conditions* is submitted to the *Journal of Cloud Computing* and **under peer review**; no DOI, acceptance or publication is claimed. Do not insert these provisional results into the manuscript as final.
+
+## Additional five-root provenance cross-check
+
+Read all five Drive-root `git_commit.txt` files: each reports **`6433f7429e0342df44c272b236423c65203a9136`**. Read all five Drive-root `expected_image_digest.txt` files: each reports **`sha256:7e5a3d385e9dcd5c051505ef1fdcccab581539780db3e228cd1575dde1c1488f`**. Thus the *recorded root-level* commit and expected image digest are consistent across seeds 42–46 (**root metadata parity PASS**). This does **not** yet verify the actual per-pod runtime `imageID`, manifest contents or source binary integrity.
