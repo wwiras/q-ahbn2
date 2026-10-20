@@ -22,3 +22,10 @@
 Read/checksum the 25 `run_manifest.json` and `metrics.json` objects; verify all run exit and cleanup outcomes; reconcile exact source/image and per-pod imageID, topology, seeds, traffic/churn schedules and target IDs; inspect raw recovery traces; compute reproducible per-method and paired four-metric tables. Keep all methods and all seeds, and leave original evidence and algorithms unchanged.
 
 **Status: D8 HOLD. No GKE, no algorithm modification, no scientific closure.** Manuscript *Q-AHBN as a Bounded Q-Learning Refinement for Adaptive Blockchain Dissemination under Dynamic Network Conditions* remains **under peer review** at *Journal of Cloud Computing*; not published; no DOI.
+
+## Follow-up offline readback (2026-10-20)
+- Re-read canonical Drive `output/evidence/` inventory: all five dated formal seed roots remain discoverable; the older `20261020T023432Z-K5Q-formal` root is separate and must not be silently incorporated into the formal 25-coordinate matrix.
+- Re-read the pre-existing `D8_A_B_PRELIMINARY_RECONCILIATION_20261020.md` and this decision record against GitHub. Preliminary delivery figures and outstanding protocol issues remain as previously documented.
+- Attempted comprehensive nested 25-folder inventory through the connector, but that request was interrupted by the connector's per-call limit. No complete run-by-run readback, SHA256 comparison, full four-metric statistical analysis or timestamp-level seed44 adjudication resulted from this follow-up.
+- Existing sampled seed46 archives show `k7-exp11-v2`, 240 messages at planned 0.4-second intervals, churn offsets +1/+26/+51/+76 s, targets 0/5/10/15, and contract hash `5b26ed302abc57ce2816511f5257da7aca488ba7f3d6686e52483cd3f5675a7d`. This is sampled configuration evidence, not a finding that all 25 runs conformed.
+- **Decision unchanged: D8 HOLD.** Missing verification must not be confused with demonstrated experimental invalidity. No algorithm change, new GKE run, exclusion, or manuscript result update was performed.
