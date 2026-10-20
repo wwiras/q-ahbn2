@@ -1,0 +1,33 @@
+D8-C final offline audit
+started_utc: 2026-10-20T09:31:40.052783+00:00
+command: /opt/homebrew/opt/python@3.14/bin/python3.14 gke/scripts/analyze_d8_c_offline.py --output-dir output/d8_c_final_offline_20261020T091547Z_final --evidence-dir output/evidence --reconciliation-csv output/d8_a_independent_20261020/audit.csv --preliminary-comparison-json output/d8_a_independent_20261020/preliminary_comparison.json
+python_version: 3.14.6 (main, Jun 10 2026, 10:03:53) [Clang 21.0.0 (clang-2100.0.123.102)]
+platform: macOS-26.6.2-arm64-arm-64bit-Mach-O
+git_version: git version 2.41.0
+hash_tool: Python hashlib.sha256
+network_or_cluster_commands: none
+errors: pending
+completed_utc: 2026-10-20T09:31:57.556856+00:00
+verified_run_count: 25
+source_report_comparison_count: 100
+source_report_match_count: 100
+integrity_file_count: 100
+prior_hash_match_count: 100
+statistical_reference_checks: {"method_summaries.csv": 20, "paired_seed_differences.csv": 20, "paired_qahbn2_vs_ahbn_summaries.csv": 4}
+statistical_report_failures: []
+errors: none
+exit_code: 0
+validation_command: python3 -m py_compile gke/scripts/analyze_d8_c_offline.py tests/test_d8_c_statistics.py
+validation_exit_code: 0
+validation_command: git diff --check
+validation_exit_code: 0
+test_runner_note: runTests did not discover tests in the unittest file; direct Python tests were run successfully
+test_command: python3 tests/test_d8_c_statistics.py
+test_result: 7 tests passed
+test_exit_code: 0
+dependency_test_command: python3 tests/test_d8_a_offline.py
+dependency_test_result: 3 tests passed
+dependency_test_exit_code: 0
+superseded_attempt: output/d8_c_final_offline_20261020T091547Z recorded two false-positive report comparisons; the previous report truncates one six-decimal CI and uses a Unicode minus sign
+resolution: compare report values within one unit of the last displayed decimal and normalize Unicode minus; corrected run reports zero statistical table differences
+formatting_note: CSV line endings normalized to LF after git diff --check detected the CSV module's default CRLF terminators
