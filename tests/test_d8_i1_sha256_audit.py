@@ -131,6 +131,18 @@ class CampaignAuditTests(unittest.TestCase):
         self.assertEqual(summary["files_hashed"], 3)
         self.assertEqual(summary["comparison_status_counts"]["EXTRA"], 1)
 
+    def test_finder_metadata_is_excluded_and_reported(self) -> None:
+        (self.root / ".DS_Store").write_bytes(b"finder-root")
+        (self.root / "runs" / ".DS_Store").write_bytes(b"finder-runs")
+        (self.root / "runs" / "seed42" / ".DS_Store").write_bytes(b"finder-seed")
+        summary = self.run_audit()
+        self.assertEqual(summary["files_discovered"], 2)
+        self.assertEqual(summary["files_hashed"], 2)
+        self.assertEqual(summary["additional_files_hashed"], 0)
+        self.assertEqual(summary["ignored_non_experimental_metadata_count"], 3)
+        self.assertEqual(summary["comparison_status_counts"]["EXTRA"], 0)
+        self.assertEqual(summary["decision"], "CURRENT-STATE BASELINE COMPLETE")
+
     def test_output_inside_evidence_root_is_rejected(self) -> None:
         with self.assertRaises(ValueError):
             audit.audit_campaign(
