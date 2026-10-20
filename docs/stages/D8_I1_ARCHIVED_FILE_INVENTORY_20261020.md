@@ -28,3 +28,12 @@ In each `runs/seedNN` folder, confirmed five method directories: `gossip`, `stru
 5. Preserve all 25 runs and all original observations; no GKE reruns, parameter changes, data exclusions or manuscript promotion.
 
 **Gate decision: D8-I1 PARTIAL. D8 scientific validation HOLD.** Manuscript under peer review at *Journal of Cloud Computing*, no DOI, not published.
+
+## Raw-byte SHA256 follow-up (20 October 2026)
+- Retrieved raw Google Drive bytes for the seed42/Q-AHBN2 `run_manifest.json`, `metrics.json`, and `cleanup_status.txt` by their actual Drive file IDs. Local SHA256 hashes calculated with `sha256sum` and byte lengths agreed with Drive's supplied lengths:
+  - `runs/seed42/qahbn2/run_manifest.json` (757 bytes): `e87f76a684a8a6ef9c2a85f09dee0b98c91de40bad6c507dda765af64dadf179`
+  - `runs/seed42/qahbn2/metrics.json` (1742 bytes): `0a825eddcc440ab2a7022a4726306b300c308540b5cc1200f37f45bd1f61dc51`
+  - `runs/seed42/qahbn2/cleanup_status.txt` (5 bytes): `c26de83abdc9496cd1301470918ec39ecca1cf389ef0ae1c6504da1800d1c431`
+- Enumerated method folders and Drive IDs for all 25 `run_manifest.json` and `metrics.json` files, in addition to the earlier 600-file inventory. Attempted a 25-manifest raw-download/hash batch; the connector imposed a maximum-tool-call failure before returning validated results. Do not credit or reproduce any unreturned digest from that batch.
+- Searched connected Google Drive for filenames/metadata relating to SHA256/checksum registers and examined a sample formal seed root's `raw/` folder. No original, authenticated, comprehensive 600-file SHA256 reference register was established. A present-day SHA256 fingerprint alone cannot establish 'unchanged since execution'.
+- **Bounded result: 3 independently calculated raw-byte SHA256 fingerprints; zero original-to-current independent checksum matches demonstrated. Full check 1 remains HOLD.** Retain all 25 experimental observations; this is not a finding that the runs are defective. No GKE or algorithm modification.
