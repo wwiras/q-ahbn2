@@ -1,39 +1,65 @@
-# D8-I1 — Archived file inventory and raw-byte integrity (2026-10-20)
+# D8-I1 — Archived file inventory and SHA256 integrity (2026-10-20)
 
-**Decision:** INVENTORY PASS (bounded) / SHA256 INTEGRITY HOLD / D8 HOLD.
+**Decision: AUDIT INCOMPLETE / D8-I1 HOLD.** The five formal roots were inventoried, but one expected file is a macOS dataless Google Drive placeholder and was not opened or hashed. This is an access/completeness limitation, not evidence that an experiment failed or that its bytes differ from an earlier version.
 
 ## Scope
-Read-only inspection of canonical Google Drive `q-ahbn2/output/evidence` for formal seed archives:
-- seed42: `20261020T032934Z-K5Q-formal`
-- seed43: `20261020T035637Z-K5Q-formal`
-- seed44: `20261020T041621Z-K5Q-formal`
-- seed45: `20261020T043745Z-K5Q-formal`
-- seed46: `20261020T045636Z-K5Q-formal`
 
-In each `runs/seedNN` folder, confirmed five method directories: `gossip`, `structured`, `dcsoc`, `ahbn`, `qahbn2`. Listed direct children of **all 25 method directories** individually using the connected Google Drive service.
+The read-only audit covers only these five formal roots in `output/evidence/`:
 
-## Results
-- **25/25 run directories present**.
-- **24/24 expected direct files present within each method directory**, with the same filename set across all runs.
-- **600/600 direct method-run artifact entries present** (25 × 24). This count EXCLUDES seed-root artifacts and separate `raw`, `configs`, `generated`, and `target-selection` subtrees. Those additional archived files have not been exhaustively enumerated.
-- Method folder required filenames: `churn_events.json`, `metrics.json`, `run_manifest.json`, `topology_role_mapping.json`, `cleanup_exit_status.txt`, `cleanup_status.txt`, `namespace_check_error.txt`, `namespace_cleanup_exit_status.txt`, `helm_cleanup_exit_status.txt`, `namespace_cleanup.txt`, `helm_cleanup.txt`, `logs.jsonl`, `final_snapshot.jsonl`, `controller.log`, `controller_pods.json`, `pod_readiness_evidence.txt`, `pods.json`, `experiment_exit_status.txt`, `peer_stream.jsonl`, `controller_job.json`, `peer_stream.err`, `statefulset.json`, `generated_config.yaml`, `topology.json`.
-- One raw object was downloaded and independently hashed with SHA256: seed42/qahbn2/`run_manifest.json`, 757 bytes, SHA256 `e87f76a684a8a6ef9c2a85f09dee0b98c91de40bad6c507dda765af64dadf179`. No independently authenticated original reference hash was located for that object, so this value is **a present-day fingerprint, not a passed unchanged-from-original comparison**.
-- The available dated seed42 audit already described archive checksums as not fully verified; no complete trusted checksum register was established in this inspection.
+| Seed | Root |
+|---:|---|
+| 42 | `20261020T032934Z-K5Q-formal` |
+| 43 | `20261020T035637Z-K5Q-formal` |
+| 44 | `20261020T041621Z-K5Q-formal` |
+| 45 | `20261020T043745Z-K5Q-formal` |
+| 46 | `20261020T045636Z-K5Q-formal` |
 
-## Scientific boundaries and remaining integrity checks
-1. A matching filename set and provider-reported object size do NOT prove byte integrity or completeness of log content.
-2. Download and hash ALL 600 direct run objects plus formally required seed-root/raw/config/generated/target-selection artifacts; obtain contemporaneous archived expected hashes or other independent authoritative reference to claim `UNCHANGED`.
-3. Compare actual SHA256 digests against recorded original hashes, preserving mismatches and missing references as distinct states. Without an original digest, label `FINGERPRINTED/BASELINE UNAVAILABLE`, not `PASS`.
-4. An absence of archived checksums is an evidence provenance limitation, **not by itself proof of failed execution or invalid experiment**.
-5. Preserve all 25 runs and all original observations; no GKE reruns, parameter changes, data exclusions or manuscript promotion.
+Methods are Gossip, Structured, DC-SoC, AHBN, and Q-AHBN2. Older smoke tests, aborted attempts, and other evidence roots were excluded. No Kubernetes, GKE, Docker experiments, algorithm changes, reruns, exclusions, or edits to original evidence were performed.
 
-**Gate decision: D8-I1 PARTIAL. D8 scientific validation HOLD.** Manuscript under peer review at *Journal of Cloud Computing*, no DOI, not published.
+## Inventory and hashing result
 
-## Raw-byte SHA256 follow-up (20 October 2026)
-- Retrieved raw Google Drive bytes for the seed42/Q-AHBN2 `run_manifest.json`, `metrics.json`, and `cleanup_status.txt` by their actual Drive file IDs. Local SHA256 hashes calculated with `sha256sum` and byte lengths agreed with Drive's supplied lengths:
-  - `runs/seed42/qahbn2/run_manifest.json` (757 bytes): `e87f76a684a8a6ef9c2a85f09dee0b98c91de40bad6c507dda765af64dadf179`
-  - `runs/seed42/qahbn2/metrics.json` (1742 bytes): `0a825eddcc440ab2a7022a4726306b300c308540b5cc1200f37f45bd1f61dc51`
-  - `runs/seed42/qahbn2/cleanup_status.txt` (5 bytes): `c26de83abdc9496cd1301470918ec39ecca1cf389ef0ae1c6504da1800d1c431`
-- Enumerated method folders and Drive IDs for all 25 `run_manifest.json` and `metrics.json` files, in addition to the earlier 600-file inventory. Attempted a 25-manifest raw-download/hash batch; the connector imposed a maximum-tool-call failure before returning validated results. Do not credit or reproduce any unreturned digest from that batch.
-- Searched connected Google Drive for filenames/metadata relating to SHA256/checksum registers and examined a sample formal seed root's `raw/` folder. No original, authenticated, comprehensive 600-file SHA256 reference register was established. A present-day SHA256 fingerprint alone cannot establish 'unchanged since execution'.
-- **Bounded result: 3 independently calculated raw-byte SHA256 fingerprints; zero original-to-current independent checksum matches demonstrated. Full check 1 remains HOLD.** Retain all 25 experimental observations; this is not a finding that the runs are defective. No GKE or algorithm modification.
+- **25/25** seed-method coordinates were present.
+- **600** primary run-file paths were expected (25 × 24).
+- **920** regular files were discovered: 600 primary run files plus **320 additional supporting artifacts**. The scope did not define a prior expected total for supporting files; all 320 discovered support files were included in the scan.
+- Additional artifacts: 40 root-level, 125 `configs/`, 125 `generated/`, 5 `raw/`, and 25 `target-selection/` files.
+- **599/600 primary files** and **320/320 additional files** were successfully SHA256 hashed: **919/920 total**.
+- Missing files: **0**. Unexpected files: **0**. Symbolic links: **0**. Duplicate entries: **0**.
+- One expected primary file could not be read because it is a cloud placeholder:
+  `20261020T041621Z-K5Q-formal/runs/seed44/ahbn/pod_readiness_evidence.txt`
+  (21,376 bytes reported by metadata; macOS flags include `dataless`). It was not opened or hashed. This must be made available offline and the audit resumed before completeness can be claimed.
+- **25 empty files** were detected: each run's `namespace_check_error.txt`. They were hashed as empty files and reported, not silently skipped.
+
+## Checksum provenance and comparison
+
+The pre-existing GitHub D8 inventory, protocol decision, and preliminary reconciliation records were read. Local evidence-name searches, local history, and GitHub repository code searches did not identify a complete contemporaneous per-file SHA256 register.
+
+Three same-day raw-byte Drive fingerprints were recorded in the earlier D8 inventory for seed42/Q-AHBN2 `run_manifest.json`, `metrics.json`, and `cleanup_status.txt`. The current local copies match all three values. These are reported as **3 same-day source-reference matches**, not as proof of unchanged evidence since execution and not as trusted execution-time checksums.
+
+| Comparison status | Count |
+|---|---:|
+| `MATCH` against trusted execution-time checksum | 0 |
+| `MISMATCH` against trusted execution-time checksum | 0 |
+| `BASELINE_UNAVAILABLE` | 919 |
+| `MISSING` | 0 |
+| `READ_ERROR` | 1 |
+| `EXTRA` | 0 |
+
+The one `READ_ERROR` has no hash. The 919 `BASELINE_UNAVAILABLE` files have current SHA256 fingerprints, but no qualifying execution-time checksum reference was found. A current-state fingerprint is not a retrospective integrity proof.
+
+## Audit provenance and outputs
+
+- Audited repository revision before the audit: `6433f7429e0342df44c272b236423c65203a9136`.
+- Audit script: `gke/scripts/audit_d8_i1_sha256.py`; source SHA256 at execution: `d7446e0c5456c9df50f47b7c90182505731e05ddfb2ff114fd485202eaa4841e`.
+- Actual execution: 2026-10-20 06:26:05.052991Z to 06:26:05.851925Z.
+- Tests: 10 focused `unittest` tests passed, including known vectors, binary/empty and streamed files, mismatch, missing/read-error, interrupted/resumed scanning, extras, and output-path safety.
+- Generated machine-readable output and resume journal are in the ignored `output/d8_integrity/` directory, separate from archived evidence:
+  `sha256_current.csv`, `sha256_current.json`, `sha256_comparison.csv`, `sha256_summary.json`, `audit_execution.log`, `baseline_provenance.md`, and `sha256_resume.jsonl`.
+- The outputs are an **incomplete interim baseline** until the dataless file is downloaded and the scan is rerun. On resume, completed records are re-read and revalidated.
+
+## Decision boundary
+
+**D8-I1 remains AUDIT INCOMPLETE.** No mismatch against a trusted original checksum was found, because no complete execution-time register was available. The single inaccessible placeholder prevents a complete inventory/hash result. Once it is available offline, rerun the audit and update this record with the final totals. The historical checksum limitation remains even if that final scan succeeds.
+
+This integrity audit does not close D8 scientific validation. Protocol, timing, and statistical checks remain separate. All 25 observations remain in scope; no performance-based exclusion is permitted.
+
+The RO4 manuscript remains under peer review at *Journal of Cloud Computing*; it has no DOI and is not described as accepted or published.
