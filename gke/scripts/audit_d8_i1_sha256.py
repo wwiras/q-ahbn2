@@ -63,6 +63,7 @@ ROOT_SUPPORT_FILES = {
     "terminal.log",
 }
 SUPPORT_DIRECTORIES = {"configs", "generated", "raw", "target-selection"}
+NON_EXPERIMENTAL_METADATA_NAMES = frozenset({".DS_Store"})
 CHUNK_SIZE = 1024 * 1024
 DATALESS_FLAG = getattr(stat, "SF_DATALESS", 0x40000000)
 JOURNAL_NAME = "sha256_resume.jsonl"
@@ -343,6 +344,7 @@ def audit_campaign(
     folded_paths: dict[str, str] = {}
     scan_errors: list[dict[str, str]] = []
     blocked_prefixes: list[str] = []
+    ignored_metadata_paths: list[str] = []
     hashed_count = 0
 
     with journal_path.open("a", encoding="utf-8") as journal:
@@ -376,6 +378,9 @@ def audit_campaign(
 
             for entry in discovered:
                 relative_path = entry["relative_path"]
+                if Path(relative_path).name in NON_EXPERIMENTAL_METADATA_NAMES and entry["kind"] == "regular_file":
+                    ignored_metadata_paths.append(relative_path)
+                    continue
                 seen_paths.add(relative_path)
                 method, category = identify_path(
                     relative_path.removeprefix(f"{root_name}/"), root_name, seed
@@ -523,6 +528,8 @@ def audit_campaign(
         "root_count": len(resolved_roots),
         "expected_seeds": sorted(seed for _, seed in resolved_roots.values()),
         "methods": list(methods),
+        "ignored_non_experimental_metadata": sorted(ignored_metadata_paths),
+        "ignored_non_experimental_metadata_count": len(ignored_metadata_paths),
         "expected_primary_files": len(expected),
         "files_discovered": len(discovered_paths := [
             record for record in records
@@ -589,6 +596,7 @@ def audit_campaign(
         f"Formal roots: {', '.join(summary['evidence_roots'])}",
         f"Files discovered: {summary['files_discovered']}",
         f"Files hashed: {summary['files_hashed']}",
+        f"Ignored Finder metadata: {summary['ignored_non_experimental_metadata_count']}",
         f"Comparison counts: {json.dumps(counts, sort_keys=True)}",
         f"Decision: {summary['decision']}",
     ]
