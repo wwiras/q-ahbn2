@@ -74,3 +74,11 @@ Interim, ignored outputs:
 - `output/d8_integrity/sha256_resume.jsonl`
 
 These files document a partial scan and are not a complete current-state baseline. A later completed scan can create a complete current-state fingerprint baseline, but cannot retrospectively prove unchanged evidence since execution. No thesis or manuscript scientific claims were edited.
+
+## Subsequent hydration and metadata classification (2026-10-20)
+
+Operator-provided rerun at 2026-10-20 07:10:44 UTC: all 600 primary files and 320 previously inventoried supporting files hashed successfully; 0 missing and 0 read errors. Three additional regular files were macOS Finder `.DS_Store` metadata (seed44 archive root, `runs/`, and `runs/seed44/`); the original script hashed 923 files and returned `AUDIT INCOMPLETE` solely because the three Finder files were marked `EXTRA`.
+
+The audit code now excludes regular files named `.DS_Store` from research evidence counts but lists their paths and count under `ignored_non_experimental_metadata` and `ignored_non_experimental_metadata_count`. A unit test covers this case. This report records the operator's earlier run and the code change, **not a claimed execution of the revised script**. Rerun locally and attach the revised `sha256_summary.json` and test output before recording `CURRENT-STATE BASELINE COMPLETE`.
+
+An expected successful rerun would show 920 research evidence files hashed (600 primary, 320 supporting), 3 ignored Finder files, 0 missing, 0 unreadable, 0 EXTRA, and `BASELINE_UNAVAILABLE` for 920 files. No historical SHA256 match is established; all claims of unchanged-since-execution remain unsupported. D8 protocol, timing, and statistics checks are distinct and open.
