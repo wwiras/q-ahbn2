@@ -4,8 +4,9 @@
 
 ## Execution identity
 
-- Execution interval: `2026-10-20T06:26:05.052991+00:00` through `2026-10-20T06:26:05.851925+00:00`.
-- Repository HEAD before audit: `6433f7429e0342df44c272b236423c65203a9136`.
+- Initial execution interval: `2026-10-20T06:26:05.052991+00:00` through `2026-10-20T06:26:05.851925+00:00`.
+- Latest execution interval: `2026-10-20T06:28:16.505852+00:00` through `2026-10-20T06:28:17.312322+00:00`.
+- Repository HEAD for the latest execution: `57511049a27db0034c5fefa29d5daef1e6207dc5`.
 - Audit script: `gke/scripts/audit_d8_i1_sha256.py`.
 - Script source SHA256: `d7446e0c5456c9df50f47b7c90182505731e05ddfb2ff114fd485202eaa4841e`.
 - Runtime: Python 3.14.6.
@@ -58,7 +59,7 @@ The expected file `20261020T041621Z-K5Q-formal/runs/seed44/ahbn/pod_readiness_ev
 venv/bin/python gke/scripts/audit_d8_i1_sha256.py
 ```
 
-The resume journal is `output/d8_integrity/sha256_resume.jsonl`; the rerun rehashes and validates completed records as well as hashing the newly available file. Do not copy a different file over the placeholder or modify the archived evidence.
+The resume journal is `output/d8_integrity/sha256_resume.jsonl`. The second scan rehashed and validated all 919 previously completed records, which remained unchanged, but the same file still had the `dataless` flag. No hash was produced for it. Do not copy a different file over the placeholder or modify the archived evidence.
 
 ## Output locations
 

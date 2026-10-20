@@ -48,9 +48,10 @@ The one `READ_ERROR` has no hash. The 919 `BASELINE_UNAVAILABLE` files have curr
 
 ## Audit provenance and outputs
 
-- Audited repository revision before the audit: `6433f7429e0342df44c272b236423c65203a9136`.
+- Audited repository revision for the latest scan: `57511049a27db0034c5fefa29d5daef1e6207dc5`.
 - Audit script: `gke/scripts/audit_d8_i1_sha256.py`; source SHA256 at execution: `d7446e0c5456c9df50f47b7c90182505731e05ddfb2ff114fd485202eaa4841e`.
-- Actual execution: 2026-10-20 06:26:05.052991Z to 06:26:05.851925Z.
+- Initial execution: 2026-10-20 06:26:05.052991Z to 06:26:05.851925Z. A second scan after the operator confirmed offline availability ran 2026-10-20 06:28:16.505852Z to 06:28:17.312322Z.
+- The second scan re-read and revalidated all 919 prior successful hashes. The remaining file still had the macOS `dataless` flag, so it remained unopened and unhashed.
 - Tests: 10 focused `unittest` tests passed, including known vectors, binary/empty and streamed files, mismatch, missing/read-error, interrupted/resumed scanning, extras, and output-path safety.
 - Generated machine-readable output and resume journal are in the ignored `output/d8_integrity/` directory, separate from archived evidence:
   `sha256_current.csv`, `sha256_current.json`, `sha256_comparison.csv`, `sha256_summary.json`, `audit_execution.log`, `baseline_provenance.md`, and `sha256_resume.jsonl`.
